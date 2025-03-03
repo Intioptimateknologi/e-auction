@@ -1,0 +1,158 @@
+
+
+{% block extrahead %}
+<!-- jika anda mau ngasih tambahan header disni khusus di page ini aja contoh header cdn-->
+<head>
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
+
+    <script src="https://adminlte.io/themes/v3/plugins/moment/moment.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
+</head>
+{% endblock %}
+
+{% block tambah_css %}
+<!-- jika anda mau ngasih css disni khusus di page ini aja-->
+<style>
+    a{
+        color: #7984A7;
+    }
+
+    a:hover {
+        color: #007bff; /* Replace with the desired color code */
+    }
+
+    .text_putih{
+        color: white;
+    }
+</style>
+{% endblock  %}
+
+{% block content %}
+<!-- tempat ganti isi konten  -->
+
+<form id="myForm">
+    <div class="row">
+        <div class="col" style="padding: 16px;">
+            <div class="card">
+                <div class="card-body" style="display: flex; align-items: center;justify-content: space-between; padding-top: 10px; padding-bottom: 10px;">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        
+                    <div style="display: flex; align-items: center;justify-content: center;">
+                        <span class="badge badge-primary rounded-circle" style="margin-right: 5px;">1</span><div style="color: #007bff;">Akun Perusahaan</div>
+                        <p style="margin-bottom: 0px; margin-left: 10px; margin-right: 10px;">----------</p>
+                        <span class="badge badge-secondary rounded-circle" style="margin-right: 5px;">2</span>Biodata User
+                    </div>
+                    
+                    <p style="visibility: hidden;">a</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col" style="padding: 16px;">
+            <div class="card" style="">
+                <div class="card-body">
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-6">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username" class="form-control" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="namapengguna">Nama Pengguna:</label>
+                                <input type="text" id="namapengguna" name="namapengguna" class="form-control" required>
+                            </div>
+                            <!-- <div class="col-3">
+                                <label for="password">Password:</label>
+                                <input type="text" id="password" name="password" class="form-control">
+                            </div>
+                            <div class="col-3">
+                                <label for="c_password">Confrim Password:</label>
+                                <input type="text" id="c_password" name="c_password" class="form-control">
+                            </div> -->
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="col-4">
+                                <label for="tipe">Tipe Akun:</label>
+                                <select class="form-control" id="tipe" name="tipe" class="form-control" required>
+                                    <option>Admin</option>
+                                    <option>Bidder</option>
+                                    <option>Auctioneer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 1rem;">
+                            <div class="col-6">
+                                <label for="date">Masa Berlaku:</label>
+                                <div style="display: flex; align-items: center;justify-content: space-around;">
+                                    <div class="form-group">
+                                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input" name="date1" data-target="#datetimepicker1" required/>
+                                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-left: 5px; margin-right: 5px;">----</p>
+                                    <!-- <hr> -->
+                                    <div class="form-group">
+                                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input" name="date1" data-target="#datetimepicker1" required/>
+                                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                            </div>
+                            <div class="col-3">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col" style="display: flex; margin-top: 4rem; margin-bottom: 2rem; justify-content: flex-end;">
+                                <button type="button" class="btn btn-danger rounded" style="margin-right: 10px;">Batal</button>
+                                <button type="submit" class="btn btn-success rounded">Selanjutnya</button>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- jika anda mau ngasih js disni khusus di page ini aja-->
+<script>
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'L'
+        });
+    });
+
+    $(function () {
+        $('#datetimepicker2').datetimepicker({
+            format: 'L'
+        });
+    });
+
+    $(document).ready(function() {
+        $('#myForm').submit(function(event) {
+        event.preventDefault(); // mencegah submit form secara default
+        var formData = $(this).serializeArray(); // atau $(this).serializeArray()
+        console.log(formData)
+        });
+    });
+</script>
+{% endblock  %}

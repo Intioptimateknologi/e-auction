@@ -1,0 +1,158 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    
+        {% if user_type == "C" %}
+        {% add_judul_auctioner user.id item_lelang.id "/pasca_seleksi/pemilihan_blok/" "Paska Seleksi > Pemilihan Blok" %}
+        {% elif user_type == "V" %}
+        {% add_judul_viewer user.id item_lelang.id "/pasca_seleksi/pemilihan_blok/" "Paska Seleksi > Pemilihan Blok" %}
+        {% elif user_type == "A" %}
+        {% add_judul_admin user.id item_lelang.id "/pasca_seleksi/pemilihan_blok/" "Paska Seleksi > Pemilihan Blok" %}
+        {% endif %}
+                          
+    {% include "tabs_all.html" %}
+  
+    <p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+    <p style="display: none;" id="tricky_user_bidder_id"></p>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+
+<script>
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+
+    var uri = '/events/auctioneer/';
+    var es = new ReconnectingEventSource(uri);
+
+
+  function loadPemenang(id) {
+      $.ajax({
+          url: '/pasca_seleksi/pasca_seleksi/pemilihan_blok3/'+id + '/',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#objek_pemilihanblok_dummy");
+              table.empty();
+              table.append(data);
+          }
+      });
+  }
+
+  var id = $("#nmlelang").val();
+  loadPemenang(id);
+  $("#objek_pemilihanblok_dummy").on("click",".buka_pilihan", function() {
+    id3 = this.id;
+    swal.fire({
+        title: "Status Pemilihan Blok oleh Peserta",
+        text: "Apakah anda yakin menyetujui perubahan status pemilihan blok oleh peserta ?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+      //console.log(result);
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/pasca_seleksi/api/v1/pemilihan_blok/'+id3+'/toggle1/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    var id = $("#nmlelang").val();
+                    swal.fire("Perubahan data berhasil")
+                    loadPemenang(id);
+                }
+            });
+        }
+    });
+  }); 
+  $("#objek_pemilihanblok_dummy").on("click",".persetujuan", function() {
+    id2 = this.id;
+    swal.fire({
+        title: "Status Persetujuan Blok Yang Dipilih Oleh Peserta",
+        text: "Apakah anda yakin menyetujui perubahan status persetujuan blok yang dipilih peserta ?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+      //console.log(result);
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/pasca_seleksi/api/v1/pemilihan_blok/'+id2+'/toggle2/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    var id = $("#nmlelang").val();
+                    swal.fire("Perubahan data berhasil")
+                    loadPemenang(id);
+                }
+            });
+        }
+    });  
+  }); 
+  es.onopen = function () {
+    console.log("ESS connected");
+  };
+
+  es.onerror = function () {
+    console.log('*** connection lost, reconnecting...');
+  };
+
+  es.addEventListener('stream-reset', function () {
+    console.log('*** client too far behind, please refresh');
+  }, false);
+
+  es.addEventListener('stream-error', function (e) {
+    // hard stop
+    es.close();
+    e = JSON.parse(e.data);
+    console.log('*** stream error: ' + e.condition + ': ' + e.text);
+  }, false);
+
+  es.addEventListener('message', function (e) {
+    console.log('event: ' + e.data);
+    msg = JSON.parse(e.data);
+    if (msg.message=="Bidder sudah memilih") {
+        swal.fire("Bidder sudah memilih")
+    }
+    loadPemenang(id);
+    if (msg.message=="status_time_end") {
+      console.log(msg.message)
+    
+    } else {
+      console.log(msg.message)
+
+    }
+  }, false);      
+
+
+
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'new_index/base1.html' %}
+{% load static %} 
+{% block extrahead %}
+<style>
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+
+    .carousel-item img {
+    z-index: unset;
+  }
+  .odd-row {
+        background-color: #edf5fd !important;
+    }
+
+    .even-row {
+        background-color: white !important;
+    }
+</style>
+{% endblock %}
+{% block navbar %}
+{% if user.is_authenticated %}
+    {% include 'new_index/parts/navbar_admin.html' %}
+{% else %}
+    {% include 'new_index/parts/navbar_viewer.html' %}
+{% endif %}
+{% endblock %}
+{% block konten_isi %}
+
+<div class="container" style="padding-bottom: 100px;">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title" style="font-size: 24px; font-weight: bold; color: #04195B;">Pengumuman</h1><br><br>
+            <div hx-get="/portal/get_pengumuman" hx-trigger="load"></div>
+        </div>
+    </div>
+</div> 
+
+
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %} 

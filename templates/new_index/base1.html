@@ -1,0 +1,159 @@
+{% load static %}
+{% load judul_tags %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kominfo - e-Auction</title>
+    <link rel="shortcut icon" href="/static/faviconnew.ico" type="image/x-icon">
+    <link rel="icon" href="/static/faviconnew.ico" type="image/x-icon">
+
+    <script src="{% static 'adminlte/plugins/jquery/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    {% block extrahead %}{% endblock %}
+</head>
+{% if user.is_authenticated %}
+<body class="sidebar-mini sidebar-collapse control-sidebar-slide-open layout-fixed"
+    style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden">
+    {% else %}
+
+    <main class="hold-transition sidebar-mini layout-fixed"
+        style="width:100%;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        {% endif %}
+        <div class="wrapper">
+
+            <!-- Navbar -->
+            {% block navbar %}
+            {% endblock %}
+            <!-- /.navbar -->
+
+            {% if user.is_authenticated %}
+            <!--div id="sidebar-container" hx-get="/userman/sidebar" hx-trigger="load"></div-->
+            {% add_sidebar %}
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <div class="content-wrapper" style="height: auto;">
+                {% else %}
+                <div class="content-wrapper" style="margin-left: 0px;">
+                    {% endif %}
+
+
+                    <!-- Main content -->
+                    <div class="content" style="padding-left: 0px;padding-right: 0px;">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col" style="padding-left: 0px;padding-right: 0px;">
+                                    {% block konten_isi %}
+                                    {% endblock %}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% block footer %}
+                {% endblock %}
+            </div>
+
+            {% block modal %}{% endblock %}
+
+            <form id="logoutform" method="post" action="/accounts/logout/" class="d-none">
+                {% csrf_token %}
+            </form>
+
+            <!-- {% if messages %}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        {% for message in messages %}
+                            {% if "error" in message.tags %}
+                                Swal.fire({
+                                    title: "Error",
+                                    text: "{{ message }}",
+                                    icon: "error",
+                                    confirmButtonText: "OK"
+                                });
+                            {% endif %}
+                        {% endfor %}
+                    });
+                </script>
+            {% endif %} -->
+
+
+            <script src="{% static 'adminlte/dist/js/adminlte.min.js' %}"></script>
+            <script src="{% static 'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+            <script src="https://adminlte.io/themes/v3/plugins/moment/moment.min.js"></script>
+            <script src=" https://cdn.jsdelivr.net/npm/moment-timezone@0.5.47/builds/moment-timezone-with-data.min.js "></script>            
+            <!--script src="{% static 'adminlte/plugins/select2/js/select2.full.min.js' %}"></script-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+            <script src="{% static 'js/jqmodal.form.min.js' %}"></script>
+            <script src="{% static 'js/htmx.min.js' %}" defer></script>
+            <script src="{% static 'js/knockout.js' %}" defer></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.11/pdfobject.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+            <!--script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script-->
+            <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+            <script type="text/javascript"
+                src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+            <script src="{% static 'django_eventstream/json2.js' %}"></script>
+            <script src="{% static 'django_eventstream/eventsource.min.js' %}"></script>
+            <script src="{% static 'django_eventstream/reconnecting-eventsource.js' %}"></script>
+
+            <script>
+                /*
+                 * Logout
+                 * assigned through onclick method on sidebar_htmx and navbar_dropdown_section
+                 */
+                $.ajaxSetup({
+                    error: function (xhr) {
+                        if (xhr.status === 401 || xhr.status === 403) {
+                            console.log("Unauthorized! Redirecting...");
+                            window.location.href = "/login/";
+                        }
+                    }
+                });
+                
+                function handleLogout() {
+                    Swal.fire({
+                        title: 'Keluar Aplikasi?',
+                        type: 'warning',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, keluar',
+                        cancelButtonText: 'Batalkan',
+                        html: `<span>Apakah anda yakin untuk <b>keluar</b> dari aplikasi?</span>`,
+                        closeOnConfirm: true,
+                        closeOnCancel: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#logoutform').submit();
+                        }
+                    });
+                }
+            </script>
+            {% block script %}
+            {% endblock %}
+
+    </main>
+
+</html>

@@ -1,0 +1,77 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Berita Acara</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="data_modal" style="display: none;">add_undangan</p>
+                <div class="card">
+                    <div class="card-body">
+                        <form name="item_lelang" id="item_lelang" method="POST" >
+                            {% csrf_token %}
+                            <div style="display: none;">
+                                {% render_field form.item_lelang %}
+                                {% render_field form.tahapan %}
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="id_nomor"  class="nama_label">Nomor</label>
+                                        {% render_field form.nomor|add_class:"form-control" %}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="id_nomor"  class="nama_label">Judul</label>
+                                        {% render_field form.judul|add_class:"form-control" %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="id_nomor"  class="nama_label">Tanggal</label>
+                                        {% render_field form.tanggal|add_class:"form-control" %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" id="keterangan" %}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="id_bidder" class="nama_label">Bidder :</label>
+                                        {% render_field form.bidder|add_class:"form-checkbox" %}
+                                        <!--select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_bidder_2" name="bidder_2">
+                                        </select-->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="id_auctioneer" class="nama_label">Auctioneer :</label>
+                                        {% render_field form.auctioneer|add_class:"form-checkbox" %}
+                                        <!--select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_auctioneer_2" name="auctioneer_2">
+                                        </select-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">File</label>
+                                {% render_field form.file|add_class:"form-control" %}
+                            </div>
+                            <div class="" style="text-align: right;">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                            </div>
+                        </form>
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>

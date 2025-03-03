@@ -1,0 +1,155 @@
+{% load l10n %}
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+  <style>
+    @page {
+      size: A4
+    }
+
+    .box-character {
+      position: relative;
+    }
+
+    .box-character::before,
+    .box-character::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .box-character::before {
+      border: 2px solid red;
+      /* Change border properties as desired */
+      z-index: -1;
+    }
+
+    .box-character::after {
+      border: 2px solid white;
+      /* Change border properties as desired */
+    }
+  </style>
+</head>
+
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+  <section class="sheet padding-10mm">
+
+    <h1 style="text-align:center; font-size:16px;">BERITA ACARA <br> HASIL LELANG HARGA HARI KE {{ ba|length }} UNTUK
+      {{ seleksi|upper }}</h1>
+    {% localize on %}
+    <p style="text-align:center">Nomor {{ nomor }}, Tanggal {{ tanggal|date:'d F Y'}}</p>
+    {% endlocalize %}
+
+    <ol>
+      <li style="text-align: justify;">Pada hari ini, {{ ba.0.tanggal|date:'d F Y' }} telah dilaksanakan Lelang Harga
+        Hari ke {{ ba|length }} untuk {{ seleksi|upper }}</li>
+      <li style="text-align: justify;">Peserta Seleksi mengikuti tahapan Lelang Harga ke-{{ ba|length }} untuk {{ seleksi|upper }} melalui sistem Seleksi Pengguna Izin Pita Frekuensi Radio Secara Elektronik (e-auction) dan
+        menggunakan IPv4 yang telah terdaftar pada Formulir Keikutsertaan.</li>
+      <li style="text-align: justify;">Lelang harga pada hari ke {{ ba|length }} dimulai dan diakhiri sebagai berikut :</li>
+      <table>
+        <tr>
+          <th>Nomor</th>
+          <th>Obyek Seleksi</th>
+          <th>Waktu Mulai</th>
+          <th>Waktu Berakhir</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>{{ seleksi|upper }}</td>
+          <td>{{ putaran.min_mulai }}</td>
+          <td>{{ putaran.max_selesai }}
+        </tr>
+      </table>
+      <li>Lelang harga pada hari ke dilaksanakan sebanyak {{lastes_round}} putaran</li>
+      <li>Rekapitulasi Penawaran Harga Peserta Seleksi pada setiap putaran lelang hari ke sebagaimana lampiran 1 Berita
+        Acara ini.</li>
+      <li>Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan hari ke tahapan lelang harga untuk {{ seleksi|upper }}.
+        Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.
+      </li>
+    </ol>
+
+    <div>
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td>&nbsp;</td>
+            <td>Jakarta, {% now "SHORT_DATE_FORMAT" %}</td>
+          </tr>
+          <tr>
+            <td>
+              <div style="width:50%">
+                <p style="text-align:center">Mengetahui</p>
+                <p style="text-align:center">Ketua Tim Pelaksana {{ seleksi }}</p>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <p style="text-align:center">{{ketua_pansel|title}}</p>
+              </div>
+            </td>
+            <td>
+              <p style="text-align:center"> Anggota Tim Pelaksana {{ seleksi }}</p><br>
+              <div style="text-align:left">
+              {% for i in pansel %}
+                <p style="text-align:left">
+                  {{forloop.counter}}. {{i.auctioner.users.nama_lengkap|title}} ({{i.auctioner.jabatan_dalam_tim|title}}), ................................
+                </p>
+              {% endfor %}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br style="page-break-before: always;">
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>Lampiran</p>
+    
+    
+    <div style="margin-top:2rem">
+      <p style="text-align:center">Data Penawaran Peserta Seleksi Lelang Harga Hari Ke {{ hari_ke }} Pada {{ seleksi }} Untuk Kepelruan Penyelenggaraan Jaringan Bergerak Seluler Tahun {{ tanggal|date:'Y'}}</p>
+    {% for t in json %}
+      {% if t.judul %}
+        <p>Obyek Seleksi {{t.judul}}</p>
+
+      <table>
+        <thead>
+          <tr>
+            {#  <th><p style="text-align: center; text-transform: uppercase">Obyek Seleksi</p></th>  #}
+            <th><p style="text-align: center; text-transform: uppercase">Putaran Lelang<br>(ROUND)</p></th>
+            <th><p style="text-align: center; text-transform: uppercase">Peserta Seleksi</p></th>
+            <th><p style="text-align: center; text-transform: uppercase">Waktu Penyampaian Dokumen Penawaran Lelang Harga</p></th>
+            <th><p style="text-align: center; text-transform: uppercase">Harga Penawaran Yang Disampaikan Peserta Seleksi</p></th>
+            {#  <th><p style="text-align: center; text-transform: uppercase">Harga Penawaran Tervalidasi</p></th>  #}
+            <th><p style="text-align: center; text-transform: uppercase">Keterangan</p></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for u in t.isi %}
+          <tr>
+            {#  <td><p style="text-align: center">{{ t.item }}</p></td>  #}
+            <td style="vertical-align: middle"><p style="text-align: center;vertical-align: middle;margin: 0 2rem; font-weight: bold">{{ u.putaran }}</p></td>
+            <td><p style="text-align: center">{{ u.peserta }}</p></td>
+            <td><p style="text-align: center">{{ u.waktu|date:'Y-m-d H:i:s.u' }}</p></td>
+            <td><p style="text-align: center">Rp{{ u.harga|floatformat:'2g' }}</p></td>
+            {#  <td><p style="text-align: center">{{ t.price }}</p></td>  #}
+            <td><p style="text-align: center">-</p></td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+      {% endif %}
+    {% endfor %}
+  </section>
+</body>
+
+</html>

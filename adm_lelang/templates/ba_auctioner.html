@@ -1,0 +1,66 @@
+loadData({URL: '/persiapan/ba_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+$("#ba_kirim").click(function() {         
+    showModal2({
+        formURL: "/persiapan/modal_create_ba/{{item_lelang}}/{{current_step}}/",
+        drfURL: "/persiapan/api/v1/berita_acara_persiapan/",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/persiapan/ba_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+        }
+    });
+});
+
+$("#{{element}}").on("click",".{{subelement}}_update",function() {
+    showModal2({
+        formURL: "/persiapan/modal_update_ba/"+this.id+"/{{item_lelang}}/",
+        drfURL: "/persiapan/api/v1/berita_acara_persiapan/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/persiapan/ba_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+        }
+    })
+});
+
+$("#{{element}}").on("click",".{{subelement}}_delete",function() {
+    deleteData({id: this.id, 
+        drfURL: '/persiapan/api/v1/berita_acara_persiapan/',
+        onSuccess: function(data) {
+            swal.fire({
+                title: "Data Terhapus !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+                loadData({URL: '/persiapan/ba_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+            });
+        }
+    });
+});
+
+$("#{{element}}").on("click",".{{subelement}}_send",function() {
+    id = this.id;
+    swal.fire({
+        title: "Kirim Berita Acara",
+        text: "Kirim berita acara ke auctioner dan bidder?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/persiapan/api/v1/berita_acara_persiapan/'+id+'/kirim_undangan/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    swal.fire({
+                        title: "Terkirim",
+                        text: "Terkirim",
+                        icon: "success"
+                    })
+                }
+            });
+        }
+    });
+});
+

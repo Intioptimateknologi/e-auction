@@ -1,0 +1,106 @@
+{% block extrahead%}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+{% endblock %}
+
+<div class="row slick-histori"" style="padding-bottom: 20px; padding-top: 20px; margin-left: 0px;margin-right: 0px;">
+
+{% for h in history %}
+<div class="col card card-block mx-2" style="min-width: 200px; min-height: 100px; border-radius:10px;">
+    <img src="/media/{{ h.image }}" class="card-img-top" style="padding-top:10px; height:200px">
+    
+    <!-- dikoment dulu sementara -->
+    <!-- {% if h.last_updated.date >= hari_sesudah %}
+        <span class="card-notip-baru">Baru</span>    
+    {% elif h.last_updated.date == tgl_skrng or h.last_updated.date >= hari_sblm %}
+        <span class="card-notip-baru">Baru</span>
+    {% endif %} -->
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col" style="text-align: center;">
+                <h5 class="portal_card_jdl_utama">Pita  {{ h.pita }}</h5>
+                <br>
+                <p>Bandwidth {{h.bandwidth}}</p>
+                <p class="text-secondary">{{ h.penyelenggaraan }}</p>
+            </div>
+        </div>       
+    </div>
+    <div class="card-footer" style="background-color: rgb(255, 255, 255);">
+        <a href="#" class="btn rounded-pill portal_button_lihat_selengkapnya text-primary text-start" 
+           style="text-align: left; width: 100%;" 
+           data-bs-toggle="modal" data-bs-target="#history{{h.id}}">
+            Lihat Selengkapnya&nbsp;&nbsp;&nbsp;<i class="fa fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% for h in history %}   
+<div class="modal fade" role="dialog" tabindex="-1" id="history{{h.id}}" style=" align-items: center;">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header" style="padding-right: 40px;padding-left: 40px; border-bottom-width: 0px; background-color:white;">
+                <h4 class="modal-title"><i class="fa fa-bullhorn" style="border-radius:5px; padding:5px; background-color:black; color:whitesmoke"></i>&nbsp;&nbsp;Histori Lelang di Indonesia</h4>
+                <button type="button" class="btn"  data-bs-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>    
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding-right: 25px;padding-left: 25px;margin-right: 0px;margin-left: 0px;">
+                    <img src="/media/{{ h.image }}" class="card-img-top" style="padding-top:10px; height:200px;">
+                    <div class="col">
+                        <h1 style="text-align: left;">{{h.pita}}</h1>
+                        <p style="text-align: left;color: #04195B;">Bandwidth {{h.bandwidth}}</p>
+                    </div>
+                    <div class="col">
+                        <p style="text-align: right;font-size: 20px;color: #7984A7;">Tahun {{ h.tahun }}</p>
+                    </div>
+                </div>
+                <div class="row" style="margin:20px; border-radius:10px;background-color:#EDF5FD;padding-top:10px;">
+                    <div class="col-md-1">
+                        <p class="btn btn-lg btn-primary"><i class="fa fa-solid fa-trophy"></i></p>
+                    </div>
+                    <div class="col-md-10">
+                        <span><b>{{h.pemenang|linebreaks}}</b></span>
+                    </div>
+                </div>
+                <div class="row" style="margin-right: 5px;margin-left: 5px;">
+                    <div class="col overflow-auto" style="padding-right: 40px;margin-left: 40px;padding-bottom: 18px;max-height: 250px;">
+                        <p style="font-size:12px; text-align: justify; color: #6C748E;">{{ h.keterangan|linebreaks }}<br></p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<script>
+$(document).ready(function(){      
+    $('.slick-histori').slick({
+        centerMode: true,
+        centerPadding: '60px',
+        slidesToShow: 3,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 3
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            }
+        ]
+    });
+
+});
+</script>
+

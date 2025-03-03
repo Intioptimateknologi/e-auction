@@ -1,0 +1,21 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks
+
+{% block extrahead %}
+<link rel="stylesheet" href="/static/reportbro/reportbro.css"/>
+<script src="/static/reportbro/reportbro.js"></script>
+{% endblock %}
+{% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+{% block konten_isi %}
+<div id="reportbro"></div>
+{% endblock %}
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+    const rb = new ReportBro(document.getElementById('reportbro'));
+</script>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% load widget_tweaks %}
+
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="
+        border-radius: 20px;
+    ">
+            <div class="modal-header">
+                <h3 class="modal-title">Evaluasi Permohonan</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col">
+                    <div class="col-12">
+                        <p id="data_modal" style="display: none;">tricky</p>
+
+                        
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            
+                            <div class="form-group">
+                                <label for="bidder"  class="nama_label">Bidder</label>&nbsp;&nbsp;
+                                {% render_field form.bidder|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Ditetapkan</label>&nbsp;&nbsp;
+                                {% render_field form.hasil_pemeriksaan|add_class:"form-checkbox checknya" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <table id="evaluasi" class="table table-striped">
+                                    <thead>                            
+                                    </thead>
+                                    {{ html }}
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                    </div>  
+                </div>              
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script>
+    $(document).ready(function(){    
+        $('#modal').on('shown.bs.modal', function() {
+            var paragraphText = $('#data_modal').text();
+            if (paragraphText == "tricky") {
+//                loadData({URL:"/administrasi/administrasi/hasil_evaluasi4/{{form.item_lelang.value}}/", element_id:$("#evaluasi")})
+            }
+        });
+    });
+</script>

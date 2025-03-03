@@ -1,0 +1,1006 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+{% endblock %} 
+{% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+{% block konten_isi %}
+    {% if item_lelang.id %}
+        {% if user_type == "C" %}
+            {% add_judul_auctioner user.id item_lelang.id "/adm_lelang/administrasi/" "Rencana Seleksi" %}
+        {% elif user_type == "V" %}
+            {% add_judul_viewer user.id item_lelang.id "/adm_lelang/administrasi/" "Rencana Seleksi" %}
+        {% elif user_type == "A" %}
+            {% add_judul_admin user.id item_lelang.id "/adm_lelang/administrasi/" "Rencana Seleksi" %}
+        {% endif %}
+    {% endif %}
+    
+<div class="col-md-12 background_navtab">
+    <ul class="nav nav-pills" id="custom-content-below-tab" role="tablist" >
+        <li class="nav-item  navtabli" style="margin-left:30px;">
+            <a class="navtab nav-link text-bold active" style="color:#032056" data-toggle="pill" href="#home" role="tab"><i  class="fa fa-object-group"></i>&nbsp;Obyek Seleksi</a>
+        </li>
+        <li class="nav-item  navtabli">
+            <a class="navtab nav-link text-bold" style="color:#032056" data-toggle="pill" href="#jadwal" role="tab"><i  class="fa fa-stairs"></i>&nbsp;Jadwal Tahapan Seleksi</a>
+        </li>
+        <li class="nav-item  navtabli">
+            <a class="navtab nav-link text-bold" style="color:#032056" data-toggle="pill" href="#dasar" role="tab"><i  class="fa fa-ruler"></i>&nbsp;Aturan Seleksi</a>
+        </li>
+
+        <li class="nav-item  navtabli">
+            <a class="navtab nav-link text-bold" style="color:#032056" data-toggle="pill" href="#penanggung" role="tab"><i  class="fa fa-people-group"></i>&nbsp;Penanggung Jawab Seleksi</a>
+        </li>
+
+        <li class="nav-item  navtabli">
+            <a class="navtab nav-link text-bold" style="color:#032056" data-toggle="pill" href="#alamat" role="tab"><i  class="fa fa-map"></i>&nbsp;Alamat Tim Seleksi</a>
+        </li>
+        
+        <li class="nav-item  navtabli">
+            <a class="navtab nav-link text-bold" style="color:#032056"  data-toggle="pill" href="#syarat" role="tab"><i  class="fa fa-check"></i>&nbsp;Persyaratan Peserta Seleksi</a>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12" style="text-align:center; background:#4a91dc;margin-left:-1px;margin-right:0px;padding-top:10px; padding-bottom:10px;">
+</div>
+<div class="col" style="padding-top: 10px; padding-left:30px; padding-right:50px;">
+    <div class="tab-content" id="custom-tabs-one-tabContent">
+        <div class="tab-pane active" id="home" role="tabpanel">
+            <div class="col-md-12" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>    
+                        <div class="jdl_tab">Obyek</div>
+                        <div class="jdl_sub_tab">Seleksi Pengguna Pita Frekuensi Radio</div>
+                    </div>
+                    <div class="col text-right"> 
+                        <button type="button" id="tambah_obyek" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Tambah Obyek Seleksi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="row" style="margin:10px">
+                    <table  id="obyek" class="dt" style="width: 100%;"></table>
+                </div>
+            </div>
+        </div>             
+        <div class="tab-pane" id="dasar" role="tabpanel">
+            <div class="col-md-12" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>    
+                        <div class="jdl_tab">Aturan</div>
+                        <div class="jdl_sub_tab">Seleksi Pengguna Pita Frekuensi Radio</div>
+                    </div>
+                    <div class="col text-right"> 
+                        <button type="button" id="tambah_dasar" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Tambah Aturan Seleksi</button>   
+                    </div>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="row" style="margin:10px">
+                    <table  id="objekdasarhukum" class="dt" style="width: 100%;"></table>
+                </div>
+            </div> 
+        </div>
+        <div class="tab-pane" id="penanggung" role="tabpanel" style="width: 100%;">
+            <div class="col-md-12" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>    
+                        <div class="jdl_tab">Penanggungjawab</div>
+                        <div class="jdl_sub_tab">Seleksi Pengguna Pita Frekuensi Radio</div>
+                    </div>
+                    <div class="col text-right"> 
+                        <button type="button" id="tambah_penanggung" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Tambah Penanggungjawab Seleksi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="row" style="margin:10px">
+                    <table  id="t_penanggung" class="dt" style="width: 100%;"></table>
+                    
+                </div>
+            </div> 
+        </div>
+        <div class="tab-pane" id="alamat" role="tabpanel">
+            <div class="col-md-12" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>    
+                        <div class="jdl_tab">Penanggungjawab</div>
+                        <div class="jdl_sub_tab">Seleksi Pengguna Pita Frekuensi Radio</div>
+                    </div>
+                    <div class="col text-right"> 
+                        <button type="button" id="tambah_alamat" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Tambah Alamat Seleksi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="row" style="margin:10px">
+                    <table  id="t_alamat" class="dt" style="width: 100%;"></table>
+                </div>
+            </div> 
+        </div>
+        <div class="tab-pane" id="syarat" role="tabpanel">
+            <div class="col-md-12" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>    
+                        <div class="jdl_tab">Persyaratan</div>
+                        <div class="jdl_sub_tab">Seleksi Pengguna Pita Frekuensi Radio</div>
+                    </div>
+                    <div class="col text-right"> 
+                        <button type="button" id="tambah_syarat" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Tambah Persyaratan Seleksi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="row" style="margin:10px">
+                    <table  id="objeksyarat" class="dt" style="width: 100%;"></table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="jadwal" role="tabpanel">
+            <div class="col-md-12" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>    
+                        <div class="jdl_tab">Jadwal Tahapan</div>
+                        <div class="jdl_sub_tab">Seleksi Pengguna Pita Frekuensi Radio</div>
+                    </div>
+                    <div class="col text-right"> 
+                        <button type="button" id="create_jadwal" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Buat Jadwal berdasarkan Tempalate</button>
+                        <button type="button" id="tambah_jadwal" class="btn btn-primary" ><i class="fa-solid fa-plus-circle"></i> Tambah Jadwal Seleksi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="row" style="margin:10px">
+                    <table  id="objekjadwal" class="dt" style="text-align:left;width:100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+<script src="/static/js/eauctions_modal.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/static/js/currency.js"></script>
+<script> 
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+    $(".btn-primary:contains('Info Seleksi')").hide();
+    $(".col-md-12.col-sm-12.table-responsive").find("div:eq(4)").remove();
+
+    function showModalTahapan(options) {
+        var defaults = {
+            modalID: "#modal",
+            modalContent: ".modal-content",
+            modalForm: ".modal-content form",
+            formURL: null,
+            method: 'POST',
+            drfURL: null,
+            onSuccess: null,
+            onError: null,
+            isDeleteForm: false,
+            errorClass: ".invalid",
+            csrf: null,
+        };
+    
+        // Extend default settings with provided options
+        var settings = $.extend(defaults, options);
+        $(settings.modalID).find(settings.modalContent).load(settings.formURL, function () {
+            $('#menanti').hide();
+            $(settings.modalID).modal("show");
+            $(settings.modalForm).attr("action", settings.formURL);
+            addEventHandlers(settings);
+        });
+        var addEventHandlers = function (settings) {
+            
+            // added aldi putri
+            // add off submit so the addeventhandler not double it 
+            $(settings.modalForm).off("submit");
+            
+            $(settings.modalForm).on("submit", function (event) {
+                if (event.originalEvent !== undefined && settings.isDeleteForm === false) {
+                    event.preventDefault();
+                    isFormValid(settings, null);
+                    return true;
+                }
+            });
+            // Modal close handler
+            $(settings.modalID).on("hidden.bs.modal", function (event) {
+                $(settings.modalForm).remove();
+            });
+        };
+
+        /*
+        * Dynamic swal message based on request method
+        */
+        const actionType = defaults.method;
+        const swalConfirmTitle = actionType == 'POST' ? 'Tambah Data?' : 'Edit Data?';
+        const swalConfirmText = actionType == 'POST' ? 'Apakah anda yakin untuk melakukan <b>penambahan</b> data ini?!' : 'Apakah anda yakin untuk melakukan <b>edit</b> data ini?!';
+        const swalSuccessTitle = actionType == 'POST' ? 'Berhasil!' : 'Berhasil!';
+        const swalSuccessText = actionType == 'POST' ? 'Data telah <b>berhasil</b> disimpan!' : 'Data telah <b>berhasil</b> diedit!';
+        
+        var isFormValid = function (settings, callback) {
+            $('#menanti').show();
+            Swal.fire({
+                title: swalConfirmTitle,
+                html: swalConfirmText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Iya dan Lanjutkan',
+                cancelButtonText: 'Tidak dan Kembali',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        waitingPopup = Swal.fire({
+                            title: "Proses Penambahan Data",
+                            html: "Sistem Sedang Melakukan Proses Penambahan Data",
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            },
+                        });
+                        dataForm = new FormData($(settings.modalForm)[0]);
+                        item_lelang = dataForm.get('item_lelang');
+                        tahapan = dataForm.get("tahap");
+                        tgl_awal = moment(dataForm.get("tanggal_awal"));
+                        tgl_akhir = moment(dataForm.get("tanggal_akhir"));
+                        if (tgl_awal.isBefore(tgl_akhir)){
+                            // check parent
+                            $.ajax({ 
+                                url: "/adm_lelang/api/v1/tahapan_lelang/"+tahapan+"/", 
+                                headers: { "X-CSRFToken": settings.csrf}, 
+                                success: function(data) {
+                                    parent = data.parent;
+                                    var url;
+                                    if (parent != null) {
+                                        url = "/adm_lelang/api/v1/jadwal_seleksi/?tahap="+parent+"&item_lelang="+item_lelang
+                                        $.ajax({ url: url, 
+                                            headers: { "X-CSRFToken": settings.csrf},
+                                            success: function(data) {
+                                                dtgl_awal = moment(data.results[0].tanggal_awal);
+                                                dtgl_akhir = moment(data.results[0].tanggal_akhir);
+                                                tahapan = data.results[0].tahapan;
+                                                if (tgl_awal.isBefore(dtgl_awal)) {
+                                                    waitingPopup.close();
+                                                    swal.fire("Tanggal Awal sebelum tanggal awal " + tahapan);
+                                                }
+                                                else if (dtgl_akhir.isBefore(tgl_akhir)) {
+                                                    waitingPopup.close();
+                                                    swal.fire("Tanggal Akhir setelah tanggal akhir " + tahapan);
+                                                } else 
+                                                {
+                                                    $.ajax({
+                                                        type: $(settings.modalForm).attr("method"),
+                                                        method: settings.method,
+                                                        headers: { "X-CSRFToken": settings.csrf },
+                                                        url: settings.drfURL,
+                                                        data: new FormData($(settings.modalForm)[0]),
+                                                        contentType: false,
+                                                        processData: false,
+                                                        beforeSend: function () {
+                                                            $(settings.submitBtn).prop("disabled", true);
+                                                        },
+                                                        success: function (response) {
+                                                            $('#menanti').hide();
+                                                            waitingPopup.close();
+                                                            if ($(response).find(settings.errorClass).length > 0) {
+                                                                // Form is not valid, update it with errors
+                                                                $(settings.modalID).find(settings.modalContent).html(response);
+                                                                $(settings.modalForm).attr("action", settings.formURL);
+                                                                // Reinstantiate handlers
+                                                                addEventHandlers(settings);
+                                                            } else {
+                                                                // Form is valid, submit it
+                                                                if (settings.onSuccess) settings.onSuccess(response);
+                                                                Swal.fire(
+                                                                    'Berhasil !',
+                                                                    'Data Bertambah !',
+                                                                    'success'
+                                                                )
+                                                            }
+                                                        },
+                                                        error: function (request, status, error) {
+                                                            Swal.fire({
+                                                                icon: 'error',
+                                                                title: 'Terjadi Kesalahan !',
+                                                                text: error,
+                                                            })
+                                                            waitingPopup.close();
+                                                        }
+                                                    });                        
+                                                } 
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        $.ajax({
+                                            type: $(settings.modalForm).attr("method"),
+                                            method: settings.method,
+                                            headers: { "X-CSRFToken": settings.csrf },
+                                            url: settings.drfURL,
+                                            data: new FormData($(settings.modalForm)[0]),
+                                            contentType: false,
+                                            processData: false,
+                                            beforeSend: function () {
+                                                $(settings.submitBtn).prop("disabled", true);
+                                            },
+                                            success: function (response) {
+                                                $('#menanti').hide();
+                                                waitingPopup.close();
+                                                if ($(response).find(settings.errorClass).length > 0) {
+                                                    // Form is not valid, update it with errors
+                                                    $(settings.modalID).find(settings.modalContent).html(response);
+                                                    $(settings.modalForm).attr("action", settings.formURL);
+                                                    // Reinstantiate handlers
+                                                    addEventHandlers(settings);
+                                                } else {
+                                                    // Form is valid, submit it
+                                                    if (settings.onSuccess) settings.onSuccess(response);
+                                                    Swal.fire(
+                                                        'Berhasil !',
+                                                        'Data Bertambah !',
+                                                        'success'
+                                                    )
+                                                    //callback(settings);
+                                                }
+                                            },
+                                            error: function (request, status, error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Terjadi Kesalahan !',
+                                                    text: error,
+                                                })
+                                                waitingPopup.close();
+                                            }
+                                        });  
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire('Tanggal akhir sebelum tanggal awal')
+                            waitingPopup.close();
+                        }
+                    }
+            });
+        }
+    };
+  
+    $("#objekjadwal").on("click",".duplicate",function() {
+        showModalTahapan ({
+            csrf: '{{csrf_token}}',
+            method: 'POST',
+            formURL: "/adm_lelang/adm_lelang/modal_update_jadwal_seleksi/"+this.id+"/"+ $('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_jadwal($('#nmlelang').val());
+            }
+        })
+    });
+
+  // LOAD PART
+  function loadData_judul_seleksi(id) {
+    loadData({
+        element_id: $("#item_lelang_table"),
+        URL: '/adm_lelang/adm_lelang/itemlelang/'+id + '/'
+    })
+  }
+  function loadData_obyek(id) {
+    loadData({
+        element_id: $("#obyek"),
+        URL: '/adm_lelang/adm_lelang/detail_itemlelang/'+id + '/'
+    })
+  }
+
+  function loadData_dasarhukum(id) {
+    loadData({
+        element_id: $("#objekdasarhukum"),
+        URL: '/adm_lelang/adm_lelang/dasar_hukum/'+id + '/'
+    })
+  }
+  
+  function loadData_persyaratan_lelang(id) {
+    loadData({
+        element_id: $("#objeksyarat"),
+        URL: '/adm_lelang/adm_lelang/persyaratan_lelang/'+id + '/'
+    })
+  }
+  function loadData_jadwal(id) {
+    loadData({
+        element_id: $("#objekjadwal"),
+        URL: '/adm_lelang/adm_lelang/jadwal_lelang/'+id + '/'
+    })
+  }
+
+  function loadData_Auctioner(id) {
+    loadData({
+        element_id: $("#t_auctioner"),
+        URL: '/adm_lelang/adm_lelang/auctioner_lelang/'+id + '/'
+    })
+  }
+  function loadData_Viewer(id) {
+    loadData({
+        element_id: $("#t_viewer"),
+        URL: '/adm_lelang/adm_lelang/viewer_lelang/'+id + '/'
+    })
+  }
+
+  function loadData_Bidder(id) {
+    loadData({
+        element_id: $("#t_bidder"),
+        URL: '/adm_lelang/adm_lelang/bidder_lelang/'+id + '/'
+    })
+  }
+
+ 
+  function loadData_Penanggung(id) {
+    loadData({
+        element_id: $("#t_penanggung"),
+        URL: '/adm_lelang/penanggung_jawab/'+id + '/'
+    })
+  }
+
+  function loadData_alamat(id) {
+    loadData({
+        element_id: $("#t_alamat"),
+        URL: '/adm_lelang/adm_lelang/alamat_panitia/'+id + '/'
+    })
+  }
+
+  function loadData_ba(id) {
+    loadData({
+        element_id: $("#t_ba"),
+        URL: '/adm_lelang/adm_lelang/berita_acara/'
+    })
+  }
+
+    let id_item_lelang = $('#nmlelang').val();
+    console.log(id_item_lelang);
+
+    if (id_item_lelang) {
+        console.log(id_item_lelang);
+        loadData_judul_seleksi(id_item_lelang);
+        loadData_obyek(id_item_lelang);
+        loadData_dasarhukum(id_item_lelang);
+        loadData_persyaratan_lelang(id_item_lelang);
+        loadData_jadwal(id_item_lelang);
+        loadData_Auctioner(id_item_lelang);
+        loadData_Viewer(id_item_lelang);
+        loadData_Penanggung(id_item_lelang);
+        loadData_Bidder(id_item_lelang);
+        loadData_alamat(id_item_lelang);
+    } else {
+        console.log('kosong');
+
+        Swal.fire({
+            title: "Error!",
+            html: "Anda tidak memiliki hak akses ke judul seleksi. <br> Silakan tambahkan akses di daftar pengguna terlebih dahulu.",
+            icon: "error",
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            backdrop: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/";
+            }
+        });
+    }
+
+  
+  // TAMBAH PART
+  $("#tambah_penanggung").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_penanggung_jawab/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/penangung_jawab/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                loadData_Penanggung($('#nmlelang').val());
+            }
+        });
+    });
+
+  $("#tambahjudul").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_itemlelang/",
+            drfURL: "/adm_lelang/api/v1/item_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+            }
+        });
+    });
+  
+  $("#tambah_dasar").click(function() { 
+    showModal2({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/adm_lelang/modal_dasar_hukum/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/dasar_hukum/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                loadData_dasarhukum($('#nmlelang').val());
+            }
+        });
+    });
+  
+    $("#tambah_obyek").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_obyek_seleksi/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/detail_itemlelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_obyek($('#nmlelang').val());
+            }
+        });
+
+    });
+
+    $("#tambah_pengumuman").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_pengumuman_lelang/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_pengumuman($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#tambah_syarat").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_persyaratan_lelang/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/persyaratan_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_persyaratan_lelang($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#tambah_putaran").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/smra/modal_jadwal_putaran/"+$('#nmlelang').val()+"/",
+            drfURL: "/smra/api/v1/jadwal_smra/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                loadData_Putaran($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#tambah_jadwal").click(function() { 
+        
+        showModalTahapan({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_jadwal_seleksi/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_jadwal($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#create_jadwal").click(function() { 
+        const { value: date } = Swal.fire({
+            title: "Pilih Tanggal Awalnya",
+            html: `<input type="date" id="dateInput" class="swal2-input">`,
+            preConfirm: () => {
+                return document.getElementById('dateInput').value;
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+                let selectedDate = result.value;
+                Swal.fire(`You selected: ${selectedDate}`);
+                $.ajax({url:'/adm_lelang/create_jadwal_by_template/'+$('#nmlelang').val()+'/'+selectedDate+'/'}).then(function(){loadData_jadwal($('#nmlelang').val());})
+            }
+        });
+    });
+
+    $("#tambah_auctioner").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/smra/modal_auctionerlelang/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/auctioner_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Auctioner($('#nmlelang').val());
+            }
+        });
+    });
+    $("#tambah_viewer").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/smra/modal_viewerlelang/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/viewer_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Viewer($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#tambah_bidder").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/smra/modal_bidderlelang/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/bidder_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Bidder($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#tambah_alamat").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_alamat_panitia/"+$('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/alamat_panitia/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_alamat($('#nmlelang').val())
+                //loadData_Viewer(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_ba").click(function() { 
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_create/",
+            drfURL: "/adm_lelang/api/v1/template_berita_acara/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_ba();
+            }
+        });
+    });
+
+    // UPDATE PART
+    $("#updatejudul").click(function() { 
+        showEditModal ({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_update_itemlelang/"+ $('#nmlelang').val()+ "/",
+            drfURL: "/adm_lelang/api/v1/item_lelang/"+$('#nmlelang').val()+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+            }
+        })
+    });
+
+  $("#t_penanggung").on("click",".updatepenanggung",function() {
+    showEditModal ({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/adm_lelang/modal_update_penanggung_jawab/"+this.id+"/"+ $('#nmlelang').val()+"/",
+        drfURL: "/adm_lelang/api/v1/penangung_jawab/"+this.id+"/",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData_Penanggung($('#nmlelang').val());
+        }
+      })
+  });
+
+  $("#objekdasarhukum").on("click",".dasar_hukum_update",function() {
+    showEditModal ({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/adm_lelang/modal_update_dasar_hukum/"+this.id+"/"+ $('#nmlelang').val()+"/",
+        drfURL: "/adm_lelang/api/v1/dasar_hukum/"+this.id+"/",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData_dasarhukum($('#nmlelang').val());
+        }
+      })
+  });
+
+    $("#obyek").on("click",".objek_seleksi_update",function() {
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_update_obyek_seleksi/"+this.id+"/"+ $('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/detail_itemlelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_obyek($('#nmlelang').val());
+            }
+        })
+    });
+
+    $("#objekpengumumanseleksi").on("click",".pengumuman_seleksi_update",function() {
+        showEditModal ({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_update_pengumuman_lelang/"+this.id+"/"+ $('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/"+this.id+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_pengumuman($('#nmlelang').val());
+            }
+        })
+    });
+
+    $("#objeksyarat").on("click",".persyaratan_lelang_update",function() {
+        showEditModal ({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_update_persyaratan_lelang/"+this.id+"/"+ $('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/persyaratan_lelang/"+this.id+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_persyaratan_lelang($('#nmlelang').val());
+            }
+        })
+    });
+
+    $("#objekjadwal").on("click",".update",function() {
+        showModalTahapan ({
+            csrf: '{{csrf_token}}',
+            method: 'PUT',
+            formURL: "/adm_lelang/adm_lelang/modal_update_jadwal_seleksi/"+this.id+"/"+ $('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/"+this.id+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_jadwal($('#nmlelang').val());
+            }
+        })
+    });
+
+    $("#t_alamat").on("click",".alamat_panitia_update",function() {
+        showEditModal ({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_update_alamat_panitia/"+this.id+"/"+ $('#nmlelang').val()+"/",
+            drfURL: "/adm_lelang/api/v1/alamat_panitia/"+this.id+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_alamat($('#nmlelang').val())
+            }
+        })
+    });
+
+    $("#t_putaran").on("click",".update",function() {
+        showEditModal ({
+            csrf: '{{csrf_token}}',
+            formURL: "/smra/modal_update_putaran/"+this.id+"/",
+            drfURL: "/smra/api/v1/jadwal_smra/"+this.id+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Putaran($('#nmlelang').val());
+            }
+        })
+    });
+
+    $("#t_ba").on("click",".ba_update",function() {
+        showEditModal ({
+            csrf: '{{csrf_token}}',
+            formURL: "/adm_lelang/adm_lelang/modal_update/"+this.id+"/",
+            drfURL: "/adm_lelang/api/v1/template_berita_acara/"+this.id+"/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_ba();
+            }
+        })
+    });
+
+    // DELETE PART
+    
+    $("#disablejudul").click(function() { 
+        deleteData ({
+            csrf: '{{csrf_token}}',
+            id: $('#nmlelang').val(),
+            drfURL: "/adm_lelang/api/v1/item_lelang/"+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData($('#nmlelang').val());
+            }
+        })
+    });
+    $("#obyek").on("click",".objek_seleksi_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/detail_itemlelang/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#objekpengumumanseleksi").on("click",".pengumuman_seleksi_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/pengumuman_lelang/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_pengumuman($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_penanggung").on("click",".deletepenanggung",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/penangung_jawab/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                loadData_Penanggung($('#nmlelang').val());
+            }
+        });
+    });
+
+
+    $("#objeksyarat").on("click",".persyaratan_lelang_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/persyaratan_lelang/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_persyaratan_lelang($('#nmlelang').val());
+            }
+        });
+    });
+
+    
+    $("#objekjadwal").on("click",".delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/jadwal_seleksi/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                loadData_jadwal($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#objekdasarhukum").on("click",".dasar_hukum_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/dasar_hukum/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_dasarhukum($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_alamat").on("click",".alamat_panitia_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/alamat_panitia/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_Penanggung($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_putaran").on("click",".delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/smra/api/v1/jadwal_smra/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_Putaran($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_viewer").on("click",".viewer_lelang_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/viewer_lelang/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_Viewer($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_bidder").on("click",".bidder_lelang_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/bidder_lelang/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_Bidder($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_auctioner").on("click",".auctioner_lelang_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/auctioner_lelang/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_Auctioner($('#nmlelang').val());
+            }
+        });
+    });
+
+    $("#t_ba").on("click",".ba_delete",function() {
+        deleteData({id: this.id, 
+            csrf: '{{csrf_token}}',
+            drfURL: '/adm_lelang/api/v1/template_berita_acara/'+this.id +'/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                })
+                    loadData_ba($('#nmlelang').val());
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

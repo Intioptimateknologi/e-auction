@@ -1,0 +1,690 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+    .card-footer{
+        display: none;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header" style="background-color: #6C757D;">
+                            <h1 style="color: white;font-size: 14px;font-weight: bold;">Administrasi &gt; Pemeriksaan Kelengkapan</h1>
+                        </div>
+                        <div class="card-body">
+                            {% if user_type == "C" %}
+                            {% add_judul_auctioner user.id item_lelang.id "/administrasi/kelengkapan/" %}
+                            {% elif user_type == "V" %}
+                            {% add_judul_viewer user.id item_lelang.id "/administrasi/kelengkapan/" %}
+                            {% elif user_type == "A" %}
+                            {% add_judul_admin user.id item_lelang.id "/administrasi/kelengkapan/" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">        
+            <div class="row">
+                <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#detil" role="tab">Detail Seleksi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#home" role="tab">Obyek Seleksi</a>
+                    </li> -->
+                    {% if user.user_type == 'A' or user.user_type == 'C' %}
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#kirim" role="tab">Kirim Undangan Penyerahan dan Pemeriksaan Kelengkapan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#form" role="tab">Form Pemeriksaan Kelengkapan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#hasil" role="tab">Hasil Pemeriksaan Kelengkapan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#draft" role="tab">Draft BA Pemeriksaan Kelengkapan</a>
+                    </li>
+                    {% endif  %}
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#undangan" role="tab">Undangan Penyerahan dan Pemeriksanaan Kelengkapan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#ba" role="tab">BA Pemeriksaan Kelengkapan</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content col-md-12">
+                    <div class="tab-pane" id="detil" role="tabpanel">
+                        <div class="card p-3">
+                            <div class="container px-5 my-5" id="item_lelang_display" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="home" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Obyek Seleksi&nbsp;</h2>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="obyek" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Band</th>
+                                                <th>Rentang Frekuensi</th>
+                                                <th>Teknologi</th>
+                                                <th>Reserved Price</th>
+                                                <th>Eligibility/Block</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>       
+                    <div class="tab-pane active" id="kirim" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Kirim Undangan Penyerahan dan Pemeriksaan Kelengkapan</h2>
+                                        <button id="tambah_kirim_u_penyerahan" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekpenyerahan" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="undangan" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Undangan Penyerahan dan Pemeriksanaan Kelengkapan</h2>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekundanganpenyerahanlist" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="form" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Form Pemeriksaan Kelengkapan</h2>
+                                        <button id="tambah_formpemeriksaan" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekform_pemeriksaan" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="hasil" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Hasil Pemeriksaan Kelengkapan</h2>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekhasil_pemeriksaan" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="draft" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Draft BA Pemeriksaan Kelengkapan</h2>
+                                        <button id="tambah_ba_pemeriksaan" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekbapemeriksaan" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="ba" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">BA Pemeriksaan Kelengkapan</h2>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekbapemeriksaan2" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-form@4.3.0/dist/jquery.form.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on('change', '#id_file',function() {
+            console.log(1);
+            var fileInput = $(this);
+            var file = fileInput[0].files[0];
+            var fileType = file.type;
+            
+            if (fileType !== 'application/pdf') {
+              alert('Hanya file PDF yang diperbolehkan.');
+              $('#id_file').val('');
+            }
+        });
+    });    
+var item_lelang;
+$(document).ready(function() {
+
+    
+  
+  function loadDataPenyerahanKelengkapan(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/undangans_p_kelengkapan/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekpenyerahan");
+            table.empty();
+            table.append(data);
+            // $("#objekpenyerahan").DataTable();
+        }
+    });
+  }
+  function loadDataPenyerahanKelengkapan2(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/undangans_p_kelengkapan2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekundanganpenyerahanlist");
+            table.empty();
+            table.append(data);
+            // $("#objekundanganpenyerahanlist").DataTable();
+        }
+    });
+  }
+
+  function loadDataPemeriksaan(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/form_pemeriksaan/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekform_pemeriksaan");
+            table.empty();
+            table.append(data);
+            // $("#objekform_pemeriksaan").DataTable();
+        }
+    });
+  }
+
+  function loadDataPemeriksaan2(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/form_pemeriksaan2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekhasil_pemeriksaan");
+            table.empty();
+            table.append(data);
+            // $("#objekhasil_pemeriksaan").DataTable();
+        }
+    });
+  }
+  function loadDataBaPemeriksaanKelengkapan(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/ba_administrasi/'+id + '/'+'PEMERIKSAAN',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekbapemeriksaan");
+            table.empty();
+            table.append(data);
+            // $("#objekbapemeriksaan").DataTable();
+        }
+    });
+  }
+ 
+  function loadDataBaPemeriksaanKelengkapan2(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/ba_administrasi2/'+id + '/'+'PEMERIKSAAN',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekbapemeriksaan2");
+            table.empty();
+            table.append(data);
+            // $("#objekbapemeriksaan2").DataTable();
+        }
+    });
+  }
+ 
+
+
+  let id_item_lelang = null;
+
+  id_item_lelang = $('#nmlelang').val();
+    loadDataPenyerahanKelengkapan(id_item_lelang);
+    loadDataPenyerahanKelengkapan2(id_item_lelang);
+    loadDataPemeriksaan(id_item_lelang);
+    loadDataPemeriksaan2(id_item_lelang);
+    loadDataBaPemeriksaanKelengkapan(id_item_lelang);
+    loadDataBaPemeriksaanKelengkapan2(id_item_lelang);
+  
+  
+  $("#tambahjudul").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_itemlelang/",
+            drfURL: "/adm_lelang/api/v1/item_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+            }
+        });
+    });
+ 
+
+//tambah
+    $(document).on("click", "#tambah_kirim_u_penyerahan",function() { 
+        showModal({
+               formURL: "/administrasi/administrasi/modal_undangans_p_kelengkapan/"+document.getElementById('item_lelang').value+"/",
+               drfURL: "/administrasi/api/v1/undangan_pemeriksaan_kelengkapan/",
+                onSuccess: function(response) {
+                    $("#modal").modal('toggle');
+                    swal.fire({
+                        title: "Data Berhasil Ditambahkan !",
+                        text: "",
+                        icon: "success"
+                    }).then(function() {
+                    loadDataPenyerahanKelengkapan(document.getElementById('item_lelang').value);
+                    })
+                } 
+            });
+        });
+  
+    $("#tambah_formpemeriksaan").click(function() { 
+        showModal({
+            formURL: "/administrasi/administrasi/modal_form_pemeriksaan/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/administrasi/api/v1/form_pemeriksaan/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                swal.fire({
+                    title: "Data Berhasil Ditambahkan !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadDataPemeriksaan(document.getElementById('item_lelang').value);
+                })
+            }
+        });
+    });
+    $("#tambah_ba_pemeriksaan").click(function() { 
+        showModal({
+            formURL: "/administrasi/administrasi/modal_ba_penyerahan/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/administrasi/api/v1/berita_acara/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                swal.fire({
+                    title: "Data Berhasil Ditambahkan !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadDataBaPemeriksaanKelengkapan(document.getElementById('item_lelang').value);
+                })
+            }
+        });
+    });
+// update
+  $("#objekpenyerahan").on("click",".undangan_pemeriksaan_kelengkapan_update",function() {
+      showModal({
+        formURL: "/administrasi/administrasi/modal_update_undangans_p_kelengkapan/"+this.id+ "/" + document.getElementById('item_lelang').value+"/",
+        drfURL: "/administrasi/api/v1/undangan_pemeriksaan_kelengkapan/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            swal.fire({
+                title: "Data Berhasil Diupdate !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+            loadDataPenyerahanKelengkapan(document.getElementById('item_lelang').value);
+            })
+        }
+      })
+  });
+
+$("#objekform_pemeriksaan").on("click",".form_pemeriksaan_update",function() {
+    showModal({
+        formURL: "/administrasi/administrasi/modal_update_form_pemeriksaan/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+        drfURL: "/administrasi/api/v1/form_pemeriksaan/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            swal.fire({
+                title: "Data Berhasil Diupdate !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+            loadDataPemeriksaan(document.getElementById('item_lelang').value);
+            })
+        }
+    })
+});
+
+$("#objekbapemeriksaan").on("click",".ba_pemeriksaan_update",function() {
+    showModal({
+        formURL: "/administrasi/administrasi/modal_update_ba_penyerahan/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+        drfURL: "/administrasi/api/v1/berita_acara/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            swal.fire({
+                title: "Data Berhasil Diupdate !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+            loadDataBaPemeriksaanKelengkapan(document.getElementById('item_lelang').value);
+            })
+        }
+    })
+});
+    // hapus
+
+    $("#objekpenyerahan").on("click",".undangan_pemeriksaan_kelengkapan_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/administrasi/api/v1/undangan_pemeriksaan_kelengkapan/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadDataPenyerahanKelengkapan(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+
+    $("#objekform_pemeriksaan").on("click",".form_pemeriksaan_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/administrasi/api/v1/form_pemeriksaan/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadDataPemeriksaan(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+
+    $("#objekbapemeriksaan").on("click",".ba_pemeriksaan_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/administrasi/api/v1/berita_acara/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadDataBaPemeriksaanKelengkapan(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+  
+    // create
+ 
+    // edit
+   
+    // hapus
+   
+    // ditambahin//
+
+  
+
+    // ditambahin panitia seleksi//
+    // create
+   
+
+});
+
+</script>
+{% endblock %}

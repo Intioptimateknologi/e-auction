@@ -1,0 +1,103 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+    
+    </style>
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+
+    <section class="sheet padding-10mm">
+
+    {% localize on %}
+    <p style="text-align:center;color:black; font-size:16px;">BERITA ACARA <br> PENGAMBILAN ADENDUM DOKUMEN {{ seleksi|upper }}</>
+    <p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+    <p style="text-align:center">Nomor {{ nomor }}</p>
+    {% endlocalize %}
+    
+    <ol>
+      <li style="text-align: justify;">
+        Sesuai ketentuan dalam Dokumen Seleksi, telah dilaksanakan tahapan pengambilan Adendum Dokumen {{ seleksi }} secara daring melalui pengunduhan
+        pada sistem e-Auction dimulai hari {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan  {{ jadwal.tanggal_akhir|date:'l' }} tanggal {{ jadwal.tanggal_akhir|date:'d F Y'}}.</li>
+      <li style="text-align: justify;">
+        Penyelenggara Jaringan Bergerak Seluler yang telah melakukan pengambilan Adendum Dokumen Seleksi dengan mengunduh dalam kurun waktu sebagaimana dimaksud dalam angka 1 (satu) di atas diurut berdasarkan waktu pengambilan Dokumen Seleksi pertama kali adalah: </li>
+        <table width="100%" >
+          <tr>
+            <th>No</th><th>Perwakilan Perusahaan</th><th>Perusahaan Penyelenggara Jaringan Bergerak Seluler</th><th>Waktu Pengunduhan</th>
+          </tr>
+        {% for t in table %}
+          <tr><td width="10%">
+            {{ forloop.counter }}
+          </td><td width="20%">{{t.bidder_perwakilan.nama_lengkap}}</td>
+          <td width="20%">{{t.bidder_perwakilan.bidder.bidder.nama_perusahaan }}</td>
+          <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:i:s'}} WIB</td>
+        </tr>
+          {% endfor %}
+        </table>
+      </li>
+     
+      <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Pengambilan Adendum Dokumen {{ seleksi }}. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+    </ol>
+    
+    <div>
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+          </tr>
+          <tr>
+            <td>
+              
+              <p style="text-align:center">Mengetahui</p>
+              <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              <p style="text-align:center">{{ketua_pansel}}</p>
+             
+            </td>
+            <td>
+             
+              <p style="text-align:center"></p>
+              <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              <p style="text-align:center">{{sekretaris_pansel}}</p>
+            
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </section>
+    </body>
+    </html>

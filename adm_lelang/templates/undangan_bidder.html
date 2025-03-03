@@ -1,0 +1,11 @@
+loadData({URL: '/persiapan/undangan_bidder/{{item_lelang}}/{{current_step}}/', element_id: $("#{{element}}")})
+$("#tambah_kirim").click(function() {         
+    showModal2({
+        formURL: "/persiapan/modal_undangan_bidder/{{item_lelang}}/{{current_step}}/",
+        drfURL: "/persiapan/api/v1/persiapan_dokumen/",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/persiapan/undangan_bidder/{{item_lelang}}/{{current_step}}/', element_id: $("#{{element}}")})
+        }
+    });
+});

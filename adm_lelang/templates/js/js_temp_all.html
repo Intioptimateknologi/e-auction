@@ -1,0 +1,58 @@
+
+{% for i in menu_group %}
+{% if i.menu.tahapan.attribute.type == "undangan" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+        {% include "js/undangan_js.html" %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "pengumuman" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+        {% include "js/pengumuman_js.html" %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "ba" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+    {% include "js/ba_js.html" %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "view_bidder_download" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+    loadData({URL: '{{ attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+    {% include "js/view_bidder_download_js.html" %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "view" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+    loadData({URL: '{{ attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "view_template" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+      {% if attribute.table_url %}
+        loadData({URL: '{{ attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+      {% endif %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "view_ba" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+    loadData({URL: '/adm_lelang/ba_bidder/{{item_lelang.id}}/{{attribute.tahapan}}/', element_id: $("#{{ attribute.element }}")})
+    {% include "js/ba_bidder_js.html" %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "view_pengumuman" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+    loadData({URL: '/adm_lelang/adm_lelang/pengumuman_lelang2/{{item_lelang.id}}/{{attribute.tahapan}}/', element_id: $("#{{ attribute.element }}")})
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "view_undangan" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+    loadData({URL: '/adm_lelang/undangan_bidder/{{item_lelang.id}}/{{attribute.tahapan}}/', element_id: $("#{{ attribute.element }}")})
+    {% include "js/undangan_bidder_js.html" %}
+    {% endwith %}
+{% endif %}
+{% if i.menu.tahapan.attribute.type == "custom" %}
+    {% with attribute=i.menu.tahapan.attribute %}
+        {% include "js/custom_js.html" %}
+    {% endwith %}
+{% endif %}
+{% endfor %}  

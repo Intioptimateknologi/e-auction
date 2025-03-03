@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_tim_lelang_list' %}">
+    Mendata Tim Lelang
+    </a>
+</p>
+    
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  {{address_form.errors}}
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">Nama: </label>
+    {{ form.nama_lengkap }}
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">Email: </label>
+    {{ form.email }}
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">Username: </label>
+    {{ form.username }}
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">Password: </label>
+    {{ form.password }}
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">Nomor HP: </label>
+    {{ form.mobile_number }}
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">Aktif?: </label>
+    {{ form.isactive }}
+</div>
+{% with named_formset.tim_lelang as formset %}  
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="nip">NIP: </label>
+    {{ formset.0.nip }}
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 nama_label" for="jabatan">Jabatan di Instansi: </label>
+    {{ formset.0.jabatan }}
+</div>
+<div class="form-group row">
+      <label class="col-sm-2 nama_label" for="sk_pengangkatan">SK Pengangkatan: </label>
+      {{ formset.0.sk_pengangkatan }}
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="jabatan_dalam_tim">Jabatan Dalam Tim: </label>
+      {{ formset.0.jabatan_dalam_tim}}
+  </div>
+  {% endwith %}
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

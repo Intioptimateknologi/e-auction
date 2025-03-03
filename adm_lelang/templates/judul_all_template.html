@@ -1,0 +1,54 @@
+<div class="jdl_menu_bg col-md-12">
+    <div class="row">
+        <div class="col col-md-12 text-left">
+            <p class="jdl_menu2 w-100">{{ breadcrumb }}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 table-responsive">
+        <div class="row">
+            
+            <div class="col-md-10 text-left">
+                <h1 class="jdl_atas_utama">
+                    {{ itm_lelang.nama_lelang|title}}
+                </h1>
+            </div>
+            <div class="col-md-2 text-right">
+                <a href="#" class="btn btn-primary" hx-get="/adm_lelang/info_lelang/{{itm_lelang.id}}/" hx-target="#modal_info" hx-trigger="click" _="on htmx:afterOnLoad wait 10ms then add .show to #modal then add .show to #modal-backdrop">Info Seleksi</a>
+                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#pilih_item">Pilih Judul Seleksi </a>
+            </div>
+        </div>
+        
+        
+        <div class="form-group form-inline">
+            <input type="hidden" id="nmlelang" value="{{ itm_lelang.id}}">
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="pilih_item">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4>Pilih Judul Seleksi</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="list-group">
+            {% for d in item_lelang %}
+                <li class="list-group-item"><a class="nav-link text-bold" href="{{url}}?id={{ d.id}}">{{ d.nama_lelang }}, tahun {{ d.tahun }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div id="modal_info"></div>

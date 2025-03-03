@@ -1,0 +1,176 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+{% block extrahead %}
+{% endblock %}
+{% block navbar %}
+{% if user.is_authenticated %}
+{% include 'new_index/parts/navbar_admin.html' %}
+{% else %}
+{% include 'new_index/parts/navbar_viewer.html' %}
+{% endif %}
+{% endblock %}
+{% block konten_isi %}
+<div class="row" style="padding-top: 20px; padding-left:100px;padding-right:100px;padding-bottom: 100px;">
+    <div class="col">
+        <div class="col">
+
+
+            <div style="display: flex; margin-bottom: 60px; text-align:left;">
+                <div class="btn-group" role="group" aria-label="..." style="display: inline-flex;
+                vertical-align: middle;
+                flex-direction: row;
+                flex-wrap: wrap;
+                font-weight: 800;
+                size:24px;">
+                    <a href="#" class="btn btn-sm btn-primary filter-btn active text-bold" style="font-size:14pt"
+                        data-filter="all">SEMUA KARAKTER</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold" style="font-size:14pt"
+                        data-filter="A">A</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="B">B</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="C">C</a>
+                    <a href="#" class="btn btn-sm btn-default  filter-btn text-bold" style="font-size:14pt"
+                        data-filter="D">D</a>
+                    <a href="#" class="btn btn-sm btn-default  filter-btn text-bold " style="font-size:14pt"
+                        data-filter="E">E</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="F">F</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="G">G</a>
+                    <a href="#" class="btn btn-sm btn-default  filter-btn text-bold" style="font-size:14pt"
+                        data-filter="H">H</a>
+                    <a href="#" class="btn btn-sm btn-default  filter-btn text-bold " style="font-size:14pt"
+                        data-filter="I">I</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="J">J</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="K">K</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="L">L</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="M">M</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="N">N</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="O">O</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="P">P</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="Q">Q</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="R">R</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="S">S</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="T">T</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="U">U</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="V">V</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="W">W</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="X">X</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="Y">Y</a>
+                    <a href="#" class="btn btn-sm btn-default filter-btn text-bold " style="font-size:14pt"
+                        data-filter="Z">Z</a>
+
+                </div>
+            </div>
+
+            <div>
+            </div>
+            <div class="accordion" id="accordionExample">
+                {% for i in istilah %}
+                <div class="istilah-item" data-first-char="{{ i.nama_istilah|first|upper }}">
+                    <div class="card" style="border-radius:20px">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample{{i}}" aria-expanded="true"
+                                    aria-controls="collapseExample{{i}}"
+                                    style="color: var(--bs-blue); font-weight: 800;">
+                                    {{i.nama_istilah }}
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseExample{{i}}" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample">
+                            <div class="card-body" style="color:#04195B; text-align: justify; padding-left: 40px;">
+                                {{ i.penjelasan|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row istilah-item" data-first-char="{{ i.nama_istilah|first|upper }}">
+                    <div class="card" style="border-radius:20px">
+                        <div class="card-body">
+                            <span class="text-dark font-weight-bold" role="button" data-toggle="collapse"
+                                data-target="#collapseExample{{i}}" aria-expanded="false"
+                                aria-controls="collapseExample{{i}}">
+                                <h5 class="" type="button" data-toggle="collapse" data-target=""
+                                    style="color: var(--bs-blue); font-weight: 800;">{{i.nama_istilah }}</h5>
+                            </span>
+                            <hr>
+                            <div class="collapse show" id="collapseExample{{i}}">
+                                <div class="row">
+                                    <p class="card-text" style="color:#04195B; text-align: justify;">{{ i.penjelasan }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                {% empty %}
+                <p>Data Tidak Ditemukan.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %}
+{% block script %}
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const istilahItems = document.querySelectorAll(".istilah-item");
+        //const istilahItems = $(".istilah-item")
+        const contentContainer = document.getElementById("content");
+
+        filterButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const filterValue = this.getAttribute("data-filter");
+
+                istilahItems.forEach(item => {
+                    const firstChar = item.getAttribute("data-first-char");
+                    if (filterValue === "all" || firstChar === filterValue) {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+                this.classList.add("active");
+            });
+        });
+
+        // htmx update event listener
+        //contentContainer.addEventListener("htmx:afterOnLoad", function (event) {
+        // Handle data update or injection here
+        //});
+    });
+
+
+</script>
+
+{% endblock %}

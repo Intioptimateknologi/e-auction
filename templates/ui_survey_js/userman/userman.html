@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+
+{% endblock %}
+
+{% block content %}
+<h2>Userman: Username</h2>
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <!-- <th>id</th> -->
+            <th>isactive</th>
+            <th>email</th>
+            <th>username</th>
+            <th>mobile_number</th>
+            <th>nama_lengkap</th>
+            <th width="60px">Aksi</th>
+        </tr>
+    </thead>
+</table>
+
+<br>
+
+<div id="surveyContainer"></div>
+{% csrf_token %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+
+    $(document).ready(function(){
+        $.ajax({
+			url: 'http://iotekno.id:8000/userman/api/v1/Users/',
+			type: 'get',
+			dataType: 'json',
+			contentType: 'application/json',
+            beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa("rachmatg:P@ssw0rd.2019"));
+            },
+			success: function(data) {
+                const data_tabel = {data: data};
+
+                console.log(data_tabel);
+			},
+		});
+
+        $('#example').DataTable({
+            'ajax': {
+                        "url" : "http://iotekno.id:8000/userman/api/v1/Users/",
+                        "type" : "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+            'columns': [
+                {'data':'isactive'},
+                {'data':'email'},
+                {'data':'username'},
+                {'data':'mobile_number'},
+                {'data':'nama_lengkap'},
+            ],
+            "columnDefs": [
+                {
+                    targets: -1,
+                    data: null,
+                    defaultContent: '<button>Click!</button>',
+                },
+            ]
+        });
+
+        $('#example tbody').on('click', 'button', function () {
+            var data = table.row($(this).parents('tr')).data();
+            alert(data[0] + "'s salary is: " + data[5]);
+        });
+        // $('#example').DataTable({
+        //     "ajax": {url : "http://iotekno.id:8000/userman/api/v1/Users/",
+        //     type: "get",
+        //     dataType: "JSON",},
+        // });
+    });
+
+    Survey
+        .StylesManager
+        .applyTheme("defaultV2");
+
+    const surveyJson = {
+            "logoPosition": "right",
+            "completedHtml": "<p><h4>Data tersimpan.</h4></p>",
+            "pages": [
+            {
+                "name": "page1",
+                "elements": [
+                    {
+                    "type": "boolean",
+                    "name": "isactive",
+                    "title": "isactive"
+                    },
+                    {
+                    "type": "text",
+                    "name": "email",
+                    "title": "email",
+                    "inputType": "email"
+                    },
+                    {
+                    "type": "text",
+                    "name": "username",
+                    "title": "username"
+                    },
+                    {
+                    "type": "text",
+                    "name": "password",
+                    "title": "password"
+                    },
+                    {
+                    "type": "text",
+                    "name": "mobile_number",
+                    "title": "mobile_number"
+                    },
+                    {
+                    "type": "text",
+                    "name": "nama_lengkap",
+                    "title": "nama_lengkap"
+                    }
+            ]
+            }
+        ],
+        "completeText": "Save",
+        "widthMode": "responsive"
+    };
+
+    const survey = new Survey.Model(surveyJson);
+    survey.focusFirstQuestionAutomatic = false;
+
+    function kirim_data(data){
+        var csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+        $.ajax({
+			url: 'http://iotekno.id:8000/userman/api/v1/Users/',
+			type: 'post',
+            headers: {'X-CSRFToken': csrf_token},
+			dataType: 'json',
+			contentType: 'application/json',
+			data: data,
+            beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa("rachmatg:P@ssw0rd.2019"));
+            },
+			success: function(data) {
+				console.log(data.msg);
+                Swal.fire('Any fool can use a computer')
+                
+			},
+		});
+    }
+
+    survey.onComplete.add(function (sender) {
+        const results = JSON.stringify(sender.data);
+        kirim_data(results);
+    });
+
+    $(function() {
+        $("#surveyContainer").Survey({ model: survey });
+    }); 
+</script>
+{% endblock %}

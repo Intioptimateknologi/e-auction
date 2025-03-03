@@ -1,0 +1,99 @@
+{% load widget_tweaks %}
+
+<form id="myForm">
+<div id="modal" class="modal fade show" style="display:block;" role="dialog" >
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-edit circle-icon"></i>&nbsp;&nbsp;Ubah Data User</h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="username" class="nama_label">Username</label>
+                                {% render_field form.username|add_class:"form-control nospaceinput" %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nama_pengguna" class="nama_label">Nama Pengguna</label>
+                                {% render_field form.nama_lengkap|add_class:"form-control nospaceinput" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="telepon" class="nama_label">Telepon Pengguna</label>
+                                {% render_field form.mobile_number|add_class:"form-control nospaceinput" %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="email" class="nama_label">Email Pengguna</label>
+                                {% render_field form.email|add_class:"form-control nospaceinput" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="tipe_akun" class="nama_label">Jenis User</label>
+                                {% render_field form.user_type|add_class:"select2 form-control nospaceinput select2" %}
+                            </div>
+                        </div>
+                        <div class="col-6" >
+                            <div class="form-group">
+                                <label for="tipe_akun" class="nama_label">Status</label><br>
+                                {% render_field form.is_active|add_class:"form-checkbox nospaceinput checknya" %} &nbsp;&nbsp;<b>Aktif</b>
+                            </div>
+                        </div>
+                        <div class="col-6" >
+                            <div class="form-group d-none">
+                                <label for="tipe_akun" class="nama_label">Status</label><br>
+                                {% render_field form.first_login|add_class:"form-checkbox nospaceinput checknya" %} &nbsp;&nbsp;<b>Aktif</b>
+                            </div>
+                        </div>
+                        <div class="col-6" >
+                            <div class="form-group d-none">
+                                <label for="tipe_akun" class="nama_label">Status</label><br>
+                                {% render_field form.pending|add_class:"form-checkbox nospaceinput checknya" %} &nbsp;&nbsp;<b>Aktif</b>
+                            </div>
+                        </div>
+                    </div>                    
+                   
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="date">Masukan Masa Awal Berlaku User</label>
+                                {% render_field form.masaberlaku1|add_class:"form-control nospaceinput" %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="date">Masukan Masa Akhir Berlaku User</label>
+                                {% render_field form.masaberlaku2|add_class:"form-control nospaceinput" %}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

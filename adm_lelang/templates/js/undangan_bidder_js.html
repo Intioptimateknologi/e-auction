@@ -1,0 +1,34 @@
+$("#{{attribute.element}}").on("click",".download",function() {
+    id = this.id
+    swal.fire({
+        title: "Download Undangan",
+        text: "Mendownload Undangan?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/adm_lelang/api/v1/ambil_undangan/update_undangan/'+id+'/{{user.id}}/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    $.ajax({
+                        url: '/adm_lelang/api/v1/undangan_lelang/'+id+'/',
+                        method: "GET",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data) {
+                            window.open(
+                                data.file,
+                                '_blank' 
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    });
+});

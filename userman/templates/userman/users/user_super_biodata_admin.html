@@ -1,0 +1,339 @@
+{% block extrahead %}
+<!-- <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/survey-jquery"></script> -->
+
+<style>
+    .navbar {
+        height: 64px;
+        background-color: #007bff;
+      }
+    .brand-img {
+        height: 51.94px;
+    }
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+    .banner {
+        background: url(/static/img/portal/background-slider.png);
+        height: 768px;
+        width: 100%;
+    }
+    .logobesar {
+        position: absolute;
+        left: 85;
+        top: 209;
+    }
+    .portal_penjelasan {
+        position: absolute;
+        left: 85;
+        top: 411;
+        width: 643;
+    }
+    .button_yuk_mulai {
+        position: absolute;
+        left: 85;
+        top: 520;
+        width: 133;
+    }
+    .sdppi_side {
+        position: absolute;
+        right: 0;
+        top: 652;
+    }
+    .bi {
+        vertical-align: -.125em;
+        pointer-events: none;
+        fill: currentColor;
+      }
+      .nav-flush .nav-link {
+        border-radius: 0;
+      }
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 300px;
+        float: left;
+    }
+    .sv_row{
+        background-color: white;
+    }
+
+    .sv_p_title{
+        padding-left: 0.7em;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col col-md-12">
+        <div class="card mt-5" id="management_block">
+            <div class="card-header">
+                <div class="h4 float-start">Manajemen Users Biodata Admin</div>
+                <div hx-target="#management_block" hx-swap="outerHTML">
+                    <!-- <button hx-get="users/add/bidder/add" id="bidderpindahpage" type="button" class="btn btn-secondary float-end">bidder</button> -->
+                    <button hx-get="/userman/users/add/" type="button" class="btn btn-secondary float-end" id="editpindahpage" style="display:none;">Edit</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="form_survey"></div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; padding-right: 20px; padding-bottom: 20px;">
+                <button class="btn btn-danger" onclick="tombol_batal()" style="margin-right: 20px;">Batal</button>
+                <button class="btn btn-success" onclick="tombol_selanjutnya()">Simpan</button>
+            </div>    
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+(function () {
+    'use strict'
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  })()
+</script>
+<script>
+    var surveyDialog;
+    var fill_data;
+    var data_users;
+    var data_users_id;
+
+    $(document).ready(function() {
+        const label_tricky = document.getElementById('data_id_tricky');
+        const hasil = label_tricky.getAttribute('text');
+        data_users_id = hasil;
+        // survey_js();
+        // console.log(data_users_id);
+
+        $.ajax({
+            method: 'GET',
+            url: 'http://iotekno.id:8000/userman/api/v1/Users/'+hasil+'/',
+            contentType : 'application/json',
+            dataType : 'json',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa('rachmatg:P@ssw0rd.2019'));
+                },
+                success: function (data) {
+                    console.log(data);
+                    data_users = data;
+                    fill_data = 
+                    {
+                        "username": data.username,
+                        "nama_lengkap": data.nama_lengkap,
+                        "user_type": data.user_type,
+                    }
+
+                    survey_js();
+                },
+                error: function(error) {
+                    console.log(error);
+                    //$('#retValStatus').text("Ada masalah pada pengiriman data...");
+                }
+        });
+
+    });
+
+    function survey_js(){
+        var json = {
+            "title": "Pertanyaan",
+            "logoPosition": "right",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+            {
+            "type": "panel",
+            "name": "panel1",
+            "elements": [
+            {
+            "type": "text",
+            "name": "username",
+            "title": "Username",
+            "isRequired": true,
+            "hideNumber": true
+            },
+            {
+            "type": "text",
+            "name": "nama_lengkap",
+            "startWithNewLine": false,
+            "title": "Nama Pengguna",
+            "isRequired": true,
+            "hideNumber": true
+            },
+            {
+            "type": "dropdown",
+            "name": "user_type",
+            "title": "Hak Akses",
+            "isRequired": true,
+            "hideNumber": true,
+            "choices": [
+                {
+                "value": "A",
+                "text": "Admin"
+                },
+                {
+                "value": "B",
+                "text": "Bidder"
+                },
+                {
+                "value": "C",
+                "text": "Auctioner"
+                },
+                {
+                "value": "V",
+                "text": "View"
+                }
+                ]
+            },
+            {
+            "type": "panel",
+            "name": "panel2",
+            "elements": [
+                {
+                "type": "text",
+                "name": "nama_lengkap",
+                "isRequired": true,
+                "title": "Nama",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nip",
+                "startWithNewLine": false,
+                "isRequired": true,
+                "title": "NIP",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "jabatan",
+                "title": "Jabatan",
+                "isRequired": true,
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "jabatan_dalam_tim",
+                "startWithNewLine": false,
+                "isRequired": true,
+                "title": "Jabatan di Tim",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "active",
+                "isRequired": true,
+                "title": "Status",
+                "hideNumber": true,
+                "choices": [
+                {
+                "value": true,
+                "text": "Aktif"
+                },
+                {
+                "value": false,
+                "text": "Non Aktif"
+                }
+                ]
+                },
+                {
+                "type": "file",
+                "name": "sk_pengangkatan",
+                "isRequired": true,
+                "startWithNewLine": false,
+                "title": "Upload Surat Kuasa",
+                "hideNumber": true,
+                "showPreview": true,
+                "allowMultiple": false,
+                "acceptedTypes": ".pdf",
+                "maxSize": 2048000,
+                "isRequired": true,
+                }
+            ],
+            "title": "Daftar Perwakilan Perusahaan"
+            }
+            ]
+            }
+        ]
+        }
+        ],
+            "showTitle": false,
+            "showCompletedPage": false,
+            "showPageNumbers": false,
+            "showQuestionNumbers": "off",
+            "questionTitleLocation": "left",
+            "completeText": "Simpan",
+            "showNavigationButtons": "none",
+            "widthMode": "responsive"
+        };
+        Survey.StylesManager.applyTheme("darkblue");
+        surveyDialog = new Survey.Model(json,"form_survey");
+        surveyDialog.data = fill_data; 
+        surveyDialog.onComplete.add(sendDataToServer);
+    }
+
+    function sendDataToServer(sender) {
+        //send Ajax request to your web server.
+            var json_result = sender.data;
+
+            console.log(json_result);
+
+            var data_kirim = {
+                "nip": json_result.nip,
+                "jabatan_dalam_tim": json_result.jabatan_dalam_tim,
+                "jabatan": json_result.jabatan,
+                "users": json_result.users,
+                "sk_pengangkatan": json_result.sk_pengangkatan[0].content,
+                "active": json_result.active,
+                "users": data_users_id,
+            }
+
+            console.log(data_kirim);
+
+            $.ajax({
+                method: 'POST',
+                url: 'http://iotekno.id:8000/userman/api/v1/admin/',
+                contentType : 'application/json',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                dataType : 'json',
+                data: JSON.stringify(data_kirim),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Authorization', 'Basic ' + btoa('rachmatg:P@ssw0rd.2019'));
+                    },
+                    success: function (data) {
+                        swal.fire({
+                            title: "Tersimpan !",
+                            text: "Data Tersimpan",
+                            icon: "success"
+                        }).then(function() {
+                            location.reload();
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error.responseText);
+                        swal.fire({
+                            title: "Error !",
+                            text: error.responseText,
+                            icon: "error"
+                        })
+                    }
+            });
+        }
+
+    function tombol_batal(){
+        const myButton_bidder = document.getElementById('editpindahpage');
+        myButton_bidder.click();
+    }
+
+    function tombol_selanjutnya(){
+        surveyDialog.doComplete();
+    }
+</script>
+{% endblock %}

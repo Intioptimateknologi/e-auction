@@ -1,0 +1,23 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+{% block extrahead %}
+
+{% endblock %}
+{% block navbar %}
+{% if user.is_authenticated %}
+    {% include 'new_index/parts/navbar_admin.html' %}
+{% else %}
+    {% include 'new_index/parts/navbar_viewer.html' %}
+{% endif %}
+{% endblock %}
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">Profil</span>
+</div>
+<div class="container" style="padding-top: 20px; padding-bottom:100px;">
+    <div hx-get="/portal/get_profile" hx-trigger="load"></div>
+   
+
+</div>
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %} 

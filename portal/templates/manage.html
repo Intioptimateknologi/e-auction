@@ -1,0 +1,104 @@
+{% extends 'new_index/base1.html' %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block tambah_css %}
+{% endblock  %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="container" style="padding-top: 0px;">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Setting Portal<br></h1>
+            <hr>
+        </div>
+    </div>
+    <div class="card card-primary card-tabs">
+        <div class="card-header p-0 pt-1">
+            <div class="nav nav-tabs" id="tabs" hx-get="/portal/manage_banner/" hx-trigger="load delay:100ms" hx-target="#tabs" hx-swap="outerHTML">
+                <div class="nav-item">
+                    <a hx-get="/portal/manage_banner/" class="nav-link active" >Banner Slide</a>
+                </div>
+                <div class="nav-item">
+                    <a hx-get="/portal/manage_istilah/" class="nav-link text-bold" >Istilah Lelang</a>
+                </div>
+                <div class="nav-item">
+                    <a hx-get="/portal/manage_aturan/" class="nav-link text-bold" >Aturan Lelang</a>
+                </div>
+                <div class="nav-item">
+                    <a hx-get="/portal/manage_history/" class="nav-link text-bold" >History Lelang</a>
+                </div>
+                <div class="nav-item">
+                    <a hx-get="/portal/manage_mancanegara/" class="nav-link text-bold" >Lelang Mancanegara</a>
+                </div>
+                <div class="nav-item">
+                    <a hx-get="/portal/manage_content/" class="nav-link text-bold" >Kelola Konten</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block modal %}
+<!-- bidder list -->
+<!-- MODAL BANNER SLIDE -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="color:#0068f0">Tambah Banner Slide</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" enctype="multipart/form-data">
+                <form id="myForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nama_banner" class="nama_label">Nama Banner :</label>
+                                <input type="text" class="form-control" id="nama_banner" name="nama_banner">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="keterangan" class="nama_label">Keterangan :</label>
+                                <input type="text" class="form-control" id="keterangan" name="keterangan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Gambar</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="button" class="btn btn-danger" id="tombol_batal">Batal</button>
+                        <button type="submit" class="btn btn-primary ml-3" id="tombol_simpan">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL BANNER SLIDE -->
+{% endblock %}
+
+{% block script %}
+{% endblock  %}

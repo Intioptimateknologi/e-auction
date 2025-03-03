@@ -1,0 +1,34 @@
+$("#{{attribute.element}}").on("click",".download",function() {
+    id = this.id
+    swal.fire({
+        title: "Download Berita Acara",
+        text: "Mendownload berita acara?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/adm_lelang/api/v1/ambil_ba/update_undangan/'+id+'/{{user.id}}/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    $.ajax({
+                        url: '/adm_lelang/api/v1/ba/'+id+'/',
+                        method: "GET",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data) {
+                            window.open(
+                                data.file,
+                                '_blank' 
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    });
+});

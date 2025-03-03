@@ -1,0 +1,911 @@
+<div class="col-md-12 background_navtab">
+    <ul class="nav nav-pills nav-justified" id="myTab" role="tablist" style="padding-left:10px; overflow-x:auto;" >
+        {% for i in menu_group %}
+            <li class="nav-item" style="margin-top:10px;margin-bottom:10px;margin-right:4px; max-width:220px;" >
+                <a class="nav-link text-bold {% if forloop.first %} active {% endif %}" data-toggle="pill"  href="#t_{{i.menu.id}}"  >
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <span class="row judul_tab">
+                                <i class="judul_tab mr-2 {{i.menu.icon_class}}"></i>
+                                {{ i.menu.additional_text|safe }}
+                            </span>
+                            <span class="row judul_tab_bawah">{{ i.menu.additional_text2|safe }}</span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {% empty %}
+        <span class="badge badge-danger">User Tidak Memiliki Sub Tahapan pada Tahapan Ini</span>
+        {% endfor %}     
+    </ul>
+</div>  
+<div class="col-md-12" style="text-align:center; background:#4A91DC;padding-top:10px; padding-bottom:10px;">
+</div>               
+    <!-- Tab panes -->
+    <!-- <div class="tab-content col-md-12" style="padding-right:40px; padding-left:40px;padding-top:10px;">
+        {% for i in menu_group %}
+        {% if i.menu.id == id or not id and forloop.first %}
+        
+        
+        <div class="tab-pane  active " id="t_{{i.menu.id}}" role="tabpanel">
+            {% if i.menu.tahapan.attribute.type == "undangan" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row" >
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                        <div class="justify-content-end text-right col-2" style="text-align:right;">
+                            {% if i.status.text == "Sedang berlangsung" %}
+                            <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Undangan</button>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}
+            {% if i.menu.tahapan.attribute.type == "pengumuman" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row">
+                 
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                        <div class="justify-content-end text-right col-2" style="text-align:right;">
+                            {% if i.status.text == "Sedang berlangsung" %}
+                            <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Pengumuman</button>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}" >
+                    <div class="col-12" style="padding-top:20px;">
+                        {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                        <table id = "{{attribute.element}}"  class="tables2" style="width: 100%;">
+                        </table>
+                        {%else%}
+                        <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                        {%endif %}
+                    </div>
+                </div>
+                
+                {% endwith %} 
+            {% endif %}
+            {% if i.menu.tahapan.attribute.type == "ba" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row" >
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                        <div class="justify-content-end col-2" style="padding-left:22px;padding-top:0px;padding-bottom:0px;text-align:right;">
+                            {% if i.status.text == "Sedang berlangsung" %}
+                                <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-left"><i class="fa fa-plus-circle"></i> Tambah Draft BA</button>
+                            {% endif %}
+                        </div>
+                       
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                       
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}     
+            {% if i.menu.tahapan.attribute.type == "view" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row" >
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                       
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}                                        
+            {% if i.menu.tahapan.attribute.type == "view_bidder_download" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row" >
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                    {% if i.tahapan %}
+                        {% if i.status.flag == 'B'%}
+                            <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                        {%elif i.status.flag == 'N' %}
+                            <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                        {% else %}  
+                            <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                        {% endif%}
+                    {% else %}
+                        <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                    {% endif %}
+                        </div>
+                       
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}                                        
+            {% if i.menu.tahapan.attribute.type == "view_ba" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row" >
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                       
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}    
+            {% if i.menu.tahapan.attribute.type == "view_undangan" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row" >
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                        
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                        
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}  
+            {% if i.menu.tahapan.attribute.type == "view_pengumuman" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="row">
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %}  
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                       
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}" >
+                        
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}    
+            {% if i.menu.tahapan.attribute.type == "custom" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                                         
+                <div class="row">
+                    <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                        <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                    </div>
+                    <div class="row col-md-12" style="padding:10px;">
+                        <div class="justify-content-start col-10">
+                        {% if i.tahapan %}
+                            {% if i.status.flag == 'B'%}
+                                
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                            {%elif i.status.flag == 'N' %}
+                                
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% else %} 
+                                
+                                <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                            {% endif%}
+                        {% else %}
+                            <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                        {% endif %}
+                        </div>
+                        <div class="justify-content-end col-2" style="padding-left:22px;padding-top:0px;padding-bottom:0px;text-align:right;">
+                            {% if i.status.text == "Sedang berlangsung" %}
+                                {% if attribute.custom_button %}
+                                    {% for b in attribute.custom_button %}
+                                    <button type="button" id="{{b.button}}" class="btn btn-secondary float-left"><i class="{{b.icon}}"></i> {{b.title}}</button>&nbsp;&nbsp;
+                                    {% endfor %}
+                                {% endif %}
+                                {% if attribute.has_create %}
+                                    <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-left"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                       
+                    </div>
+                    <div style="margin:10px;" class="card col-12 {% if i.status.text == "Sudah berlangsung" %} disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}" >
+                    
+                        <div class="col-12" style="padding-top:20px;">
+                            {% if i.status.text == "Sedang berlangsung" or i.status.text == "Sudah berlangsung" %}
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                            </table>
+                            {%else%}
+                            <div class="callout callout-danger">Informasi : Belum Ada Jadwal Untuk Kegiatan Ini</div>
+                            {%endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}     
+            {% if i.menu.tahapan.attribute.type == "view_template" %}
+            {% with attribute=i.menu.tahapan.attribute %}
+            <div class="row" >
+                
+                <div class="col-md-12" style="padding-top:5px; padding-left:10px;">
+                    <div class="jdl_tab"><i class="{{i.menu.icon_class}} fa-2x"></i>&nbsp;&nbsp;{{ i.menu.additional_text3|safe }}</div>
+                </div>
+                <div class="row col-md-12" style="padding:10px;">
+                    <div class="justify-content-start col-10">
+                    {% if i.tahapan %}
+                        {% if i.status.flag == 'B'%}
+                            <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-warning bg-warning" style="padding:5px;">{{i.status.text}}</span></span>
+                        {%elif i.status.flag == 'N' %}
+                            <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-success bg-success" style="padding:5px;">{{i.status.text}}</span></span>
+                        {% else %}  
+                            <span class="rounded border border-dark" style="padding:10px; font-size:12px; ">Laman ini dapat diakses dari <font style="font-weight:700;">{{i.tahapan.tanggal_awal}} WIB </font>sampai dengan <font style="font-weight:700;">{{i.tahapan.tanggal_akhir}} WIB</font>&nbsp;&nbsp;<span class="rounded border-danger bg-danger" style="padding:5px;">{{i.status.text}}</span></span>
+                        {% endif%}
+                    {% else %}
+                        <p   class="rounded border border-dark" style="padding:10px; font-size:12px; "><span class="rounded border-secondary bg-secondary" style="padding:5px;">Laman ini tidak dapat diakses karena belum ada jadwal pada tahapan ini</span></p>
+                    {% endif %}
+                    </div>
+                    <div class="justify-content-end col-2" style="padding-left:22px;padding-top:20px;padding-bottom:60px;text-align:right;">
+                        {% if i.status.text == "Sedang berlangsung" %}
+                        {% if attribute.custom_button %}
+                            {% for b in attribute.custom_button %}
+                            &nbsp;&nbsp;<button type="button" id="{{b.button}}" class="btn btn-danger float-left" style="margin-right:10px;"><i class="{{b.icon}}"></i> {{b.title}}</button>
+                            {% endfor %}
+                            
+                        {% endif %}
+                        {% if attribute.has_create %}
+                            <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-left"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div style="margin:10px;" class="card col-12  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                    
+                    {% with ""|add:attribute.template_name as template %}
+                        {% include template %}
+                    {% endwith %}
+                </div>
+            </div>
+            {% endwith %} 
+        {% endif %}                            
+                   
+        </div>
+        {% endif %}  
+        {% endfor %}
+    </div> -->
+
+    <!-- Tab panes -->
+    <div class="tab-content col-md-12 mt-4">
+        {% for i in menu_group %}
+        <div class="tab-pane {% if forloop.first %} active {% endif %}" id="t_{{i.menu.id}}" role="tabpanel">
+            {% if i.menu.tahapan.attribute.type == "undangan" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row"  style="display: flex; justify-content: space-between;">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {%elif i.status.flag == 'N' %}
+                                            <br>
+                                            <p class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {% else %}  
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                    {% else %}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</tahapan_bawah_judul>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                   
+                                    {% if i.status.text == "Sedang berlangsung" %}
+                                        <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}
+            {% if i.menu.tahapan.attribute.type == "pengumuman" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row"  style="display: flex; justify-content: space-between;">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {%elif i.status.flag == 'N' %}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                            {% else %}  
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    {% if i.status.text == "Sedang berlangsung" %}
+                                    <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}
+            {% if i.menu.tahapan.attribute.type == "ba" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row"  style="display: flex; justify-content: space-between;">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {%elif i.status.flag == 'N' %}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {% else %}  
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    {% if i.status.text == "Sedang berlangsung" %}
+                                        <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                                        {% if attribute.custom_button %}
+                                            {% for b in attribute.custom_button %}
+                                                <button type="button" id="{{b.button}}" class="btn btn-secondary float-right"><i class="{{b.icon}}"></i> {{b.title}}</button>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                    {% endif %}
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2 {{attribute.element}}" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}     
+            {% if i.menu.tahapan.attribute.type == "view" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {%elif i.status.flag == 'N' %}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {% else %}  
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                       
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    {% comment %} <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button> {% endcomment %}
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}                                        
+            {% if i.menu.tahapan.attribute.type == "view_bidder_download" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {%elif i.status.flag == 'N' %}
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                            {% else %}  
+                                                <br>
+                                                <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    <!--button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button-->
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}                                        
+            {% if i.menu.tahapan.attribute.type == "view_ba" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {%elif i.status.flag == 'N' %}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {% else %}  
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    <!-- <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button> -->
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}    
+            {% if i.menu.tahapan.attribute.type == "view_undangan" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {%elif i.status.flag == 'N' %}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {% else %}  
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        
+                                        
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    <!-- <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}  
+            {% if i.menu.tahapan.attribute.type == "view_pengumuman" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {%elif i.status.flag == 'N' %}
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {% else %}  
+                                            <br>
+                                            <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        {% comment %} <p class="row tahapan_bawah_judul badge badge-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</p> {% endcomment %}
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    <!-- <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}    
+            {% if i.menu.tahapan.attribute.type == "custom" %}
+                {% with attribute=i.menu.tahapan.attribute %}
+                <div class="card custom" >
+                    <div class="card-header">
+                        <div class="col-md-12 col-sm-12 table-responsive">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                    <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                                    {% if i.tahapan %}
+                                        {% if i.status.flag == 'B'%}
+                                        <br>
+                                        <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {%elif i.status.flag == 'N' %}
+                                        <br>
+                                        <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                        {% else %}  
+                                        <br>
+                                        <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                        {% endif%}
+                                        {% comment %} <p class="row tahapan_bawah_judul badge badge-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</p> {% endcomment %}
+                                    {% else %}
+                                        <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col">
+                                    {% if i.status.text == "Sedang berlangsung" %}
+                                    {% if attribute.custom_button %}
+                                        {% for b in attribute.custom_button %}
+                                        <button type="button" id="{{b.button}}" class="btn btn-secondary float-right"><i class="{{b.icon}}"></i> {{b.title}}</button>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if attribute.has_create %}
+                                        <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                        <div class="col" style="overflow-x:scroll;">
+                            <table id = "{{attribute.element}}" class="tables2" style="width: 100%;">
+                                <thead>                            
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %} 
+            {% endif %}     
+            {% if i.menu.tahapan.attribute.type == "view_template" %}
+            {% with attribute=i.menu.tahapan.attribute %}
+            <div class="card" >
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="row">
+                            <div class="col">
+                                <span class="row bawah_judul_tab">{{ i.menu.additional_text3|safe }}</span>
+                                <span class="row bawah_judul_tab2">{{ i.menu.additional_text4|safe }}</span>
+                            {% if i.tahapan %}
+                                    {% if i.status.flag == 'B'%}
+                                    <br>
+                                    <span class="row tahapan_bawah_judul btn btn-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                    {% elif i.status.flag == 'N' %}
+                                    <br>
+                                    <span class="row tahapan_bawah_judul btn btn-success">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>
+                                    {% else %}  
+                                    <br>
+                                    <span class="row tahapan_bawah_judul btn btn-danger">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</span>  
+                                    {% endif%}
+                                    {% comment %} <p class="row tahapan_bawah_judul badge badge-warning">{{i.status.text}} ({{i.tahapan.tanggal_awal}} s/d {{i.tahapan.tanggal_akhir}})</p> {% endcomment %}
+                                {% else %}
+                                    <span class="row tahapan_bawah_judul btn btn-secondary">Info Tahapan belum ada</span>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if i.status.text == "Sedang berlangsung" %}
+                                {% if attribute.custom_button %}
+                                    {% for b in attribute.custom_button %}
+                                    <button type="button" id="{{b.button}}" class="btn btn-secondary float-right"><i class="{{b.icon}}"></i> {{b.title}}</button>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if attribute.has_create %}
+                                    <button type="button" id="{{attribute.tambah_btn}}" class="btn btn-primary float-right"><i class="fa fa-plus-circle"></i> Tambah Baru</button>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body  {% if i.status.text == "Sudah berlangsung" %}disabledbutton_sudahberlangsung{% elif i.status.text == "Belum berlangsung" or not i.tahapan %}disabledbutton_belumberlangsung{% else %}{% endif %}">
+                    {% with ""|add:attribute.template_name as template %}
+                        {% include template %}
+                    {% endwith %}
+                </div>
+            </div>
+            {% endwith %} 
+        {% endif %}                            
+                   
+        </div>
+        {% endfor %}
+    </div>
+</div>   
+

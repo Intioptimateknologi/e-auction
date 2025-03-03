@@ -1,0 +1,189 @@
+{% extends 'new_index/base1_bidder.html' %}
+{% load static %}
+{% block extrahead %}
+<head>
+</head>
+<style>
+    .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    }
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    }
+
+    .navbar{
+        padding-left: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+    }
+
+</style>
+{% endblock %}
+ 
+<body style="background: rgb(246,248,252);">
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Pemeriksaan Kelengkapan</h1>
+                <hr>
+            </div>
+        </div>
+       
+        <div class="row p-t-10">
+            <div class="col-md-1">
+                <label  class="nama_label">Tahun</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!-- <label  class="nama_label">Test</label> -->
+                    <select name="" id="search_per" class="form-control">
+                        <option value="" selected></option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label  class="nama_label">Judul</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!-- <label  class="nama_label">Test</label> -->
+                    <select name="" id="search_per_2" class="form-control">
+                        <option value="" selected></option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" >Cari</button>
+                </div>
+            </div>
+            <!-- <div class="col-md-4" style="text-align:right;">
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahPermohonanKeikutsertaan" onclick="showModal()">+ Tambah</button>
+                </div>
+            </div> -->
+            
+        </div>
+        <div class="card p-3">
+           
+            
+            <div class="row">
+                <div class="col" >
+                    <div>
+                        <table class="table table-striped" id="table-pemeriksaan-kelengkapan">
+                            <thead>
+                              <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Tahun</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">Nama Perusahaan</th>
+                                <th scope="col">Sampul 1</th>
+                                <th scope="col">Bid bond</th>
+                                <th scope="col">Sampul 2</th>
+                                <!-- <th scope="col">Berita Acara</th> -->
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in '123456789'|make_list %}
+                              <tr>
+                                <th scope="row">{{i}}</th>
+                                <td>2023</td>
+                                <td>Judul {{i}}</td>
+                                <td>PT {{i}}</td>
+                                <td>Ada</td>
+                                <td>Ada</td>
+                                <td>Ada</td>
+                                <!-- <td>
+                                    <a href="">Lihat BA</a>
+                                </td> -->
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+
+    
+
+
+</body>
+{% block script %}
+
+<script>
+    function showModal(){
+        $("#modalTambahPermohonanKeikutsertaan").modal('show');
+    }
+    $("#table-pemeriksaan-kelengkapan").DataTable();
+            
+    
+</script>
+
+{% endblock %}

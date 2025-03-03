@@ -1,0 +1,37 @@
+{% load django_tables2 %}
+{% load i18n %}
+{% block table-wrapper %}
+    {% block table %}
+    <div class="col-md-12" style="padding:10px;">
+    {% for row in table.paginated_rows %}
+    <div class="col-md-12">
+        <div class="col-md-12">
+            
+        {% for column, cell in row.items %}
+            <div class="row">
+            {% if column.localize == None %}
+                {% if column.header == "Nomor" %}
+                <div style="font-size:12px; margin-bottom:5px;font-weight:400; border:1px solid #142b72; padding:4px; border-radius:5px;background-color:#142b72; color:white; ">Siaran Press Nomor : {{ cell }}</div>
+                {% elif column.header == "Judul" %}
+                <div  style="font-size:24px; margin-bottom:10px;font-weight:800; color:#142b72;">{{ cell }}</div>
+                {% elif column.header == "Tanggal Penetapan" %}
+                <div class="font-size:10px;  text-secondary" style="margin-bottom:30px;font-weight:400;">Ditetapkan pada Tanggal {{ cell }}</div>
+                {% elif column.header != "Image"  %}
+                <div class="col-md-12 text-justify" style="margin-bottom:20px;font-size:12px; color:#142b72;font-family: Rubik,sans-serif; text-rendering: optimizeLegibility!important;-webkit-font-smoothing: antialiased!important;">{{ cell|linebreaks }}</div>
+                {% endif %}
+            {% else %}
+                {% if column.localize %}
+                <div class="col-md-2">{{column.header}}</div><div class="col-md-10">{{ cell|localize }}</div>
+                {% else %}
+                <div class="col-md-2">{{column.header}}</div><div class="col-md-10">{{ cell|unlocalize }}</div>
+                {% endif %}
+            {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    {% endblock table %}
+
+{% endblock table-wrapper %}

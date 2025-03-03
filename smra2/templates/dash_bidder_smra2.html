@@ -1,0 +1,965 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+
+{% block extrahead %}
+<style>
+  .pvtTotal, .pvtTotalLabel, .pvtGrandTotal {display: none}
+</style>
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+{% block konten_isi %}
+{% csrf_token %} 
+ 
+
+          
+{% add_judul_bidder user.id item_lelang.id "/smra2/dashboard_bidder/" "Dashboard Putaran SMRA" %}
+  <div class="col-md-12" style="padding-left:30px; padding-top:30px; padding-right:30px;">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="#tabone" class="active nav-link" data-toggle="pill" role="tab">Putaran SMRA </a> </li>
+            <li class="nav-item"> <a class="nav-link text-bold" href="#tabtwo" data-toggle="pill" role="tab">Penawaran Sah</a> </li>
+            <li class="nav-item"> <a class="nav-link text-bold" href="#tidaksah" data-toggle="pill" role="tab">Penawaran Tidak Sah</a> </li>
+            <li class="nav-item"> <a href="#putaran" class="nav-link text-bold" data-toggle="pill" role="tab">Jadwal Putaran </a> </li>
+            <li class="nav-item">   
+              <div class="form-inline">
+                <label class="nav-link text-bold">Perwakilan Perusahaan Yang Akan Mengesahkan Penawaran</label>
+                <select class='form-control' data-bind="options: $root.wakil_bidder, optionsText:'nama',value: $root.selectedWakil"></select>
+              </div>
+            </li>
+  
+           
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel" style="background-color:white">
+              <span data-bind="visible:connected1" class="btn bg-green">SSE ON <i class="fas fa-link"></i></span>
+              <span data-bind="visible:connected2" class="btn bg-green">Background ON <i class="fas fa-link"></i></span>
+              <div class="row pt-3 pl-5 bg-white" data-bind='foreach: allItems()'>
+                <div class="card w-100">
+                  <div class="card-header row" style="background-color:#032056;">
+                    <div class="col col-md-4">
+                      <span class="text-white h1 text-bold">Pita Frekuensi Radio </span><span  data-bind='text: band()' class="text-white h1 text-bold"></span>
+                    </div>
+                    <div class="col col-md-8 text-right">
+                      <span class="text-white h6 btn btn-outline-light">Jumlah Blok<br/><span scope="row" data-bind='text: max_block()' class="h3 text-bold"></span> blok</span>
+                      <span class="text-white h6 btn btn-outline-light">Spectrum Cap<br/><span scope="row" data-bind='text: spectrum_cap()'  class="h3  text-bold"></span> blok</span>    
+                      <span class="text-white h6 btn btn-outline-light">Harga Dasar Penawaran<br><span scope="row" data-bind='text: min_price_rp()'  class="h3  text-bold"></span> per blok</span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-2">
+                        <div class="card">
+                          <div class="card-header bg-dark text-center">
+                              
+                            <i class="fa fa-arrow-rotate-right"></i>&nbsp;&nbsp;<br><b>Putaran</b>
+                            
+                          </div>
+                          <div class="card-body text-center"  style="height:200px">
+                            <!-- ko if: status_round() !== 'INIT' --> 
+                            <span scope="row" class="text-bold h1 text-black" data-bind='text: round'></span>
+                            <!-- /ko -->
+                             <!-- ko if: khusus()==true -->
+                             <br><span scope="row" class="text-bold h5 btn bg-danger">Khusus</span>
+                             <!-- /ko -->
+                             <!-- ko if: status_round() == 'INIT' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-black">INISIASI</span>
+                             <!-- /ko --> 
+                             
+                             <!-- ko if: status_round() == 'START' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-green">MULAI</span>
+                             <!-- /ko -->
+                             <!-- ko if: status_round() == 'STOP' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-blue">VALIDASI</span>
+                             <!-- /ko -->
+                             <!-- ko if: status_round() == 'WAIT' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-warning">TUNGGU</span>
+                             <!-- /ko -->
+                             <!-- ko if: status_round() == 'FINAL' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-red">SELESAI</span>
+                             <!-- /ko -->
+                             <!-- ko if: status_round() == 'CLOSED' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-gray">BERHENTI</span>
+                             <!-- /ko -->
+                              <!-- ko if: status_round() == 'SUSPEND' --> 
+                              <br><span scope="row" class="text-bold h5 btn bg-gray">DITUNDA</span>
+                              <!-- /ko -->
+                             <!-- ko if: status_round() == 'NOSCHEDULE' --> 
+                             <br><span scope="row" class="text-bold h5 btn bg-gray">BERHENTI<br>TIDAK ADA JADWAL</span>
+                             <!-- /ko -->
+                           
+                          </div>
+                        </div>
+                      </div>
+                     
+                      <div class="col-4">
+                        <div class="card">
+                          <div class="card-header bg-dark text-center">
+                            <i class="fa fa-money"></i>&nbsp;&nbsp;<br><b>Harga  Penawaran Pada Putaran Ini</b>
+                          </div>
+                          <div class="card-body text-center"  style="height:200px">
+                            <!-- ko if: status_round() !== "FINAL"  -->
+                            <!-- ko if: status_round() !== "INIT" -->
+                            <!-- ko if: status_round() !== "CLOSED" -->
+                            <span class="text-blue h6">Minimum</span><br>
+                            <span scope="row" class="text-bold h1 text-black" style="font-size: 2vw" data-bind='text: prev_price_rp'></span>
+                            <!-- ko if: khusus()==true -->
+
+                              <br> <span class="text-blue h6">Maksimum</span><br>
+                              <span scope="row" class="text-bold h1 text-black" style="font-size: 2vw" data-bind='text: ext_data().max_price'></span>
+                            <!-- /ko -->
+                            
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- /ko -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="card">
+                          <div class="card-header bg-dark text-center">
+                            <i class="fa fa-hourglass"></i>&nbsp;&nbsp;<br><b>Mulai</b>
+                          </div>
+                          <div class="card-body text-center" style="height:200px">
+                            <!-- ko if: status_round() !== 'CLOSED' --> 
+                            <span scope="row" class="text-bold h3 text-blue" data-bind='html: mulai_text()'></span>
+                            <!-- /ko -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="card">
+                          <div class="card-header bg-dark text-center">
+                            <i class="fa fa-hourglass-end"></i>&nbsp;&nbsp;<br><b>Berakhir</b>
+                          </div>
+                          <div class="card-body text-center"  style="height:200px">
+                            <!-- ko if: status_round() !== 'CLOSED' --> 
+                            <span scope="row" class="text-bold h3 text-blue" data-bind='html: selesai_text()'></span>
+                            <!-- /ko -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="card">
+                          <div class="card-header bg-dark text-center">
+                            <i class="fa fa-hourglass-half"></i>&nbsp;&nbsp;<br><b>Sisa</b>
+                          </div>
+                          <div class="card-body text-center"  style="height:200px">
+                            <!-- ko if: status_round() == 'WAIT' -->   
+                            <span scope="row" class="text-bold h1 text-green" data-bind='html: sisa()'></span>
+                            <!-- /ko -->
+                            <!-- ko if: status_round() == 'START' -->
+                            <span scope="row" class="text-bold h1 text-red" data-bind='html: sisa()'></span>
+                            <!-- /ko -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- ko if: penawaran>0 --> 
+                   
+                    <!-- /ko-->
+                  </div>
+                  <div class="card-footer">
+                    <!-- ko if: penawaran() > 0 --> 
+                    <div class="col-12 ">
+                      <div class="">
+                        <div class=" text-center h3">
+                          <div class="callout callout-danger">Penawaran Obyek Seleksi untuk Pita <span  data-bind='text: band() '></span> telah dilakukan dengan jumlah blok sebanyak <span  data-bind='text: block()'></span> 
+                          blok dengan Harga Penawaran per Blok sebesar Rp <span  data-bind="text: penawaran(), inputmask: { value: penawaran(), alias: 'currency' }"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /ko-->
+                    <!-- ko if: status_round() !== "FINAL"  -->
+                    <!-- ko if: status_round() !== "INIT" -->
+                    <!-- ko if: status_round() !== "CLOSED" -->
+                    <!-- ko if: penawaran() !== '' --> 
+                    <!-- ko ifnot: lock() --> 
+                    <div class="row">
+                      <button class="btn btn-warning btn-block" data-bind="click: $parent.bid"  style="border-radius:20px; " >
+                        <div id="submit_btn_wait" data-bind="visible: $parent.menunggu"  role="status">
+                          <span class="sr-only">Tunggu...</span>
+                        </div>                
+                        Sampaikan Jumlah Blok dan Harga Penawaran untuk Pita <span  data-bind='text: band() '></span> Ini
+                      </button>
+                    </div>
+                    <!-- /ko-->
+                    <!-- /ko-->
+                    <!-- /ko-->
+                    <!-- /ko-->
+                    <!-- /ko-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                          <span class="bawah_judul_tab" >Penawaran Sah&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col" style="overflow-x: auto;">
+                        <table  id="t_hasil" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div>
+            <div class="tab-pane fade" id="tidaksah" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                          <span class="bawah_judul_tab" >Penawaran Tidak Sah&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col" style="overflow-x: auto;">
+                        <table  id="t_hasil2" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div>
+            <div class="tab-pane" id="putaran" role="tabpanel">
+              <div class="card">
+                  <div class="card-header">
+                      <div class="col-md-12 col-sm-12 table-responsive">
+                          <div class="form-group form-inline">
+                              <span class="bawah_judul_tab" >Jadwal Putaran Lelang&nbsp;</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="col">
+                          <table  id="t_putaran" class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>item_lelang</th>
+                                      <th>item_detail_lelang</th>
+                                      <th>persyaratan</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div> 
+            </div>
+            
+            <!--div class="tab-pane" id="spesimen" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                            <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Jadwal Putaran Lelang&nbsp;</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col">
+                        <table  id="t_putaran" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal_bid">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h4>Formulir Penawaran Harga</h4>
+          <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Perwakilan Perusahaan Yang Akan Mengesahkan Penawaran</label>
+            <select class='form-control' data-bind="options: $root.wakil_bidder, optionsText:'nama',value: $root.selectedWakil"></select>
+          </div>
+          <div class="row" data-bind='foreach: penawaran'>
+            
+            <div class="col-12">
+              <label>Ketentuan Penawaran</label>
+            </div>
+            <div class="col-4">
+              <div class="card">
+                <div class="card-header bg-dark text-center">
+                  <i class="fa fa-square"></i>&nbsp;&nbsp;<b>Maks Blok</b>
+                </div>
+                <div class="card-body text-center"  style="height:200px">
+                  
+                  <span class="text-bold h3 text-blue" style="font-size:4rem;text-align:center;font-weight:800;" data-bind='text: prev_block'></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-header bg-dark text-center">
+                  <i class="fa fa-money-check"></i>&nbsp;&nbsp;<b>Harga Penawaran Per Blok</b>
+                </div>
+                <div class="card-body text-center"  style="height:200px">
+                  <span class="text-blue h6">Minimum</span><br>
+                  <span  class="text-bold h3 text-blue currency" style="font-size:4rem;text-align:center;font-weight:800;" data-bind="text: data.prev_price_rp"></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <label>Jumlah Blok dan Harga Penawaran</label>
+            </div>
+            <div class="col-4">
+              <div class="card">
+                <div class="card-header bg-green text-center">
+                  <i class="fa fa-cube"></i>&nbsp;&nbsp;<b>Jumlah Blok Penawaran</b>
+                </div>
+                <div class="card-body text-center"  style="height:200px">
+                  <input class='form-control required' style="border:1px solid #6c757d;text-align:center; height: calc(7.25rem + 2px);font-size:4rem;font-weight:800;" data-bind='value: block, uniqueName: true' />
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-header bg-green text-center">
+                  <i class="fa fa-money-bill-wave"></i>&nbsp;&nbsp;<b>Harga Penawaran Per Blok</b>
+                </div>
+                <div class="card-body text-center"  style="height:200px">
+                  <input class='form-control required' style="border:1px solid #6c757d;text-align:center; height: calc(7.25rem + 2px);font-size:4rem;font-weight:800;" data-bind="value: price, disable: lock, inputmask: { value: price, alias:'currency'}" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+          
+              <div class="col-md-12">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal">Batal</button>
+                      </div>
+                      <div class="col-md-6">
+                          <input type="submit" class="btn btn-primary btn-block" data-bind='disable: locked, click: kirim_bid' value="Kirim Blok dan Harga Penawaran">
+                      </div>
+                  </div>
+              </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+
+
+  {% endblock %}
+  {% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/static/js/currency.js"></script>
+  <script src="/static/js/pivottable.js"></script>
+  <script src="/static/js/countdown.js"></script>
+  <script>
+    function komapperToKO(src) {
+      var mapped = [];
+      var map = function (obj) {
+          obj = ko.unwrap(obj);
+          if (obj === null
+              || obj === undefined
+              || typeof obj === "number"
+              || typeof obj === "boolean"
+              || typeof obj === "string"
+              || typeof obj === "function"
+              ) {
+              return obj;
+          }
+          else if (obj instanceof Array) {
+              var ares = [];
+              for (var i = 0; i < obj.length; i++) {
+                  ares.push(map(obj[i]));
+              }
+              return ko.observableArray(ares);
+          }
+          else {
+              var prev = mapped.find(x => x.src === obj);
+              if (prev)
+                  return prev.dst;
+              var res = {};
+              mapped.push({ src: obj, dst: res });
+  
+              for (var p in obj) {
+                  var pv = ko.unwrap(obj[p]);
+                  if (typeof pv === "function") {
+                      res[p] = pv;
+                  }
+                  else if (pv instanceof Array) {
+                      res[p] = map(pv);
+                  }
+                  else {
+                      res[p] = ko.observable(map(pv));
+                  }
+              }
+              return res;
+          }
+      }
+      return map(src);
+    }
+    
+    function komapperToJS(src) {
+      var mapped = new Map(); // Store mapped objects to avoid circular references
+  
+      function map(obj) {
+          obj = ko.unwrap(obj); // Unwrap observable
+  
+          if (obj === null || obj === undefined || 
+              typeof obj === "number" || 
+              typeof obj === "boolean" || 
+              typeof obj === "string" || 
+              typeof obj === "function") {
+              return obj;
+          } 
+          else if (Array.isArray(obj)) { // Handle arrays
+              return obj.map(map);
+          } 
+          else if (typeof obj === "object") { // Handle objects
+              if (mapped.has(obj)) return mapped.get(obj); // Avoid circular references
+  
+              var res = {};
+              mapped.set(obj, res);
+  
+              for (var key in obj) {
+                  if (obj.hasOwnProperty(key)) {
+                      res[key] = map(obj[key]);
+                  }
+              }
+              return res;
+          }
+          return obj;
+      }
+      return map(src);
+    }
+  
+  </script>
+  <script src="/static/js/eauctions_modal.js"></script>
+  <script>
+  
+  $(document).ready(function () {    
+    var uri = '/events/bidder/';
+    var es = new ReconnectingEventSource(uri);
+
+    ko.bindingHandlers.inputmask =
+    {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var mask = valueAccessor();    
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                $(element).on('focusout change', function () {
+                    if ($(element).inputmask('isComplete')) {
+                        observable($(element).val());
+                    } else {
+                        observable(null);
+                    }
+                });
+            }
+            $(element).inputmask(mask);
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var mask = valueAccessor();
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                var valuetoWrite = observable();
+                $(element).val(valuetoWrite);
+            }
+        }
+    };
+
+    countdown.setLabels(
+      '|s|m|h|',
+      '|s|m|h|',
+      ' : ');
+
+    // select2
+    //$('#nmlelang').select2();
+    // var uri = '/events/';
+    // var es = new ReconnectingEventSource(uri);
+    
+    // moment.locale('id'); 
+    var hasilModel = moment.locale('id'); 
+    var viewModel = {
+      connected1: ko.observable(false),
+      connected2: ko.observable(false),
+      selectedWakil : ko.observable(),
+      wakil_bidder: ko.observableArray([
+        {% for i in perwakilan %}
+          {'id': '{{i.id}}', 'nama': '{{i.nama_lengkap}}' },
+        {% endfor %}
+      ]),
+      eli_sekarang: ko.observable(), // Initially blank
+      eli_sebelum: ko.observable(), // Initially blank
+      first: ko.observable(true),
+      time_start: ko.observable(),
+      menunggu: ko.observable(false),
+      time_end: ko.observable(),
+      time_for_start:  ko.observable(false),
+      sisa: ko.observable(0),
+      allItems: ko.observableArray([]),
+      bidItems: ko.observableArray([]),
+      mulai: ko.observable(),
+      selesai: ko.observable(),
+      periode: ko.observable(),
+      status: ko.observable(),
+      waspada: ko.observable(false),
+      error_message: ko.observable(),
+      putaran: ko.observable(),
+      last_putaran: ko.observable(1),
+      mulai_putaran: ko.observable(),
+      penawaran: ko.observableArray([]),
+      locked: ko.observable(false),
+      
+
+      kirim_bid: function(data) {       
+        let valid = true;
+        data = komapperToJS(data.penawaran);
+
+        error_message = "";
+        console.log(data);
+        
+        for (i=0;i<data.length;i++) {
+          
+          if (isNaN(data[i].price)) {
+            v = data[i].price.replaceAll(",","");
+            data[i].price = parseFloat(v);
+          }
+
+          if (isNaN(data[i].data.ext_data.min_price)) {
+            v = data[i].data.ext_data.min_price;
+            console.log(v);
+            v = v.replaceAll(",","");
+            v = v.replaceAll("Rp","");
+            data[i].data.ext_data.min_price = currency(parseFloat(v));
+          }
+
+          if ((data[i].data.ext_data.max_price) & (isNaN(data[i].data.ext_data.max_price))) {
+            v = data[i].data.ext_data.max_price.replaceAll(",","");
+            v = v.replaceAll("Rp","");
+            data[i].data.ext_data.max_price = currency(parseFloat(v));
+          }
+
+          
+          if (data[i].spectrum_cap<parseInt(data[i].block)) 
+          {
+            valid = false;
+            error_message = "Blok melebihi spectrum cap.";
+          }
+          if (data[i].data.round==1) {
+            if (parseInt(data[i].block)!=parseInt(data[i].prev_block)) {
+              valid = false;
+              error_message = "Blok harus sama di putaran pertama";
+            } else
+            valid = true;
+          }
+          
+          if (data[i].data.khusus == true) {
+            
+            if (parseInt(data[i].block)!=parseInt(data[i].prev_block)) {
+              valid = false;
+              error_message = "Blok harus sama di putaran sebelumnya";
+            } else
+            valid = true;
+          }
+          else {
+            if (parseInt(data[i].block)>parseInt(data[i].prev_block)) {
+              valid = false
+              error_message = "Blok lebih besar dari blok sebelumnya";  
+            }
+            if (parseInt(data[i].block) == 0)
+            {
+              valid = false;
+              error_message = "Blok tidak boleh 0 (nol)";
+            }
+          }
+          if (parseFloat(data[i].price) % 1000000 != 0)
+          {
+            valid = false;
+            error_message = "Harga harus kelipatan 1.000.000,00";
+          }
+          if ((parseFloat(data[i].price)<parseFloat(data[i].prev_price)) && (data[i].prev_price>0)) {
+            valid = false;
+            error_message = "Penawaran lebih kecil dari penawaran minimal";  
+            }
+          if (data[i].data.ext_data)
+          {
+            if ((parseFloat(data[i].price) > data[i].data.ext_data.max_price) && (data[i].data.ext_data.max_price>0) ) {
+              valid = false;
+              error_message = "Harga tidak boleh melewati " + currency(data[i].data.ext_data.max_price);
+            }
+//            if ((parseFloat(data[i].price)<parseFloat(data[i].data.ext_data.min_price)) && (data[i].data.ext_data.min_price>0)) {
+          }
+        }
+        if (!valid) {
+            Swal.fire("Penawaran ada yang salah. " + error_message)
+            valid = false;
+        }
+        else {
+          data[0].perwakilan = viewModel.selectedWakil();
+          console.log(data);
+          Swal.fire({
+            title: 'Apakah Anda Yakin Dengan Jumlah Block dan Harga Penawaran Ini?',
+            text: "Anda tidak dapat membatalkan ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya dan Lanjutkan!',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              waitingPopup = Swal.fire({
+                title: "Menunggu pengiriman penawaran selesai",
+                html: "Silakan tunggu!<br>",
+                allowOutsideClick: false,
+                allowEscapeKey: false,  
+                didOpen: () => {
+                    Swal.showLoading();
+                    },
+                });
+                console.log('informasi');
+              $("#modal_bid").modal('toggle');
+              //id = data[0].data.id;
+              item_llg = data[0].data.item_lelang;
+              $.ajax({
+                type: 'POST',
+                method: 'POST',
+                contentType:"application/json; charset=utf-8",
+                dataType: "json",
+                headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value },
+                url: '/smra2/api/v1/round_smra/'+data[0].data.id+'/submit_bid/',
+                data: JSON.stringify(data),
+                success: function (response) {
+                  waitingPopup.close();
+                  if (response.step=="document") {
+                    Swal.fire("Gagal di pengiriman dokumen ke e-Sign: " + response.status)
+                    viewModel.penawaran([]);
+                    viewModel.locked(false);
+                  }
+                  else if (response.step=="session"){
+                    if (response.session.errorCode=="0") {
+                //      if (response.session=="0") {
+                      //Swal.fire(response.session.data.tokenSession);
+                      Swal.fire({
+                        title: 'Masukkan Kode Verifikasi PERURI',
+                 //       html: `<input type="hidden" id="putaran" class="swal2-input" value="`+response.putaran+`"><input type="hidden" id="bdr" class="swal2-input" value="`+ response.bidder +`"><input type="hidden" id="wakil" class="swal2-input" value="`+ parseInt(response.wakil) +`"><input type="hidden" id="bbox" class="swal2-input" value="`+ response.bbox +`"><input type="hidden" id="item_lelang" class="swal2-input" value="`+response.item_lelang+`"><input type="hidden" id="jwt" class="swal2-input" value="`+response.jwt+`"><input type="hidden" id="fileid" class="swal2-input" value="`+response.fileid+`"><input type="text" disabled id="token" class="swal2-input" value="`+response.session.data.tokenSession+`"><input type="text" id="otp" class="swal2-input" placeholder="OTP">`,
+                        html: `
+                        <input type="hidden" id="putaran" class="swal2-input" value="`+response.putaran+`">
+                        <input type="hidden" id="bdr" class="swal2-input" value="`+ response.bidder +`">
+                        <input type="hidden" id="wakil" class="swal2-input" value="`+ parseInt(response.wakil) +`">
+                        <input type="hidden" id="bbox" class="swal2-input" value="`+ response.bbox +`">
+                        <input type="hidden" id="item_lelang" class="swal2-input" value="`+response.item_lelang+`">
+                        <input type="hidden" id="jwt" class="swal2-input" value="`+response.jwt.jwt+`">
+                        3<input type="hidden" id="fileid" class="swal2-input" value="`+response.fileid+`">
+                        <input type="hidden" disabled id="token" class="swal2-input" value="`+response.session.tokenSession+`">
+                        Untuk memastikan bahwa Formulir Penawaran Ini berasal dari Perwakilan Peserta Seleksi Yang Sah, Mohon untuk Memasukkan 6 digit kode OTP yang telah dikirimkan kepada Anda.
+                        <br><br>
+                        <b>Kode Verifikasi</b>
+                        <br><br>
+                        <input type="text" id="otp" class="swal2-input" placeholder="OTP">`,
+                   
+                        confirmButtonText: 'Verifkasi Kode OTP',
+                        confirmButtonColor: '#28a745',
+                        focusConfirm: false,
+                   
+                        preConfirm: () => {
+                          const otp = Swal.getPopup().querySelector('#otp').value;
+                          const token = Swal.getPopup().querySelector('#token').value;
+                          const fileid = Swal.getPopup().querySelector('#fileid').value;
+                          const jwt = Swal.getPopup().querySelector('#jwt').value;
+                          const putaran = Swal.getPopup().querySelector('#putaran').value;
+                          const bidder = Swal.getPopup().querySelector('#bdr').value;
+                          const wakil = Swal.getPopup().querySelector('#wakil').value;
+                          const item_lelang = Swal.getPopup().querySelector('#item_lelang').value;
+                          const bbox = Swal.getPopup().querySelector('#bbox').value;
+                    //      if (!otp) {
+                     //       Swal.showValidationMessage(`Masukkan OTP`)
+                    //      }
+                          return { otp: otp, jwt: jwt, bbox:bbox, token: token, fileid: fileid, putaran:putaran, bidder:bidder, item_lelang:item_lelang, wakil:wakil}
+                        }
+                      }).then((result) => {
+                        console.log("behasil"+result.value);
+                        viewModel.menunggu(true);
+                        
+                        $.ajax({
+                          type: 'GET',
+                          method: 'GET',
+                          contentType:"application/json; charset=utf-8",
+                          dataType: "json",
+                          headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value },
+                          url: '/smra2/api/v1/round_smra/'+data[0].data.id+'/sign/?otp='+result.value.otp+"&bbox="+result.value.bbox+"&jwt="+result.value.jwt+"&fileid="+result.value.fileid+"&token="+result.value.token+"&item_lelang="+result.value.item_lelang+"&putaran="+result.value.putaran+"&bidder="+result.value.bidder+"&wakil="+result.value.wakil,
+                          success: function(response) {
+                            viewModel.menunggu(false);
+                            if (response.status=="error") {
+                              Swal.fire(response.message)
+                              viewModel.penawaran([]);
+                              viewModel.locked(false);
+                            }
+                            else {
+                              loadData_hasil(item_llg);
+                              load_table(item_llg);
+                              loadData_hasil2(item_llg);
+                              Swal.fire("Harga terkirim")
+  
+                            }
+                          }
+                        })
+                        
+                        waitingPopup.close();
+                        Swal.fire("Formulir Penawaran Harga Telah Terkirim. Gunakan menu Penawaran Sah untuk melihat kembali Penawaran Saudara")
+                      });
+                    //                      loadData_hasil(id);
+                    }
+                    else {
+                      waitingPopup.close();
+                      Swal.fire("Gagal mendapatkan Token")
+                    }
+                  }
+                  else {
+                    waitingPopup.close();
+                    Swal.fire("Gagal entah di mana");
+
+                  }
+                }
+              });    
+            }
+          })
+        }
+      },
+      bid: function(data) {
+        if (data.status_round()!="START") {
+          Swal.fire("Waktu Penyampaian Penawaran Belum Dimulai")
+        } else {
+          if (data.penawaran()) {
+            viewModel.penawaran([]);
+            viewModel.locked(data.lock());
+            viewModel.penawaran.push({"data": data, "lock": data.lock(), "prev_block":data.prev_block(), "block":data.block(), "prev_price":data.prev_price(), "price":0});
+          } else {
+            viewModel.penawaran([]);
+            viewModel.locked(false);
+            viewModel.penawaran.push({"data": data, "lock": false, "prev_block":!data.prev_block()?0:data.prev_block(), "prev_price": data.prev_price()+1000000, "block":!data.block()?data.prev_block():data.block(), "price":0});
+          }
+          $("#modal_bid").modal('toggle');
+        }
+      },
+    };
+    ko.applyBindings(viewModel);
+    function pad(num) {
+      return ("0"+num).slice(-2);
+    }
+    function hhmmss(secs) {
+      var minutes = Math.floor(secs / 60);
+      secs = secs%60;
+      var hours = Math.floor(minutes/60)
+      minutes = minutes%60;
+      return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
+    }
+
+    function load_table(id) {
+      putaran = 1;//viewModel.putaran();
+      $.ajax('/smra2/api/v1/round_smra/?item_lelang='+id,   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+          data.results.forEach(function(item,index,arr) {              
+              if (item.khusus==true) {
+                viewModel.putaran="K"
+              }
+              if (item.status_round=="START") {
+                end = moment(item.selesai).tz("Asia/Jakarta");;
+                start = moment(item.mulai).tz("Asia/Jakarta");
+                item.sisa= moment.duration(end.diff(start) ).seconds();
+              }
+              if (item.status_round=="WAIT") {             
+                end = moment(item.selesai).tz("Asia/Jakarta");
+                start = moment(item.mulai).tz("Asia/Jakarta");
+                item.sisa= moment.duration(end.diff(start) ).seconds();                
+              }
+              if (item.status_round=="INIT")
+              {
+                viewModel.mulai("");
+                viewModel.selesai("");
+                viewModel.sisa("");
+              }
+              if (item.status_round=="STOP")
+              {
+              }
+              if (item.status_round=="FINAL")
+              {
+              }
+              item.mulai_text = ko.computed(function() {
+                if (["START", "WAIT"].includes(item.status_round)) {
+                  return "<span class='h5'>"+moment(item.mulai).format('DD MMM YYYY').toUpperCase()+"</span><br><span class='h2 text-bold'>"+moment(item.mulai).format('HH:mm:ss').toUpperCase()+"</span><br><span class='h6'>WIB</span>";
+                }
+              }, this);
+              item.selesai_text = ko.computed(function() {
+                if (["START", "WAIT"].includes(item.status_round)) {
+                  return "<span class='h5'>"+moment(item.selesai).format('DD MMM YYYY').toUpperCase()+"</span><br><span class='h2 text-bold'>"+moment(item.selesai).format('HH:mm:ss').toUpperCase()+"</span><br><span class='h6'>WIB</span>";
+                }
+              }, this);
+              item.min_price_rp = currency(item.min_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
+              item.prev_price_rp = currency(item.prev_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
+              // item.ext_data.min_price = currency(item.ext_data.min_price,{ symbol:"Rp",separator: ".", decimal: ",", precision: 0 }).format();
+              item.ext_data.min_price = currency(Number(item.ext_data.min_price), { 
+                  symbol: "Rp", 
+                  separator: ".", 
+                  decimal: ",", 
+                  precision: 2 
+              }).format();
+              if (item.ext_data.max_price >0)  
+              { 
+                item.ext_data.max_price = currency(item.ext_data.max_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
+              }
+              else
+              {
+                item.ext_data.max_price = "-";
+              }
+          });
+          v = komapperToKO(data.results);
+          viewModel.allItems(v);
+          viewModel.waspada(false);
+        }
+      })
+    }
+    var id = $('#nmlelang').val();
+    $(".currency").inputmask({alias: "currency"});
+    loadData({URL: '/smra2/jadwal_putaran2/'+id+'/', element_id: $("#t_putaran")})
+
+    //var id = $('#nmlelang').find(':selected').val();
+    function loadData_hasil(id) {
+      $.ajax({
+          url: '/smra2/hasil5_smra2/'+ id + '/',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#t_hasil");
+              table.empty();
+              table.append(data);
+          }
+      });
+    }
+
+    function loadData_hasil2(id) {
+      $.ajax({
+          url: '/smra2/hasil3_smra2/'+ id + '/',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#t_hasil2");
+              table.empty();
+              table.append(data);
+          }
+      });
+    }    
+
+    load_table(id);
+    loadData_hasil(id);
+    loadData_hasil2(id);
+
+    setInterval(function() {
+      allitems = viewModel.allItems();
+      allitems().forEach(function(item, index) {
+          sekarang = moment();//.tz("Asia/Jakarta");
+          selesai = moment(item.selesai())
+          mulai = moment(item.mulai())
+          if (item.status_round()=="WAIT") {
+            if (sekarang <= mulai)
+              item.sisa(countdown(sekarang, mulai, countdown.HOURS|countdown.MINUTES|countdown.SECONDS))
+            else
+              item.sisa("0s")
+          } else if (item.status_round()=="START") {
+            if (sekarang <= selesai)
+              item.sisa(countdown(sekarang, selesai, countdown.HOURS|countdown.MINUTES|countdown.SECONDS))
+            else
+              item.sisa("0s")
+          }
+      })
+      viewModel.allItems(allitems);
+    }, 1000);
+
+    es.onopen = function () {
+      viewModel.connected1(true);
+      console.log("ESS connected");
+    };
+
+    es.onerror = function () {
+      console.log('*** connection lost, reconnecting...');
+      viewModel.connected1(false);
+    };
+
+    es.addEventListener('stream-reset', function () {
+      appendLog('*** client too far behind, please refresh');
+    }, false);
+
+    es.addEventListener('stream-error', function (e) {
+      // hard stop
+      es.close();
+      e = JSON.parse(e.data);
+      console.log('*** stream error: ' + e.condition + ': ' + e.text);
+    }, false);
+
+    es.addEventListener('message', function (e) {
+      console.log('event: ' + e.data);
+      msg = JSON.parse(e.data);
+      load_table(id);
+      $("#modal_bid").modal('hide');      
+    }, false);      
+  });
+</script>
+{% endblock %}

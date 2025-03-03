@@ -1,0 +1,194 @@
+{% extends 'new_index/base1.html' %}
+
+{% block extrahead %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<style>
+    #table_registrasi_users_filter {
+        padding-right: 1rem !important;
+    }
+
+    .dataTables_scroll {
+        padding-right: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">MFA Key Monitoring</span>
+</div>
+<div class="container-fluid contain_table">
+    <div class="row">
+        <div class="col-md-12" style="padding-bottom: 0px;">
+            <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+                <div class="col-md-12">
+                    <div style="display: flex;">
+                        <div class="col">
+                            <div class="jdl_tab">Daftar MFA Key</div>
+                        </div>
+                        <!-- <div class="col text-right">
+                            <button type="button" id="tambah_data" class="btn btn-primary" style="font-size:12px;"><i
+                                    class="fa-solid fa-plus-circle"></i> Tambah User Baru</button>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="card col-md-12">
+                    <div class="row table-responsive" style="margin:10px">
+                        <table id="table_mfa_key" class="" style="width:100%; overflow:hidden; ">
+                            <thead>
+                                <tr class="background_table">
+                                    <th>No</th>
+                                    <th>Method</th>
+                                    <th>Key Name</th>
+                                    <th>User</th>
+                                    <th>Last Code</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block modal %}
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+<script>
+    function formatDate(date) {
+        return moment(date).format('DD-MMM-YYYY HH:mm:ss').toUpperCase();
+    }
+
+    function formatDate2(date) {
+        return moment(date).format('DD-MMM-YYYY');
+    }
+
+    $(document).ready(function () {
+        let dataSet = [
+            {% for object in object_list %}
+                {
+            "id": "{{ object.id }}",
+            "method": "{{ object.method }}",
+            "key_name": "{{ object.name }}",
+            "user": "{{ object.user }}",
+            "last_code": "{{ object.last_code }}"
+        }
+                {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+        ];
+
+    let table = $('#table_mfa_key').DataTable({
+        data: dataSet,
+        columns: [
+            { data: "id", searchable: false, className: "d-none" },
+            {
+                data: "method", title: "Method", render: function (data) {
+                    switch (data) {
+                        case "recovery":
+                            return '<span class="badge bg-black">RECOVERY</span>';
+                            break;
+                        case "TOTP":
+                            return '<span class="badge badge-success">TOTP</span>';
+                            break;
+                        case "FIDO2":
+                            return '<span class="badge badge-primary">FIDO2</span>';
+                            break;
+                        default:
+                            return '<span class="badge badge-info">Tidak diketahui</span>';
+                    }
+                }
+            },
+            { data: "key_name", title: "Key Name" },
+            { data: "user", title: "User" },
+            { data: "last_code", title: "Last Code" },
+            {
+                data: null, orderable: false, render: function (data, type, row, meta) {
+                    return `<a href="/mfa/${row.id}/delete2/" id="${row.id}" class="btn btn-sm btn-danger delete_icon"><i class="fa fa-trash"></i></a>`
+                }
+            },
+
+        ],
+        "stripeClasses": ["odd-row", "even-row"],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "searching": true,
+        "scrollX": true,
+        columnDefs: [
+            { className: 'dt-head-center font_table ', targets: '_all' },
+        ]
+    });
+
+    /* $('#table_mfa_key tbody').on('click', '.delete_icon', function () {
+        id = this.id
+        Swal.fire({
+            title: "Apakah Anda yakin?",
+            text: "Data yang dihapus tidak bisa dikembalikan!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Panggil AJAX untuk hapus data
+                $.ajax({
+                    url: "/mfa/" + id + "/delete/",
+                    type: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}" // Tambahkan CSRF token
+                    },
+                    success: function (response) {
+                        // Hapus data dari object_list
+                        let newData = dataSet.filter(item => item.id !== id);
+
+                        // Refresh DataTables dengan data baru
+                        table.clear().rows.add(newData).draw();
+
+                        // Tampilkan notifikasi sukses
+                        Swal.fire({
+                            title: "Terhapus!",
+                            text: "Data berhasil dihapus.",
+                            icon: "success",
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            title: "Gagal!",
+                            text: "Terjadi kesalahan saat menghapus data.",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+    }); */
+    })
+</script>
+{% endblock %}

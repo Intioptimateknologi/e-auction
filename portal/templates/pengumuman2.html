@@ -1,0 +1,39 @@
+<table class="table" id="p_hasil_evaluasi">
+    <thead>
+        <tr>
+            <th>
+                Nomor   
+              </th>
+            <th>
+                Judul   
+            </th>
+            <th>
+                Pengumuman
+            </th>
+            <th>
+                Dokumen
+            </th>
+            <th>
+                Tanggal
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+{% for p in p_hasil_evaluasi %}
+<tr>
+    <td style="padding-left: 15px;padding-top: 10px;padding-bottom: 10px;">{{p.nomor}}<br></td>
+    <td style="padding-left: 15px;padding-top: 10px;padding-bottom: 10px;">{{p.judul}}<br></td>
+    <td style="padding-left: 15px;padding-top: 10px;padding-bottom: 10px;">{{p.pengumuman}}<br></td>
+    <td style="padding-left: 15px;padding-top: 10px;padding-bottom: 10px;"><a href="/media/{{p.file}}">file</a><br></td>
+    <td style="padding-left: 15px;padding-top: 10px;padding-bottom: 10px;">{{p.tanggal}}<br></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $('#p_hasil_evaluasi').DataTable({paging: true, ordering: false,info: false,searching: true});
+    });
+</script>
+{% endblock %}

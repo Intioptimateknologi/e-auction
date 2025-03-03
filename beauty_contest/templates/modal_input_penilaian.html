@@ -1,0 +1,47 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Tambah/Ubah Dokumen Beauty Contest</h5>
+            <button type="button" class=" btn btn-danger" data-dismiss="modal">x</button>
+		</div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <form name="item_lelang" id="item_lelang" method="POST" >
+                        {% csrf_token %}
+                        {{ form.media }}
+                        {% render_field form.item_lelang %}
+                        <div class="form-group">
+                            <label for="id_nomor">Bidder</label>
+                            {% render_field form.bidder|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Parameter</label>
+                            {% render_field form.parameter|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Penilaian</label>
+                            {% render_field form.penilaian|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Hasil Evaluasi</label>
+                            {% render_field form.hasil_evaluasi|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Keterangan</label>
+                            {% render_field form.keterangan|add_class:"form-control" %}
+                        </div>
+                       
+                        <div class="" style="text-align: right; margin-top: 16px;">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan">
+                        </div>
+                    </form>
+                </div>  
+            </div>              
+        </div>
+	  </div>
+	</div>
+  </div>

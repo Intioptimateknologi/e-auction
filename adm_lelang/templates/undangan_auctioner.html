@@ -1,0 +1,66 @@
+loadData({URL: '/persiapan/undangan_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+$("#tambah_kirim").click(function() {         
+    showModal2({
+        formURL: "/persiapan/modal_create_undangan/{{item_lelang}}/{{current_step}}/",
+        drfURL: "/persiapan/api/v1/persiapan_dokumen/",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/persiapan/undangan_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+        }
+    });
+});
+
+$("#{{element}}").on("click",".{{subelement}}_update",function() {
+    showModal2({
+        formURL: "/persiapan/modal_update_undangan/"+this.id+"/{{item_lelang}}/",
+        drfURL: "/persiapan/api/v1/persiapan_dokumen/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/persiapan/undangan_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+        }
+    })
+});
+
+$("#{{element}}").on("click",".{{subelement}}_delete",function() {
+    deleteData({id: this.id, 
+        drfURL: '/persiapan/api/v1/persiapan_dokumen/',
+        onSuccess: function(data) {
+            swal.fire({
+                title: "Data Terhapus !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+                loadData({URL: '/persiapan/undangan_auctioner/{{item_lelang}}/{{current_step}}/{{auctioner}}/', element_id: $("#{{element}}")})
+            });
+        }
+    });
+});
+
+$("#{{element}}").on("click",".{{subelement}}_send",function() {
+    id = this.id;
+    swal.fire({
+        title: "Kirim Undangan",
+        text: "Kirim undangan ke auctioner dan bidder?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/persiapan/api/v1/persiapan_dokumen/'+id+'/kirim_undangan/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    swal.fire({
+                        title: "Terkirim",
+                        text: "Terkirim",
+                        icon: "success"
+                    })
+                }
+            });
+        }
+    });
+});
+

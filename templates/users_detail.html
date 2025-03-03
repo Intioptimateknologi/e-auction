@@ -1,0 +1,374 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load mfa %}
+
+{% block extrahead %}
+<style>
+    .aktif {
+        color: #33cc33;
+    }
+
+    .aktif-striped {
+        color: #33cc33;
+    }
+
+    */ .gridStyle {
+        border: 1px solid rgb(212, 212, 212);
+        width: 100%;
+        height: 200px;
+    }
+
+    .card-footer {
+        display: none;
+    }
+
+
+    .table-striped>tbody>tr:nth-child(2n+1)>td,
+    .table-striped>tbody>tr:nth-child(2n+1)>th {
+        background-color: red;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #ccc;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .orderable a {
+        color: white;
+    }
+</style>
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+{% block konten_isi %}
+<div class="container">
+    <div class="my-5 mx-5 d-flex justify-content-center">
+        <div class="card" style="width: 100%;">
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile Detail</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mfa_keys" data-toggle="tab">MFA Key</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active p-5" id="profile">
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card card-primary card-outline">
+                                      <div class="card-body box-profile">
+                                        <div class="text-center">
+                                          <img class="profile-user-img img-fluid img-circle" src="https://static.vecteezy.com/system/resources/previews/005/005/788/original/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg" alt="User profile picture">
+                                        </div>
+                                        <div class="avatar d-flex justify-content-center">
+                                            {{ url|qrcode }}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <div class="col-md-9">
+                                    <h2 style="color: #007bff;">Profil Saya</h2>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Nama Lengkap</label><input class="form-control" type="text"  disabled="" value="{{user.nama_lengkap}}"></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Username</label><input class="form-control" type="text"  disabled="" value="{{user.username}}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3"><label class="nama_label">Email </label><input class="form-control" type="email"  disabled="" value="{{user.email}}"></div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Nomor Handphone</label><input class="form-control" required="" disabled="" value="{{user.mobile_number}}"></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Tipe Akun</label><input class="form-control" disabled="" value="{{user.get_user_type_display}}"></div>
+                                        </div>
+                                    </div>
+                                    {% if user.user_type == 'A' %}
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">NIP </label><input class="form-control" type="text" id="nip" disabled="" value="{{admin.nip}}"></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Jabatan</label><input class="form-control" type="text" id="jabatan"  disabled="" value="{{admin.nip}}"></div>
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                    {% elif user.user_type == 'C' %}
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">NIP </label><input class="form-control" type="text" id="nipc" disabled="" value="{{tim_lelang.nip}}"></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Jabatan</label><input class="form-control" type="text" id="jabatanc"  disabled="" value="{{tim_lelang.jabatan}}"></div>
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                    {% elif user.user_type == 'V' %}
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">NIP </label><input class="form-control" type="text" id="nipd" disabled="" value="{{viewer.nip}}"></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Jabatan</label><input class="form-control" type="text" id="jabatand"  disabled="" value="{{viewer.nip}}"></div>
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                    {% elif user.user_type == 'B' %}
+                                    <h2 style="color: #007bff;">Profil Perusahaan</h2>                                 
+                                    <div class="form-group mb-3"><label class="nama_label">Nama Perusahaan</label><input class="form-control" type="text" id="perusahaanb"  disabled="" value="{{perusahaan.nama_perusahaan}}"></div>
+                                    <div class="form-group mb-3"><label class="nama_label">Alamat Perusahaan</label><input class="form-control" type="text" id="perusahaanb"  disabled="" value="{{perusahaan.alamat_perusahaan}}"></div>
+                                        <div class="form-group mb-3" >
+                                        <h2 style="color: #007bff;">Perwakilan</h2>
+                                        <div id="perwakilan" style="overflow: auto;">
+                                        </div>
+                                   
+                                            
+                                    {% endif %}
+                                   
+                                    <div class="row">
+                                          
+                                       
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group mb-3"><label class="nama_label">Status</label>{% if user.is_active %}<a class="btn btn-success" style="
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    flex-wrap: nowrap;
+                                                    align-content: flex-start;
+                                                    justify-content: space-evenly;
+                                                    align-items: center;
+                                                ">Aktif</a>{% else %}<a class="btn btn-danger" style="
+                                                display: flex;
+                                                flex-direction: row;
+                                                flex-wrap: nowrap;
+                                                align-content: flex-start;
+                                                justify-content: space-evenly;
+                                                align-items: center;
+                                            ">Tidak Aktif</a>{% endif %}</div>
+                                            </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Waktu Dibuat</label><input class="form-control" required="" disabled="" value="{{user.date_joined|date:"d F Y, H:i:s"}}"></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3"><label class="nama_label">Terakhir Login</label><input class="form-control" disabled=""  value="{{user.last_login|date:"d F Y, H:i:s"}}"></div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-12 text-right"><a class="btn btn-primary form-btn" href="/accounts/ganti_password/">Ubah Kata Sandi</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="mfa_keys">
+                        <div class="container">
+                            <div class="ro justify-content-center">
+                                <div class="col mt-3">
+                                    {% if mfa_keys|length == 1 %}
+                                    <p>
+                                        <strong>Peringatan:</strong> Anda hanya memiliki 1 kunci terdaftar.
+                                        Jika kunci ini hilang, Anda tidak akan bisa login lagi.
+                                        <a href="{% url 'mfa:create' 'recovery' %}">Buat Kode <i>Recovery</i></a> untuk
+                                        menghindari kehilangan akses.
+                                    </p>
+                                    {% endif %}
+                                </div>
+    
+                                <div class="col">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="lead">Recovery Key</p>
+                                        <a type="button" class="btn btn-success" href="{% url 'mfa:create' 'recovery' %}">
+                                            (+)
+                                        </a>
+                                    </div>
+                                    <div class="card mt-3">
+                                        <ul class="list-group list-group-flush">
+                                            {% for key in mfa_keys %}
+                                            {% if key.method == "recovery" %}
+                                            <li class="list-group-item">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div
+                                                        class="col-1 me-2 flex-column d-flex justify-content-center align-items-center">
+                                                        <span class="info-box-icon"><i class="fas fa-key"></i></span>
+                                                        <div class="text-muted" style="font-size: 10px;">Recovery</div>
+                                                    </div>
+                                                    <div class="col-11 d-flex justify-content-between">
+                                                        {{ key.name }}
+                                                        <a href="{% url 'mfa:delete' key.id %}"
+                                                            class="btn btn-outline-danger btn-sm">Hapus</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+        
+                                <hr class="my-4">
+
+                                <div class="col">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="lead">OTP</p>
+                                        <a type="button" class="btn btn-success" href="{% url 'mfa:create' 'TOTP' %}">
+                                            (+)
+                                        </a>
+                                    </div>
+                                    <div class="card mt-3">
+                                        <ul class="list-group list-group-flush">
+                                            {% for key in mfa_keys %}
+                                            {% if key.method == "TOTP" %}
+                                            <li class="list-group-item">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div
+                                                        class="col-1 me-2 flex-column d-flex justify-content-center align-items-center">
+                                                        <span class="info-box-icon"><i class="fas fa-hashtag"></i></span>
+                                                        <div class="text-muted" style="font-size: 10px;">OTP</div>
+                                                    </div>
+                                                    <div class="col-11 d-flex justify-content-between">
+                                                        {{ key.name }}
+                                                        <a href="{% url 'mfa:delete' key.id %}"
+                                                            class="btn btn-outline-danger btn-sm">Hapus</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %} 
+<script>
+    var appendLog = function (s) {
+        console.log(s);
+    };
+    var uri = '/events/';
+    var es = new ReconnectingEventSource(uri);
+
+    var firstConnect = true;
+
+    es.onopen = function () {
+        //if(!firstConnect) {
+        appendLog('*** connected');
+        //}
+        firstConnect = false;
+    };
+
+    es.onerror = function () {
+        appendLog('*** connection lost, reconnecting...');
+    };
+
+    es.addEventListener('stream-reset', function () {
+        appendLog('*** client too far behind, please refresh');
+    }, false);
+
+    es.addEventListener('stream-error', function (e) {
+        // hard stop
+        es.close();
+        e = JSON.parse(e.data);
+        appendLog('*** stream error: ' + e.condition + ': ' + e.text);
+    }, false);
+
+    es.addEventListener('message', function (e) {
+        console.log('event: ' + e.data);
+        msg = JSON.parse(e.data);
+
+        // if an event arrives that was already in the initial pageload,
+        //   ignore it
+        if ($.inArray(msg.id, msg_ids) != -1) {
+            return;
+        }
+
+        appendLog('<b>' + escapeHtml(msg.from) + '</b>: ' + escapeHtml(msg.text));
+    }, false);
+
+    {% if user.user_type == 'B' %}
+
+    loadData({ URL: '/userman/list_bidder_perwakilan2/69/', element_id: $("#perwakilan") })
+    $("#perwakilan").on("click", ".update", function () {
+        showModal2({
+            csrf: '{{csrf_token}}',
+            formURL: "/userman/modal_bidder_perwakilan2/" + this.id + "/",
+            drfURL: "/userman/api/v1/bidder_perwakilan/" + this.id + "/",
+            method: "PUT",
+            onSuccess: function (response) {
+                $("#modal").modal('hide');
+                loadData({ URL: '/userman/list_bidder_perwakilan2/69/', element_id: $("#perwakilan") })
+            }
+        })
+    });
+
+    $("#perwakilan").on("click", ".send", function () {
+        id = this.id
+        Swal.fire({
+            title: 'Yakin akan mengirim speciment ttd?',
+            text: "Ini tidak dapat diulang!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax('/userman/api/v1/bidder_perwakilan/' + id + '/send_speciment/',
+                    {
+                        success: function (data, status, xhr) {// success callback function
+                            Swal.fire(data.status.message)
+                        }
+                    });
+            }
+        })
+    });
+
+    {% endif %}
+</script>
+{% endblock %}

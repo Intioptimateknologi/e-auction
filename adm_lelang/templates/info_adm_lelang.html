@@ -1,0 +1,302 @@
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;"></div>
+<div id="modal-info-lelang" class="modal fade show" tabindex="-1" style="display:block;">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Info Seleksi {{item.nama_lelang}}, tahun {{item.tahun }} </h4>
+            <button type="button" class="close" onclick="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">      
+                    <div class="row">
+                        <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="pill" href="#object" role="tab">Obyek Seleksi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-bold" data-toggle="pill" href="#jadwal" role="tab">Tahapan Seleksi</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link text-bold" data-toggle="pill" href="#giat" role="tab">Pengumuman Seleksi</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link text-bold" data-toggle="pill" href="#dasarhukum" role="tab">Aturan Seleksi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-bold" data-toggle="pill" href="#panitia" role="tab">Penanggung Jawab Seleksi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-bold" data-toggle="pill" href="#alamat" role="tab">Alamat Tim Seleksi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-bold" data-toggle="pill" href="#syarat" role="tab">Persyaratan Peserta Seleksi</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content col-md-12">
+                            <div class="tab-pane active" id="object" role="tabpanel">
+                                <div class="card" style="height:50vh">
+                                    <div class="card-header">
+                                        Obyek Seleksi
+                                    </div>
+                                    <div class="card-body overflow-auto">
+                                        <table  id="obyek" class="table table-striped" style="width: 100%;">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Penyelenggaraan</th>
+                                                    <th>Teknologi</th>
+                                                    <th>Pita</th>
+                                                    <th>Bandwidth</th>
+                                                    <th>Rentang Frekuensi</th>
+                                                    <th>Cakupan</th>
+                                                    <th>Keterangan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for d in detail %}
+                                                <tr>
+                                                    <td>{{ d.penyelenggaraan }}</td>
+                                                    <td>{{ d.teknologi }}</td>
+                                                    <td>{{ d.band }}</td>
+                                                    <td>{{ d.bandwidth }}</td>
+                                                    <td>{{ d.rentang_frekuensi }}</td>
+                                                    <td>{{ d.cakupan }}</td>
+                                                    <td>{{ d.keterangan }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="giat" role="tabpanel">
+                                <div class="card" style="height:50vh">
+                                    <div class="card-header">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <div class="form-group form-inline">
+                                                <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Pengumuman&nbsp;</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col">
+                                            <table  id="objekpengumumanseleksi" class="table table-striped" style="width: 100%;">
+                                                <table  id="objekjadwal" class="table table-striped" style="width: 100%;">
+                                                    <thead class="table-dark">
+                                                        <tr>
+                                                            <th>Nomor</th>
+                                                            <th>Judul</th>
+                                                            <th>Pengumuman</th>
+                                                            <th>Tgl Terbit</th>
+                                                            <th>Lampiran</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for d in pengumuman %}
+                                                        <tr>
+                                                            <td>{{ d.nomor }}</td>
+                                                            <td>{{ d.judul }}</td>
+                                                            <td>{{ d.pengumuman }}</td>
+                                                            <td>{{ d.tgl_release|date }}</td>
+                                                            <td><a href="/media/{{ d.dokumen }}">Lampiran</a></td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                    
+                            <div class="tab-pane" id="dasarhukum" role="tabpanel">
+                                <div class="card" style="height:50vh">
+                                    <div class="card-header">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <div class="form-group form-inline">
+                                                <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Aturan Lelang&nbsp;</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col">
+                                            <table  id="objekdasarhukum" class="table table-striped" style="width: 100%;">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>Nomor</th>
+                                                        <th>Judul</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Keterangan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for d in dasar %}
+                                                    <tr>
+                                                        <td>{{ d.nomor }}</td>
+                                                        <td>{{ d.judul }}</td>
+                                                        <td>{{ d.tanggal }}</td>
+                                                        <td>{{ d.keterangan }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="tab-pane" id="panitia" role="tabpanel" style="width: 100%;">
+                                <div class="card" style="height:50vh">
+                                    <div class="card-header">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <div class="form-group form-inline">
+                                                <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Penanggung Jawab&nbsp;</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col">
+                                            <table  id="t_auctioner" class="table table-striped" style="width: 100%;">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>NIP</th>
+                                                        <th>Nama</th>
+                                                        <th>Jabatan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for d in tim %}
+                                                    <tr>
+                                                        <td>{{ d.nip }}</td>
+                                                        <td>{{ d.nama }}</td>
+                                                        <td>{{ d.tanggung_jawab }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="tab-pane" id="alamat" role="tabpanel">
+                                <div class="card" style="height:50vh">
+                                    <div class="card-header">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <div class="form-group form-inline">
+                                                <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Alamat&nbsp;</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col">
+                                            <table  id="t_alamat" class="table table-striped" style="width: 100%;">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>Alamat</th>
+                                                        <th>Kota</th>
+                                                        <th>Kodepos</th>
+                                                        <th>Telp</th>
+                                                        <th>Email</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for d in panitia %}
+                                                    <tr>
+                                                        <td>{{ d.alamat }}</td>
+                                                        <td>{{ d.kota }}</td>
+                                                        <td>{{ d.kodepos }}</td>
+                                                        <td>{{ d.telp }}</td>
+                                                        <td>{{ d.email }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="tab-pane" id="syarat" role="tabpanel">
+                                <div class="card"  style="height:50vh">
+                                    <div class="card-header">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <div class="form-group form-inline">
+                                                <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Persyaratan Peserta&nbsp;</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col">
+                                            <table  id="objeksyarat" class="table table-striped" style="width: 100%;">
+                                                <thead  class="table-dark">
+                                                    <tr>
+                                                        <th>Persyaratan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for d in persyaratan_lelang %}
+                                                    <tr>
+                                                        <td>{{ d.persyaratan }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="tab-pane" id="jadwal" role="tabpanel">
+                                <div class="card" style="height:50vh">
+                                    <div class="card-header">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <div class="form-group form-inline">
+                                                <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Tahapan Seleksi&nbsp;</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body overflow-auto">
+                                            <table  id="objekjadwal" class="table table-striped" style="width: 100%;">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>Tahap</th>
+                                                        <th>Tanggal Mulai</th>
+                                                        <th>Tanggal Akhir</th>
+                                                        <th>Perubahan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for d in jadwal %}
+                                                    <tr>
+                                                        <td>{{ d.tahap }}</td>
+                                                        <td>{{ d.tanggal_awal }}</td>
+                                                        <td>{{ d.tanggal_akhir }}</td>
+                                                        <td>{{ d.perubahan }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+          </div>
+    </div>
+</div>
+<script>
+function closeModal() {
+	var container = document.getElementById("modal_info")
+	var backdrop = document.getElementById("modal-backdrop")
+	var modal = document.getElementById("modal-info-lelang")
+
+	modal.classList.remove("show")
+	backdrop.classList.remove("show")
+
+	setTimeout(function() {
+		container.removeChild(backdrop)
+		container.removeChild(modal)
+	}, 200)
+}
+</script>

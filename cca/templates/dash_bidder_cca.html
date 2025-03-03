@@ -1,0 +1,674 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+{% csrf_token %} 
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="h2">{{ bidder.0.nama_perusahaan }}</h2>({{ ip_address }})
+        </div>
+      </div>
+      {% add_judul_bidder user.id bidder_lelang.item_lelang.id "/cca/putaran_cr/" %}
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="#tabone" class="active nav-link" data-toggle="pill" role="tab">Putaran <i data-bind="visible:connected" class="fas fa-link"></i></a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#sah" data-toggle="pill" role="tab">Penawaran Sah</a> </li>
+            <li class="nav-item"> <a href="#tidaksah" class="nav-link" data-toggle="pill" role="tab">Penawaran Tidak Sah</a> </li>
+            <li class="nav-item"> <a href="#putaran" class="nav-link" data-toggle="pill" role="tab">Jadwal Putaran </a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <div class="row pt-2">
+                <div class="col-md-2">
+                  <div class="row">
+                  <h5>Putaran</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-primary"><span class="h3" data-bind="text: putaran"></button>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <h5>Status</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-secondary"><span data-bind="text: status"></button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <h5>Waktu Awal</h5>
+                  </div>
+                  <div class="row">
+                    <!-- ko if: status() === 'START' -->
+                    <button class="btn btn-info"><span data-bind='text: mulai'></button>
+                      <!-- /ko -->
+                      <!-- ko if: status() === 'WAIT' -->
+                        <button class="btn btn-info"><span data-bind='text: mulai'></button>
+                      <!-- /ko -->                    
+                    </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <h5>Waktu Akhir</h5>
+                  </div>
+                  <div class="row">
+                    <!-- ko if: status() === 'START' -->
+                    <button class="btn btn-info"><span data-bind='text: selesai'></button>
+                      <!-- /ko -->
+                      <!-- ko if: status() === 'WAIT' -->
+                        <button class="btn btn-info"><span data-bind='text: selesai'></button>
+                      <!-- /ko -->                    
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <h5>Sisa</h5>
+                  </div>
+                  <div class="row">
+                    <!-- ko if: status() === 'START' -->
+                      <!-- ko if: waspada()  -->
+                      <button class="btn btn-danger"><span data-bind="text: sisa_time"></button>
+                        <!-- /ko -->                    
+                        <!-- ko ifnot: waspada()  -->
+                        <button class="btn btn-success"><span data-bind="text: sisa_time"></button>
+                          <!-- /ko -->                    
+                        <!-- /ko -->                    
+                    </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <table  id="t_penawaran" class="table table-stripped" style="width: 100%;">
+                  <thead>
+                      <tr>
+                          
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row pt-3 pl-5">
+                <div class="col-md-10" style=""></div>
+                <div class="col-md-2" style="">
+                    <a data-bind="click: submit" class="btn btn-info" href="#">Lakukan Penawaran
+                      <div id="submit_btn_wait" data-bind="visible: menunggu" class="spinner-border" role="status">
+                        <span class="sr-only">Tunggu...</span>
+                      </div>   
+                      </a>
+                  </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="sah" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                            <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Penawaran Sah&nbsp;</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col" style="overflow-x: auto;">
+                        <table  id="t_sah" class="table">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div>
+            <div class="tab-pane fade" id="tidaksah" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                            <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Penawaran Tidak Sah&nbsp;</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col" style="overflow-x: auto;">
+                        <table  id="t_tidak_sah" class="table">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div>
+            <div class="tab-pane" id="putaran" role="tabpanel">
+              <div class="card">
+                  <div class="card-header">
+                      <div class="col-md-12 col-sm-12 table-responsive">
+                          <div class="form-group form-inline">
+                              <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Jadwal Putaran Lelang&nbsp;</h2>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="col">
+                          <table  id="t_putaran" class="table">
+                              <thead>
+                                  <tr>
+                                      <th>item_lelang</th>
+                                      <th>item_detail_lelang</th>
+                                      <th>persyaratan</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalBid" aria-hidden="true" aria-labelledby="modalPage" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Penawaran CCA</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Perwakilan</label>
+            <select class='form-control' data-bind="options: $root.wakil_bidder, optionsText:'nama',value: $root.selectedWakil"></select>
+          </div>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+              <td scope="col">Band</td>
+              <td scope="col" class="table-secondary">Minimum Penawaran</td>
+              <td width="10%" scope="col" class="table-success">Spectrum Cap</td>
+              <td width="10%" scope="col" class="table-danger">Blok Sebelumnya</td>
+              <td width="10%" scope="col" class="table-danger">Blok</td>
+              <td scope="col" class="table-warning">Penawaran</td>
+              </tr>
+            </thead>
+            <tbody data-bind='foreach: bidItems'>
+              <tr>
+                <td scope="row" class="text-bold" data-bind='text: band'></td>
+                <td><input disabled inputmode="decimal" class='form-control required number' data-bind="value: prev_price, inputmask: { value: prev_price, alias:'currency'}"/></td>
+                <td align="right" data-bind='text: spectrum_cap'></td>
+                <td align="right" data-bind='text: prev_block'></td>
+                <td><input inputmode="decimal"  class='form-control required number' data-bind="value: block, inputmask: { value: block, alias:'numeric'}"/></td>
+                <td><input inputmode="decimal" class='form-control required number' data-bind="value: price, inputmask: { value: price, alias:'currency'}"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <span>Eligibility point: <span data-bind='text: eli'></span></span>
+          <button class="btn btn-primary" data-bind='click: kirim'>Kirim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  {% block script %}
+  <script src="https://unpkg.com/centrifuge@3.1.0/dist/centrifuge.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/static/js/currency.js"></script>
+  <script src="/static/js/countdown.js"></script>
+  <script>
+  $(document).ready(function () {    
+    const centrifuge = new Centrifuge("{{ centrifugo }}centrifugo/connection/websocket", {
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MiJ9.ztc1-sSzamXSZdRNMPnPDj_kSB1_aBoghiTG1zDkNdU"
+    });
+    ko.bindingHandlers.inputmask =
+    {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var mask = valueAccessor();    
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                $(element).on('focusout change', function () {
+                    if ($(element).inputmask('isComplete')) {
+                        observable($(element).val());
+                    } else {
+                        observable(null);
+                    }
+                });
+            }
+            $(element).inputmask(mask);
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var mask = valueAccessor();
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                var valuetoWrite = observable();
+                $(element).val(valuetoWrite);
+            }
+        }
+    };
+
+    // select2
+    //$('#nmlelang').select2();
+    moment.locale('id'); 
+    var viewModel = {
+      eli_sekarang: ko.observable(), // Initially blank
+      eli_sebelum: ko.observable(), // Initially blank
+      time_for_start:  ko.observable(false),
+      selectedWakil : ko.observable(),
+      wakil_bidder: ko.observableArray([
+        {% for i in perwakilan %}
+          {'id': '{{i.id}}', 'nama': '{{i.nama_lengkap}}' },
+        {% endfor %}
+      ]),
+      first: ko.observable(true),
+      waspada: ko.observable(false),
+      connected: ko.observable(false),
+      time_start: ko.observable(),
+      menunggu: ko.observable(false),
+      time_end: ko.observable(),
+      sisa_time: ko.observable(120*60),
+      allItems: ko.observableArray([]),
+      bidItems: ko.observableArray([]),
+      mulai: ko.observable(),
+      selesai: ko.observable(),
+      periode: ko.observable(),
+      status: ko.observable(),
+      error_message: ko.observable(),
+      putaran: ko.observable(),
+      last_putaran: ko.observable(1),
+      mulai_putaran: ko.observable(),
+      lock: ko.observable(),
+      sisa: ko.observable(),
+      eli: ko.observable(0),
+      activity: ko.observable(0),
+      submit: function() {
+        //if (viewModel.lock()) {
+        //  Swal.fire("Penawaran sudah dikunci");
+        //  return;
+        //}
+        //if (viewModel.status() != 'START') {
+        //  Swal.fire("Penawaran belum dimulai");
+        //  return;
+        //}
+        var id = $('#nmlelang').val();
+        $.ajax({
+          url: '/cca/api/v1/round_detail_cca/?parent__bidder={{ bidder_id }}&parent__item_lelang='+id,
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+            viewModel.bidItems(data.results);
+            $('#modalBid').modal('show');
+          }
+        });
+      },
+      kirim: function() {
+        id = $('#nmlelang').find(':selected').val();
+        let error = false;
+        let eli_err = false;
+        let total_eligibility = 0;
+        viewModel.activity(0);
+        error_message = "";
+        this.bidItems().forEach(item => {
+          if (item.block>0) {
+              if (isNaN(item.price)) {
+                v = item.price.replaceAll(",","");
+                item.price = parseFloat(v);
+              }
+              if ((parseFloat(item.price)<parseFloat(item.prev_price))) {
+                error=true;  
+                error_message = "Penawaran lebih kecil dari penawaran minimal";  
+              }
+              if (parseFloat(item.price) % 1000000 != 0)
+              {
+                error=true;  
+                error_message = "Harga harus kelipatan 1.000.000,00";
+              }
+              if (item.spectrum_cap<parseInt(item.block)) 
+              {
+                error=true;  
+                error_message = "Blok tidak boleh melewati spectrum cap";  
+              }
+              item.block = parseInt(item.block);
+          }
+          else {
+            item.block = 0;
+            item.price = parseFloat(item.prev_price);
+          }
+          item.round = viewModel.putaran();
+          viewModel.activity(viewModel.activity() + parseInt(item.block) * parseInt(item.eli_per_block));
+          console.log(item);
+        });
+        if (viewModel.activity()>viewModel.eli()) {
+          eli_err = true;
+          Swal.fire('Aktivitas lebih besar dari eligility');
+        }
+        if (error) {
+          Swal.fire('Ada kesalahan dalam penawaran. ' + error_message );
+        }
+        else 
+        Swal.fire({
+          title: 'Yakin akan kirim harga penawaran?',
+          text: "Anda tidak dapat membatalkan ini!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, kirim!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            waitingPopup = Swal.fire({
+              title: "Menunggu pengiriman penawaran selesai",
+              html: "Silakan tunggu!<br>",
+              allowOutsideClick: false,
+              didOpen: () => {
+                  Swal.showLoading();
+                  },
+              });
+              $("#modalBid").modal('toggle');
+            $.ajax({
+              method: 'POST',
+              url: '/cca/api/v1/round_cca/submit_bid/',
+              headers: {'X-CSRFToken': '{{ csrf_token }}'},
+              contentType : 'application/json',
+              dataType : 'json',
+              data: JSON.stringify({'item_lelang':{{ bidder_lelang.item_lelang.id }}, 
+                'eli_err':eli_err, 'data': this.bidItems(), 'perwakilan': viewModel.selectedWakil(), 'activity': viewModel.activity(), 'eli': viewModel.eli() } ),
+                success: function(response) {
+                  waitingPopup.close();
+                  if (response.step=="reveal") {
+                    Swal.fire("Penawaran tidak diterima (Revealed)")
+                  }
+                  else if (response.step=="document") {
+                    Swal.fire("Gagal di pengiriman dokumen ke e-Sign")
+                  }
+                  else if (response.step=="session"){
+                    if (response.session.resultCode=="0") {
+                      //Swal.fire(response.session.data.tokenSession);
+                      Swal.fire({
+                        title: 'Masukkan OTP',
+                        html: `<input type="hidden" id="putaran" class="swal2-input" value="`+response.putaran+`"><input type="hidden" id="bdr" class="swal2-input" value="`+ response.bidder +`"><input type="hidden" id="wakil" class="swal2-input" value="`+ parseInt(response.wakil) +`"><input type="hidden" id="bbox" class="swal2-input" value="`+ response.bbox +`"><input type="hidden" id="item_lelang" class="swal2-input" value="`+response.item_lelang+`"><input type="hidden" id="jwt" class="swal2-input" value="`+response.jwt+`"><input type="hidden" id="fileid" class="swal2-input" value="`+response.fileid+`"><input type="text" disabled id="token" class="swal2-input" value="`+response.session.data.tokenSession+`"><input type="text" id="otp" class="swal2-input" placeholder="OTP">`,
+                        confirmButtonText: 'Kirim',
+                        focusConfirm: false,
+                        preConfirm: () => {
+                          const otp = Swal.getPopup().querySelector('#otp').value;
+                          const token = Swal.getPopup().querySelector('#token').value;
+                          const fileid = Swal.getPopup().querySelector('#fileid').value;
+                          const jwt = Swal.getPopup().querySelector('#jwt').value;
+                          const putaran = Swal.getPopup().querySelector('#putaran').value;
+                          const bidder = Swal.getPopup().querySelector('#bdr').value;
+                          const item_lelang = Swal.getPopup().querySelector('#item_lelang').value;
+                          const wakil = Swal.getPopup().querySelector('#wakil').value;
+                          const bbox = Swal.getPopup().querySelector('#bbox').value;
+                          if (!otp) {
+                            Swal.showValidationMessage(`Masukkan OTP`)
+                          }
+                          return { otp: otp, jwt: jwt, bbox:bbox, token: token, fileid: fileid, putaran:putaran, bidder:bidder, item_lelang:item_lelang, wakil:wakil}
+                        }
+                      }).then((result) => {
+                        console.log(result.value)
+                        viewModel.menunggu(true);
+                        $.ajax({
+                          type: 'GET',
+                          method: 'GET',
+                          contentType:"application/json; charset=utf-8",
+                          dataType: "json",
+                          headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value },
+                          url: '/cca/api/v1/round_cca/1/sign/?otp='+result.value.otp+"&bbox="+result.value.bbox+"&jwt="+result.value.jwt+"&fileid="+result.value.fileid+"&token="+result.value.token+"&item_lelang="+result.value.item_lelang+"&putaran="+result.value.putaran+"&bidder="+result.value.bidder+"&wakil="+result.value.wakil,
+                          success: function(response) {
+                            viewModel.menunggu(false);
+                            if (response.status=="NOK")
+                              Swal.fire(response.message)
+                            else
+                              Swal.fire("Harga terkirim")
+                          }
+                        })
+                      });
+                      id = $('#nmlelang').val();
+                      loadPenawaran(id);
+                    }
+                    else {
+                      Swal.fire("Gagal mendapatkan Token")
+                    }
+                  }
+                  else {
+                    Swal.fire("Gagal entah di mana");
+                  }
+                },
+                error: function(error) {
+                  waitingPopup.close();
+                }
+            });
+          }
+        });
+      }
+    };
+    ko.applyBindings(viewModel);
+    countdown.setLabels(
+      '| detik| menit| jam|',
+      '| detik| menit| jam|',
+      ', dan ');
+    moment.locale('id'); 
+    function pad(num) {
+      return ("0"+num).slice(-2);
+    }
+  
+  function loadPenawaran(id) {
+    $.ajax({
+      url: '/cca/round_detail_cca/'+id + '/{{ bidder_id }}/',
+      method: "GET",
+      xhrFields: {
+          withCredentials: true
+      },
+      success: function (data) {
+          var table = $("#t_penawaran");
+          table.empty();
+          table.append(data);
+      }
+    });
+  }
+
+  function loadRoundInfo(id) {
+    $.ajax({
+      url: '/cca/api/v1/round_cca/?bidder={{ bidder_id }}&item_lelang='+id,
+      method: "GET",
+      xhrFields: {
+          withCredentials: true
+      },
+      success: function (data) {
+        //data = data.results;
+        if (data.length>0)
+          viewModel.putaran(data[0].round);
+          mulai = moment(data[0].mulai);
+          selesai = moment(data[0].selesai);
+          viewModel.mulai(mulai.format("HH:mm:ss"));
+          viewModel.selesai(selesai.format("HH:mm:ss"));
+          viewModel.status(data[0].status_round);
+          viewModel.time_for_start(0);
+          viewModel.eli(data[0].eli_point)
+          viewModel.waspada(false);
+          viewModel.lock(data[0].lock);
+          viewModel.periode(countdown(mulai, selesai, countdown.HOURS|countdown.MINUTES|countdown.SECONDS));
+          if (data[0].status_round=="START") {
+            sekarang = moment();
+            end = selesai;
+            viewModel.time_for_start(end);
+            if (end>sekarang)
+              viewModel.sisa_time(countdown(sekarang, end, countdown.HOURS|countdown.MINUTES|countdown.SECONDS))
+            else
+              viewModel.sisa_time = 0
+          } else
+          viewModel.sisa_time(0);
+        console.log(data);
+      }
+    });
+  }
+
+  function loadBidRound(id) {
+    $.ajax({
+      url: '/cca/api/v1/round_detail_cca/?bidder={{ bidder_id }}&item_lelang='+id,
+      method: "GET",
+      xhrFields: {
+          withCredentials: true
+      },
+      success: function (data) {
+        viewModel.bidItems(data.results);
+      }
+    });
+  }
+
+
+
+  function loadData_Putaran(id) {
+    $.ajax({
+        url: '/smra/jadwal_putaran2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_putaran");
+            table.empty();
+            table.append(data);
+            //$("#t_putaran").DataTable();
+        }
+    });
+  }
+  function loadData_hasil(id) {
+    $.ajax({
+        url: '/cca/hasil_cca/'+ id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_sah");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+  function loadData_hasil_invalid(id) {
+    $.ajax({
+        url: '/cca/hasil_invalidcca/'+ id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_tidak_sah");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+    $(".currency").inputmask({alias: "currency"});
+    
+    var id = $('#nmlelang').val();
+
+    //load_biddingroundinfo(id);    
+    loadPenawaran(id);
+    loadRoundInfo(id);
+    loadData_Putaran(id);
+    loadData_hasil(id);
+    loadData_hasil_invalid(id);
+    //loadBidRound(id);
+    $("#createBidder").on("click",function(){
+      $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+      $('#modalPage').modal('show');
+      $('.modal-title').text("Masukkan Harga");
+      loadBidRound(id);
+//      viewModel.bidItems(viewModel.allItems());
+    });
+
+    setInterval(function() {
+      if (viewModel.time_for_start()!=0) {
+        sekarang = moment();
+        if (viewModel.time_for_start().diff(sekarang)<30000)
+          viewModel.waspada(true);
+
+        viewModel.sisa_time(countdown(sekarang, viewModel.time_for_start(), countdown.HOURS|countdown.MINUTES|countdown.SECONDS))
+      }
+    }, 1000);
+
+    var uri = '/events/';
+    var es = new ReconnectingEventSource(uri);
+
+    es.onopen = function () {
+      loadRoundInfo(id);
+      viewModel.connected(true);
+      console.log("ESS connected");
+    };
+
+    es.onerror = function () {
+      console.log('*** connection lost, reconnecting...');
+      viewModel.connected(false);
+    };
+
+    es.addEventListener('stream-reset', function () {
+      appendLog('*** client too far behind, please refresh');
+    }, false);
+
+    es.addEventListener('stream-error', function (e) {
+      // hard stop
+      es.close();
+      e = JSON.parse(e.data);
+      console.log('*** stream error: ' + e.condition + ': ' + e.text);
+    }, false);
+
+    es.addEventListener('message', function (e) {
+      console.log('event: ' + e.data);
+      msg = JSON.parse(e.data);
+
+      // if an event arrives that was already in the initial pageload,
+      //   ignore it
+      if($.inArray(msg.id, msg_ids) != -1) {
+        return;
+      }
+      loadRoundInfo(id);
+      loadData_hasil_invalid(id);
+      loadData_hasil(id);
+      if (msg.message=="status_time_end") {
+       
+        viewModel.time_for_start(moment(msg.data.time_end));
+      
+      } else {
+        viewModel.time_for_start(0);
+      }
+    }, false);      
+
+  });
+</script>
+{% endblock %}

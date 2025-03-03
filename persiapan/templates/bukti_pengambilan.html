@@ -1,0 +1,84 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+    
+    </style>
+</head>
+<body class="A4" style="font-family: Arial, Helvetica, sans-serif; font-size:12px;">
+    <section class="sheet padding-25mm">
+
+        <h3 style="text-align:center;text-transform: uppercase; font-size:16px;">Tanda Terima Dokumen {{seleksi}}</h3>
+
+<p style="text-align: justify;">
+    Pada hari ini {{tanggal|date:"l"}} tanggal {{tanggal|date:"d F Y"}} telah diserahkan Dokumen {{seleksi}}  dalam bentuk file zip yang berisi sebagai berikut : <br>
+    <ol>
+    <li>1 (satu) softcopy Dokumen Seleksi</li>
+    <li>1 (satu) softcopy Format Formulir Permohonan Keikutsertaan Seleksi</li>
+    <li>1 (satu) softcopy Format Jaminan Keikutsertaan Seleksi (Bid Bond)</li>
+    <li>1 (satu) softcopy Format Dokumen Penawaran Harga</li>
+    </ol>
+    <br/>
+    yang diunduh pada pukul {{ tanggal|date:"H:i:s" }} WIB dari Tim  {{seleksi }} melalui Sistem Seleksi Pengguna Izin Pita Frekuensi Radio (e-Auction) kepada {{ bidder.bidder.bidder.nama_perusahaan }}  yang diwakili sebagai berikut : <br/>
+    <br>
+    <table style="text-align:justify";>
+        <tr>
+            <td>Nama</td><td>: {{ bidder.nama_lengkap }}</td>
+        </tr>
+        <tr>
+            <td>Perusahaan</td><td>: {{ bidder.bidder.bidder.nama_perusahaan }}</td>
+        </tr>
+        <tr>
+            <td>No. KTP</td><td>: {{ bidder.nik_perwakilan }}</td>
+        </tr>
+        <tr>
+            <td>Jabatan</td><td>: {{ bidder.jabatan }}</td>
+        </tr>
+    </table>
+    
+</p>
+<br/><br/>
+Demikian tanda terima ini disampaikan untuk dapat digunakan sebagaimana mestinya.
+<br><br>
+    <!-- diubah sesuai permintaan -->
+    <!-- <b>Pihak yang menyerahkan</b><br>
+    Ketua Tim Pelaksana {{ seleksi }}<br/><br/><br/>
+    
+    TTD<br/>
+    {{ ketua_pansel }}
+    <br/><br/><br/> -->
+
+    <b>Pihak yang menerima</b><br>
+    {{ bidder.bidder.bidder.nama_perusahaan }}
+    <br/><br/><br/>
+    TTD<br/>
+    {{ bidder.nama_lengkap }}
+        
+
+
+</section>
+</body>
+</html>

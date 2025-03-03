@@ -1,0 +1,135 @@
+{% load widget_tweaks %}
+{% load l10n %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Daftar Permohonan Keikutsertaan</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col">
+                <p id="data_modal" style="display: none;">pernyataan</p>
+                    <div class="col">
+                       
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            {% render_field form.bidder %}
+                            <div class="form-group col-12">
+                                <label for="id_nomor" class="nama_label">Nama Perwakilan</label>
+                                {% render_field form.perwakilan|add_class:"form-custom dotnya" %}
+                            </div>
+                            <div class="form-group col-6" >
+                                <label for="id_nomor" class="nama_label" >Pernyataan Keikutsertaan</label>
+                                {% render_field form.pernyataan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group " style="display: none;">
+                                <label for="id_nomor"  class="nama_label">Status</label>
+                                {% render_field form.status|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group col-12" id="file">
+                                <label for="id_nomor"  class="nama_label">Unggah File Formulir Permohonan Keikutsertaan Seleksi</label>
+                                {% render_field form.file|add_class:"form-control"|attr:"accept=.zip " %}
+                            </div>
+                            <div class="form-group  col-12" id="file2">
+                                <label for="id_nomor"  class="nama_label">Unggah File Jaminan Permohonan Keikutsertaan Seleksi</label>
+                                {% render_field form.file2|add_class:"form-control"|attr:"accept=.zip " %}
+                            </div>
+                            <div class="form-group  col-12" id="file3">
+                                <label for="id_nomor"  class="nama_label">Dokumen Penawaran Harga</label><br>
+                                Disampaikan Secara Luring dan Dalam Sampul tertutup sesuai waktu yang ditentukan pada Dokumen Seleksi
+                            </div>
+
+                           
+                            <div class="row">
+                                <div class="row col-12">
+                                    <div class="row form-group" style="display: flex;">
+                                        <div class="col-md-12">
+                                            <label for="id_bidder" class="nama_label" style="padding-left:18px;">Waktu Unduh:</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <iframe src="https://free.timeanddate.com/clock/i9e9919s/n624/tlid38/fs12/tt0/tw0/ta1/tb2" frameborder="0" width="183" height="16"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                    <div class="form-check" style="padding-left:37px;">
+                                        <input type="checkbox" class="form-check-input checknya" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1" style="text-align:left; text-justify:initial;  ">Dengan ini saya menyatakan bahwa saya selaku perwakilan telah menguggah formulir permohonan keikutsertaan seleksi dan jaminan keikutsertaan seleksi dengan waktu pengunggahan sebagaimana tertera diatas</label>
+                                    </div>
+                               
+                            </div>
+                           
+                    </div>  
+                </div>              
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" id="submitButton" disabled class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script>
+    $( document ).ready(function() {
+        $('#modal').on('shown.bs.modal', function() {
+            var paragraphText = $('#data_modal').text();
+            if (paragraphText == "pernyataan") {
+                $('#submitButton').prop('disabled', true);
+                $("#id_pernyataan option[value='']").remove();
+                $("#id_pernyataan option[value='UNKNOWN']").remove();
+                $("#id_pernyataan option:eq(1)").prop("selected", true);
+                $("#file").hide();
+                $("#file2").hide();
+
+                var paragraphText = $('#id_pernyataan').text();
+                var paragraphText2 = $('#data_modal').text();
+
+                if (paragraphText2 == "pernyataan") {
+                    function myClocka() {         
+                        setTimeout(function() {   
+                        const d = new Date();
+                        const n = d.toLocaleTimeString();
+                        document.getElementById("jam2").innerHTML = n; 
+                        myClocka();             
+                        }, 1000)
+                    }
+                    myClocka(); 
+
+                    $("#id_pernyataan").change(function() {
+                        var selectedValue = $(this).val();
+
+                        if (selectedValue === "MENGIKUTI") {
+                        $("#file").show();
+                        $("#file2").show();
+                        } else {
+                        $("#file").hide();
+                        $("#file2").hide();
+                        }
+                    });
+                    
+                }
+
+                $('#exampleCheck1').change(function() {
+                    if ($(this).prop('checked')) {
+                        $('#submitButton').prop('disabled', false);
+                    } else {
+                        $('#submitButton').prop('disabled', true);
+                    }
+                });
+            }            
+        });
+    });
+</script>

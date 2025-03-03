@@ -1,0 +1,34 @@
+{% load render_table from django_tables2 %}
+
+<div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        {% for t in tabs %}
+        <li class="nav-item"> <a href="#tabgroup_{{forloop.counter}}" class="{% if forloop.first %}active{% endif %} nav-link" data-toggle="pill" role="tab">
+          {{t.b.bidder.bidder.nama_perusahaan}}</i></a></li>
+        {% endfor %}
+      </ul>
+      <div class="tab-content mt-2">
+        {% for t in tabs %}
+          <div class="tab-pane fade show {% if forloop.first %}active{% endif %} " id="tabgroup_{{forloop.counter}}" role="tabpanel">
+            <ul class="nav nav-tabs">
+              {% for i in t.i %}
+              <li class="nav-item"> <a href="#tabgroup{{i.i}}_{{forloop.counter}}" class="{% if forloop.first %}active{% endif %} nav-link" data-toggle="pill" role="tab">
+                {{i.i.item.band}}</i></a></li>
+              {% endfor %}
+            </ul>
+            <div class="tab-content mt-2">
+              {% for i in t.i %}
+                <div class="tab-pane fade show {% if forloop.first %}active{% endif %} " id="tabgroup{{i.i}}_{{forloop.counter}}" role="tabpanel">
+                  {% render_table i.t%}
+                </div>
+              {% endfor %}
+            </div>            
+          </div>
+        {% endfor %} 
+
+      </div>
+    </div>
+</div>
+
+

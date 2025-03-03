@@ -1,0 +1,261 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+   
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<p style="text-align:center; font-size:16px;">BERITA ACARA <br> HASIL EVALUASI ADMINISTRASI {{ seleksi|upper }}</p>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari ini, {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan selesai  telah dilaksanakan rapat  Evaluasi Administrasi {{ seleksi }} bertempat di .... {{ tempat_undangan }}.</li>
+    <li style="text-align: justify;">Tim Seleksi yang menghadiri rapat pleno Evaluasi Administrasi adalah sebagaimana terlampir.</li>
+    <li style="text-align: justify;">Sesuai dengan Dokumen {{ seleksi }}, telah dilaksanakan tahapan seleksi sebagai berikut :
+    <br>
+      3.1 Perusahaan yang mengambil Dokumen Seleksi pada {{ tanggal|date:'d F Y'}} secara daring adalah sebagai berikut:</li> 
+    <!-- Table berisi bidder dan waktu pengambilan dokumen seleksi -->
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Perwakilan Perusahaan</th><th>Perusahaan Penyelenggara Jaringan Bergerak Seluler</th><th>Waktu Pengambilan</th>
+      </tr>
+    {% for t in table_pengambilan_doksel %}
+      <tr><td width="10%">
+        {{ forloop.counter }}
+      </td><td width="20%">{{t.bidder_perwakilan.nama_lengkap}}</td>
+      <td width="20%">{{t.bidder_perwakilan.bidder.bidder.nama_perusahaan }}</td>
+      <td>{{t.tgl_download|date:'d F Y'}} pukul {{t.tgl_download|date:'H:i:s'}} WIB</td>
+    </tr>
+      {% endfor %}
+    </table>
+    <p>Sesuai dengan ketentuan Dokumen Seleksi maka Perusahaan yang  telah mengambil dokumen seleksi selanjutnya disebut Calon Peserta Seleksi.</p>
+    <!-- opsional jika ada addendum dokumen seleksi pada [jadwla wkatu pengambilan dokumen seleksi] secara daring adalah sebagai berikut -->
+    <!-- table daftar bidder dan wkatu pengambilan addendum dokumen seleksi -->
+    <p>3.2 Calon Peserta Seleksi yang mengambil Adendum Dokumen Seleksi pada {{ tanggal|date:'d F Y'}} secara daring adalah sebagai berikut:</p>
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Perwakilan Perusahaan</th><th>Perusahaan Penyelenggara Jaringan Bergerak Seluler</th><th>Waktu Pengambila</th>
+      </tr>
+      {% for t in table_addendum_pengambilan_doksel %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          <td width="20%">{{t.bidder_perwakilan.nama_lengkap}}</td>
+          <td width="20%">{{t.bidder_perwakilan.bidder.bidder.nama_perusahaan }}</td>
+          <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:i:s'}} WIB</td>
+      </tr>
+        {% endfor %}
+    </table>   
+    
+    <br>3.3 Calon Peserta Seleksi yang melakukan penyerahan Dokumen Permohonan Keikutsertaan {{seleksi}}  pada hari {{ jadwal.tanggal_awal|date:'l'}} secara daring adalah sebagai berikut:</li>
+    <!-- Table daftar perusahaan dan waktu permohonan -->
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Calon Peserta Seleksi</th><th>Waktu Penyerahan</th>
+      </tr>
+      {% for t in table_permohonan_keikutsertaan %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:i:s'}} WIB</td>
+      </tr>
+        {% endfor %}
+    </table> 
+
+    <br>3.3 Calon Peserta Seleksi yang melakukan penyerahan Dokumen Permohonan Keikutsertaan {{seleksi}}  pada hari {{ jadwal.tanggal_awal|date:'l'}} secara luring adalah sebagai berikut:</li>
+    <!-- Table daftar perusahaan dan waktu permohonan -->
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Calon Peserta Seleksi</th><th>Waktu Penyerahan</th>
+      </tr>
+      {% for t in table_permohonan_keikutsertaan %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td></td>
+      </tr>
+        {% endfor %}
+    </table> 
+
+     
+    <p>Sesuai dengan ketentuan Dokumen Seleksi maka Calon Peserta Seleksi yang telah menyerahkan Dokumen Permohonan Seleksi secara daring dan luring selanjutnya disebut Peserta Seleksi.</p>
+    <br>3.5 Peserta Seleksi yang menghadiri Pemeriksaan Kelengkapan Dokumen Permohonan untuk {{seleksi}} dan hasil Pemeriksaan Kelengkapan Dokumen adalah sebagai berikut</li>
+    <!-- table no. nama peserta seleksi, hasil pemeriksaan kelengkapan, keterangan ( jika ada ) -->
+    <br>
+    a. Hasil Pemeriksaan Kelengkapan Dokumen Permohonan Keikutsertaan Seleksi
+    <table width="100%" >
+      <tr>
+        <th>Peserta Seleksi</th><th>Hasil Pemeriksaan</th><th>Keterangan</th>
+      </tr>
+      {% for t in table_pemeriksaan_kelengkapan %}
+        <tr>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td width="20%">
+            {% if t.sampul1 == 'Ada'  %}
+            Lengkap
+            {% else %}
+            Tidak Lengkap
+            {% endif %}
+          </td>
+          <td>{{t.keterangan}}</td>
+      </tr>
+        {% endfor %}
+    </table>    
+    <br>
+    b. Hasil Pemeriksaan Kelengkapan Jaminan Keikutsertaan Seleksi (Bid Bond)
+    <table width="100%" >
+      <tr>
+        <th>Peserta Seleksi</th><th>Hasil Pemeriksaan</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table_pemeriksaan_kelengkapan %}
+        <tr>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td width="20%">
+            {% if t.bidbond == 'Ada'   %}
+            Lengkap
+            {% else %}
+            Tidak Lengkap
+            {% endif %}
+          </td>
+          <td>{{t.keterangan}}</td>
+      </tr>
+        {% endfor %}
+    </table> 
+    <br>
+    c. Hasil Pemeriksaan Kelengkapan Dokumen Penawaran Harga
+    <table width="100%" >
+      <tr>
+        <th>Peserta Seleksi</th><th>Hasil Pemeriksaan</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table_pemeriksaan_kelengkapan %}
+        <tr>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td width="20%">
+            {% if t.sampul2 == 'Ada'  %}
+            Lengkap
+            {% else %}
+            Tidak Lengkap
+            {% endif %}
+          </td>
+          <td>{{t.keterangan}}</td>
+      </tr>
+        {% endfor %}
+    </table> 
+    <br>3.6 Verifikasi Dokumen Administrasi {{seleksi}} dilakukan pada {{ tanggal_awal|date:'d F Y'}} adalah sebagai berikut:</li>
+    <!-- table no, nama peserta seleksi, hasil verifikasi, Keterangan (jika ada) -->
+    <br>
+    a. Hasil Verifikasi Dokumen Permohonan Keikutsertaan Seleksi
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Peserta Seleksi</th><th>Hasil Verifikasi</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table_form_verifikasi %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan}}</td>
+          <td width="20%">{% if t.bidbond == 'Ada'  %}
+                  Sesuai
+              {% else %}
+                  Tidak Sesuai
+              {% endif %}</td>
+          <td>{{t.keterangan}}</td>
+          <!-- <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:m:s'}} WIB</td> -->
+      </tr>
+        {% endfor %}
+    </table>   
+    <br>
+    b. Hasil Verifikasi Jaminan Keikutsertaan Seleksi
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Peserta Seleksi</th><th>Hasil Verifikasi</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table_form_verifikasi %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan}}</td>
+          <td width="20%">{% if  t.sampul1 == 'Ada' %}
+                  Sesuai
+              {% else %}
+                  Tidak Sesuai
+              {% endif %}</td>
+          <td>{{t.keterangan}}</td>
+          <!-- <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:m:s'}} WIB</td> -->
+      </tr>
+        {% endfor %}
+    </table>   
+    <li style="text-align: justify;">Berdasarkan kegiatan Pemeriksaan Kelengkapan Dokumen Permohonan dan Hasil Verifikasi Dokumen Permohonan maka Evaluasi Administrasi memperoleh hasil sebagai berikut:</li>
+    <!-- table no, nama peserta seleksi , keterangan -- table lulus evaluasi administrasi -->
+   
+    <table width="100%" >
+      <tr>
+        <th>No</th><th>Peserta Seleksi</th><th> Hasil Evaluasi</th><th>Keterangan ( Jika Ada )</th>
+      </tr>
+      {% for t in table_hasil_kesimpulan %}
+          {% if t.hasil_pemeriksaan %}
+            <tr>
+              <td width="10%">
+              {{ forloop.counter }}</td>
+              <td width="20%">{{t.bidder.bidder.nama_perusahaan}}</td>
+              <td width="20%">{% if t.kesimpulan3 %}Lulus{% else%} Tidak Lulus{% endif%}</td>
+              <td>
+                {% if t.keterangan is None %}
+                
+                {% else %}
+                {{t.keterangan}}
+                {% endif %}
+              </td>
+          </tr>
+          {% endif %}
+      {% endfor %}
+    </table> 
+    <br/>
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Evaluasi Administrasi {{seleksi}}. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+
+</ol>
+
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

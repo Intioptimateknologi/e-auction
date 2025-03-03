@@ -1,0 +1,35 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title">Tambah/Ubah Tanda Tangan</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                {{ form.bidder }}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Nama Profil di E-Sign</label>
+                        {% render_field form.profileName|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Tanda Tangan</label>
+                        {% render_field form.ttd|add_class:"form-control" %}
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <div class="" style="text-align: right;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                    </div>
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>

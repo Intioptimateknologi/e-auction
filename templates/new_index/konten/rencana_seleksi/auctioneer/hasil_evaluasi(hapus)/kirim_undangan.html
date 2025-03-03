@@ -1,0 +1,485 @@
+{% extends 'new_index/base1.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/koGrid.css" >
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+
+
+
+{% endblock %}
+
+{% block tambah_css %}
+<style>
+    .gridStyle {
+        border: 1px solid rgb(255, 255, 255);
+        width: 100%; 
+        height: 300px;
+        float: left;
+    }
+    .KgTopPanel{
+        background-color: white;
+    }
+    .KgFooterPanel{
+        background-color: white;
+    }
+    .kgRow.Even{
+        background-color: #edf5fd;
+    }
+    .KgRow.Even.selected{
+	background-color: rgb(189, 208, 203);
+	}
+
+    .sd-container-modern{
+        margin: 0px;
+    }
+
+    .sd-body--responsive .sd-page.sd-page__empty-header {
+        padding-top: calc(3 * var(--base-unit, 8px));
+    }
+
+    .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+        padding: 0px;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    .sd-row.sd-clearfix.sd-page__row.sd-row--multiple{
+        margin: 0px !important;
+    }
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+    cursor: pointer;
+    position: relative;
+    padding-right: 26px;
+    background: #ffff;
+}
+</style>
+{% endblock  %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="container" style="padding-top: 0px;">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Hasil Evaluasi<br></h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+          <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-one-1-tab" data-toggle="pill" href="#custom-tabs-one-1" role="tab" aria-controls="custom-tabs-one-1" aria-selected="false">Kirim Undangan</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-bold" id="custom-tabs-one-2-tab" data-toggle="pill" href="#custom-tabs-one-2" role="tab" aria-controls="custom-tabs-one-2" aria-selected="true">Form Hasil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-bold" id="custom-tabs-one-2-tab" data-toggle="pill" href="#custom-tabs-one-2" role="tab" aria-controls="custom-tabs-one-2" aria-selected="true">Upload pengumuman</a>
+                </li>
+              </ul>
+            </div>
+      
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-one-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-one-1" role="tabpanel" aria-labelledby="custom-tabs-one-1-tab">
+                  <!-- bidder list -->
+                  <div class="container" style="padding-top: 0px;">
+                    <div class="row">
+                      <div class="col-xl-3" style="width: 300.4px;">
+                        <label><strong>Tahun&nbsp;</strong></label>
+                        <select style="width: 150.2px;height: 36.2px;">
+                          <option value="12" selected=""></option>
+                          <option value="13">2021</option>
+                          <option value="14">2022</option>
+                          <option value="15">2023</option>
+                        </select>
+                      </div>
+                      <div class="col-xl-3">
+                        <label><strong>Judul&nbsp;</strong></label>
+                        <select style="width: 150.2px;height: 36.2px;margin-right: 0px;margin-left: 4px;">
+                          <option value="12" selected=""></option>
+                          <option value="13">Judul 1</option>
+                          <option value="14">Judul 2</option>
+                          <option value="15">Judul 3</option>
+                        </select>
+                      </div>
+                      <div class="col-xl-2">
+                        <button class="btn btn-primary" type="button" style="margin-top: 0px;height: 36px;width: 86.5px;">Cari</button>
+                      </div>
+                      <div class="col" style="text-align: right;">
+                        <button type="button" id="tambah_data" data-toggle="modal" data-target="#myModal" class="btn btn-primary" type="button" style="width: 120.1px;height: 36px;"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
+                      </div>
+                      <div class="table-responsive" style="text-align: center; border-bottom-style: outset; margin-top: 40px;">
+                        <style>
+                          /* CSS for the table rows */
+                          #myTable tr:nth-child(1),
+                          #myTable tr:nth-child(3) {
+                            background-color: #EDF5FD;
+                          }
+                        </style>
+                        <table id="myTable" class="display" style="width: 100%;"></table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-2" role="tabpanel" aria-labelledby="custom-tabs-one-2-tab">
+                  <div class="container" style="padding-top: 0px;">
+                    <div class="row">
+                      <div class="col-xl-3" style="width: 300.4px;">
+                        <label><strong>Tahun&nbsp;</strong></label>
+                        <select style="width: 150.2px;height: 36.2px;">
+                          <option value="12" selected=""></option>
+                          <option value="13">2021</option>
+                          <option value="14">2022</option>
+                          <option value="15">2023</option>
+                        </select>
+                      </div>
+                      <div class="col-xl-3">
+                        <label><strong>Judul&nbsp;</strong></label>
+                        <select style="width: 150.2px;height: 36.2px;margin-right: 0px;margin-left: 4px;">
+                          <option value="12" selected=""></option>
+                          <option value="13">Judul 1</option>
+                          <option value="14">Judul 2</option>
+                          <option value="15">Judul 3</option>
+                        </select>
+                      </div>
+                      <div class="col-xl-2">
+                        <button class="btn btn-primary" type="button" style="margin-top: 0px;height: 36px;width: 86.5px;">Cari</button>
+                      </div>
+                      <div class="col" style="text-align: right;">
+                        <button type="button" id="tambah_data" data-toggle="modal" data-target="#myModal2" class="btn btn-primary" type="button" style="width: 120.1px;height: 36px;"><i class="fas fa-plus"></i>&nbsp;Tambah</button>
+                      </div>
+                      <div class="table-responsive" style="text-align: center; border-bottom-style: outset; margin-top: 40px;">
+                        <style>
+                          /* CSS for the table rows */
+                          #myTable2 tr:nth-child(1),
+                          #myTable2 tr:nth-child(3) {
+                            background-color: #EDF5FD;
+                          }
+                        </style>
+                        <table id="myTable2" class="display" style="width: 100%;"></table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+      </div>
+      
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  
+{% endblock %}
+
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block modal %}
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel" style="color: #007bff;">Tambah</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nomor">Nomor:</label>
+                    <input type="text" class="form-control" id="nomor">
+                </div>
+                <div class="form-group">
+                    <label for="judul">Judul:</label>
+                    <input type="text" class="form-control" id="judul">
+                </div>
+                <div class="form-group">
+                    <label for="tanggal">Tanggal:</label>
+                <div class="input-group date">
+                    <input type="text" class="form-control" id="tanggal" autocomplete="off">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="keterangan">Keterangan:</label>
+                    <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="upload-file">Upload File:</label>
+                    <input type="file" class="form-control-file" id="upload-file">
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background: red;">Batal</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background: #007bff;">Simpan</button>
+                <!-- Add additional buttons or actions here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myModalLabel" style="color: #007bff;">Tambah</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="nomor">Nomor:</label>
+          <input type="text" class="form-control" id="nomor">
+        </div>
+        <div class="form-group">
+          <label for="judul">Judul:</label>
+          <input type="text" class="form-control" id="judul">
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col">
+              <label for="tanggal">Tanggal:</label>
+              <div class="input-group date">
+                <input type="text" class="form-control" id="tanggal" autocomplete="off">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <label for="tempat">Tempat:</label>
+              <input type="text" class="form-control" id="tempat">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col">
+              <label for="waktu">Waktu:</label>
+              <input type="text" class="form-control" id="waktu">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" id="tempat" style="margin-top: 32px;">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="keterangan">Agenda:</label>
+          <textarea class="form-control" id="keterangan" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="keterangan">Link:</label>
+          <input type="text" class="form-control" id="link">
+        </div>
+        <div class="form-group">
+          <label for="keterangan">Keterangan:</label>
+          <textarea class="form-control" id="keterangan" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="upload-file">Upload File:</label>
+          <input type="file" class="form-control-file" id="upload-file">
+        </div>
+        <div class="form-group">
+          <label for="judul">Penerima Undangan:</label>
+          <select class="form-control" id="penerima-undangan">
+            <option value="">Select Penerima Undangan</option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background: red;">Batal</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background: #007bff;">Simpan</button>
+        <!-- Add additional buttons or actions here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    var viewModel = {
+        myData: [
+            {
+                No: 1,
+                'Nomor': 98,
+                Judul: 'Judul 1',
+                Tanggal: '3 Maret 2023',
+                Tempat: 'kominfo',
+                Waktu: '3 Mar 2023-02 Ags 2023',
+                Agenda: '<a href="#">Lihat</a>',                
+                Link: '<a href="#">Link</a>',
+                Keterangan: '<a href="#">Lihat</a>',
+                'Upload File': '<a href="#">Lihat</a>',
+                'Penerima Undangan': 'PT JAYA',
+                'Aksi': '<a href="#"></a>'
+            },
+             {
+                No: 2,
+                'Nomor': 97,
+                Judul: 'Judul 2',
+                Tanggal: '3 Maret 2023',
+                Tempat: 'kominfo',
+                Waktu: '3 Mar 2023-02 Ags 2023',
+                Agenda: '<a href="#">Lihat</a>',                
+                Link: '<a href="#">Link</a>',
+                Keterangan: '<a href="#">Lihat</a>',
+                'Upload File': '<a href="#">Lihat</a>',
+                'Penerima Undangan': 'PT JAYA',
+                'Aksi': '<a href="#"></a>'
+            },
+             {
+                No: 3,
+                'Nomor': 96,
+                Judul: 'Judul 3',
+                Tanggal: '3 Maret 2023',
+                Tempat: 'kominfo',
+                Waktu: '3 Mar 2023-02 Ags 2023',
+                Agenda: '<a href="#">Lihat</a>',                
+                Link: '<a href="#">Link</a>',
+                Keterangan: '<a href="#">Lihat</a>',
+                'Upload File': '<a href="#">Lihat</a>',
+                'Penerima Undangan': 'PT JAYA',
+                'Aksi': '<a href="#"></a>'
+            },
+        ]
+    };
+
+    var viewModel2 = {
+        myData: [
+           {
+                No: 1,
+                'Nomor': 98,
+                Judul: 'Judul 1',
+                Tanggal: '3 Maret 2023',
+                Keterangan: '<a href="#">Lihat</a>',
+                File: '<a href="#">Lihat</a>',
+                'Aksi': '<a href="#"></a>'
+            },
+             {
+                No: 2,
+                'Nomor': 97,
+                Judul: 'Judul 2',
+                Tanggal: '3 Maret 2023',
+                Keterangan: '<a href="#">Lihat</a>',
+                File: '<a href="#">Lihat</a>',
+                'Aksi': '<a href="#"></a>'
+            },
+             {
+                No: 3,
+                'Nomor': 96,
+                Judul: 'Judul 3',
+                Tanggal: '3 Maret 2023',
+                Keterangan: '<a href="#">Lihat</a>',
+                File: '<a href="#">Lihat</a>',
+                'Aksi': '<a href="#"></a>'
+            },
+        ]
+    };
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            data: viewModel.myData,
+            columns: [
+                { data: 'No', title: 'No', width: '40px' },
+                { data: 'Nomor', title: 'Nomor', width: '176px' },
+                { data: 'Judul', title: 'Judul', width: '150px' },
+                { data: 'Tanggal', title: 'Tanggal', width: '100px' },
+                { data: 'Tempat', title: 'Tempat', width: '100px' },
+                { data: 'Agenda', title: 'Agenda', width: '80px' },
+                { data: 'Link', title: 'Link', width: '80px' },
+                { data: 'Keterangan', title: 'Keterangan', width: '80px' },
+                { data: 'Upload File', title: 'Upload File', width: '80px' },
+                { data: 'Penerima Undangan', title: 'Penerima Undangan', width: '100px' },
+                {data: 'Aksi',
+                    title: 'Aksi',
+                    width: '176px',
+                    render: function (data, type, row) {
+                        return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20H21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H21" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' + data;
+                    }
+                }
+            ],
+            columnDefs: [
+                { className: 'text-center', targets: '_all' }
+            ]
+        });
+
+        $('#tanggal').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $('#myTable2').DataTable({
+            data: viewModel2.myData,
+            columns: [
+            { data: 'No', title: 'No', width: '40px' },
+            { data: 'Nomor Dokumen', title: 'Nomor Dokumen', width: '150px' },
+            { data: 'Judul', title: 'Judul', width: '150px' },
+            { data: 'Tanggal', title: 'Tanggal', width: '150px' },
+            { data: 'Keterangan', title: 'Keterangan', width: '150px' },
+            { data: 'File', title: 'File', width: '150px' },
+            {data: 'Aksi',
+                    title: 'Aksi',
+                    width: '176px',
+                    render: function (data, type, row) {
+                        return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20H21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6H21" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' + data;
+                    }
+                }
+            ],
+            columnDefs: [
+                { className: 'text-center', targets: '_all' }
+            ]
+});
+
+            
+        
+    });
+</script>
+
+{% endblock  %}

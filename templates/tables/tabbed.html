@@ -1,0 +1,36 @@
+{% load django_tables2 %}
+{% load i18n %}
+{% block table-wrapper %}
+{% comment %} <div class="table-container"> {% endcomment %}
+    {% block table %}
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+        </div>
+    </div>
+    <div class="card-deck">
+    {% for row in table.paginated_rows %}
+        <div class="card">
+        {% for column, cell in row.items %}
+                {% if forloop.first %}
+                <div class="card-header {% cycle 'bg-primary' 'bg-secondary' %}">
+                    <h5 class="card-title">{{ cell }}</h5>
+                </div>
+                <div class="card-body">
+                {% elif forloop.last %}
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    {{ cell }}
+                </div>
+                {% else %}
+                    <div class="row {% cycle 'bg-light' 'bg-white' %}">
+                        <div class="col">{{column.header}}</div><div class="col">{{ cell|localize }}</div>
+                    </div>
+                {% endif %}
+        {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+    {% endblock table %}
+{% comment %} </div> {% endcomment %}
+{% endblock table-wrapper %}

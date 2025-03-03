@@ -1,0 +1,260 @@
+{% extends 'new_index/base1_bidder.html' %}
+{% load static %}
+{% block extrahead %}
+<head>
+</head>
+<style>
+    .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    .navbar{
+        padding-left: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+    }
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    }
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    }
+
+</style>
+{% endblock %}
+ 
+<body style="background: rgb(246,248,252);">
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Sanggahan Hasil Seleksi</h1>
+                <hr>
+            </div>
+        </div>
+       
+        <div class="row p-t-10">
+            <div class="col-md-1">
+                <label  class="nama_label">Tahun</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!-- <label  class="nama_label">Test</label> -->
+                    <select name="" id="search_per" class="form-control">
+                        <option value="" selected></option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label  class="nama_label">Judul</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <!-- <label  class="nama_label">Test</label> -->
+                    <select name="" id="search_per_2" class="form-control">
+                        <option value="" selected></option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" >Cari</button>
+                </div>
+            </div>
+            <div class="col-md-4" style="text-align:right;">
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahPermohonanKeikutsertaan" onclick="showModal()">+ Tambah Sanggah</button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card p-3">
+           
+            
+            <div class="row">
+                <div class="col" >
+                    <div>
+                        <table class="table table-striped" id="table-sanggahan-seleksi">
+                            <thead>
+                              <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Status Sanggah</th>
+                                <th scope="col">Dokumen Sanggahan</th>
+                                <th scope="col">Waktu Sanggahan</th>
+                                <th scope="col">Keterangan</th>
+                                <th scope="col">Jawaban</th>
+                                <th scope="col">Tindak Lanjut</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in '123456789'|make_list %}
+                              <tr>
+                                <th scope="row">{{i}}</th>
+                                <td><p class="btn btn-sm btn-success">Diterima</p></td>
+                                <td>
+                                    <a href="">Lihat</a>
+                                </td>
+                                <td>3 Mar 2023-02 Ags 2023</td>
+                                <td><a href="">Lihat</a></td>
+                                <td>
+                                    <a href="#">Lihat</a>
+                                </td>
+                                <td><p class="text-danger">Dihentikan</p></td>
+
+                                
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- modal rencana seleksi -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalTambahPermohonanKeikutsertaan">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="title-modal">Tambah Sanggahan</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-4" >
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label  class="nama_label">Tahun</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <!-- <label  class="nama_label">Test</label> -->
+                            <select name="" id="search_per" class="form-control">
+                                <option value="" selected></option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <label  class="nama_label">Judul</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <!-- <label  class="nama_label">Test</label> -->
+                            <select name="" id="search_per_2" class="form-control">
+                                <option value="" selected></option>
+                                <option value="2023">Judul 1</option>
+                                <option value="2022">Judul 2</option>
+                                <option value="2021">Judul 3</option>
+                                <option value="2020">Judul 4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Keterangan</label>
+                    <textarea class="form-control" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Upload File</label>
+                    <input type="file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label  class="nama_label">Tindak Lanjut Sesi</label>
+                    <select name="" id="search_per_2" class="form-control">
+                        <option value="" selected></option>
+                        <option value="2023">Sesi 1</option>
+                        <option value="2022">Sesi 2</option>
+                        <option value="2021">Sesi 3</option>
+                        <option value="2020">Sesi 4</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+
+    
+
+
+</body>
+{% block script %}
+
+<script>
+    function showModal(){
+        $("#modalTambahPermohonanKeikutsertaan").modal('show');
+    }
+
+    $("#table-sanggahan-seleksi").DataTable();
+            
+    
+</script>
+
+{% endblock %}

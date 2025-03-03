@@ -1,0 +1,35 @@
+{% load django_tables2 %}
+{% load i18n %}
+{% block table-wrapper %}
+
+    {% block table %}
+    <table class="table"  style="padding:10px;">
+    {% for row in table.paginated_rows %}
+    <tr><td>
+        <div class="card">
+            <table class="table table-striped">
+        {% for column, cell in row.items %}
+            <tr>
+            {% if column.localize == None %}
+                {% if request.session.kada == 'L' and column.header == 'Aksi' or request.session.kada == 'L' and column.header == 'File Undangan'  %}
+                    <td width="15%" style="font-weight:bold; color:#032056;">{{column.header}}</td><td><font color='red'>Tombol tidak dapat diakses</font></td>
+                {% else %}
+                    <td width="15%" style="font-weight:bold; color:#032056;">{{column.header}}</td><td>{{ cell|linebreaksbr }}</td>
+                {% endif %}
+            {% else %}
+                {% if column.localize %}
+                    <td>{{column.header}}</td><td>{{ cell|localize }}</td>
+                {% else %}
+                    <td>{{column.header}}</td><td>{{ cell|unlocalize }}</td>
+                {% endif %}
+            {% endif %}
+            </tr>
+        {% endfor %}
+            </table>
+        </div>
+    </td></tr>
+    {% endfor %}
+    </table>
+    {% endblock table %}
+{% comment %} </div> {% endcomment %}
+{% endblock table-wrapper %}

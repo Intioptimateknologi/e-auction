@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+
+{% endblock %}
+
+{% block content %}
+<h2>tim lelang: Username</h2>
+<br>
+<div id="surveyContainer"></div>
+{% csrf_token %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+    Survey
+        .StylesManager
+        .applyTheme("defaultV2");
+
+    const surveyJson = {
+            "logoPosition": "right",
+            "completedHtml": "<p><h4>Data tersimpan.</h4></p>",
+            "pages": [
+            {
+                "name": "page1",
+                "elements": [
+                    {
+                    "type": "text",
+                    "name": "nip",
+                    "title": "NIM Anggota TIM",
+                    "isRequired": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "jabatan_dalam_tim",
+                    "title": "Jabatan dalam TIM",
+                    "isRequired": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "jabatan",
+                    "title": "Jabatan di Instansi",
+                    "isRequired": true
+                    },
+                    {
+                    "type": "file",
+                    "name": "sk_pengangkatan",
+                    "title": "File SK pengangkatan",
+                    "isRequired": true,
+                    "allowMultiple": true
+                    }
+                ]
+            }
+        ],
+        "completeText": "Save",
+        "widthMode": "responsive"
+    };
+
+    const survey = new Survey.Model(surveyJson);
+    survey.focusFirstQuestionAutomatic = false;
+
+    function kirim_data(data){
+        var csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+        $.ajax({
+			url: 'http://iotekno.id:8000/userman/api/v1/tim_lelang/',
+			type: 'post',
+            headers: {'X-CSRFToken': csrf_token},
+			dataType: 'json',
+			contentType: 'application/json',
+			data: data,
+            beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa("asd:asd"));
+            },
+			success: function(data) {
+				console.log(data.msg);
+                Swal.fire('Success')
+                
+			},
+		});
+    }
+
+    survey.onComplete.add(function (sender) {
+        const results = JSON.stringify(sender.data);
+        kirim_data(results);
+    });
+
+    $(function() {
+        $("#surveyContainer").Survey({ model: survey });
+    }); 
+</script>
+{% endblock %}

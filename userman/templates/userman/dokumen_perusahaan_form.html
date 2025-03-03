@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_dokumen_perusahaan_list' %}">
+    dokumen_perusahaan Listing
+    </a>
+</p>
+    
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="dokumen">dokumen: </label>
+      <input class="form-control col-sm-10"
+         id="dokumen" type="file"
+         name="dokumen" value="{{ object.dokumen }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="nama_dokumen">nama_dokumen: </label>
+      <input class="form-control col-sm-10"
+         id="nama_dokumen" type="text"
+         name="nama_dokumen" value="{{ object.nama_dokumen }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verification_note">verification_note: </label>
+      <input class="form-control col-sm-10"
+         id="verification_note" type="text"
+         name="verification_note" value="{{ object.verification_note }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="last_updated">last_updated: </label>
+      <input class="form-control col-sm-10"
+         id="last_updated" type="datetime-local"
+         name="last_updated" value="{{ object.last_updated }}" disabled>
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verified_at">verified_at: </label>
+      <input class="form-control col-sm-10"
+         id="verified_at" type="datetime-local"
+         name="verified_at" value="{{ object.verified_at }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="created">created: </label>
+      <input class="form-control col-sm-10"
+         id="created" type="datetime-local"
+         name="created" value="{{ object.created }}" disabled>
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verified">verified: </label>
+      <input class="form-control col-sm-10"
+         id="verified" type="text"
+         name="verified" value="{{ object.verified }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verified_by">verified_by: </label>
+      {{ form.verified_by }}
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="id_perusahaan">id_perusahaan: </label>
+      {{ form.id_perusahaan }}
+  </div>
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

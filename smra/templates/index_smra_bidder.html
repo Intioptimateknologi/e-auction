@@ -1,0 +1,537 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<link href="/static/css/bs_datetimepicker.min.css" rel="stylesheet" >
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Lelang - Manajemen Penawaran Harga SMRA</h1>
+                        </div>
+                        <div class="card-body">
+                                {% add_judul_bidder user.id item_lelang.id "/persiapan/pembukaan/" %}
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">        
+            <div class="row">
+                <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#undangan" role="tab">Undangan</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content col-md-12">
+                    
+                    <div class="tab-pane active" id="undangan" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Undangan</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_draftundangan" style="width:100%">
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <!-- tricky get bidder sesuai akun -->
+    <p style="display: none;" text="{{user.user_type}}" id="tricky_user_type"></p>
+    <p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+    <p style="display: none;" id="tricky_user_bidder_id"></p>
+    <!--  -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+      <div id="modal_info"></div>
+{% endblock %}
+{% block script %}
+<script src="/static/js/bs_datetimepicker.js"></script>
+{% include 'js_tambahan/js_tambahan.html' %}
+<script>
+$(document).ready(function() {
+   
+  function loadData(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/detail_itemlelang2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#obyek");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+  
+  var id = $('#nmlelang').val();
+  function loadData_draftundangan(id) {
+    $.ajax({
+        url: '/persiapan/persiapan/pengambilan_dokumen2/'+id + '/{{bidder_id}}/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_draftundangan");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  function loadData_undangan(id) {
+    var user_id = $('#tricky_user_id').attr('text');
+    $.ajax({
+        method: 'GET',
+        url: '/userman/api/v1/bidder_perwakilan/?users_id='+user_id,
+        contentType : 'application/json',
+        dataType : 'json',
+            success: function (data) {
+                $.ajax({
+                    url: '/smra/undangan_smra_cca2/'+id+'/SMRA/{{bidder_id}}/',
+                    method: "GET",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (data) {
+                        var table = $("#t_undangan");
+                        table.empty();
+                        table.append(data);
+                    }
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+    });
+  }
+
+  function loadData_price_increase(id) {
+    $.ajax({
+        url: '/smra2/price_increase/'+id +'/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_price_increase");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  loadData_draftundangan(id);
+  /*$('#nmlelang').on('select2:select', function (e) {
+    var id = e.params.data.id;
+    $("#item_lelang").val(id);
+    loadData(id);
+    loadData_Putaran(id);
+    loadData_draftundangan(id);
+    loadData_undangan(id);
+    loadData_price_increase(id);
+  });*/
+//   $(".dt").DataTable({paging: false, ordering: false,info: false,searching: false});
+
+    // create
+    $("#tambah_undangan").click(function() { 
+        showModal({
+            formURL: "/smra/modal_undangan_smra/"+document.getElementById('item_lelang').value+"/",
+            // drfURL: "/smra/api/v1/undangan_smra_cca/",
+            // onSuccess: function(response) {
+            //     loadData_draftundangan(document.getElementById('item_lelang').value)
+            //     $("#modal").modal('hide');
+            // }
+        });
+    });
+
+    $("#tambah_putaran").click(function() { 
+        showModal({
+            formURL: "/smra/modal_jadwal_putaran/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/smra/api/v1/jadwal_smra/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Putaran(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_increase").click(function() { 
+        showModal({
+            formURL: "/smra2/price_increase_form/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/smra2/api/v1/price_increase/",
+            onSuccess: function(response) {
+                loadData_price_increase(document.getElementById('item_lelang').value)
+                $("#modal").modal('hide');
+            }
+        });
+    });
+
+    // edit
+    $("#t_draftundangan").on("click",".undangan_update",function() {
+        showModal({
+            formURL: "/smra/modal_update_undangan_smra/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/smra/api/v1/undangan_smra_cca/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                loadData_draftundangan(document.getElementById('item_lelang').value)
+                $("#modal").modal('hide');
+            }
+        })
+    });
+
+    $("#t_putaran").on("click",".putaran_update",function() {
+        showModal({
+            formURL: "/smra/modal_update_putaran/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/smra/api/v1/jadwal_smra/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Putaran(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    // hapus
+    $("#t_draftundangan").on("click",".undangan_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/smra/api/v1/undangan_smra_cca/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_draftundangan(document.getElementById('item_lelang').value)
+                });
+            }
+        });
+    });
+
+    $("#t_putaran").on("click",".putaran_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/smra/api/v1/jadwal_smra/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_Putaran(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_draftundangan").on("click",".undangan_send",function() {
+        id = this.id;
+        swal.fire({
+            title: "Kirim Undangan",
+            text: "Kirim undangan ke auctioner dan bidder?",
+            icon: "success"
+        }).then(function() {
+            $.ajax({
+                url: '/smra/api/v1/undangan_smra_cca/'+id+'/kirim_undangan/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    swal.fire({
+                        title: "Terkirim",
+                        text: "Terkirim",
+                        icon: "success"
+                    })
+                }
+            });
+            //loadData_Putaran(document.getElementById('item_lelang').value);
+        });
+    });
+
+    // menambahkan fungsi
+    var base64_data_file;
+    var item_lelang;
+
+    $('#modal').on('shown.bs.modal', function() {
+        var textValue = $('#data_modal').text();
+
+        item_lelang = document.getElementById('item_lelang').value;
+        $('.select2bs4').select2();
+
+        // undangan add
+        if (textValue === 'add_undangan') {
+            append_data_bidder();
+            append_data_auct();
+
+            // submit undagngan
+            $('#coba').submit(function(event) {
+                event.preventDefault();
+                console.log("tertekan");
+            
+                var selectedOptions = [];
+                var selectedOptions_auctioneer = [];
+                $('#id_bidder_2 option:selected').each(function() {
+                    selectedOptions.push($(this).val());
+                });
+
+                $('#id_auctioneer_2 option:selected').each(function() {
+                    selectedOptions_auctioneer.push($(this).val());
+                });
+
+                if (selectedOptions.length != 0) {
+                    for (let index = 0; index < selectedOptions.length; index++) {
+                    const element = selectedOptions[index];
+                    
+                    var formData = new FormData();
+                    formData.append('link_file', $('#id_link_file')[0].files[0]);
+                    formData.append('item_lelang', $('#id_item_lelang').val());
+                    formData.append('nomor', $('#id_nomor').val());
+                    formData.append('judul', $('#id_judul').val());
+                    formData.append('tanggal', $('#id_tanggal').val());
+                    formData.append('keterangan', $('#keterangan').val());
+                    formData.append('tempat', $('#id_tempat').val());
+                    formData.append('agenda', $('#id_agenda').val());
+                    formData.append('link_teleconference', $('#id_link_teleconference').val());
+                    formData.append('bidder', element);
+                    formData.append('owner', "SMRA");
+                
+                    $.ajax({
+                        method: 'POST',
+                        url: '/smra/api/v1/undangan_smra_cca/',
+                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        success: function(data) {
+                            console.log(data);
+                            if (index == selectedOptions.length-1) {
+                                if (selectedOptions_auctioneer.length == 0) {
+                                    swal.fire({
+                                        title: "Berhasil !",
+                                        text: "Data Berhasil Ditambah!",
+                                        icon: "success"
+                                    }).then(function() {
+                                        $("#modal").modal('hide');
+                                        loadData_draftundangan(document.getElementById('item_lelang').value);
+                                    });
+                                } else {
+                                    auctioner(selectedOptions_auctioneer);
+                                }
+                                
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
+                }else{
+                    auctioner(selectedOptions_auctioneer);
+                }
+
+                
+            });
+
+            
+
+            // looping
+            function auctioner(arr){
+                for (let index = 0; index < arr.length; index++) {
+                    const element = arr[index];
+                    
+                    var formData = new FormData();
+                    formData.append('link_file', $('#id_link_file')[0].files[0]);
+                    formData.append('item_lelang', $('#id_item_lelang').val());
+                    formData.append('nomor', $('#id_nomor').val());
+                    formData.append('judul', $('#id_judul').val());
+                    formData.append('tanggal', $('#id_tanggal').val());
+                    formData.append('keterangan', $('#keterangan').val());
+                    formData.append('tempat', $('#id_tempat').val());
+                    formData.append('agenda', $('#id_agenda').val());
+                    formData.append('link_teleconference', $('#id_link_teleconference').val());
+                    formData.append('auctioneer', element);
+                    formData.append('owner', "BC");
+                
+                    $.ajax({
+                        method: 'POST',
+                        url: '/smra/api/v1/undangan_smra_cca/',
+                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        success: function(data) {
+                            console.log(data);
+                            if (index == arr.length-1) {
+                                swal.fire({
+                                    title: "Berhasil !",
+                                    text: "Data Berhasil Ditambah!",
+                                    icon: "success"
+                                }).then(function() {
+                                    $("#modal").modal('hide');
+                                    loadData_kirim_undangan(document.getElementById('item_lelang').value);
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            }
+        }
+
+        // edit
+        if (textValue === 'edit_dokesel') {
+                var selectedTexta = $('#id_bidder').find('option:selected').text();
+                var selectedTextb = $('#id_auctioneer').find('option:selected').text();
+
+                if (selectedTexta === '---------') {
+                    $('#id_bidder').prop('disabled', true);
+                } else {
+                    $('#id_bidder').prop('disabled', false);
+                }
+
+
+                if (selectedTextb === '---------') {
+                    $('#id_auctioneer').prop('disabled', true);
+                } else {
+                    $('#id_auctioneer').prop('disabled', false);
+                }
+        }
+    });
+
+    //append data
+    function append_data_bidder(){
+
+        $.ajax({
+        method: 'GET',
+        url: "/userman/api/api_join_users_bidder_lelang/"+item_lelang+"/",
+        contentType : 'application/json',
+        dataType : 'json',
+            success: function (data) {
+                console.log(data);
+                var data_data = data;
+
+                for (let index = 0; index < data_data.length; index++) {
+                    const element = data_data[index];
+                    $('#id_bidder_2').append('<option value="'+element.id_bidder+'">'+element.username+'('+element.nama_perwakilan+')</option>');
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function append_data_auct(){
+        $.ajax({
+        method: 'GET',
+        url: "/userman/api/api_join_users_auctioneer_lelang/"+item_lelang+"/",
+        contentType : 'application/json',
+        dataType : 'json',
+            success: function (data) {
+                var data_data = data;
+
+                for (let index = 0; index < data_data.length; index++) {
+                    const element = data_data[index];
+                    $('#id_auctioneer_2').append('<option value="'+element.id_auctioneer+'">'+element.username+'('+element.nama_perwakilan+')</option>');
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    //append data
+});
+</script>
+{% endblock %}

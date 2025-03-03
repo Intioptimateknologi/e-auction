@@ -1,0 +1,453 @@
+{% extends 'new_index/base1_auctioneer.html' %}
+{% load static %}
+{% block extrahead %}
+<head>
+</head>
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+    cursor: pointer;
+    position: relative;
+    padding-right: 26px;
+    background: #ffff;
+    justify-content: center;
+    }
+    
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    #table-2 {
+        font-size: 15px;
+    }
+    #table-rencana-seleksi {
+        font-size: 15px;
+    }
+</style>
+{% endblock %}
+ 
+<body style="background: rgb(246,248,252);">
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Pengambilan Dokumen Seleksi<br></h1>
+                <hr>
+            </div>
+        </div>
+        <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-Bukti-Penyampaian-Pertanyaan-tab" data-toggle="pill" href="#pills-Bukti-Penyampaian-Pertanyaan" role="tab" aria-controls="pills-Bukti-Penyampaian-Pertanyaan" aria-selected="false" onclick="changeFormTo('BuktiPenyampaianPertanyaan')">Bukti Penyampaian Pertanyaan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Kirim-Undangan-Penyusunan-Jawaban-tab" data-toggle="pill" href="#pills-Kirim-Undangan-Penyusunan-Jawaban" role="tab" aria-controls="pills-Kirim-Undangan-Penyusunan-Jawaban" aria-selected="false" onclick="changeFormTo('KirimUndanganPenyusunanJawaban')">Kirim Undangan Penyusunan Jawaban</a>
+                </li>
+                
+              </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="pills-tabContent p-3">
+                    <div class="tab-pane fade show active " id="pills-Bukti-Penyampaian-Pertanyaan" role="tabpanel" aria-labelledby="pills-Bukti-Penyampaian-Pertanyaan-tab">
+                        <div class="card p-3">
+                            <div style="display: flex; flex-wrap: nowrap; justify-content: left; flex-direction: row;">
+                      <div class="col1">
+                          <label  class="nama_label">Tahun</label>
+                      </div>
+                      <div class="col-2">
+                          <div class="form-group">
+                              <!-- <label  class="nama_label">Test</label> -->
+                              <select name="" id="search_per" class="form-control">
+                                  <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                  <option value="2023">2023</option>
+                                  <option value="2022">2022</option>
+                                  <option value="2021">2021</option>
+                                  <option value="2020">2020</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col1">
+                          <label  class="nama_label">Judul</label>
+                      </div>
+                      <div class="col-2">
+                          <div class="form-group">
+                              <!-- <label  class="nama_label">Test</label> -->
+                              <select name="" id="search_per_2" class="form-control">
+                                  <option value="" selected>--Silahkan Pilih Judul--</option>
+                                  <option value="2023">2023</option>
+                                  <option value="2022">2022</option>
+                                  <option value="2021">2021</option>
+                                  <option value="2020">2020</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-2">
+                          <div class="form-actions">
+                              <button type="button" class="btn btn-primary" >Cari</button>
+                          </div>
+                      </div>
+                    </div>
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                        <table class="table table-striped" id="table-rencana-seleksi" style="justify-content: center;">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama Perusahaan</th>
+                                                <th scope="col">Nama Perwakilan</th>
+                                                <th scope="col">Waktu</th>
+                                                <th scope="col">XLS</th>
+                                                <th scope="col">PDF</th>
+                                                <th scope="col">Aksi</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in '123456789'|make_list %}
+                                              <tr>
+                                                <th scope="row">{{i}}</th>
+                                                <td>PT JAYA {{i}}</td>
+                                                <td>Edi Sudrajat</td>
+                                                <td>12:00:00 3 Maret 2023</td>
+                                                <td>
+                                                    <a href="">Link</a>
+                                                </td>
+                                                <td>
+                                                    <a href="">Link</a>
+                                                </td>
+                                                <td style="text-align: left;"><div style="display: flex; justify-content: left;"><i hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 20H21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg></i></i><i class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"></i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M3 6H21" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M10 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M14 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg></button></div></td>
+                                              </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="pills-Kirim-Undangan-Penyusunan-Jawaban" role="tabpanel" aria-labelledby="pills-Kirim-Undangan-Penyusunan-Jawaban-tab">
+                        <div class="card p-3">
+                            <div style="display: flex; flex-wrap: nowrap; justify-content: left; flex-direction: row;">
+                                <div class="col1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col" style="justify-content: right;">
+                                    <div class="form-actions" style="margin-left: 250px;">
+                                        <button type="button" id="tambah_data" class="btn btn-secondary float-end" style="background-color: #fff;color: #007bff;border-color: #007bff; font-size:14px;" onclick="changeFormTo('tambah','1')"><i class="fa-solid fa-plus-circle"></i> Tambah Baru</button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                        <table class="table table-striped" id="table-2">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nomor Dokumen</th>
+                                                <th scope="col">Judul</th>
+                                                <th scope="col">Tanggal</th>
+                                                <th scope="col">Tempat</th>
+                                                <th scope="col">Waktu</th>
+                                                <th scope="col">Agenda</th>
+                                                <th scope="col">Link</th>
+                                                <th scope="col">Keterangan</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in '123456789'|make_list %}
+                                              <tr>
+                                                <th scope="row">{{i}}</th>
+                                                <td> {{i}}</td>
+                                                <td>Judul {{i}}</td>
+                                                <td>3 Maret 2023</td>
+                                                <td>Kominfo</td>
+                                                <td>3 Mar 2023-02 Ags 2023</td>
+                                                <td>
+                                                    <a href="">Lihat</a>
+                                                </td>
+                                                <td>
+                                                    <a href="">Lihat</a>
+                                                </td>
+                                                <td>
+                                                    <a href="">Lihat</a>
+                                                </td>
+                                              </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        
+        
+    </div>
+
+    <!-- modal rencana seleksi -->
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="title-modal">Tambah Berita Acara</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="content-modal">
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary">Simpan</button>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+
+    
+</body>
+{% block script %}
+    <script>
+        let tableRencanaSeleksi = new DataTable('#table-rencana-seleksi');
+        let table2 = new DataTable('#table-2');
+
+
+        function changeFormTo(opsi,showmodal=0)
+        {
+            let jsons = ''; // ini nanti untuk tampung data json
+            let hitApi = ''; // ini nanti ganti sesuai hit api kemana
+            let titleModal = '';
+            let mainTitle = '';
+            let content = '';
+            switch(opsi){
+                case 'buat':
+                    mainTitle = '';
+                    titleModal = 'Tambah Berita Acara';
+                    content = `
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Nomor Dokumen</label>
+                            <input type="text" name="nomordokumen" id="nomordokumen" placeholder="Nomor Dokumen" class="form-control">
+                        </div>
+                        <div class="form-group col">
+                            <label  class="form-control-label">Penerima</label>
+                            <select name="penerima" id="penerima" class="form-control">
+                                <option value="" selected>-- Pilih Penerima --</option>
+                                <option value="user1">User 1</option>
+                                <option value="user1">User 1</option>
+                                <option value="user1">User 1</option>
+                                <option value="user1">User 1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Judul Berita Acara</label>
+                            <input type="text" name="judulberitaacara" id="judulberitaacara" placeholder="Judul" class="form-control">
+                        </div>
+                        <div class="form-group col">
+                            <label  class="form-control-label">Upload BA</label>
+                            <input type="file" name="uploadba" id="uploadba" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" placeholder="Judul" class="form-control">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-success">Download File Template</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Keterangan</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    `;
+                    break;
+                case 'lihat':
+                    titleModal = 'Lihat Berita Acara';
+                    content = `
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Nomor Dokumen</label>
+                            <input type="text" name="nomordokumen" id="nomordokumen" placeholder="Nomor Dokumen" class="form-control" value="9283177321872" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label  class="form-control-label">Penerima</label>
+                            <select name="penerima" id="penerima" class="form-control" disabled>
+                                <option value="">-- Pilih Penerima --</option>
+                                <option value="user1" selected>User 1</option>
+                                <option value="user1">User 1</option>
+                                <option value="user1">User 1</option>
+                                <option value="user1">User 1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Judul Berita Acara</label>
+                            <input type="text" name="judulberitaacara" id="judulberitaacara" placeholder="Judul" class="form-control" value="Dokumen 1" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <button class="btn btn-success">Download BA</button>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" placeholder="Judul" class="form-control" value="01/05/2023" disabled>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Keterangan</label>
+                            <textarea class="form-control" disabled>melakukan lelang secara berkala</textarea>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    `;
+                    break;
+                case 'tambah':
+                    titleModal = 'Tambah Kirim Undangan';
+                    content = `
+                    <div class="form-group col">
+                        <label  class="form-control-label">Nomor</label>
+                        <input type="text" name="nomor" id="nomor" placeholder="Nomor Dokumen" class="form-control"  >
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Judul</label>
+                        <input type="text" name="judul" id="judul" placeholder="judul Dokumen" class="form-control"  >
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label  class="form-control-label">Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" placeholder="Judul" class="form-control" >
+                        </div>
+                        <div class="form-group col">
+                            <label  class="form-control-label">Tempat</label>
+                            <input type="text" name="tempat" id="tempat" placeholder="Tempat" class="form-control"  >
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Waktu</label>
+                        <input type="time" name="time" id="time" placeholder="Judul" class="form-control" >
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Agenda</label>
+                        <textarea class="form-control" ></textarea>
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Link</label>
+                        <input type="text" name="link" id="link" class="form-control"  >
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Keterangan</label>
+                        <textarea class="form-control" ></textarea>
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Upload File</label>
+                        <input type="file" name="uploadba" id="uploadba" class="form-control">
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Penerima Undangan</label>
+                        <select name="penerima" id="penerima" class="form-control" >
+                            <option value="" selected>-- Pilih Penerima --</option>
+                            <option value="user1" >User 1</option>
+                            <option value="user1">User 1</option>
+                            <option value="user1">User 1</option>
+                            <option value="user1">User 1</option>
+                        </select>
+                    </div>
+                    
+                    `;
+                    break;
+            }
+            $("#title-main").html(mainTitle);
+            $("#title-modal").html(titleModal);
+            $("#content-modal").html(content);
+            if(showmodal){
+                $("#exampleModal").modal('show');
+            }
+            
+        }
+
+       
+        
+
+                
+       
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}

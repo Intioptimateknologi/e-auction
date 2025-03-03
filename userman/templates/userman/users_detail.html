@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_Users_list' %}">
+    Users
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>Aktif</td><td>{{ object.isactive }}</td></tr>
+    <tr><td>Username</td><td>{{ object.username }}</td></tr>
+    <tr><td>Email</td><td>{{ object.email }}</td></tr>
+    <tr><td>Nomor Mobile</td><td>{{ object.mobile_number }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<div class="postcontent nobottommargin clearfix" style="padding-top:50px;">
+    <!--content-->
+   
+    {% for p in profil %}
+        <div class="card" style="background:#dee2e6; border-radius:20px; width:100%">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 style="color: #032056; display:inline-block; padding: 0 15px;"><b>{{ p.judul }}</b></h3>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card" style="background:#032056; border-radius:5px;padding:20px;">
+                        <div style="color: white; text-align: justify;font-family: Rubik,sans-serif;
+                        text-rendering: optimizeLegibility!important;
+                        -webkit-font-smoothing: antialiased!important;">{{p.content| safe | linebreaksbr}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+      
+    {% endfor %}
+</div>
+
+
+    

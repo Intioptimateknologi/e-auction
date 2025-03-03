@@ -1,0 +1,127 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title">Template Berita Acara</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <form name="item_lelang" id="item_lelang" method="POST" >
+                        {% csrf_token %}
+                        {{ form.media }}
+                        <div class="form-group">
+                            <label for="id_nomor"  class="nama_label">Nama Template</label>
+                            {% render_field form.nama_template|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_judul">Keterangan Template</label>
+                            {% render_field form.keterangan_template|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label  class="nama_label">Template Menu</label>
+                            {% render_field form.template_code_menu|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label  class="nama_label">Template Submenu</label>
+                            {% render_field form.template_code_sub|add_class:"form-control" %}
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <select id="penyimpanan_sementara">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="nama_label" for="id_keterangan">Dokumen</label>
+                            {% render_field form.dokumen|add_class:"form-control" %}
+                        </div>
+                        <div class="card-footer">
+                            <div class="" style="text-align: right;">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                            </div>
+                        </div>
+                    </form>
+                </div>  
+            </div>              
+        </div>
+	  </div>
+	</div>
+  </div>
+
+  <script>
+$(document).ready(function() {
+    $('#modal').on('shown.bs.modal', function() {
+        // Untuk Template BA
+        $("#id_template_code_menu").on("change", function() {
+
+        if($("#penyimpanan_sementara").children().length === 0) {
+            $('#id_template_code_sub option').each(function() {
+                const value = $(this).val();
+                const text = $(this).text();
+                const newOption = $('<option>', {
+                    value: value,
+                    text: text
+                });
+                $('#penyimpanan_sementara').append(newOption);
+            });
+
+        }
+
+
+        $('#id_template_code_sub').empty();
+        updateSelectBOptions();
+        });
+
+        function updateSelectBOptions() {
+        var selectedOption = $("#id_template_code_menu").val();
+        var a;
+
+        switch (selectedOption) {
+        case "persiapan":
+            a = 1;
+            break;
+        case "administrasi":
+            a = 2
+            break;
+        case "beauty_contest":
+            a = 3
+            break;  
+        case "gabungan":
+            a = 4
+            break;
+        case "negosiasi":
+            a = 5
+            break;
+        case "pasca_seleksi":
+            a = 6
+            break;
+
+        default:
+            break;
+        }
+
+        const selectedValues = [];
+        $('#penyimpanan_sementara option').each(function() {
+            const value = $(this).val();
+            const text = $(this).text();
+            const firstChar = value.charAt(0);
+            selectedValues.push(firstChar);
+
+            if (firstChar == a) {
+            const newOption = $('<option>', {
+                value: value,
+                text: text
+            });
+            $('#id_template_code_sub').append(newOption);
+            }
+        });
+        }
+
+        // ====
+    });
+});
+  </script>

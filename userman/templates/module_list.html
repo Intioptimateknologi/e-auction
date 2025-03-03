@@ -1,0 +1,66 @@
+
+{% extends 'new_index/base1.html' %}
+{% load mptt_tags %}
+
+{% block tambah_css %}
+<style>
+    .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+        padding: 0px;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    .sd-row.sd-clearfix.sd-page__row.sd-row--multiple{
+        margin: 0px !important;
+    }
+</style>
+{% endblock  %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div>
+    <ul class="root">
+        {% recursetree menu %}
+        {% if node.id in menugroup %}
+            {% if node.enabled %}
+
+            <li>
+                <a href="https://spectrum-eauctions.id/userman/menulist/?edit={{ node.id }}">{{ node.name }}</a> <button type="button" id="{{ node.id }}" class="btn btn-danger" onClick="hapus_modul(this.id)">Hapus</button>
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endif %}
+        {% endrecursetree %}
+    </ul>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+{% endblock %}

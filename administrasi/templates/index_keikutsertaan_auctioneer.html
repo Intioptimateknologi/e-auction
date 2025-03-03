@@ -1,0 +1,69 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    
+    {% if user_type == "C" %}
+    {% add_judul_auctioner user.id item_lelang.id "/administrasi/keikutsertaan/" "Administrasi > Keikutsertaan" %}
+    {% elif user_type == "V" %}
+    {% add_judul_viewer user.id item_lelang.id "/administrasi/keikutsertaan/" "Administrasi > Keikutsertaan" %}
+    {% elif user_type == "A" %}
+    {% add_judul_admin user.id item_lelang.id "/administrasi/keikutsertaan/" "Administrasi > Keikutsertaan" %}
+    {% endif %}
+  {% include "tabs_all.html" %}
+    
+
+<p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+<p style="display: none;" id="tricky_user_bidder_id"></p>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+  <div id="pdfModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: 90%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="pdfModalLabel">Tanda Terima</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <iframe id="pdfViewer" src="" style="width: 100%; height: 900px;" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/eauctions_modal.js"></script>
+
+<script>
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+});
+$(document).on('show.bs.modal', '#pdfModal', function (event) {
+    var button = $(event.relatedTarget);
+    var pdfUrl = button.data('pdf-url');
+    var pdfViewer = $('#pdfViewer');
+    pdfViewer.attr('src', pdfUrl);
+});
+</script>
+{% endblock %}

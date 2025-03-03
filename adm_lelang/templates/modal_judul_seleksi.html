@@ -1,0 +1,97 @@
+<div id="modal" class="modal fade" role="dialog" >
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;Judul Seleksi</h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body" enctype="multipart/form-data">
+                <form id="myForm_judul_seleksi">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="nama_pengguna_judul_seleksi" class="nama_label">Tahun</label>
+                                <input type="number" name="tanggal_judul_seleksi" class="form-control" required="" id="tanggal_judul_seleksi">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Judul Seleksi</label>
+                                <textarea class="form-control" id="judul_seleksi_judul_seleksi" name="judul_seleksi_judul_seleksi" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Keterangan</label>
+                                <textarea class="form-control" id="keterangan_judul_seleksi" name="keterangan_judul_seleksi" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <div style="display: flex; align-items: center;">
+                                    <input class="form-check-input" type="checkbox" value="true" id="tayang_judul_seleksi" name="tayang_judul_seleksi" style="width: 20px; height: 20px;">
+                                    <label for="exampleFormControlTextarea1" style="margin: 0px; padding-left: 5px;">Tayang ?</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal_judul_seleksi_edit" class="modal fade" role="dialog" >
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Ubah Akun Bidder</h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body" enctype="multipart/form-data">
+                <form id="myForm_judul_seleksi_edit">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="nama_pengguna_judul_seleksi" class="nama_label">Tahun</label>
+                                <input type="number" name="tanggal_judul_seleksi_edit" class="form-control" required="" id="tanggal_judul_seleksi_edit">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Judul Seleksi</label>
+                                <textarea class="form-control" id="judul_seleksi_judul_seleksi_edit" name="judul_seleksi_judul_seleksi_edit" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Keterangan</label>
+                                <textarea class="form-control" id="keterangan_judul_seleksi_edit" name="keterangan_judul_seleksi_edit" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <input type="text" name="id_judul_seleksi_edit" class="form-control" style="display: none;" required="" id="id_judul_seleksi_edit">
+                        <div class="col-12">
+                            <div class="form-check">
+                                <div style="display: flex; align-items: center;">
+                                    <input class="form-check-input" type="checkbox" value="true" id="tayang_judul_seleksi_edit" name="tayang_judul_seleksi_edit" style="width: 20px; height: 20px;">
+                                    <label for="exampleFormControlTextarea1" style="margin: 0px; padding-left: 5px;">Tayang ?</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="" style="text-align: right;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

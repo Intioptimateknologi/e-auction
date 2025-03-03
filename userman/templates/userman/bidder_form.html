@@ -1,0 +1,112 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_bidder_list' %}">
+    bidder Listing
+    </a>
+</p>
+    
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="nik">nik: </label>
+      <input class="form-control col-sm-10"
+         id="nik" type="text"
+         name="nik" value="{{ object.nik }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="alamat_perusahaan">alamat_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="alamat_perusahaan" type="text"
+         name="alamat_perusahaan" value="{{ object.alamat_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="jenis_penyelenggara">jenis_penyelenggara: </label>
+      <input class="form-control col-sm-10"
+         id="jenis_penyelenggara" type="text"
+         name="jenis_penyelenggara" value="{{ object.jenis_penyelenggara }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verified">verified: </label>
+      <input class="form-control col-sm-10"
+         id="verified" type="text"
+         name="verified" value="{{ object.verified }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verified_at">verified_at: </label>
+      <input class="form-control col-sm-10"
+         id="verified_at" type="datetime-local"
+         name="verified_at" value="{{ object.verified_at }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="jabatan_di_perusahaan">jabatan_di_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="jabatan_di_perusahaan" type="text"
+         name="jabatan_di_perusahaan" value="{{ object.jabatan_di_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="telp_perusahaan">telp_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="telp_perusahaan" type="text"
+         name="telp_perusahaan" value="{{ object.telp_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="nama_perusahaan">nama_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="nama_perusahaan" type="text"
+         name="nama_perusahaan" value="{{ object.nama_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="tgl_lahir">tgl_lahir: </label>
+      <input class="form-control col-sm-10"
+         id="tgl_lahir" type="date"
+         name="tgl_lahir" value="{{ object.tgl_lahir }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="last_updated">last_updated: </label>
+      <input class="form-control col-sm-10"
+         id="last_updated" type="datetime-local"
+         name="last_updated" value="{{ object.last_updated }}" disabled>
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="created">created: </label>
+      <input class="form-control col-sm-10"
+         id="created" type="datetime-local"
+         name="created" value="{{ object.created }}" disabled>
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verification_note">verification_note: </label>
+      <input class="form-control col-sm-10"
+         id="verification_note" type="text"
+         name="verification_note" value="{{ object.verification_note }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="npwp_perusahaan">npwp_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="npwp_perusahaan" type="text"
+         name="npwp_perusahaan" value="{{ object.npwp_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="email_perusahaan">email_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="email_perusahaan" type="text"
+         name="email_perusahaan" value="{{ object.email_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="nib_perusahaan">nib_perusahaan: </label>
+      <input class="form-control col-sm-10"
+         id="nib_perusahaan" type="text"
+         name="nib_perusahaan" value="{{ object.nib_perusahaan }}">
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="verified_by">verified_by: </label>
+      {{ form.verified_by }}
+  </div>
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

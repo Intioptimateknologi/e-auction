@@ -1,0 +1,146 @@
+{% extends 'new_index/base1.html' %}
+{% load sysmon_tags %}
+{% load static %}
+
+{% block extrahead %}
+<style>
+    .graph {
+        background-color: #fff;
+        position: relative;
+        width: 98%;
+        border: 1px solid #999;
+        padding: 1px;
+    }
+    .graph .bar {
+        display: block;
+        padding: 2px;
+        position: relative;
+        background: #AEAEAE;
+        color: #444;
+        height: 1em;
+        line-height: 1.1em;
+        border: 1px solid #ccc;
+    }
+    .graph .bar span { position: absolute; left: 1em; }
+    .module table td.process { white-space: normal; }
+    
+    .cth {
+        padding: 2px; background-color: #eee;
+    }
+</style>
+{% endblock %} 
+{% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+{% block konten_isi %}
+    <div class="row">
+        {% if error_psutil %}
+            <table width="100%">
+                <caption>! ERROR (psutil not found)</caption>
+
+                <tbody>
+                    <th>
+                        - Please install psutil for view system statistics on this page
+                        <br /><br />
+                        $ pip install psutil
+                    </th>
+                </tbody>
+            </table>
+        {% else %}
+        <div class="card col">
+            <div class="card-header">
+                <h4>Kondisi CPU</h4>
+            </div>
+            <div class="card-body">
+                <div class="graph pt-5">
+                    {{cpu_info.used}}% | Core(s): {{cpu_info.core}}<strong class="bar" style="width: {{cpu_info.used}}%;{% if cpu_info.used|tofloat > 90 %}background: #E72424{% endif %}"></strong>
+                </div>
+            </div>
+        </div>
+        <div class="card col">
+            <div class="card-header">
+                <h4>Kondisi Memori</h4>
+            </div>
+            <div class="card-body">
+                <div class="graph pt-5">
+                    {{mem_info.used}}% | Total: {{mem_info.total}}<strong class="bar" style="width: {{mem_info.used}}%;{% if mem_info.used|tofloat > 90 %}background: #E72424{% endif %}"></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="card col">
+            <div class="card-header">
+                <h4>Kondisi Hard Disk</h4>
+            </div>
+            <div class="card-body">
+                <div class="graph pt-5">
+                    <table class="table table-striped">
+                    {% for part in partitions %}
+                    <tr>
+                        <td colspan="5">
+                        <div class="graph">
+                            {{part.percent}}% | {{part.mountpoint}} | ({{part.total}})<strong class="bar" style="width: {{part.percent}}%;{% if part.percent|tofloat > 90 %}background: #E72424{% endif %}"></strong>
+                        </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card col">
+            <div class="card-header">
+                <h4>Kondisi Jaringan</h4>
+            </div>
+            <div class="card-body overflow-auto">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Device</th>
+                            <th>Recv</th>
+                            <th>Sent</th>
+                            <th>Pkg Sent</th>
+                            <th>Pkg Recv</th>
+                        </tr>
+                        {% for network in networks %}
+                        <tr>
+                            <td>{{network.device}}</td>
+                            <td>{{network.recv}}</td>
+                            <td>{{network.sent}}</td>
+                            <td>{{network.pkg_sent}}</td>
+                            <td>{{network.pkg_recv}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card col pt-5">
+            <div class="card-header">
+                <h4>User yang sedang Login</h4>
+            </div>
+            <div class="card-body">
+                <div class="graph pt-5">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Nama User</th>
+                            <th>Tipe</th>
+                            <th>Nama Lengkap</th>
+                            <th>Login terakhir</th>
+                        </tr>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{user.username}}</td>
+                            <td>{{user.user_type}}</td>
+                            <td>{{user.nama_lengkap}}</td>
+                            <td>{{user.last_login}}</td>                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endif %}
+{% endblock %}

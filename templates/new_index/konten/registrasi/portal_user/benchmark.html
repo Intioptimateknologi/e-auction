@@ -1,0 +1,619 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+{% block extrahead %}
+<style>
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+
+    .carousel-item img {
+    z-index: unset;
+  }
+
+    .odd-row {
+        background-color: #edf5fd !important;
+    }
+
+    .even-row {
+        background-color: white !important;
+    }
+</style>
+{% endblock %}
+{% block navbar %}
+{% if user.is_authenticated %}
+    {% include 'new_index/parts/navbar_admin.html' %}
+{% else %}
+    {% include 'new_index/parts/navbar_viewer.html' %}
+{% endif %}
+{% endblock %}
+{% block konten_isi %}
+<div class="container" style="padding-top: 20px; padding-bottom:100px;">
+    
+
+    <div class="row">
+        <div class="col">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h1 style="font-size: 24px;font-weight: bold; color: #04195B;">Benchmark<br></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p style="text-align: justify;color: #6C748E;">Pelaksanaan Lelang di Luar Negeri<br></p>
+                        </div>
+                    </div>
+                    
+                    <table id="example" class="display" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Negara</th>
+                                <th>Nama Negara</th>
+                                <th>Tahun</th>
+                                <th>Pita</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row" style="padding-top: 15px;padding-bottom: 15px;">
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">China</p>
+                                </div>
+                            </div> 
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-1" data-bs-toggle="modal">Lihat Detail</button>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image-2.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">Amerika</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-2" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image-3.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">India</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;color: #04195B;">
+                            <p>Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-3" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-left: 0px;padding-right: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">China</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-1" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 15px;padding-bottom: 15px;">
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">China</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-1" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">China</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-1" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image-2.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">Amerika</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-2" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-right: 0px;padding-left: 0px;">
+            <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 2px 6px 0px rgb(228,227,227); border-radius: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image-3.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col">
+                                    <p style="font-size: 24px;text-align: left;">India</p>
+                                </div>
+                            </div>
+                            <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: #04195B;">Untuk pengguna jaringan bergerak seluler</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;" data-bs-target="#modal-3" data-bs-toggle="modal">Lihat Detail</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="row align-content-center" style="padding-top: 10px;padding-bottom: 9px;">
+        <div class="col d-xxl-flex justify-content-center align-items-center align-content-center">
+            <nav class="justify-content-center align-items-center align-content-center" style="text-align: center;color: rgb(0,0,0);">
+                <ul class="pagination" style="justify-content: center;">
+                    <li class="page-item" style="color: rgb(0,0,0);padding-right: 9px;padding-left: 10px;"><a class="page-link" aria-label="Previous" href="#" style="color: black;"><span aria-hidden="true"><</span></a></li>
+                    <li class="page-item" style="color: rgb(0,0,0);padding-right: 5px;padding-left: 5px;"><a class="page-link" href="#" style="color: black;">1</a></li>
+                    <li class="page-item" style="color: rgb(0,0,0);padding-right: 5px;padding-left: 5px;"><a class="page-link" href="#" style="color: black;">2</a></li>
+                    <li class="page-item" style="color: rgb(0,0,0);padding-right: 5px;padding-left: 5px;"><a class="page-link" href="#" style="color: black;">3</a></li>
+                    <li class="page-item" style="color: rgb(0,0,0);padding-right: 5px;padding-left: 5px;"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true" style="color: black;">></span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-1" style=" align-items: center;">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="border-radius: 16px;">
+                <div class="modal-header" style="padding-right: 40px;padding-left: 40px;">
+                    <h4 class="modal-title" style="color: #04195B; font-weight:700;">Detail</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="border-color: white; background-color:white;"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding-right: 15px;padding-left: 15px;margin-right: 0px;margin-left: 0px;">
+                        <div class="col">
+                            
+                            <h1 style="text-align: left;">2.1 GHz</h1>
+                            <p style="text-align: left;color: #04195B;">Untuk pengguna Jaringan bergerak seluler</p>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col" style="text-align: right;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col-sm-3">
+                                    <p style="font-size: 24px;text-align: right;">China</p>
+                                </div>
+                            </div>
+                            <p style="text-align: right;font-size: 24px;color: #7984A7;">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;">
+                            <p style="text-align: left;font-size: 18px;font-weight: bold;">Keterangan</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                            <p style="text-align: justify;color: #6C748E;">orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-2" style=" align-items: center;">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="border-radius: 16px;">
+                <div class="modal-header" style="padding-right: 40px;padding-left: 40px;">
+                    <h4 class="modal-title" style="color: #04195B; font-weight:700;">Detail</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="border-color: white; background-color:white;"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding-right: 15px;padding-left: 15px;margin-right: 0px;margin-left: 0px;">
+                        <div class="col">
+                            
+                            <h1 style="text-align: left;">2.1 GHz</h1>
+                            <p style="text-align: left;color: #04195B;">Untuk pengguna Jaringan bergerak seluler</p>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col" style="text-align: right;"><img src="{% static 'img/portal/clipboard-image-2.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col-sm-3">
+                                    <p style="font-size: 24px;text-align: right;">Amerika</p>
+                                </div>
+                            </div>
+                            <p style="text-align: right;font-size: 24px;color: #7984A7;">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;">
+                            <p style="text-align: left;font-size: 18px;font-weight: bold;">Keterangan</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                            <p style="text-align: justify;color: #6C748E;">orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-3" style=" align-items: center;">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="border-radius: 16px;">
+                <div class="modal-header" style="padding-right: 40px;padding-left: 40px;">
+                    <h4 class="modal-title" style="color: #04195B; font-weight:700;">Detail</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="border-color: white; background-color:white;"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding-right: 15px;padding-left: 15px;margin-right: 0px;margin-left: 0px;">
+                        <div class="col">
+                            
+                            <h1 style="text-align: left;">2.1 GHz</h1>
+                            <p style="text-align: left;color: #04195B;">Untuk pengguna Jaringan bergerak seluler</p>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col" style="text-align: right;"><img src="{% static 'img/portal/clipboard-image-3.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                <div class="col-sm-3">
+                                    <p style="font-size: 24px;text-align: right;">India</p>
+                                </div>
+                            </div>
+                            <p style="text-align: right;font-size: 24px;color: #7984A7;">Tahun 2022</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;">
+                            <p style="text-align: left;font-size: 18px;font-weight: bold;">Keterangan</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                            <p style="text-align: justify;color: #6C748E;">orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+<!-- footer -->
+{% comment %} <footer class="footer_bg">
+    <div class="container" style="padding-top: 61px;padding-bottom: 40px;margin-bottom: 78px;margin-top: 0px;">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="font-size: 20px;font-weight: bold;color: rgb(255,255,255);">Hubungi Kami<br></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: rgb(255,255,255);"><i class="fa-solid fa-phone"></i>159<br></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: rgb(255,255,255);"><i class="fa-solid fa-envelope"></i> callcenter_sdppi@kominfo.go.id<br></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: rgb(255,255,255);"><i class="fa-solid fa-calendar-days"></i> Senin - Jumat<br></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: rgb(255,255,255);"><i class="fa-solid fa-clock"></i> 07.00 - 17.00 WIB<br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="font-size: 20px;font-weight: bold;color: rgb(255,255,255);">Kantor Pusat Ditjen SDPPI<br></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: #969696;">Jalan Medan Merdeka Barat No.17, Gedung Sapta Pesona, RT.2/RW.3, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota<br>Jakarta 10110<br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="font-size: 20px;font-weight: bold;color: rgb(255,255,255);">Pelayanan Ditjen SDPPI<br></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p style="color: #969696;">Menara Danareksa Lt. 15, Jl. Medan&nbsp;<br>Merdeka Selatan No. 14, Gambir, Jakarta&nbsp;<br>Pusat 10110</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col"><img src="{% static 'img/kominfo_logo.png' %}"  height="98"></div>
+                    <div class="col"><img src="{% static 'img/portal/eauctionandlogo.png' %}" width="98" height="102"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h1 style="font-size: 20px;font-weight: bold;padding-top: 35px;color: rgb(255,255,255);">Social Media</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"><img src="{% static 'img/portal/facebook icon.png' %}" style="
+                        height: 20px;
+                    "></div>
+                    <div class="col"><img src="{% static 'img/portal/instagram icon.png' %}" style="
+                        height: 20px;
+                    "></div>
+                    <div class="col"><img src="{% static 'img/portal/twitter icon.png' %}" style="
+                        height: 20px;
+                    "></div>
+                    <div class="col"><img src="{% static 'img/portal/youtube icon.png' %}" style="
+                        height: 20px;
+                    "></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between pt-3" style="background: #1c1c1c;display: none;">
+        <div class="container">
+            <div class="row" style="margin-right: 20px;margin-left: 20px;">
+                <div class="col">
+                    <p style="color: rgb(41,152,255);font-size: 12px;font-family: Inter, sans-serif;">© Direktorat Jenderal Sumber Daya dan Perangkat Pos dan Informatika. Indonesia<br></p>
+                </div>
+                <div class="col">
+                    <p style="display: block;font-size: 12px;font-family: Inter, sans-serif;text-align: right; color: white;"><i class="flag flag-indonesia"></i> Version 0.3.15<br></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> {% endcomment %}
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %} 
+
+{% block script %}
+<script>
+    // ngambil datatable + data ajax
+function persiapan_data(){
+    const credentials = 'Z3VuZGFtZXhpYTowTFlIeTl6STc=';
+
+    $.ajax({
+        method: 'GET',
+        url: '/portal/api/v1/lelang_mancanegara/',
+        contentType : 'application/json',
+        dataType : 'json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', `Basic ${credentials}`);
+            },
+            success: function (data) {
+                var arr_reverse = data.results.reverse();
+                var startIndex = Math.max(0, data.results.length - 10);
+                var extractedElements = data.results.slice(startIndex);
+
+                $('#example').DataTable({
+                    "stripeClasses": ["odd-row", "even-row"],
+                    "paging": true,
+                    "responsive": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "searching": true,
+                    "data": extractedElements,
+                    "columns": [
+                        { 
+                            "data": null, // Use null for the index column
+                            "render": function(data, type, row, meta) {
+                            return meta.row + 1; // Display index value (row index + 1)
+                            }
+                        },
+                        { "data": "negara","render": function(data, type, row) {
+                            return '<img src="/static/flags/' + data.toLowerCase() + '.gif" style="border-radius: 5px;" width="52" height="33">';
+                        } },
+                        { "data": "nama_negara" },
+                        { "data": "tahun" },
+                        { "data": "pita" },
+                        { "data": "keterangan" },
+                    ],
+                    columnDefs: [
+                        { className: 'text-center', targets: '_all' },
+                    ]
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+    });
+}
+
+$(document).ready(function() {
+    persiapan_data();
+});
+
+</script>
+{% endblock %} 

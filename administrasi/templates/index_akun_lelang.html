@@ -1,0 +1,385 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+    .card-footer{
+        display: none;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Akun Lelang</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body">
+                                {% if user_type == "C" %}
+                                {% add_judul_auctioner user.id item_lelang.id "/administrasi/keikutsertaan/" %}
+                                {% elif user_type == "V" %}
+                                {% add_judul_viewer user.id item_lelang.id "/administrasi/keikutsertaan/" %}
+                                {% elif user_type == "A" %}
+                                {% add_judul_admin user.id item_lelang.id "/administrasi/keikutsertaan/" %}
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">        
+            <div class="row">
+                <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#detil" role="tab">Detail Seleksi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#home" role="tab">Obyek Seleksi</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#kirim" role="tab">Kirim Undangan Pengambilan Akun</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#undangan" role="tab">Undangan Pengambilan Akun</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content col-md-12">
+                    <div class="tab-pane" id="detil" role="tabpanel">
+                        <div class="card p-3">
+                            <div class="container px-5 my-5" id="item_lelang_display" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="home" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Obyek Seleksi&nbsp;</h2>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="obyek" class="dt" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Band</th>
+                                                <th>Rentang Frekuensi</th>
+                                                <th>Teknologi</th>
+                                                <th>Reserved Price</th>
+                                                <th>Eligibility/Block</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="kirim" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Kirim Undangan Pengambilan Akun</h2>
+                                        <button id="tambah_undangan_pengambilan" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekirim_undangan_akun" class="dt" style="width:100%">
+                                        <thead>
+                                        
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>                    
+                    <div class="tab-pane" id="undangan" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Undangan Pengambilan Akun</h2>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekpengambilan_akun" class="dt" style="width:100%">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-form@4.3.0/dist/jquery.form.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on('change', '#id_file',function() {
+            console.log(1);
+            var fileInput = $(this);
+            var file = fileInput[0].files[0];
+            var fileType = file.type;
+            
+            if (fileType !== 'application/pdf') {
+              alert('Hanya file PDF yang diperbolehkan.');
+              $('#id_file').val('');
+            }
+        });
+    });    
+var item_lelang;
+$(document).ready(function() {
+  
+  function load_itemlelang_form(data) {
+    checkRecord({        
+        drfURL: "/adm_lelang/api/v1/item_lelang/"+data+"/",
+        onSuccess: function(response) {
+            loadForm({
+                element_id: "#item_lelang_display",
+                form_id: "#item_lelang_form",
+                formURL: "/adm_lelang/adm_lelang/item_lelang/update/"+data+"/",
+                drfURL: "/adm_lelang/api/v1/item_lelang/"+data+"/",
+                method: 'PUT',
+                onSuccess: function(response) {
+                    console.log(response);
+                }
+            });
+        },
+        onError: function(response) {
+            loadForm({
+                element_id: "#item_lelang_display",
+                form_id: "#item_lelang_form",
+                formURL: "/adm_lelang/adm_lelang/item_lelang/update/"+data+"/",
+                drfURL: "/adm_lelang/api/v1/item_lelang/"+data+"/",
+                onSuccess: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+    });
+}
+function loadDataUndanganAkun(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/undgn_akun/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekirim_undangan_akun");
+            table.empty();
+            table.append(data);
+            // $("#objekirim_undangan_akun").DataTable();
+        }
+    });
+  }
+
+function loadDataUndanganAkun2(id) {
+    $.ajax({
+        url: '/administrasi/administrasi/undgn_akun2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekpengambilan_akun");
+            table.empty();
+            table.append(data);
+            // $("#objekpengambilan_akun").DataTable();
+        }
+    });
+  }
+ 
+  let id_item_lelang = null;
+
+  id_item_lelang = $('#nmlelang').val();
+    loadDataUndanganAkun(id_item_lelang);
+    loadDataUndanganAkun2(id_item_lelang);
+
+  
+  $("#tambahjudul").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_itemlelang/",
+            drfURL: "/adm_lelang/api/v1/item_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+            }
+        });
+    });
+ 
+
+    // create
+    $("#tambah_undangan_pengambilan").click(function() { 
+        showModal({
+            formURL: "/administrasi/administrasi/modal_undgn_akun/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/administrasi/api/v1/undangan_akun/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                swal.fire({
+                    title: "Data Berhasil Ditambahkan !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadDataUndanganAkun(document.getElementById('item_lelang').value);
+                })
+            }
+        });
+    });
+    // edit
+    $("#objekirim_undangan_akun").on("click",".akun_undangan_update",function() {
+        showModal({
+            formURL: "/administrasi/administrasi/modal_update_undgn_akun/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/administrasi/api/v1/undangan_akun/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                swal.fire({
+                    title: "Data Berhasil diupdate !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadDataUndanganAkun(document.getElementById('item_lelang').value);
+                })
+            }
+        })
+    });
+    // hapus
+    $("#objekirim_undangan_akun").on("click",".akun_undangan_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/administrasi/api/v1/undangan_akun/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadDataUndanganAkun(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+    // ditambahin//
+});
+
+</script>
+{% endblock %}

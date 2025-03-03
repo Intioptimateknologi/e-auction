@@ -1,0 +1,122 @@
+{% load widget_tweaks %}
+<form name="form_data" id="form_data" method="POST">
+<div id="modal" class="modal fade show" style="display:block;" role="dialog" >
+    <div class="modal-dialog modal modal-dialog-centered modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;Mengelola Menu</h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body" enctype="multipart/form-data">
+                
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Nama Menu</label>
+                                {% render_field form.name|add_class:"form-control" label="Nama" placeholder="Nama Menu" type="text" %}  
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Slog</label>
+                                {% render_field form.slug|add_class:"form-control" placeholder="Slug" type="text" %}  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Text Tambahan Tab 1</label>
+                                {% render_field form.additional_text|add_class:"form-control" placeholder="Additional Text"  type="text" %}  
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Icon FA</label>
+                                {% render_field form.icon_class|add_class:"form-control" placeholder="FA Icon Class"  type="text" %}  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Text Tambahan 2</label>
+                                {% render_field form.additional_text2|add_class:"form-control" placeholder="Additional Text"  type="text" %}  
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Text Tambahan 3</label>
+                                {% render_field form.additional_text3|add_class:"form-control" placeholder="Additional Text"  type="text" %}  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Text Tambahan 4</label>
+                                {% render_field form.additional_text4|add_class:"form-control" placeholder="Additional Text"  type="text" %}  
+                            </div>
+                        </div>    
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Parent</label>
+                                {% render_field form.parent|add_class:"form-control custom-select" %}  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Link URL</label>
+                                {% render_field form.link|add_class:"form-control" placeholder="URL to Page"  type="text" %} 
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Order</label>
+                                {% render_field form.order|add_class:"form-control" placeholder="URL to Page"  type="text" %} 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Enabled</label>
+                                {% render_field form.enabled|add_class:"form-control" placeholder="enabled"  type="checkbox" %} 
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.tahapan.id_for_label }}">Tahapan Seleksi</label>
+                                {% render_field form.tahapan|add_class:"form-control custom-select" %} 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Tipe Menu</label>
+                                {% render_field form.menu_type %} 
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

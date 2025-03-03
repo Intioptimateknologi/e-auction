@@ -1,0 +1,140 @@
+
+
+{% block extrahead %}
+<!-- jika anda mau ngasih tambahan header disni khusus di page ini aja contoh header cdn-->
+<head>
+
+</head>
+{% endblock %}
+
+{% block tambah_css %}
+<!-- jika anda mau ngasih css disni khusus di page ini aja-->
+<style>
+    a{
+        color: #7984A7;
+    }
+
+    a:hover {
+        color: #007bff; /* Replace with the desired color code */
+    }
+
+    .text_putih{
+        color: white;
+    }
+
+    table.dataTable tbody tr.odd {
+        background-color: #EDF5FD;
+    }
+</style>
+{% endblock  %}
+
+{% block content %}
+<!-- tempat ganti isi konten  -->
+
+    <div class="row">
+        <div class="col" style="">
+            <div class="card">
+                <div style="font-size: 24px; font-weight: bold; color: #007bff; padding: 20px">
+                    Master Data
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col" style="padding: 16px;">
+            <div class="card" style="">
+                <div class="card-header" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;flex-wrap: nowrap; background-color: white;">
+                        <p style="margin: 0px; font-weight: bold;">Link Akun Terdaftar</p>
+                        <button type="button" class="btn btn-outline-primary rounded" style="margin-right: 10px;"> <i class="fa fa-plus" aria-hidden="true"></i> Tambah Baru</button>
+                </div>
+                <div class="card-body">
+                    <table id="example" class="display">
+                        <thead>
+                            <tr>
+                                <!-- <th>No</th> -->
+                                <th>Username</th>
+                                <th>Name Perusahaan</th>
+                                <!-- <th>Jenis User</th> -->
+                                <!-- <th>Masa Laku</th> -->
+                                <th>Telepon Pendaftar</th>
+                                <th>Status</th>
+                                <!-- <th>Biodata</th> -->
+                                <!-- <th width="60px">Aksi</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>Telkom123</td>
+                                <td>PT Telkom Indonesia</td>
+                                <td>Bidder</td>
+                                <td>086615251421</td>
+                                <td>2 Des2022 - 2 Agu 2023</td>
+                                <td style="color: green; font-weight: bold;">Aksi</td>
+                                <td>
+                                    <span class="badge rounded-pill" style="margin-right: 5px; background-color: #a7d3ff; color: #007bff; display: flex; justify-content: center; padding-top: 10px; padding-bottom: 10px;"><i class="fa fa-eye" aria-hidden="true" style="margin-right: 5px;"></i> <div>Lihat</div></span>
+                                </td>
+                                <td>
+                                    <div style="display: flex;">
+                                        <img src="/static/img/edit-3.svg" onclick="window.open(this.src)">
+                                        <img src="/static/img/trash-2.svg" onclick="window.open(this.src)">
+                                    </div>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- jika anda mau ngasih js disni khusus di page ini aja-->
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            method: 'GET',
+            url: 'http://iotekno.id:8000/userman/api/v1/Users/',
+            contentType : 'application/json',
+            // headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            dataType : 'json',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa('rachmatg:P@ssw0rd.2019'));
+                },
+                success: function (data) {
+                    console.log(data.results);
+                    // location.reload();
+                   
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+        });
+
+
+        $('#example').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "ajax": 
+            {
+                "url" : "http://iotekno.id:8000/userman/api/v1/Users/",
+                "type": 'GET',
+                "dataSrc" : "results"
+            },
+            "columns": [
+                { "data": "username" },
+                { "data": "nama_lengkap" },
+                { "data": "mobile_number" },
+                { "data": "isactive" },
+            ],
+        });
+
+    });
+</script>
+{% endblock  %}

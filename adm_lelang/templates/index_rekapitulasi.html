@@ -1,0 +1,283 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+    
+</style>
+{% endblock %} 
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+{% block konten_isi %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header" style="background-color: #6C757D;">
+                            <h1 style="color: white;font-size: 14px;font-weight: bold;">Manajemen &gt; Rekapitulasi
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body"> 
+                                {% if user_type == "C" %}
+                                {% add_judul_auctioner user.id item_lelang.id "/adm_lelang/rekapitulasi/" %}
+                                {% elif user_type == "V" %}
+                                {% add_judul_viewer user.id item_lelang.id "/adm_lelang/rekapitulasi/" %}
+                                {% elif user_type == "B" %}
+                                {% add_judul_bidder user.id item_lelang.id "/adm_lelang/rekapitulasi/" %}
+                                {% elif user_type == "A" %}
+                                {% add_judul_admin user.id item_lelang.id "/adm_lelang/rekapitulasi/" %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body pt-0">        
+            <div class="row">
+                <ul class="nav nav-tabs col-md-12 px-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link text-bold active" data-toggle="pill" href="#home" role="tab">Pengumuman Rekapitulasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#jadwal" role="tab">Undangan Rekapitulasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#dasar" role="tab">Berita Acara Rekapitulasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#doksel" role="tab">Rekapitulasi Dokumen Seleksi (dan Addendum)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#email" role="tab">Rekap Status Dari Email</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content col-md-12 pt-2">
+
+                    <div class="tab-pane fade show active" id="home" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline" style="display: flex; justify-content: space-between;">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Pengumuman Rekapitulasi&nbsp;</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="obyek" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+
+                    <div class="tab-pane" id="jadwal" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline" style="display: flex; justify-content: space-between;">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Undangan Rekapitulasi&nbsp;</h2>
+                                        <!-- <button data-toggle="tooltip" data-placement="right" title="Menambah dasar hukum" id="tambah_dasar" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button> -->
+                                        {% comment %} <button type="button" id="tambah_dasar" class="btn btn-primary float-end"><i class="fa fa-plus-circle"></i> Tambah Baru</button> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekdasarhukum" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="tab-pane" id="dasar" role="tabpanel" style="width: 100%;">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline" style="display: flex; justify-content: space-between;">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Berita Acara Rekapitulasi &nbsp;</h2>
+                                        {% comment %} <button type="button" id="tambah_penanggung" class="btn btn-primary float-end"><i class="fa fa-plus-circle"></i> Tambah Baru</button> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_penanggung" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="tab-pane" id="doksel" role="tabpanel" style="width: 100%;">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline" style="display: flex; justify-content: space-between;">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Rekapitulasi Dokumen Seleksi (dan Addendum) &nbsp;</h2>
+                                        {% comment %} <button type="button" id="tambah_penanggung" class="btn btn-primary float-end"><i class="fa fa-plus-circle"></i> Tambah Baru</button> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="dokdok" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="tab-pane" id="email" role="tabpanel" style="width: 100%;">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline" style="display: flex; justify-content: space-between;">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Rekap Status Dari Email &nbsp;</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="email_status" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+<script>
+    function loadData_pengumuman_rekapitulasi(id) {
+        loadData({
+            element_id: $("#obyek"),
+            URL: '/adm_lelang/pengumuman_rekapitulasi/'+id + '/'
+        })
+    }
+
+    function loadData_undangan_rekapitulasi(id) {
+        loadData({
+            element_id: $("#objekdasarhukum"),
+            URL: '/adm_lelang/undangan_rekapitulasi/'+id + '/'
+        })
+    }
+    
+    function loadData_BA_rekapitulasi(id) {
+        loadData({
+            element_id: $("#t_penanggung"),
+            URL: '/adm_lelang/berita_acara_rekapitulasi/'+id + '/'
+        })
+    }
+    
+    function loadData_doksel_rekapitulasi(id) {
+        loadData({
+            element_id: $("#dokdok"),
+            URL: '/adm_lelang/doksel_rekapitulasi/'+id + '/'
+        })
+    }
+
+    function loadData_email() {
+        loadData({
+            element_id: $("#email_status"),
+            URL: '/adm_lelang/email_rekapitulasi/'
+        })
+    }
+
+    var item_lelang;
+    $(document).ready(function() {
+        {% include "js/js_temp_all.html" %}
+        id_item_lelang = $('#nmlelang').val();
+        loadData_pengumuman_rekapitulasi(id_item_lelang);
+        loadData_undangan_rekapitulasi(id_item_lelang);
+        loadData_BA_rekapitulasi(id_item_lelang);
+        loadData_doksel_rekapitulasi(id_item_lelang);
+        loadData_email()
+    });
+
+   
+</script>
+{% endblock %}

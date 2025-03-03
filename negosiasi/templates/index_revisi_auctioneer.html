@@ -1,0 +1,124 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+    .card-footer{
+        display: none;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header" style="background-color: #6C757D;">
+                            <h1 style="color: white;font-size: 14px;font-weight: bold;">Negosiasi &gt; Perbaikan Penawaran Harga</h1>
+                        </div>
+                        <div class="card-body">
+                            {% if user_type == "C" %}
+                            {% add_judul_auctioner user.id item_lelang.id "/negosiasi/revisi_penawaran/" %}
+                            {% elif user_type == "V" %}
+                            {% add_judul_viewer user.id item_lelang.id "/negosiasi/revisi_penawaran/" %}
+                            {% elif user_type == "A" %}
+                            {% add_judul_admin user.id item_lelang.id "/negosiasi/revisi_penawaran/" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">        
+            {% include "tabs_all.html" %}
+        </div>
+    </div>
+    <p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+    <p style="display: none;" id="tricky_user_bidder_id"></p>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+
+<script>
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+});
+
+</script>
+{% endblock %}

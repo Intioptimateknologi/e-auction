@@ -1,0 +1,66 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Berita Acara</h5>
+            <button type="button" class="close" data-dismiss="modal">x</button>
+		</div>
+		<div class="modal-body">
+            <p id="data_modal" style="display: none;">add_ba</p>
+            <form id="coba" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% render_field form.item_lelang %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label >Nomor</label>
+                        {% render_field form.nomor|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label >Judul</label>
+                        {% render_field form.judul|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label >Tanggal</label>
+                        {% render_field form.tanggal|add_class:"form-control" type="date" %}
+                    </div>
+                    <div class="form-group">
+                        <label >Keterangan</label>
+                        {% render_field form.keterangan|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Dokumen Berita Acara</label>
+                        {% render_field form.dokumen_BA|add_class:"form-control" type="file" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_pengguna" class="col-form-label">Bidder :</label>
+                        <select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_bidder_2" name="bidder_2">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_pengguna" class="col-form-label">Auctioneer :</label>
+                        <select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_auctioneer_2" name="auctioneer_2">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label for="id_nomor">Owner</label>
+                    <select name="owner" class="form-control" id="id_owner">
+                        <option value="SAMPUL2" selected>sampul2</option>
+                    </select>
+                </div>
+                <div class="" style="text-align: right;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+<script>
+    document.getElementById("item_lelang").addEventListener("submit", function(event) {
+        document.getElementById("submitBtn").disabled = true; 
+    });
+</script>

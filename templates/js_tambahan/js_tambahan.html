@@ -1,0 +1,701 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+function showModal2(options) {
+    var defaults = {
+        modalID: "#modal",
+        modalContent: ".modal-content",
+        modalForm: ".modal-content form",
+        formURL: null,
+        method: 'POST',
+        drfURL: null,
+        onSuccess: null,
+        onError: null,
+        isDeleteForm: false,
+        errorClass: ".invalid",
+        csrf: null,
+        tombol_tambah: null,
+    };
+
+    // Extend default settings with provided options
+    var settings = $.extend(defaults, options);
+    $(settings.modalID).find(settings.modalContent).load(settings.formURL, function () {
+        $('#menanti').hide();
+        $(settings.modalID).modal("show");
+        $(settings.modalForm).attr("action", settings.formURL);
+        addEventHandlers(settings);
+    });
+
+    var addEventHandlers = function (settings) {
+        // added aldi putri
+        // add off submit so the addeventhandler not double it 
+        $(settings.modalForm).off("submit");
+        
+        $(settings.modalForm).on("submit", function (event) {
+            if (event.originalEvent !== undefined && settings.isDeleteForm === false) {
+                event.preventDefault();
+                isFormValid(settings, null);
+                return true;
+            }
+        });
+
+        // Modal close handler
+        $(settings.modalID).on("hidden.bs.modal", function (event) {
+            $(settings.modalForm).remove();
+        });
+    };
+
+    /*
+     * Dynamic swal message based on request method
+     */
+    const actionType = defaults.method;
+    const swalConfirmTitle = actionType == 'POST' ? 'Tambah Data?' : 'Edit Data?';
+    const swalConfirmText = actionType == 'POST' ? 'Apakah anda yakin untuk melakukan <b>penambahan</b> data ini?!' : 'Apakah anda yakin untuk melakukan <b>edit</b> data ini?!';
+    const swalSuccessTitle = actionType == 'POST' ? 'Berhasil!' : 'Berhasil!';
+    const swalSuccessText = actionType == 'POST' ? 'Data telah <b>berhasil</b> disimpan!' : 'Data telah <b>berhasil</b> diedit!';
+
+    var isFormValid = function (settings, callback) {
+        $('#menanti').show();
+        Swal.fire({
+            title: swalConfirmTitle,
+            html: swalConfirmText,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Iya',
+            cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    waitingPopup = Swal.fire({
+                        title: "Tunggu sebentar",
+                        html: "Sedang menyimpan data...",
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading(),
+                    });
+                    $.ajax({
+                        type: $(settings.modalForm).attr("method"),
+                        method: settings.method,
+                        headers: { "X-CSRFToken": settings.csrf },
+                        url: settings.drfURL,
+                        data: new FormData($(settings.modalForm)[0]),
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () { $(settings.submitBtn).prop("disabled", true) },
+                        success: function (response) {
+                            $('#menanti').hide();
+                            waitingPopup.close();
+                            if ($(response).find(settings.errorClass).length > 0) {
+                                // Form is not valid, update it with errors
+                                $(settings.modalID).find(settings.modalContent).html(response);
+                                $(settings.modalForm).attr("action", settings.formURL);
+                                // Reinstantiate handlers
+                                addEventHandlers(settings);
+                            } else {
+                                // Form is valid, submit it
+                                if (settings.tombol_tambah) {
+                                    $(settings.tombil_tambah).prop( "disabled", true );
+                                }
+                                if (settings.onSuccess) settings.onSuccess(response);
+                                Swal.fire(
+                                    swalSuccessTitle,
+                                    swalSuccessText,
+                                    'success'
+                                )
+                                //callback(settings);
+                            }
+                        },
+                        error: function (request, status, error) {
+                            // let message = 'Terjadi kesalahan yang tidak diketahui!';
+                            // try {
+                            //     let response = JSON.parse(request.responseText);
+                            //     message = Object.values(response)[0][0] || message;
+                            // } catch (e) {
+                            //     console.error('JSON Parsing Error:', e);
+                            // }
+
+                            let message = "Terjadi kesalahan, silakan coba lagi.";
+                            let isWarning = false;
+
+                            try {
+                                let response = JSON.parse(request.responseText);
+
+                                if (typeof response === "object") {
+                                    if(response.type === "warning"){
+                                        isWarning = true;
+                                        message = response.message;
+                                    }else{
+                                        message = Object.entries(response).map(([field, messages]) => {
+                                            let formattedField = field
+                                                .replace(/_/g, " ")   // Hapus underscore
+                                                .replace(/\b\w/g, c => c.toUpperCase()); // Kapitalisasi setiap kata
+
+                                            // Jika messages adalah array, gabungkan dengan koma. Jika bukan, langsung tampilkan.
+                                            let messageText = Array.isArray(messages) ? messages.join(", ") : messages;
+
+                                            return `<b>${formattedField}</b>: ${messageText}`;
+                                        }).join("<br>");
+                                    }
+                                } else {
+                                    message = response; // Jika response hanya string
+                                }
+                            } catch (e) {
+                                console.error("Gagal parse JSON error:", e);
+                            }
+
+                            Swal.fire({
+                                title: isWarning ? 'Peringatan!' : 'Terjadi Kesalahan!',
+                                icon: isWarning ? 'warning': 'error',
+                                html: message,
+                            });
+
+                            waitingPopup.close();
+                        }
+                    });
+                }
+        });
+    }
+};
+
+function showModalDownload(options) {
+    var defaults = {
+        modalID: "#modal",
+        modalContent: ".modal-content",
+        modalForm: ".modal-content form",
+        formURL: null,
+        method: 'POST',
+        drfURL: null,
+        onSuccess: null,
+        onError: null,
+        isDeleteForm: false,
+        errorClass: ".invalid",
+        csrf: null,
+    };
+
+    // Extend default settings with provided options
+    var settings = $.extend(defaults, options);
+    $(settings.modalID).find(settings.modalContent).load(settings.formURL, function () {
+        $('#menanti').hide();
+        $(settings.modalID).modal("show");
+        $(settings.modalForm).attr("action", settings.formURL);
+        addEventHandlers(settings);
+    });
+    var addEventHandlers = function (settings) {
+        $(settings.modalForm).off("submit");   
+        $(settings.modalForm).on("submit", function (event) {
+            if (event.originalEvent !== undefined && settings.isDeleteForm === false) {
+                event.preventDefault();
+                isFormValid(settings, null);
+                return true;
+            }
+        });
+        // Modal close handler
+        $(settings.modalID).on("hidden.bs.modal", function (event) {
+            $(settings.modalForm).remove();
+        });
+    };
+    var isFormValid = function (settings, callback) {
+        $('#menanti').show();
+        Swal.fire({
+            title: 'Unduh File / Dokumen',
+            text: "Apa Anda Yakin Untuk Mengunduh File / Dokumen Ini ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Iya dan Lanjutkan',
+            cancelButtonText: 'Tidak dan Kembali',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    waitingPopup = Swal.fire({
+                        title: "Proses Unduh File / Dokumen",
+                        html: "Sistem Sedang Melakukan Proses Unduh File / Dokumen <br>",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        },
+                    });
+                    $.ajax({
+                        type: $(settings.modalForm).attr("method"),
+                        method: settings.method,
+                        headers: { "X-CSRFToken": settings.csrf },
+                        url: settings.drfURL,
+                        data: new FormData($(settings.modalForm)[0]),
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            $(settings.submitBtn).prop("disabled", true);
+                        },
+                        success: function (response) {
+                           
+                            $('#menanti').hide();
+                            waitingPopup.close();
+                            if ($(response).find(settings.errorClass).length > 0) {
+                                // Form is not valid, update it with errors
+                                $(settings.modalID).find(settings.modalContent).html(response);
+                                $(settings.modalForm).attr("action", settings.formURL);
+                                // Reinstantiate handlers
+                                addEventHandlers(settings);
+                            } else {
+                                // Form is valid, submit it
+                                //alert(settings.formURL);
+                                if (settings.onSuccess) settings.onSuccess(response);
+                                Swal.fire(
+                                    'Berhasil !',
+                                    'File / Data Terunduh !',
+                                    'success'
+                                )
+                                window.open(
+                                    response.file,
+                                    '_blank' 
+                                );
+                                
+                                //callback(settings);
+                            }
+                        },
+                        error: function (request, status, error) {
+                            let message = 'Terjadi kesalahan yang tidak diketahui!';
+                            try {
+                                let response = JSON.parse(request.responseText);
+                                message = Object.values(response)[0][0] || message;
+                            } catch (e) {
+                                console.error('JSON Parsing Error:', e);
+                            }
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan !',
+                                text: message,
+                            })
+                            waitingPopup.close();
+                        }
+                    });
+                }
+        });
+    }
+};
+
+function showEditModal(options) {
+    var defaults = {
+        modalID: "#modal",
+        modalContent: ".modal-content",
+        modalForm: ".modal-content form",
+        formURL: null,
+        method: 'PUT',
+        drfURL: null,
+        onSuccess: null,
+        onError: null,
+        isDeleteForm: false,
+        errorClass: ".invalid",
+        csrf: null,
+    };
+
+    // Extend default settings with provided options
+    var settings = $.extend(defaults, options);
+    $(settings.modalID).find(settings.modalContent).load(settings.formURL, function () {
+        $('#menanti').hide();
+        $(settings.modalID).modal("show");
+        $(settings.modalForm).attr("action", settings.formURL);
+        addEventHandlers(settings);
+    });
+    var addEventHandlers = function (settings) {
+        
+        // added aldi putri
+        // add off submit so the addeventhandler not double it 
+        $(settings.modalForm).off("submit");
+        
+        $(settings.modalForm).on("submit", function (event) {
+            if (event.originalEvent !== undefined && settings.isDeleteForm === false) {
+                event.preventDefault();
+                isFormValid(settings, null);
+                return true;
+            }
+        });
+        // Modal close handler
+        $(settings.modalID).on("hidden.bs.modal", function (event) {
+            $(settings.modalForm).remove();
+        });
+    };
+    var isFormValid = function (settings, callback) {
+        $('#menanti').show();
+        Swal.fire({
+            title: 'Perubahan Data',
+            text: "Apa Anda Yakin Untuk Melakukan Perubahan Data ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Iya dan Lanjutkan',
+            cancelButtonText: 'Tidak dan Kembali',
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    waitingPopup = Swal.fire({
+                        title: "Proses Perubahan Data",
+                        html: "Sistem Sedang Melakukan Proses Perubahan data",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            },
+                        });
+                    $.ajax({
+                        type: $(settings.modalForm).attr("method"),
+                        method: settings.method,
+                        headers: { "X-CSRFToken": settings.csrf },
+                        url: settings.drfURL,
+                        data: new FormData($(settings.modalForm)[0]),
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            $(settings.submitBtn).prop("disabled", true);
+                        },
+                        success: function (response) {
+                            $('#menanti').hide();
+                            waitingPopup.close();
+                            if ($(response).find(settings.errorClass).length > 0) {
+                                // Form is not valid, update it with errors
+                                $(settings.modalID).find(settings.modalContent).html(response);
+                                $(settings.modalForm).attr("action", settings.formURL);
+                                // Reinstantiate handlers
+                                addEventHandlers(settings);
+                            } else {
+                                // Form is valid, submit it
+                                if (settings.onSuccess) settings.onSuccess(response);
+                                Swal.fire(
+                                    'Berhasil !',
+                                    'Data Berhasil Dilakukan Perubahan !',
+                                    'success'
+                                )
+                                //callback(settings);
+                            }
+                        },
+                        error: function (request, status, error) {
+                            let message = 'Terjadi kesalahan yang tidak diketahui!';
+                            try {
+                                let response = JSON.parse(request.responseText);
+                                message = Object.values(response)[0][0] || message;
+                            } catch (e) {
+                                console.error('JSON Parsing Error:', e);
+                            }
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan !',
+                                text: message,
+                            })
+                            waitingPopup.close();
+                        }
+                    });
+                }
+        });
+    }
+};
+
+function showModalCurrency(options) {
+    // Default settings
+    var defaults = {
+        modalID: "#modal",
+        modalContent: ".modal-content",
+        modalForm: ".modal-content form",
+        formURL: null,
+        method: 'POST',
+        drfURL: null,
+        onSuccess: null,
+        onError: null,
+        isDeleteForm: false,
+        errorClass: ".invalid",
+    };
+
+    // Extend default settings with provided options
+    var settings = $.extend(defaults, options);
+    $(settings.modalID).find(settings.modalContent).load(settings.formURL, function () {
+        $(settings.modalID).modal("show");
+        $(settings.modalID).on("focus", ".currency", function() { 
+          $(this).inputmask({alias:'currency'});
+        });
+        $(settings.modalForm).attr("action", settings.formURL);
+        addEventHandlers(settings);
+    });
+    var addEventHandlers = function (settings) {
+        $(settings.modalForm).on("submit", function (event) {
+            if (event.originalEvent !== undefined && settings.isDeleteForm === false) {
+                event.preventDefault();
+                $('.currency').each(function(i, obj) {
+                    v = $(obj).val().replaceAll(",","");
+                    d = parseFloat(v );
+                    $(obj).inputmask('remove');
+                    $(obj).val(d)
+                });
+                isFormValid(settings, null);
+                return true;
+            }
+        });
+        // Modal close handler
+        $(settings.modalID).on("hidden.bs.modal", function (event) {
+            $(settings.modalForm).remove();
+        });
+    };
+    var isFormValid = function (settings, callback) {
+        Swal.fire({
+            title: 'Penambahan Data',
+            text: "Apa Anda Yakin Untuk Melakukan Penambahan Data ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Iya dan Lanjutkan',
+            cancelButtonText: 'Tidak dan Kembali',
+            }).then((result) => {
+            waitingPopup = Swal.fire({
+                title: "Proses Penambahan Data",
+                html: "Sistem Sedang Melakukan Proses Penambahan data",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    },
+                });
+            $.ajax({
+                type: $(settings.modalForm).attr("method"),
+                method: settings.method,
+                headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value },
+                url: settings.drfURL,
+                data: new FormData($(settings.modalForm)[0]),
+                contentType: false,
+                processData: false,
+                beforeSend: function (data) {
+                    $(settings.submitBtn).prop("disabled", true) 
+                },
+                success: function (response) {
+                    waitingPopup.close();
+                    if ($(response).find(settings.errorClass).length > 0) {
+                        // Form is not valid, update it with errors
+                        $(settings.modalID).find(settings.modalContent).html(response);
+                        $(settings.modalForm).attr("action", settings.formURL);
+                        // Reinstantiate handlers
+                        addEventHandlers(settings);
+                    } else {
+                        if (settings.tombol_tambah) {
+                            $(settings.tombil_tambah).prop( "disabled", true );
+                        }
+                        if (settings.onSuccess) settings.onSuccess(response);
+                        //callback(settings);
+                        Swal.fire(
+                            'Berhasil !',
+                            'Data Berhasil Ditambahkan !',
+                            'success'
+                        )
+
+                    }
+                },
+                error: function (request, status, error) {
+                    // swal.fire("Kirim data gagal.")
+                    let message = 'Terjadi kesalahan yang tidak diketahui!';
+                    try {
+                        let response = JSON.parse(request.responseText);
+                        console.log(response);
+                        message = Object.values(response)[0][0] || message;
+                    } catch (e) {
+                        console.error('JSON Parsing Error:', e);
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan !',
+                        text: message,
+                    })
+                    waitingPopup.close();
+                }
+
+            });
+        });
+    }
+};
+
+function deleteData(options) {
+    var defaults = {
+        element_id: "#form",
+        form_id: "#form",
+        id: null,
+        drfURL: null,
+        onSuccess: null,
+        onError: null,
+        errorClass: ".invalid",
+    };
+    var settings = $.extend(defaults, options);
+    Swal.fire({
+        icon: 'warning',
+        title: "Hapus Data?",
+        html: `Apakah anda yakin untuk melakukan <b>hapus</b> data ini?!`,
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: 'Iya',
+        cancelButtonText: 'Tidak',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            waitingPopup = Swal.fire({
+                title: "Menunggu proses penghapusan data selesai",
+                html: "Silakan tunggu!<br>",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    },
+                });
+            $.ajax({
+                method: 'DELETE',
+                url: settings.drfURL,
+                contentType : 'application/json',
+                headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value },
+                dataType : 'json',
+                success: function (data) {
+                    if (settings.onSuccess) settings.onSuccess(data);
+                    waitingPopup.close();
+                    Swal.fire(
+                        'Berhasil!',
+                        'Data Telah <b>Berhasil</b> Terhapus!',
+                        'success'
+                    )
+                },
+                error: function(error) {
+                    waitingPopup.close();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Menghapus',
+                        text: error,
+                    })
+                }
+            });
+        }
+    })
+};
+
+function patchData(options) {
+    var defaults = {
+        element_id: "#form",
+        form_id: "#form",
+        drfURL: null,
+        data: null,
+        onSuccess: null,
+        onError: null,
+        errorClass: ".invalid",
+    };
+    var settings = $.extend(defaults, options);
+    Swal.fire({
+        title: 'Perubahan Data',
+        text: "Apa Anda Yakin Untuk Melakukan Perubahan Data ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: 'Iya dan Lanjutkan',
+        cancelButtonText: 'Tidak dan Kembali',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: 'PATCH',
+                url: settings.drfURL,
+                contentType : 'application/json',
+                headers: { "X-CSRFToken": settings.csrf },
+                dataType : 'json',
+                data: settings.data,
+                success: function (data) {
+                    if (settings.onSuccess) settings.onSuccess(response);
+                },
+                error: function(error) {
+                    swal.fire("Mengubah data gagal.")
+                }
+            });
+        }
+    })
+};
+
+function loadData(options) {
+    var defaults = {
+        element_id: "#form",
+        URL: null,
+        onSuccess: null,
+        onError: null,
+        errorClass: ".invalid",
+    };
+    var settings = $.extend(defaults, options);
+    $.ajax({
+        url: settings.URL,
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = settings.element_id;
+            table.empty();
+            table.append(data);
+        }
+    });
+}
+
+function add_Data(options) {
+    var defaults = {
+        element_id: "#form",
+        formUrl: null,
+        drfUrl: null,
+        item_lelang: null,
+        onSuccess: null,
+        onError: null,
+        errorClass: ".invalid"
+    }
+    var settings = $.extend(defaults, options);
+    showModal2({
+        formURL: settings.formUrl,
+        drfURL: settings.drfURL,
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            swal.fire({
+                title: "Data Berhasil Ditambahkan !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+                if (settings.onSuccess) settings.onSuccess(response);
+            })
+        }
+    });
+}
+
+function update_Data(options) {
+    var defaults = {
+        element_id: "#form",
+        formUrl: null,
+        drfUrl: null,
+        item_lelang: null,
+        onSuccess: null,
+        onError: null,
+        errorClass: ".invalid"
+    }
+    var settings = $.extend(defaults, options);
+    showModal2({
+        formURL: settings.formUrl,
+        drfURL: settings.drfURL,
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            swal.fire({
+                title: "Data Berhasil Ditambahkan !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+                if (settings.onSuccess) settings.onSuccess(response);
+            })
+        }
+    });
+}
+
+</script>
+
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+

@@ -1,0 +1,86 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Obyek Seleksi</h5>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">x</button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Obyek Seleksi</label>
+                        {% render_field form.item|add_class:"form-control" id="getobjek" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Bidder</label>
+                        {% render_field form.bidder_user|add_class:"form-control " placeholder="Pilih Peserta Seleksi" id="getbidder" disabled="true" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Jumlah Blok</label>
+                        {% render_field form.block|add_class:"form-control " placeholder="Pilih Jumlah Blok" id="jmlhblk" min="1" max="" required="True" %}
+                    </div>
+                </div>
+                
+                <div class="card-footer" style="text-align: right;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>
+  {% block script %}
+  <script>
+    $(document).ready(function() {
+        let dipilihValue = '';
+        let BidderValue = '';
+    
+        $('#modal').on('shown.bs.modal', function() {
+            const objekSelect = document.getElementById("getobjek");
+            const bidderSelect = document.getElementById("getbidder");
+            
+            objekSelect.addEventListener("change", function () {
+                dipilihValue = objekSelect.value;
+                
+                if (dipilihValue) {
+                    bidderSelect.removeAttribute("disabled");
+                } else {
+                    bidderSelect.setAttribute("disabled", "disabled");
+                    
+                }
+              
+            });
+    
+            bidderSelect.addEventListener("change", function () {
+                BidderValue = bidderSelect.value;
+               
+    
+               
+                fetch('/beauty_contest/api/v1/obyek_seleksi/')
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        const results = data.results;
+                        const filterresults = results.filter(getblock => getblock.item == dipilihValue);
+                        const filterlagi = filterresults.filter(bidderaja => bidderaja.bidder_user == BidderValue);
+                        const placetag = document.getElementById("jmlhblk");
+                        placetag.max = filterlagi[0].block;
+                        
+                    })
+                    .catch(error => {
+                       
+                    });
+            });
+        });
+    });
+    
+    
+    
+  </script>
+  {% endblock %}

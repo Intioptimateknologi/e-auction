@@ -1,0 +1,84 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Form Sanggahan</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="data_modal" style="display: none;">hide</p>
+                <div class="col">
+                    <div class="col-12">
+                       
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            {% render_field form.bidder %}
+                            
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Status Sanggah</label>
+                                {% render_field form.status_sanggah|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            
+                            <div class="form-group" id="id_file1">
+                                <label for="id_nomor"  class="nama_label">File</label>
+                                {% render_field form.file|add_class:"form-control"|attr:"accept=.pdf" %}
+                            </div>
+                            
+                    </div>  
+                </div>              
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script>
+    $(document).ready(function() {
+        $('#modal').on('shown.bs.modal', function() {
+            var paragraphText = $('#data_modal').text();
+            if (paragraphText == "hide") {
+                $("#id_file1").hide();
+
+                $("#id_status_sanggah").change(function() {
+                    var selectedValue = $(this).val();
+
+                    if (selectedValue === "Ada") {
+                        $("#id_file1").show();
+                    } else {
+                        $("#id_file1").hide();
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+
+    $(document).ready(function() {
+        $('.biddernya').select2(
+            {
+                width:'100%',
+                dropdownParent: $("#modal"),
+                theme: 'bootstrap4', 
+            }
+        );
+        
+    });
+    </script>

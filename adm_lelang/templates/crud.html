@@ -1,0 +1,40 @@
+loadData({URL: '{{list_url}}{{item_lelang}}/', element_id: $("#{{element}}")})
+$("#{{button_element}}").click(function() {         
+    showModal2({
+        formURL: "{{modal_url}}{{item_lelang}}/",
+        drfURL: "{{drf_url}}",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '{{list_url}}{{item_lelang}}/', element_id: $("#{{element}}")})
+        }
+    });
+});
+
+$("#{{element}}").on("click",".{{subelement}}_update",function() {
+    showModal2({
+        formURL: "{{modal_update_url}}"+this.id+"/{{item_lelang}}/",
+        drfURL: "{{drf_url}}"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '{{list_url}}{{item_lelang}}/', element_id: $("#{{element}}")})
+        }
+    })
+});
+
+$("#{{element}}").on("click",".{{subelement}}_delete",function() {
+    deleteData({id: this.id, 
+        drfURL: '{{drf_url}}',
+        onSuccess: function(data) {
+            swal.fire({
+                title: "Data Terhapus !",
+                text: "",
+                icon: "success"
+            }).then(function() {
+                loadData({URL: '{{list_url}}{{item_lelang}}/', element_id: $("#{{element}}")})
+            });
+        }
+    });
+});
+
+

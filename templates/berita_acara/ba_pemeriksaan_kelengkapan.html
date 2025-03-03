@@ -1,0 +1,138 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<p style="text-align:center; font-size:16px;">BERITA ACARA <br> BERITA ACARA  PEMERIKSAAN KELENGKAPAN DOKUMEN PERMOHONAN UNTUK {{ seleksi|upper }}</h1>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari ini, {{ tanggal_awal|date:'l' }} tanggal {{ tanggal_awal|date:'d F Y'}} sampai selesai   telah dilaksanakan Tahapan Pemeriksaan Kelengkapan Dokumen Permohonan untuk {{seleksi}} bertempat di ........ </li>
+  <li style="text-align: justify;">Peserta Seleksi yang menghadiri Tahapan  Pemeriksaan Kelengkapan Dokumen Permohonan untuk {{seleksi}} adalah sebagai berikut:  </li>
+    <!-- disini table -->
+    <table width="100%">
+      <tr>
+        <th>No</th><th>Peserta Seleksi</th>
+        <!-- <th>Waktu Download</th> -->
+      </tr>
+      {% for t in table %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <!-- <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:i:s'}} WIB</td> -->
+      </tr>
+        {% endfor %}
+    </table>  
+      
+    <li style="text-align: justify;">Hasil Pemeriksaan Kelengkapan Dokumen Permohonan untuk {{seleksi}} sebagaimana disampaikan dalam Lampiran Berita Acara ini dengan rekapitulasi sebagai berikut :</li>
+    <!-- disini table -->
+    <br>
+    a. Hasil Pemeriksaan Kelengkapan Formulir Permohonan Keikutsertaan Seleksi 
+    <table width="100%">
+      <tr>
+        <th>Peserta Seleksi</th><th>Status Pemeriksaan</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table %}
+        <tr>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td width="20%">
+            {% if t.sampul1 == 'Ada'  %}
+            Lengkap
+            {% else %}
+            Tidak Lengkap
+            {% endif %}
+          </td>
+          <td>{{t.keterangan}}</td>
+      </tr>
+        {% endfor %}
+    </table>  
+    <br>  
+    b. Hasil Pemeriksaan Kelengkapan Jaminan Keikutsertaan Seleksi (Bid Bond)
+    <table width="100%">
+      <tr>
+        <th>Peserta Seleksi</th><th>Status Pemeriksaan</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table %}
+        <tr>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td width="20%">
+            {% if  t.bidbond == 'Ada'  %}
+            Lengkap
+            {% else %}
+            Tidak Lengkap
+            {% endif %}
+          </td>
+          <td>{{t.keterangan}}</td>
+      </tr>
+        {% endfor %}
+    </table>
+    <br>
+    C. Hasil Pemeriksaan Kelengkapan Dokumen Penawaran Harga
+    <table width="100%">
+      <tr>
+        <th>Nama Peserta Seleksi</th><th>Status Pemeriksaan</th><th>Keterangan (Jika Ada)</th>
+      </tr>
+      {% for t in table %}
+        <tr>
+          <td width="20%">{{t.bidder.bidder.nama_perusahaan }}</td>
+          <td width="20%">
+            {% if  t.sampul2 == 'Ada'  %}
+            Lengkap
+            {% else %}
+            Tidak Lengkap
+            {% endif %}
+          </td>
+          <td>{{t.keterangan}}</td>
+      </tr>
+        {% endfor %}
+    </table>
+    
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada Tahapan Pemeriksaan Kelengkapan Dokumen Permohonan untuk {{seleksi}}. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

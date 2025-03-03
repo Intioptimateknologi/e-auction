@@ -1,0 +1,66 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+    
+    </style>
+</head>
+<body class="A4">
+<section class="sheet padding-10mm">
+TANDA TERIMA PENGAMBILAN DOKUMEN SELEKSI
+
+Pada hari ini, Pada hari {{ tanggal|date:'l' }} tanggal {{ tanggal|date:'d F Y' }} telah diserahkan dokumen seleksi  dalam bentuk file zip yang berisi
+1.	1 (satu)  softcopy dokumen seleksi
+2.	1 (satu) softcopy Format Formulir Permohonan Keikutsertaan Seleksi
+3.	1 (satu) softcopy Format Jaminan Keikutsertaan Seleksi (Bid Bond)
+4.	1 (satu) softcopy Format Dokumen Penawaran Harga
+yang diunduh pada pukul [tanggak dan waktu pengambilan ] dari Tim Pelaksana {{ seleksi }} kepada {{ nama_perusahaan }}  melalui Sistem Seleksi Izin Pita Frekuensi Radio (e-auction) yang diwakili oleh
+Nama 		: {{ bidder.nama_lengkap }}
+Perusahaan 	:{{ bidder.bidder.bidder.nama_perusahaan }}
+No. KTP		: {{ bidder.no_ktp }}
+Jabatan		: {{ bidder.jabatan }}
+
+
+Tim Pelaksana {{ seleksi }}
+
+TTD
+{{ ketua_pansel }}
+Ketua Tim Pelaksana
+
+
+
+{{ nama_perusahaan }}
+
+
+TTD
+{{ perwakilan.nama_lengkap }}
+</section>
+
+
+
+
+

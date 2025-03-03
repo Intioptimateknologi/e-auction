@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_bidder_list' %}">
+    bidder Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>nik</td><td>{{ object.nik }}</td></tr>
+    <tr><td>alamat_perusahaan</td><td>{{ object.alamat_perusahaan }}</td></tr>
+    <tr><td>jenis_penyelenggara</td><td>{{ object.jenis_penyelenggara }}</td></tr>
+    <tr><td>verified</td><td>{{ object.verified }}</td></tr>
+    <tr><td>verified_at</td><td>{{ object.verified_at }}</td></tr>
+    <tr><td>jabatan_di_perusahaan</td><td>{{ object.jabatan_di_perusahaan }}</td></tr>
+    <tr><td>telp_perusahaan</td><td>{{ object.telp_perusahaan }}</td></tr>
+    <tr><td>nama_perusahaan</td><td>{{ object.nama_perusahaan }}</td></tr>
+    <tr><td>tgl_lahir</td><td>{{ object.tgl_lahir }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>verification_note</td><td>{{ object.verification_note }}</td></tr>
+    <tr><td>npwp_perusahaan</td><td>{{ object.npwp_perusahaan }}</td></tr>
+    <tr><td>email_perusahaan</td><td>{{ object.email_perusahaan }}</td></tr>
+    <tr><td>nib_perusahaan</td><td>{{ object.nib_perusahaan }}</td></tr>
+    <tr><td>verified_by</td><td>{{ object.verified_by }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

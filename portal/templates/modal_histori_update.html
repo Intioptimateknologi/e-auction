@@ -1,0 +1,87 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST">
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal modal-dialog-centered modal-lg">
+        <div class="modal-content" style="
+        border-radius: 10px;">
+            <div class="modal-header">
+                <h4 class="modal-title" style=" font-weight:700; color:black;">
+                    <i class="fa fa-edit circle-icon"></i>&nbsp;&nbsp;
+                    Ubah Histori Lelang
+                </h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                            {% csrf_token %}
+                            <div class="row col-md-12">
+                                <div class="form-group col-md-3">
+                                    <label for="id_nomor"  class="nama_label">Tahun Seleksi</label>
+                                    {% comment %} <input type="date" name="tahun" value="2023" class="form-control form-control-sm form-control" id="id_tahun"> {% endcomment %}
+                                    {% render_field form.tahun|add_class:"form-control"  %}
+
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="id_nomor"  class="nama_label">Pita Seleksi (MHz)</label>
+                                    {% render_field form.pita|add_class:"form-control" %}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="id_nomor"  class="nama_label">Bandwidth (MHz)</label>
+                                    {% render_field form.bandwidth|add_class:"form-control" %}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="id_nomor"  class="nama_label">Jenis Penyelenggaraan</label>
+                                    <div class="form-field">
+                                        {% render_field form.penyelenggaraan|add_class:"form-control" %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="id_nomor"  class="nama_label">Daftar Pemenang Seleksi</label>
+                            
+                                    {% render_field form.pemenang|add_class:"form-control" style="height: 80px;" %}
+                                
+                            </div>
+                           
+                            <div class="form-group col-md-12">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                <div class="form-field">
+                                    {% render_field form.keterangan|add_class:"form-control" style="height:160px;"  %}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="id_nomor"  class="nama_label">Gambar</label>
+                                {% render_field form.image|add_class:"form-control nospaceinput " %}
+                            </div>
+                          
+                            
+                            <div class="form-group" style="display: none;">
+                                <div class="form-field">
+                                    <!-- Anda dapat mengatur nilai updated_by dengan username atau informasi lain yang sesuai -->
+                                    <input type="text" name="updated_by" class="form-control" value="{{ request.user.id }}" readonly>
+                                </div>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form.media }}
+</form>
+  

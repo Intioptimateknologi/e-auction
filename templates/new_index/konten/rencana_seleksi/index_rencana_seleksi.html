@@ -1,0 +1,1830 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block extrahead %}
+<head>
+    <!-- <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://kit.fontawesome.com/45fe4c1444.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --> 
+    
+
+    
+    
+</head>
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+ 
+</style>
+{% endblock %}
+ 
+<body style="background: rgb(246,248,252);">
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+    <div class="container" style="padding-top: 0px;">
+        <div class="row">
+            <div class="col">
+                <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Rencana Seleksi<br></h1>
+                <hr>
+            </div>
+        </div>
+        <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-Rencana-Seleksi-tab" data-toggle="pill" href="#pills-Rencana-Seleksi" role="tab" aria-controls="pills-Rencana-Seleksi" aria-selected="false" onclick="changeFormTo('RencanaSeleksi')">Rencana Seleksi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Dasar-Hukum-tab" data-toggle="pill" href="#pills-Dasar-Hukum" role="tab" aria-controls="pills-Dasar-Hukum" aria-selected="false" onclick="changeFormTo('DasarHukum')">Dasar Hukum</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Objek-Seleksi-tab" data-toggle="pill" href="#pills-Objek-Seleksi" role="tab" aria-controls="pills-Objek-Seleksi" aria-selected="false" onclick="changeFormTo('ObjekSeleksi')">Objek Seleksi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Penanggung-Jawab-tab" data-toggle="pill" href="#pills-Penanggung-Jawab" role="tab" aria-controls="pills-Penanggung-Jawab" aria-selected="false" onclick="changeFormTo('PenanggungJawab')">Penanggung Jawab</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Alamat-tab" data-toggle="pill" href="#pills-Alamat" role="tab" aria-controls="pills-Alamat" aria-selected="false" onclick="changeFormTo('Alamat')">Alamat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Persyaratan-tab" data-toggle="pill" href="#pills-Persyaratan" role="tab" aria-controls="pills-Persyaratan" aria-selected="false" onclick="changeFormTo('Persyaratan')">Persyaratan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Jadwal-tab" data-toggle="pill" href="#pills-Jadwal" role="tab" aria-controls="pills-Jadwal" aria-selected="false"  onclick="changeFormTo('Jadwal')">Jadwal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bold" id="pills-Kegiatan-tab" data-toggle="pill" href="#pills-Kegiatan" role="tab" aria-controls="pills-Kegiatan" aria-selected="false"  onclick="changeFormTo('Kegiatan')">Kegiatan</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="pills-tabContent p-3">
+                    <div class="tab-pane fade show active " id="pills-Rencana-Seleksi" role="tabpanel" aria-labelledby="pills-Rencana-Seleksi-tab">
+                        <div class="card p-3">
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalRencanaSeleksi">+ Tambah</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                        <table class="table table-striped" id="table-rencana-seleksi">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Judul</th>
+                                                <th scope="col">Tahun</th>
+                                                {% comment %} <th scope="col">Auctioneer</th> {% endcomment %}
+                                                <th scope="col" class="text-center">Aksi</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                             {% comment %} {% for i in '123456789'|make_list %}
+                                              <tr>
+                                                <th scope="row">{{i}}</th>
+                                                <td>Judul {{i}}</td>
+                                                <td>2023</td>
+                                                <td>Auctioneer {{i}}</td>
+                                                <td style="text-align: left;"><div style="display: flex; justify-content: left;"><i hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 20H21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg></i></i><i class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"></i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 6H21" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M14 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg></button></div></td>
+                                              </tr>
+                                              
+                                            {% endfor %} {% endcomment %}
+                                                {% comment %} <td style="text-align: left;">
+                                                    <div style="display: flex; justify-content: left;">
+                                                        <i hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 20H21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg></i></i>
+                                                <i class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"></i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 6H21" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M14 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg></button></div></td> {% endcomment %}
+                                             
+                                             {% for rencana_list in list_rencana %}
+                                              <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td> {{rencana_list.judul}}</td>
+                                                <td>{{rencana_list.tahun|date:'Y'}}</td>
+                                            
+                                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                                    <div class="" style="display: flex; justify-content: center;">
+                                                        <button class="btn badge mr-1"  onclick="navigateToUrl('rencana_seleksi/edit/{{ rencana_list.id }}')" >
+                                                            <i class="fa fa-edit circle-icon"></i>
+                                                        </button> 
+                                                       
+                                                        <button  class="btn badge mr-1" onclick="navigateToUrls('rencana_seleksi/delete/{{ rencana_list.id }}')" style="color:red;">
+                                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                                    </button></div>
+                                                    
+                                            </div>
+                                            </td>
+                                              </tr>
+                                            {% endfor %} 
+                                            </tbody>
+                                          </table>
+                                        <div class="modal" tabindex="-1" role="dialog" id="ModalRencanaSeleksi">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                <form method="post" >
+                                                    {% csrf_token %}
+                                                        <div class="modal-header" style="padding-right: 40px;padding-left: 40px;">
+                                                            <p class="modal-title" style="color: #04195B; font-weight:700;font-size: 18px;">Tambah Rencana Seleksi</p>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            
+                                                            <div class="row">
+                                                                <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                                                                    <p style="color: #1E1E1E;margin-bottom: 0px;margin-top: 16px;">Judul</p>
+                                                                    {% render_field form_rencana.judul class="form-control form-control-sm" placeholder="Masukkan Judul" style="border-radius: 10px;" %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                                                                    <p style="color: #1E1E1E;margin-bottom: 0px;margin-top: 16px;">Tahun</p>
+                                                                    {% render_field form_rencana.tahun class="form-control form-control-sm" placeholder="Masukkan Tahun" type="date" style="border-radius: 10px;" %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                                            <button id="submitButton" type="submit" value="submit" class="btn btn-success" style="font-size: 14px; ">Setuju</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        
+                                           
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                        
+                    
+                    <div class="tab-pane fade" id="pills-Dasar-Hukum" role="tabpanel" aria-labelledby="pills-Dasar-Hukum-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >+ Tambah</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                        <table class="table table-striped" id="table-dasar-hukum">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nomor Dasar Hukum</th>
+                                                <th scope="col">Judul Dasar Hukum</th>
+                                                <th scope="col">Tanggal</th>
+                                                <th scope="col">Tahun</th>
+                                                <th scope="col">Keterangan</th>
+                                                <th scope="col" class="text-center">Aksi</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in '123456789'|make_list %}
+                                              <tr>
+                                                <th scope="row">{{i}}</th>
+                                                <td>0910239</td>
+                                                <td>Undang - Undang</td>
+                                                <td>3 Maret</td>
+                                                <td>2023</td>
+                                                <td><a href="#">Lihat</a></td>
+                                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                                    <div class="" style="display: flex; justify-content: center;">
+                                                        <button class="btn badge mr-1"   >
+                                                            <i class="fa fa-edit circle-icon"></i>
+                                                        </button> 
+                                                       
+                                                        <button  class="btn badge mr-1"  style="color:red;">
+                                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                                    </button></div>
+                                                    
+                                            </div>
+                                            </td>
+                                              </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-Objek-Seleksi" role="tabpanel" aria-labelledby="pills-Objek-Seleksi-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >+ Tambah</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                        <table class="table table-striped" id="table-objek-seleksi">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama Objek</th>
+                                                <th scope="col">Judul </th>
+                                                <th scope="col">Tahun</th>
+                                                <th scope="col">Keterangan</th>
+                                                <th scope="col" class="text-center">Aksi</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in '123456789'|make_list %}
+                                              <tr>
+                                                <th scope="row">{{i}}</th>
+                                                <td>Objek 1</td>
+                                                <td>Judul</td>
+                                                <td>2023</td>
+                                                <td><a href="#">Lihat</a></td>
+                                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                                    <div class="" style="display: flex; justify-content: center;">
+                                                        <button class="btn badge mr-1"   >
+                                                            <i class="fa fa-edit circle-icon"></i>
+                                                        </button> 
+                                                       
+                                                        <button  class="btn badge mr-1"  style="color:red;">
+                                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                                    </button></div>
+                                                    
+                                            </div>
+                                            </td>
+                                              </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-Penanggung-Jawab" role="tabpanel" aria-labelledby="pills-Penanggung-Jawab-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2
+                                ">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >+ Tambah</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                        <table class="table table-striped" id="table-penanggung-jawab">
+                            <thead>
+                              <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">Tahun</th>
+                                <th scope="col">Nama Lengkap</th>
+                                <th scope="col">NIP</th>
+                                <th scope="col">Jabatan di kominfo</th>
+                                <th scope="col">Jabatan di Tim</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" class="text-center">Aksi<s/th>
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <!-- {% for l_penanggung in list_penanggung %}
+                              <tr>
+                                <td>{{l_penanggung.id}}</td>
+                                <td>{{l_penanggung.judul}}</td>
+                                <td>{{l_penanggung.tahun}}</td>
+                                <td>{{l_penanggung.nama_lengkap}}</td>
+                                <td>{{l_penanggung.nip}}</td>
+                                <td>{{l_penanggung.jabatan_kominfo}}</td>
+                                <td>{{l_penanggung.jabatan_tim}}</td>
+                                <td class="aktif">{{l_penanggung.status}}</td>
+                                <td style="text-align: center;"><div style="display: flex; justify-content: center;"><i hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 20H21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg></i></i><i class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 6H21" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14 11V17" stroke="#D11F40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg></button></div></td>
+                              </tr>
+                              
+                                
+                              {%endfor%} --> 
+                            </tbody>
+
+                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-Alamat" role="tabpanel" aria-labelledby="pill-Alamat-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >+ Tambah</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                 <table class="table table-striped" id="table-alamat">
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Tahun</th>
+                                <th>Judul</th>
+                                <th>Kantor</th>
+                                <th>Alamat</th>
+                                <th>Telepon</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th class="text-center">Aksi</th>
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>2023</td>
+                                <td>Judul 1</td>
+                                <td>Pt jaya maya</td>
+                                <td><a href="#">Lihat</a></td>
+                                <td>0828372762631</td>
+                                <td>jaya@gmail.com</td>
+                                <td class="aktif">aktif</td>
+                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                    <div class="" style="display: flex; justify-content: center;">
+                                        <button class="btn badge mr-1"   >
+                                            <i class="fa fa-edit circle-icon"></i>
+                                        </button> 
+                                       
+                                        <button  class="btn badge mr-1"  style="color:red;">
+                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                    </button></div>
+                                    
+                            </div>
+                            </td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>2022</td>
+                                <td>Judul 2</td>
+                                <td>Pt widya karana</td>
+                                <td><a href="#">Lihat</a></td>
+                                <td>0823728372323</td>
+                                <td>widya@gmail.com</td>
+                                <td class="aktif">aktif</td>
+                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                    <div class="" style="display: flex; justify-content: center;">
+                                        <button class="btn badge mr-1"   >
+                                            <i class="fa fa-edit circle-icon"></i>
+                                        </button> 
+                                       
+                                        <button  class="btn badge mr-1"  style="color:red;">
+                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                    </button></div>
+                                    
+                            </div>
+                            </td>
+                                
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>2023</td>
+                                <td>Judul 3</td>
+                                <td>Pt simplepline</td>
+                                <td><a href="#">Lihat</a></td>
+                                <td>09828282711726</td>
+                                <td>plane@gmail.com</td>
+                                <td class="aktif">aktif</td>
+                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                    <div class="" style="display: flex; justify-content: center;">
+                                        <button class="btn badge mr-1"   >
+                                            <i class="fa fa-edit circle-icon"></i>
+                                        </button> 
+                                       
+                                        <button  class="btn badge mr-1"  style="color:red;">
+                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                    </button></div>
+                                    
+                            </div>
+                            </td>
+                                
+                              </tr>
+                            
+                            </tbody>
+                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-Persyaratan" role="tabpanel" aria-labelledby="pill-Persyaratan-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >+ Tambah</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                 <table class="table table-striped" id="table-persyaratan">
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Judul</th>
+                                <th>Tahun</th>
+                                <th>Urutan</th>
+                                <th>Persyaratan</th>
+                                <th>Keterangan</th>
+                                <th class="text-center">Aksi<s/th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>2023</td>
+                                <td>Judul 1</td>
+                                <td>1</td>
+                                <td><a href="#">Lihat</a></td>
+                                <td><a href="#">Lihat</a></td>
+                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                    <div class="" style="display: flex; justify-content: center;">
+                                        <button class="btn badge mr-1"   >
+                                            <i class="fa fa-edit circle-icon"></i>
+                                        </button> 
+                                       
+                                        <button  class="btn badge mr-1"  style="color:red;">
+                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                    </button></div>
+                                    
+                            </div>
+                            </td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>2022</td>
+                                <td>Judul 2</td>
+                                <td>2</td>
+                                <td><a href="#">Lihat</a></td>
+                                <td><a href="#">Lihat</a></td>
+                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                    <div class="" style="display: flex; justify-content: center;">
+                                        <button class="btn badge mr-1"   >
+                                            <i class="fa fa-edit circle-icon"></i>
+                                        </button> 
+                                       
+                                        <button  class="btn badge mr-1"  style="color:red;">
+                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                    </button></div>
+                                    
+                            </div>
+                            </td>
+                                
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>2023</td>
+                                <td>Judul 3</td>
+                                <td>3</td>
+                                <td><a href="#">Lihat</a></td>
+                                <td><a href="#">Lihat</a></td>
+                                <td style="text-align:center font-size: 10px;"><div class"row">
+                                    <div class="" style="display: flex; justify-content: center;">
+                                        <button class="btn badge mr-1"   >
+                                            <i class="fa fa-edit circle-icon"></i>
+                                        </button> 
+                                       
+                                        <button  class="btn badge mr-1"  style="color:red;">
+                                            <i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i>
+                                    </button></div>
+                                    
+                            </div>
+                            </td>
+                                
+                              </tr>
+                              
+                            </tbody>
+                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-Jadwal" role="tabpanel" aria-labelledby="pill-Jadwal-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Edit Jadwal</button>
+                                    </div>
+                                </div> {% endcomment %}
+                                
+                            </div>
+                            
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                 <table class="table table-striped" id="table-jadwal" style="width:100%">
+                            <thead>
+                              <tr>
+                                <th style="color: #444444;">No</th>
+                                <th style="text-align: center;color: #444444;">Jadwal Seleksi</th>
+                                <th style="text-align: center;color: #444444;">Tanggal Mulai</th>
+                                <th style="text-align: center;color: #444444;">Tanggal Selesai</th>
+                                <th style="text-align: center;color: #444444;">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                               {% for liste in list_jadwal %} 
+                               {% csrf_token %}
+                                <tr>
+                                   
+                                     <td style="padding-top: 0px;color: #000000;">{{liste }}</td>
+                                    <td style="text-align: center;padding-top: 0px;color: #000000;" class="edit-cell" contenteditable>{{liste.nama_seleksi}}<br></td>
+                                     <td style="color: #000000;text-align: center;padding-top: 0px;" type="date" class="edit-cell" contenteditable>{{liste.tanggal_mulai|date:'d F Y'}}</td>
+                                    <td style="text-align: center;padding-top: 0px;color: #000000; " type="date" class="edit-cell" contenteditable>{{liste.tanggal_selesai|date:'d F Y'}}<br></td>
+                                    
+                                    {% if liste.status == 'Selesai' %}
+                                    <td style="text-align: center;padding-top: 0px;color: #e60606;font-weight: bold;" class="edit-cell" contenteditable>{{liste.status}}<br></td> 
+                                    {% elif liste.status == 'Dimulai' %}
+                                    <td style="text-align: center;padding-top: 0px;color:#45b828;font-weight: bold;" class="edit-cell" contenteditable>{{liste.status}}<br></td> 
+                                    {% endif %}
+                                    
+                                  </tr>
+                                  
+                                {% endfor %}
+                              {% comment %} <tr>
+                                <td style="padding-top: 0px;color: #000000;">1</td>
+                                <td style="text-align: center;padding-top: 0px;color: #000000;">Pengumuman<br></td>
+                                <td style="color: #000000;text-align: center;padding-top: 0px;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;padding-top: 0px;color: #000000; " contenteditable>4 Maret 2023<br></td>
+                                <td style="text-align: center;padding-top: 0px;color: #e60606;font-weight: bold;">Selesai<br></td>
+                              </tr>
+                              <tr>
+                                <td style="color: #000000;">2</td>
+                                <td style="text-align: center;color: #000000;">Pengambilan DokSel<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr style="background: #EDF5FD;">
+                                <td style="color: #000000;">3</td>
+                                <td style="text-align: center;color: #000000;">Pertanyaan DokSel<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai</td>
+                            </tr>
+                            <tr>
+                                <td style="color: #000000;">4</td>
+                                <td style="text-align: center;color: #000000;">Aanwijzing<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr style="background: #EDF5FD;">
+                                <td style="color: #000000;">5</td>
+                                <td style="text-align: center;color: #000000;">Simulasi<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #000000;">6</td>
+                                <td style="text-align: center;color: #000000;">Permohonan Keikutsertaan A<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr style="background: #EDF5FD;">
+                                <td style="color: #000000;">7</td>
+                                <td style="text-align: center;color: #000000;">Pemeriksaan Kelengkapan<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #000000;">8</td>
+                                <td style="text-align: center;color: #000000;">Verifikasi Bid Bond<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr style="background: #EDF5FD;">
+                                <td style="color: #000000;">9</td>
+                                <td style="text-align: center;color: #000000;">Hasil Evaluasi Administrasi<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #000000;">10</td>
+                                <td style="text-align: center;color: #000000;">Sanggahan Administrasi<br></td>
+                                <td style="color: #000000;text-align: center;" contenteditable>3 Maret 2023</td>
+                                <td style="text-align: center;color: #000000;" contenteditable>5 Maret 2023<br></td>
+                                <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                            </tr>
+         {% endcomment %}
+                              
+                            </tbody>
+                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-Kegiatan" role="tabpanel" aria-labelledby="pill-Kegiatan-tab">
+                        <div class="card p-3">
+        
+                            <div class="row p-t-10">
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Tahun</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <label  class="nama_label">Judul</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <!-- <label  class="nama_label">Test</label> -->
+                                        <select name="" id="search_per_2" class="form-control">
+                                            <option value="" selected>--Silahkan Pilih Judul--</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" >Cari</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4" style="text-align:right;">
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >+ Tambah Kegiatan</button>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="row" style="padding-bottom: 14px;padding-top: 7px;">
+                                <div class="col-xxl-2" style="font-weight: bold;">
+                                    <p style="margin-bottom: 5px;margin-top: 5px; margin-right: 5px;">List Jadwal Seleksi<br></p>
+                                </div>
+                              
+                                <div class="col-xxl-2"><select style="width: 150px;height: 36px; border-radius: 8px;border-color: #007bff;">
+                                        <optgroup >
+                                            {% for select in list_jadwal %}
+                                            <option value="{{select.nama_seleksi}}" selected="">{{select.nama_seleksi}}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    </select></div>
+                            </div>
+                           
+                            
+                            <div class="row">
+                                <div class="col" >
+                                    <div>
+                                 <table class="table table-striped" id="table-kegiatan">
+                            <thead>
+                              <tr>
+                                <th style="color: #444444;">No</th>
+                                <th style="text-align: center;color: #444444;">Jadwal Kegiatan</th>
+                                <th style="text-align: center;color: #444444;">Jadwal</th>
+                                <th style="text-align: center;color: #444444;">Kegiatan</th>
+                                <th style="text-align: center;color: #444444;">Keterangan</th>
+                                <th style="text-align: center;color: #444444;">aSDA</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: #edf5fd;">
+                                    <td style="padding-top: 0px;color: #000000;">1</td>
+                                    <td style="text-align: center;padding-top: 0px;color: #000000;">Judul<br></td>
+                                    <td style="color: #000000;text-align: center;padding-top: 0px;">3 Maret 2023</td>
+                                    <td style="text-align: center;padding-top: 0px;color: #000000;">Pengumuman<br></td>
+                                    <td style="text-align: center;padding-top: 0px;color: #e60606;font-weight: bold;">Selesai<br></td>
+                                    <td style="text-align: center;padding-top: 0px;color: #1d99cf;">Lihat</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #000000;">2</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Pengambilan DokSel<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr style="background: #EDF5FD;">
+                                    <td style="color: #000000;">3</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Pertanyaan DokSel<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Berlangsung</td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #000000;">4</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Aanwijzing<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr style="background: #EDF5FD;">
+                                    <td style="color: #000000;">5</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Simulasi<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #000000;">6</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Permohonan Keikutsertaan<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr style="background: #EDF5FD;">
+                                    <td style="color: #000000;">7</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Pemeriksaan Kelengkapan<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #000000;">8</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Verifikasi Bid Bond<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr style="background: #EDF5FD;">
+                                    <td style="color: #000000;">9</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Hasil Evaluasi Administrasi<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #000000;">10</td>
+                                    <td style="text-align: center;color: #000000;">Judul 1<br></td>
+                                    <td style="color: #000000;text-align: center;">3 Maret 2023</td>
+                                    <td style="text-align: center;color: #000000;">Sanggahan Administrasi<br></td>
+                                    <td style="text-align: center;color: #45b828;font-weight: bold;">Belum Dimulai<br></td>
+                                    <td style="text-align: center;color: #1d99cf;">Lihat<br></td>
+                                </tr>
+        
+                              
+                            </tbody>
+                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        
+        
+    </div>
+
+    <!-- modal rencana seleksi -->
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="title-modal">Tambah Rencana Seleksi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="content-modal">
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-success">Setuju</button>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+
+    
+
+
+</body>
+{% block script %}
+
+    <script>
+        let tableRencanaSeleksi = new DataTable('#table-rencana-seleksi');
+        let tableDasarHukum = new DataTable('#table-dasar-hukum');
+        let tableObjekSeleksi = new DataTable("#table-objek-seleksi");
+        let tablePenanggungJawab = new DataTable("#table-penanggung-jawab");
+        let tableAlamat = new DataTable("#table-alamat");
+        let tablePersyaratan = new DataTable("#table-persyaratan");
+        let tableJadwal = new DataTable("#table-jadwal");
+        let tableKegiatan = new DataTable("#table-kegiatan");
+
+        var jsonRencanaSeleksi = {
+                "pages": [
+                {
+                "name": "page1",
+                "elements": [
+                    {
+                    "type": "text",
+                    "name": "judul",
+                    "title": "Judul",
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "tahun",
+                    "title": "Tahun",
+                    "hideNumber": true,
+                    "inputType": "number"
+                    },
+                    {
+                    "type": "dropdown",
+                    "name": "auctioner",
+                    "title": "Auctioneer",
+                    "hideNumber": true,
+                    "choices": [
+                    {
+                    "value": "auc1",
+                    "text": "Auctioneer 1"
+                    },
+                    {
+                    "value": "auc2",
+                    "text": "Auctioneer 2"
+                    },
+                    {
+                    "value": "auc3",
+                    "text": "Auctioneer 3"
+                    },
+                    {
+                    "value": "auc4",
+                    "text": "Auctioneer 4"
+                    },
+                    {
+                    "value": "auc5",
+                    "text": "Auctioneer 7"
+                    },
+                    {
+                    "value": "auc6",
+                    "text": "Auctioneer 8"
+                    }
+                    ]
+                    }
+                ]
+                }
+                ],
+                "showCompletedPage": false,
+        };
+        
+        let jsonDasarHukum = {
+            "title": "Tambah Dasar Hukum",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "nomor",
+                "title": "Nomor Dasar Hukum",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul Dasar Hukum",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "tanggal",
+                "title": "Tanggal",
+                "hideNumber": true,
+                "inputType": "date"
+                },
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "comment",
+                "name": "keterangan",
+                "title": "Keterangan",
+                "hideNumber": true
+                }
+            ]
+            }
+            ]
+            }
+        
+        let jsonObjekSeleksi = {
+            "title": "Tambah Objek Seleksi",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "nama",
+                "title": "Nama Objek",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "comment",
+                "name": "keterangan",
+                "title": "Keterangan",
+                "hideNumber": true
+                }
+            ]
+            }
+            ]
+            }
+        let jsonPenanggungJawab = {
+            "title": "Tambah Penanggung Jawab",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nama",
+                "title": "Nama Lengkap",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nip",
+                "title": "NIP",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "jabatan",
+                "title": "Jabatan di KOMINFO",
+                "hideNumber": true,
+                "choices": [
+                "item1",
+                "item2"
+                ]
+                },
+                {
+                "type": "text",
+                "name": "jabatan_tim",
+                "title": "Jabatan di Tim",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "status",
+                "title": "Status",
+                "hideNumber": true,
+                "choices": [
+                "item1",
+                "item2"
+                    ]
+                    }
+                ]
+                }
+                ]
+        }
+        let jsonAlamat = {
+            "title": "Tambah Alamat",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "kantor",
+                "title": "Kantor",
+                "hideNumber": true
+                },
+                {
+                "type": "comment",
+                "name": "alamat",
+                "title": "Alamat",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nip",
+                "title": "Telefon",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "jabatan_tim",
+                "title": "Email",
+                "hideNumber": true,
+                "inputType": "email"
+                },
+                {
+                "type": "dropdown",
+                "name": "status",
+                "title": "Status",
+                "hideNumber": true,
+                "choices": [
+                "item1",
+                "item2"
+                ]
+                }
+            ]
+            }
+            ]
+            }
+        let jsonPersyaratan = {
+            "title": "Tambah Persyaratan",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "urutan",
+                "title": "Urutan",
+                "hideNumber": true
+                },
+                {
+                "type": "comment",
+                "name": "persyaratan",
+                "title": "Persyaratan",
+                "hideNumber": true
+                },
+                {
+                "type": "comment",
+                "name": "keterangan",
+                "title": "Keterangan",
+                "hideNumber": true
+                }
+            ]
+            }
+            ]
+            }
+        
+        let jsonJadwal = {
+            "title": "Edit Jadwal",
+            "pages": [
+            {
+                "name": "page",
+                "elements": [
+                    {
+                        "type": "text",
+                    "name": "judul",
+                    "title": "Judul",
+                    "hideNumber": true,
+                    "maxWidth": "50%",
+                   
+                    },
+                    {
+                    "type": "text",
+                    "name": "tahun",
+                    "title": "Tahun",
+                    "startWithNewLine": false,
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "dropdown",
+                    "name": "jadwal_seleksi",
+                    "title": "Jadwal Seleksi",
+                    "hideNumber": true,
+                    "choices": [
+                    "",
+                    "",
+                    ""
+                    ]
+                    },
+                    {
+                    "type": "text",
+                    "name": "kegiatan",
+                    "title": "Kegiatan",
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "tanggal",
+                    "title": "Tanggal",
+                    "hideNumber": true,
+                    "inputType": "datetime-local"
+                    },
+                    {
+                    "type": "text",
+                    "name": "tanggal1",
+                    "startWithNewLine": false,
+                    "title": "Tanggal",
+                    "hideNumber": true,
+                    "inputType": "datetime-local"
+                    },
+                    
+                    {
+                    "type": "comment",
+                    "name": "keterangan",
+                    "title": "Keterangan",
+                    "hideNumber": true
+                    }
+                ]
+                }
+                ]
+            }
+            let jsonKegiatan = {
+                "title": "Tambah Kegiatan",
+                "pages": [
+                {
+                    "name": "page",
+                    "elements": [
+                        {
+                            "type": "text",
+                        "name": "judul",
+                        "title": "Judul",
+                        "hideNumber": true,
+                        "maxWidth": "50%",
+                       
+                        },
+                        {
+                        "type": "text",
+                        "name": "tahun",
+                        "title": "Tahun",
+                        "startWithNewLine": false,
+                        "hideNumber": true
+                        },
+                        {
+                        "type": "dropdown",
+                        "name": "jadwal_seleksi",
+                        "title": "Jadwal Seleksi",
+                        "hideNumber": true,
+                        "choices": [
+                        "",
+                        "",
+                        ""
+                        ]
+                        },
+                        {
+                        "type": "text",
+                        "name": "kegiatan",
+                        "title": "Kegiatan",
+                        "hideNumber": true
+                        },
+                        {
+                        "type": "text",
+                        "name": "tanggal",
+                        "title": "Tanggal",
+                        "hideNumber": true,
+                        "inputType": "datetime-local"
+                        },
+                        {
+                        "type": "text",
+                        "name": "tanggal1",
+                        "startWithNewLine": false,
+                        "title": "Tanggal",
+                        "hideNumber": true,
+                        "inputType": "datetime-local"
+                        },
+                        
+                        {
+                        "type": "comment",
+                        "name": "keterangan",
+                        "title": "Keterangan",
+                        "hideNumber": true
+                        }
+                    ]
+                    }
+                    ]
+                }
+     
+        
+
+        function changeFormTo(opsi)
+        {
+            let jsons = ''; // ini nanti untuk tampung data json
+            let hitApi = ''; // ini nanti ganti sesuai hit api kemana
+            let titleModal = '';
+            let mainTitle = '';
+            switch(opsi){
+                case 'RencanaSeleksi':
+                    mainTitle = 'Rencana Seleksi';
+                    jsons = jsonRencanaSeleksi;
+                    titleModal = 'Tambah Rencana Seleksi';
+                    break;
+                case 'DasarHukum':
+                    mainTitle = 'Dasar Hukum';
+                    titleModal = 'Tambah Dasar Hukum';
+                    jsons = jsonDasarHukum;
+                    break;
+                case 'ObjekSeleksi':
+                    mainTitle = 'Objek Seleksi';
+                    titleModal = 'Tambah Objek Seleksi';
+                    jsons = jsonObjekSeleksi;
+                    break;
+                case 'PenanggungJawab':
+                    mainTitle = 'Penanggung Jawab';
+                    titleModal = 'Tambah Penanggung Jawab';
+                    jsons = jsonPenanggungJawab;
+                    break;
+                case 'Alamat':
+                    mainTitle = 'Alamat';
+                    titleModal = 'Tambah alamat';
+                    jsons = jsonAlamat;
+                    break;
+                case 'Persyaratan':
+                    mainTitle = 'Persyaratan';
+                    titleModal = 'Tambah Persyaratan';
+                    jsons = jsonPersyaratan;
+                    break;
+                case 'Kegiatan':
+                    mainTitle = 'Kegiatan';
+                    titleModal = 'Tambah Kegiatan';
+                    jsons = jsonKegiatan;
+                    break;
+                case 'Jadwal':
+                    mainTitle = 'Jadwal';
+                    titleModal = 'Edit Jadwal';
+                    jsons = jsonJadwal;
+                    break;
+            }
+            $("#title-main").html(mainTitle);
+            $("#content-modal").Survey({
+                model: new Survey.Model(jsons),
+                onComplete: function (survey, options) {
+                    // Handle survey completion here
+                    console.log(survey.data);
+                }
+            });
+        }
+
+       
+        $("#content-modal").Survey({
+            model: new Survey.Model(jsonRencanaSeleksi),
+            onComplete: function (survey, options) {
+                // Handle survey completion here
+                console.log(survey.data);
+            }
+        });
+
+        {% comment %} $('#table-jadwal').on( 'click', 'tbody td:not(:first-child)', function (e) {
+            editor.inline( this, {
+                submit: 'allIfChanged'
+            } );
+        } ); {% endcomment %}
+                
+       
+        // tambahan aul
+        
+        var editor;
+        
+        
+        $(document).ready(function() {
+
+            $('.edit-cell').on('blur', function() {
+                var cell = $(this);
+                var row = cell.closest('tr');
+                var id = row.find('td:first-child').text();
+                var tanggalMulai = row.find('td:nth-child(3)').text();
+                var tanggalSelesai = row.find('td:nth-child(4)').text();
+
+                var formattedTanggalMulai = formatDate(tanggalMulai);
+                var formattedTanggalSelesai = formatDate(tanggalSelesai);
+
+                var updatedData = {
+                id: id,
+                nama_seleksi: row.find('td:nth-child(2)').text(),
+                tanggal_mulai: formattedTanggalMulai,
+                tanggal_selesai: formattedTanggalSelesai,
+                status: row.find('td:nth-child(5)').text()
+                };
+                
+                function formatDate(dateString) {
+                    var parts = dateString.split(' ');
+                    if (parts.length === 3) {
+                      var day = parts[0].trim();
+                      var month = convertMonth(parts[1].trim());
+                      var year = parts[2].trim();
+                      return year + '-' + month + '-' + day;
+                    }
+                    return dateString;
+                  }
+                
+                  function convertMonth(monthName) {
+                    var monthMap = {
+                      'January': '01',
+                      'February': '02',
+                      'March': '03',
+                      'April': '04',
+                      'May': '05',
+                      'June': '06',
+                      'July': '07',
+                      'August': '08',
+                      'September': '09',
+                      'October': '10',
+                      'November': '11',
+                      'December': '12'
+                    };
+                    return monthMap[monthName] || monthName;
+                  }
+          
+              $.ajax({
+                url: '/rencana_seleksi/api/v1/rencana_jadwal_seleksi/' + id + '/',
+                method: 'PUT',
+                contentType: 'application/json',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                dataType: 'json',
+                data: JSON.stringify(updatedData),
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Edit Data Berhasil',
+                      })
+                  console.log(response);
+                  console.log('Data successfully updated');
+                },
+                error: function(error) {
+                
+                  console.log('Error:', error);
+                }
+              });
+            });
+            
+          });
+          
+          function navigateToUrls(url) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Apakah Kamu Yakin ingin menghapus?',
+             
+              showCancelButton: true,
+              confirmButtonText: 'Yes',
+              cancelButtonText: 'No, Batal',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = url;
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Dibatalkan',
+                  text: 'Batal menghapus',
+                });
+              }
+            });
+          }
+          document.getElementById('submitButton').addEventListener('click', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Tambah data Berhasil',
+            }   
+              );
+            });
+            function navigateToUrl(url) {
+                window.location.href = url;
+                
+              }
+          
+      </script>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}

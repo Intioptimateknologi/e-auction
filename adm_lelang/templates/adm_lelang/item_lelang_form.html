@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+<form name="item_lelang_form" id="item_lelang_form" method="POST">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Judul Seleksi</label>
+            {% render_field form.nama_lelang|attr:"disabled" class+="form-control" %}
+        </div>
+        <div class="form-group">
+            <label class="nama_label" for="keterangan">Keterangan</label>
+            {% render_field form.keterangan|attr:"disabled" class+="form-control" %}
+        </div>
+    </div>
+    
+    <div class="card-footer">
+        <input type="submit" class="btn btn-primary" value="Simpan">
+    </div>
+</form>

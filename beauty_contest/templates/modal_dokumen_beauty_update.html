@@ -1,0 +1,41 @@
+{% load widget_tweaks %}
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Ubah Dokumen Penawaran Beauty Contest</h5>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">x</button>
+		</div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <form name="doc_bc" id="doc_bc" method="POST" >
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_nomor">Obyek Seleksi</label>
+                            {% render_field form.item|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Nama Dokumen Beauty Contest</label>
+                            {% render_field form.nama_dok|add_class:"form-control"|attr:"accept=.zip,.rar"  %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Unggah Dokumen Beauty Contest</label>
+                            {% render_field form.dokumen_bc|add_class:"form-control"|attr:"accept=.zip,.rar"  %}
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label for="id_nomor">Nama Perusahaan</label>
+                            {% render_field form.bidder|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Perwakilan Perusahaan</label>
+                            {% render_field form.perwakilan|add_class:"form-control" %}
+                        </div>
+                        <div class=""  style="text-align: right;">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan">
+                        </div>
+                    </form>
+                </div>  
+            </div>              
+        </div>
+	  </div>
+  

@@ -1,0 +1,227 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    <div style="width:20%">
+    {{ chart|safe }}
+    </div>
+    
+        {% if user_type == "C" %}
+            {% add_judul_auctioner user.id item_lelang.id "/smra2/settings/" "Pengelolaan Setting SMRA" %}
+        {% elif user_type == "V" %}
+            {% add_judul_viewer user.id item_lelang.id "/smra2/settings/" "Pengelolaan Setting SMRA"%}
+        {% elif user_type == "B" %}
+            {% add_judul_bidder user.id item_lelang.id "/smra2/settings/" "Pengelolaan Setting SMRA"%}
+        {% elif user_type == "A" %}
+            {% add_judul_admin user.id item_lelang.id "/smra2/settings/" "Pengelolaan Setting SMRA"%}
+        {% endif %}
+<div class="col-md-12" style="text-align:center; background:#4a91dc;margin-left:-1px;margin-right:0px;padding-top:10px; padding-bottom:10px;">
+</div>
+
+{% include "tabs_all.html" %} 
+           
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% include 'js_tambahan/js_tambahan.html' %}
+<script>
+    var item_lelang;
+    $(document).ready(function() {
+        {% include "js/js_temp_all.html" %}
+        
+        {% if user_type == "C" or user_type == "A" %}
+
+
+        $('#create_schedule_btn').removeClass('btn-secondary')
+        $('#create_schedule_btn').addClass('btn-primary ml-2')
+
+        $("#create_schedule_btn").on("click",function() {
+            const value = Swal.fire({
+                title: "Auto Generate Jadwal",
+                html: `
+                    <select name="hari" placeholder="Masukan Hari Pelaksaan" class="swal2-input" required="" id="id_hari">
+                        <option value="" selected="">---------</option>
+                        <option value="0">Senin</option>
+                        <option value="1">Selasa</option>
+                        <option value="2">Rabu</option>
+                        <option value="3">Kamis</option>
+                        <option value="4">Jumat</option>
+                        <option value="5">Sabtu</option>
+                        <option value="6">Minggu</option>
+                    </select>
+                    <input type="time" id="waktu_mulai" class="swal2-input" placeholder="Waktu Mulai">
+                    <input type="number" id="lama_putaran" class="swal2-input" placeholder="Lama Putaran (menit)">
+                    <input type="number" id="jeda_putaran" class="swal2-input" placeholder="Jeda Putaran (menit)">
+                    <input type="number" id="jumlah_putaran" class="swal2-input" placeholder="Jumlah Putaran (kali)">
+                `,
+                preConfirm: () => {
+                    return {
+                        "hari": document.getElementById('id_hari').value, 
+                        "waktu_mulai":document.getElementById('waktu_mulai').value, 
+                        "lama_putaran":document.getElementById('lama_putaran').value, 
+                        "jeda_putaran":document.getElementById('jeda_putaran').value, 
+                        "jumlah_putaran":document.getElementById('jumlah_putaran').value
+                    }
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({url:'/smra2/create_putaran/'+$('#nmlelang').val()+'/?hari='+result.value.hari+'&waktu_mulai='+result.value.waktu_mulai+'&jeda_putaran='+result.value.jeda_putaran+'&lama_putaran='+result.value.lama_putaran+"&jumlah_putaran="+result.value.jumlah_putaran})
+                    .then(function(){
+                        loadData({URL: '/smra2/jadwal_putaran/'+$('#nmlelang').val()+"/", element_id: $("#t_putaran")});
+                    })
+                }
+            });
+        });
+
+        $("#clear_schedule_btn").on("click",function() {
+            swal.fire({
+                title: "Clear Putaran SMRA",
+                text: "Membersihkan jadwal putaran Seleksi SMRA?",
+                icon: "success",
+                showCancelButton: true,
+            }).then((result)=> {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/smra2/clear_putaran/'+$("#nmlelang").val()+'/',
+                        method: "GET",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data) {
+                            swal.fire("Pembersihan Selesai")
+                            loadData({URL: '/smra2/jadwal_putaran/'+$('#nmlelang').val()+'/', element_id: $("#t_putaran")}
+                        )}
+                    });
+                }
+            });            
+        })
+
+        $("#init_btn").on("click",function() {
+            swal.fire({
+                title: "Inisialisasi SMRA",
+                text: "Menginisialisasi Seleksi Penawaran Harga SMRA?",
+                icon: "success",
+                showCancelButton: true,
+            }).then((result)=> {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/smra2/api/v1/round_smra/'+$("#nmlelang").val()+'/init_all/',
+                        method: "GET",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data) {
+                            swal.fire("Inisialisasi Selesai")
+                        }
+                    });
+                }
+            });
+        })
+
+        {% elif user_type == "B" %}
+        $("#clear_schedule_btn").hide();
+        $("#create_schedule_btn").hide();
+        $("#init_btn").hide();
+
+        $("#obyek_seleksi").on("click",".send",function() {
+            id = this.id
+            Swal.fire({
+                title: 'Yakin akan mengirim speciment ttd?',
+                text: "Ini tidak dapat diulang!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax('/userman/api/v1/bidder_perwakilan/'+id+'/send_speciment/',   
+                {
+                success: function (data, status, xhr) {// success callback function
+                    Swal.fire(data.status.message)
+                }
+                });
+            }
+            })     
+        });
+        {% endif %}
+    });
+    
+</script>
+{% endblock %}

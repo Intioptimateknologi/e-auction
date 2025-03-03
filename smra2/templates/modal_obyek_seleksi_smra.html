@@ -1,0 +1,82 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title">Obyek Seleksi</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Obyek Seleksi</label>
+                        {% render_field form.item|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Bidder</label>
+                        {% render_field form.bidder_user|add_class:"form-control " placeholder="Pilih Peserta Seleksi" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Blok Awal</label>
+                        {% render_field form.blok_awal|add_class:"form-control" placeholder="Masukan Jumlah Blok Penawaran Awal"%}
+                    </div>
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Alamat IP</label>
+                        {% render_field form.ipaddress|add_class:"form-control" placeholder="Alamat IP Peserta seleksi"%}
+                    </div>
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">IP Dikunci?</label>
+                        {% render_field form.is_block_ip|add_class:"form-checkbox" %}
+                    </div>
+                    <div class="" style="text-align: right;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                    </div>
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  
+<script>
+    $(document).ready(function() {
+        console.log({{ item_lelang.id }});
+        
+        const check_bidder = function(){
+            const itemSelect = document.getElementById('id_item')
+            const bidderUserSelect = document.getElementById('id_bidder_user')
+
+            itemSelect.addEventListener('change', function(){
+                const itemId = itemSelect.value;
+                fetch(`/smra2/api/v1/obyek_seleksi/check_bidder/${itemId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    bidderUserSelect.disabled = false;
+                    bidderUserSelect.innerHTML = '';
+                    data.forEach(bidderUser => {
+                        const option = document.createElement('option');
+                        option.value = bidderUser.id;
+                        option.text = bidderUser.username;
+                        bidderUserSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            })
+
+            if (itemSelect.value) {
+                itemSelect.dispatchEvent(new Event('change'));
+            }
+        };
+
+        $('#modal').on('shown.bs.modal', function () {
+            check_bidder();
+        });
+
+        check_bidder();
+    })
+</script>

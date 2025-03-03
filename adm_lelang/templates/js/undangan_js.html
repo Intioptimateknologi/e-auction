@@ -1,0 +1,72 @@
+loadData({URL: '/adm_lelang/undangan_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")});
+
+$("#{{attribute.tambah_btn}}").click(function() {         
+    showModal2({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/modal_undangan_create/{{item_lelang.id}}/{{i.menu.tahapan.id}}/",
+        drfURL: "/adm_lelang/api/v1/undangan_lelang/",
+        tombol_tambah: '{{attribute.tambah_btn}}',
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            //disable_tambah();
+            loadData({URL: '/adm_lelang/undangan_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    });
+});
+
+$("#{{attribute.element}}").on("click",".update",function() {
+    showEditModal({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/modal_undangan_update/"+this.id+"/",
+        drfURL: "/adm_lelang/api/v1/undangan_lelang/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/adm_lelang/undangan_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    })
+});
+
+$("#{{attribute.element}}").on("click",".delete",function() {
+    deleteData({id: this.id, 
+        csrf: '{{csrf_token}}',
+        drfURL: '/adm_lelang/api/v1/undangan_lelang/'+this.id+'/',
+        onSuccess: function(data) {
+            swal.fire({
+                title: "Data Terhapus !",
+                text: "",
+                icon: "success"
+            })
+            $("#{{attribute.tambah_btn}}").prop( "disabled", false );
+            loadData({URL: '/adm_lelang/undangan_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    });
+});
+
+$("#{{attribute.element}}").on("click",".send",function() {
+    id = this.id;
+    swal.fire({
+        title: "Kirim Undangan",
+        text: "Kirim undangan ke auctioner dan bidder?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+        if (result.isConfirmed) {
+            const pathname = window.location.pathname
+            $.ajax({
+                url: '/adm_lelang/api/v1/undangan_lelang/'+id+'/kirim_undangan/' + '?pathname=' + pathname,
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    swal.fire({
+                        title: "Terkirim",
+                        text: "Terkirim",
+                        icon: "success"
+                    })
+                }
+            });
+        }
+    });
+});

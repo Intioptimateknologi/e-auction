@@ -1,0 +1,512 @@
+{% extends "../../base.html" %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/koGrid.css" >
+<link rel="stylesheet" type="text/css" href="/static/css/survey-ui.min.css" >
+<style>
+    .navbar {
+        height: 64px;
+        background-color: #007bff;
+      }
+    .brand-img {
+        height: 51.94px;
+    }
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+    .banner {
+        background: url(/static/img/portal/background-slider.png);
+        height: 768px;
+        width: 100%;
+    }
+    .logobesar {
+        position: absolute;
+        left: 85;
+        top: 209;
+    }
+    .portal_penjelasan {
+        position: absolute;
+        left: 85;
+        top: 411;
+        width: 643;
+    }
+    .button_yuk_mulai {
+        position: absolute;
+        left: 85;
+        top: 520;
+        width: 133;
+    }
+    .sdppi_side {
+        position: absolute;
+        right: 0;
+        top: 652;
+    }
+    .bi {
+        vertical-align: -.125em;
+        pointer-events: none;
+        fill: currentColor;
+      }
+      .nav-flush .nav-link {
+        border-radius: 0;
+      }
+    .gridStyle {
+        border: 1px solid rgb(255, 255, 255);
+        width: 100%; 
+        height: 300px;
+        float: left;
+    }
+    .bidderlist{
+        height:300px;
+    }
+    .KgTopPanel{
+        background-color: white;
+    }
+    .KgFooterPanel{
+        background-color: white;
+    }
+    .kgRow.even{
+        background-color: #edf5fd;
+    }
+    .KgRow.Even.selected{
+	background-color: rgb(189, 208, 203);
+	}
+</style>
+{% endblock %}
+{% block navbar %}
+{% include "component/navbar_super.html" %}
+{% endblock %}
+{% block content %}
+<div class="row" style="
+margin-left: 0px;
+margin-right: 0px;
+">
+    <div class="col col-md-1 bg-light" style="width:4.5rem;">
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center pt-5">
+            <li class="nav-item">
+                <a href="/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/users/" class="nav-link  py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Users Management">
+                    <i class="fa fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/bidder/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bidder Management">
+                    <i class="fa fa-users"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/tim_lelang/" class="nav-link active py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Auctioner Management">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Viewer Management">
+                    <i class="fa fa-user-secret"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Place Bid">
+                    <i class="fa fa-usd"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Activity">
+                    <i class="fa fa-line-chart"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Round Summary">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Posted Result">
+                    <i class="fa fa-id-card"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Messages">
+                    <i class="fa fa-comments"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Schedules">
+                    <i class="fa fa-calendar"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Download">
+                    <i class="fa fa-download"></i>
+                </a>
+            </li>
+            <li>
+                <a href="/accounts/logout/" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Logout">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col col-md-11">
+        <h4 style="display:none;" id="data_id_tricky"></h4>
+        <h4 style="display:none;" id="data_id_tricky_edit"></h4>
+        <div class="row">
+            <div class="col" style="">
+                <div class="card" style="top: 20px;">
+                    <div style="font-size: 24px; font-weight: bold; color: #007bff; padding: 20px">
+                        Master Data
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-right: 0px; margin-left: 0px;">
+            <div class="card mt-5" id="management_block">
+                <div class="card-header" style="background-color: white;">
+                    <div class="h4 float-start">List Akun Terdaftar</div>
+                    <div hx-target="#management_block" hx-swap="outerHTML">
+                        <button hx-get="/userman/tim_lelang/add/" type="button" class="btn btn-secondary float-end" style=" margin-bottom: 15px; margin-bottom: 15px;background-color: #fff;color: #007bff;border-color: #007bff; font-size:14px;"><i class="fa-solid fa-plus-circle"></i> Tambah Baru</button>
+                        <button hx-get="/userman/tim_lelang/edit/" type="button" class="btn btn-secondary float-end" id="editpindahpage" style="display:none;">Edit</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="bidderlist" class="gridStyle" data-bind="koGrid: gridOptions" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include "component/footer.html" %}
+{% endblock %}
+{% block modal %}
+<div class="modal fade" id="modalPage" aria-hidden="true" aria-labelledby="modalPage" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="form_survey"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+<script>
+(function () {
+    'use strict'
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  })()
+</script>
+<script>
+    // updatee
+
+    $(document).ready(function() {
+       
+        function mainVm(){
+            var self = this; 
+            this.myData = ko.observableArray([]);
+        
+            this.filterOptions = {
+                filterText: ko.observable(""),
+                useExternalFilter: true
+            };
+            this.mySelectedData = ko.observableArray([]);
+            this.pagingOptions = {
+                pageSizes: ko.observableArray([5, 10, 15]),
+                pageSize: ko.observable(5),
+                totalServerItems: ko.observable(0),
+                currentPage: ko.observable(1)     
+            };
+        
+            this.setPagingData = function(data, page, pageSize){	
+                // var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+                self.myData(data.results);
+                self.pagingOptions.totalServerItems(data.count);
+            };
+            
+
+            this.getPagedDataAsync = function (pageSize, page, searchText) {
+                setTimeout(function () {
+                    var data;
+                    if (searchText) {
+                        var ft = searchText.toLowerCase();
+                        $.getJSON('/userman/api/v1/tim_lelang/?format=json&limit=' + pageSize + '&offset=' + (page-1)*pageSize, function (largeLoad) {		
+                            data = largeLoad.filter(function(item) {
+                                return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+                            });
+                            self.setPagingData(data,page,pageSize);
+                        });            
+                    } else {
+                        $.getJSON('/userman/api/v1/tim_lelang/?format=json&limit=' + pageSize + '&offset=' + (page-1)*pageSize, function (largeLoad) {
+                            self.setPagingData(largeLoad,page,pageSize);
+                        });
+                    }
+                }, 100);
+            };
+        
+            self.filterOptions.filterText.subscribe(function (data) {
+                self.getPagedDataAsync(self.pagingOptions.pageSize(), self.pagingOptions.currentPage(), self.filterOptions.filterText());
+            });   
+
+            self.pagingOptions.pageSizes.subscribe(function (data) {
+                self.getPagedDataAsync(self.pagingOptions.pageSize(), self.pagingOptions.currentPage(), self.filterOptions.filterText());
+            });
+            self.pagingOptions.pageSize.subscribe(function (data) {
+                self.getPagedDataAsync(self.pagingOptions.pageSize(), self.pagingOptions.currentPage(), self.filterOptions.filterText());
+            });
+            self.pagingOptions.totalServerItems.subscribe(function (data) {
+                self.getPagedDataAsync(self.pagingOptions.pageSize(), self.pagingOptions.currentPage(), self.filterOptions.filterText());
+            });
+            self.pagingOptions.currentPage.subscribe(function (data) {
+                self.getPagedDataAsync(self.pagingOptions.pageSize(), self.pagingOptions.currentPage(), self.filterOptions.filterText());
+            });
+            
+            self.getPagedDataAsync(self.pagingOptions.pageSize(), self.pagingOptions.currentPage());
+            this.gridOptions = {
+                data: self.myData,
+                enablePaging: true,
+                displaySelectionCheckbox: false,
+                showColumnMenu: false,
+                pagingOptions: self.pagingOptions,
+                filterOptions: self.filterOptions,
+                selectedItems: self.mySelectedData,
+                columnDefs: [
+                    {field: 'users', displayName: 'User'},
+                    {field: 'nip', displayName: 'NIP'},
+                    {field: 'jabatan_dalam_tim', displayName: 'Jabatan Dalam Tim'},
+                    {field: 'jabatan', displayName: 'Jabatan'},
+                    {field: 'sk_pengangkatan', displayName: 'SK Pengangkatan', cellTemplate:'<div style="display: flex; justify-content: center;"><button class="download badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="download" style="background-color: #edf5fd; color: 0062FF; border-radius:10px; border-color: #007bff;"><i class="fa fa-eye" aria-hidden="true"></i>Lihat</button></div>'},
+                    {field: 'id', displayName: 'Action', cellTemplate:'<div style="display: flex; justify-content: center;"><button hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><i class="fa-solid fa-pen" style="color: #0068f0;"></i></button>&nbsp;&nbsp;<button class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"><i class="fa-regular fa-trash-can" style="color: #ff0040;"></i></button></div>'}]
+            };	
+        };
+        var myvm = new mainVm();
+        ko.applyBindings(myvm, document.getElementById("management_block"));
+        var json = {
+            "title": "Pertanyaan",
+            "logoPosition": "right",
+            "pages": [
+                {
+                "name": "page1",
+                "elements": [
+                    {
+                    "type": "text",
+                    "name": "nip",
+                    "title": "NIP",
+                    "isRequired": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "jabatan_dalam_tim",
+                    "title": "Jabatan Dalam Tim",
+                    "isRequired": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "jabatan",
+                    "title": "J abatan",
+                    "isRequired": true
+                    },
+                    {
+                    "type": "file",
+                    "name": "sk_pengangkatan",
+                    "title": "SK Pengangkatan",
+                    "description": "Clean jika update file. *maks 1 File pdf",
+                    "allowMultiple": true,
+                    "isRequired": true
+                    },
+                    // {
+                    // "type": "text",
+                    // "name": "users",
+                    // "title": "user",
+                    // "isRequired": true,
+                    
+                    // }
+                ]
+             }
+            ],
+            "showTitle": false,
+            "showCompletedPage": false,
+            "showPageNumbers": true,
+            "showQuestionNumbers": "off",
+            "questionTitleLocation": "left",
+            "completeText": "Simpan",
+            "widthMode": "responsive"
+           };
+
+    
+
+        $("#bidderlist").on("click", ".download", function () {
+            var item = myvm.gridOptions.selectedItems();
+            
+            if (item && item.length > 0 && item[0].sk_pengangkatan) {
+                var skPengangkatanURL = item[0].sk_pengangkatan;
+                //console.log(skPengangkatanURL);
+                $('#modalPage').modal('show');
+                $('.modal-title').text("PDF Viewer");
+                PDFObject.embed(skPengangkatanURL, "#form_survey", {height: "100vh"});
+            } else {
+                console.log("error: salah data");
+            }
+        });
+
+        {% comment %} $("#createBidder").on("click",function(){
+            $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+            $('#modalPage').modal('show');
+            $('.modal-title').text("Tambah Tim Lelang");
+            Survey.StylesManager.applyTheme("darkblue");
+            var surveyDialog = new Survey.Model(json,"form_survey");
+            surveyDialog.onComplete.add(sendDataToServer);
+        });
+
+
+
+        function sendDataToServer(sender) {
+            $("#modalPage").modal('hide');
+        
+            // Verify if JSON parsing is necessary
+            const data = typeof sender.data === 'string' ? JSON.parse(sender.data) : sender.data;
+            
+            // Construct the fill_data object
+            const fill_data = {
+                "nip": data.nip,
+                "jabatan_dalam_tim": data.jabatan_dalam_tim,
+                "sk_pengangkatan": data.sk_pengangkatan[0].content,
+                "users": data.users,
+                "jabatan": data.jabatan
+            };
+        
+            // Stringify the fill_data object
+            const fill_data_string = JSON.stringify(fill_data);
+        
+            $.ajax({
+                method: 'POST',
+                url: '/userman/api/v1/tim_lelang/',
+                contentType: 'application/json',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                dataType: 'json',
+                data: fill_data_string, // Send the JSON string as data
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        } {% endcomment %}
+
+        
+
+
+    $("#bidderlist").on("click",".edit", function(){
+            var item = myvm.gridOptions.selectedItems();
+            var id = item[0].id;
+            $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+            $('#modalPage').modal('show');
+            $('.modal-title').text("Edit Tim Lelang");
+            Survey.StylesManager.applyTheme("darkblue");
+    
+            fill_data = 
+                {
+                    "id": item[0].id,
+                    "nip": item[0].nip,
+                    "users": item[0].users,
+                    "jabatan": item[0].jabatan,
+                    "jabatan_dalam_tim": item[0].jabatan_dalam_tim,
+                    "sk_pengangkatan": item[0].sk_pengangkatan,
+                }
+            
+            var sk_pengankatan_data = item[0].sk_pengangkatan;
+            console.log(sk_pengankatan_data);
+            if(sk_pengankatan_data != null){
+                fill_data["sk_pengangkatan"] = sk_pengankatan_data;
+            }
+
+
+            console.log(fill_data);
+            var surveyDialog = new Survey.Model(json,"form_survey");
+            surveyDialog.data = fill_data;
+
+            surveyDialog
+            .onComplete
+            .add(function(sender) {
+                    d = sender.data;
+                    d.sk_pengangkatan = d.sk_pengangkatan[0].content
+                    $.ajax({
+                        method: 'PUT',
+                        type: 'PUT',
+                        url:   '/userman/api/v1/tim_lelang/' + id + '/',
+                        contentType : 'application/json',
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        dataType : 'json',
+                        data: JSON.stringify(d),
+                        success: function(result) {
+                            myvm.getPagedDataAsync(5,1);
+                            $('#modalPage').modal('hide');
+                        },
+                        error: function(error) {
+                            $('#modalPage').modal('hide');
+                            Swal.fire('Error!', error.responseText, 'error');                            
+                            //$('#retValStatus').text("Ada masalah pada pengiriman data...");
+                        }
+                    })
+                }); 
+        });
+   
+       
+        {% comment %}
+        let id_global;
+        $("#bidderlist").on("click",".edit", function(){
+            var item = myvm.gridOptions.selectedItems();
+            const myButton = document.getElementById('editpindahpage');
+            const label_tricky = document.getElementById('data_id_tricky');
+           
+            var id = item[item.length - 1];
+            id_global = id.id;
+            console.log(id_global)
+            // hangoutButton.removeAttribute('hx-get');
+            label_tricky.setAttribute('text', id_global);
+            myButton.click();
+        });{% endcomment %}
+
+        
+
+        $("#bidderlist").on("click",".delete", function(){
+            Swal.fire({title: "Apakah yakin akan dihapus?", 
+                showCancelButton: true}).then((result)=> 
+                {
+                    if (result.isConfirmed) {
+                        var item = myvm.gridOptions.selectedItems();
+                        var id = item[0].id;            
+                        $.ajax('/userman/api/v1/tim_lelang/' + id + '/',{
+                            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                            type: 'DELETE',
+                            success: function (ret) {
+                                Swal.fire('Deteled!', '', 'success');
+                                myvm.gridOptions.selectedItems([]);
+                                myvm.getPagedDataAsync(myvm.pagingOptions.pageSize(), myvm.pagingOptions.currentPage());
+                            }
+                        });
+                      }
+                });
+        });
+        $("#bidderlist").on("click",".deactivate", function(){
+
+        });
+    });
+</script>
+<script src="/static/js/knockout.js"></script>
+<script type="text/javascript" src="/static/js/koGrid.js"></script>
+<script src="/static/js/survey.knockout.min.js"></script>
+{% endblock %}

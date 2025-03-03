@@ -1,0 +1,465 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block extrahead %}
+<style>
+  .pvtTotal, .pvtTotalLabel, .pvtGrandTotal {display: none}
+</style>
+
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="h2">{{ bidder.0.nama_perusahaan }}</h2>({{ ip_address }})
+        </div>
+        <div class="col-md-6">
+          <label for="nmlelang">Judul Seleksi</label>
+          <select class="form-control" id="nmlelang" style="width:600px" >
+            {% for org in bidder_lelang %}
+              <option value="{{org.item_lelang.id}}"
+                  {% if org == current_org %}selected="selected"{% endif %}>
+                  {{org.item_lelang.nama_lelang|capfirst}}
+              </option>
+            {% endfor %}
+          </select>
+          <input type="hidden" id="item_lelang">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="#tabone" class="active nav-link" data-toggle="pill" role="tab">PUTARAN CCA</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#tabtwo" data-toggle="pill" role="tab">PENAWARAN SAH</a> </li>
+            <li class="nav-item"> <a href="#tabthree" class="nav-link" data-toggle="pill" role="tab">PENAWARAN TIDAK SAH</a> </li>
+            <li class="nav-item"> <a href="#putaran" class="nav-link" data-toggle="pill" role="tab">JADWAL PUTARAN</a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <div class="row pt-2">
+                <div class="col-md-2">
+                  <div class="row">
+                  <h5>Putaran</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-primary"><span data-bind="text: putaran"></button>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <h5>Status</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-secondary"><span data-bind="text: status"></button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <h5>Waktu Awal</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-info"><span data-bind="text: mulai"></button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <h5>Waktu AKhir</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-warning"><span data-bind="text: selesai"</button>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="row">
+                    <h5>Durasi</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-success"><span data-bind="text: periode"</button>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="row">
+                    <h5>Sisa</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-danger"><span data-bind="text: sisa_time"</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3 pl-5">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                    <td scope="col">#</td>
+                    <td scope="col" class="table-secondary">Minimum Penawaran</td>
+                    <td scope="col" class="table-success">Blok Maks</td>
+                    <td scope="col" class="table-success">Spectrum Cap</td>
+                    <td scope="col" class="table-success">Poin</td>
+                    <td scope="col" class="table-warning">Penawaran</td>
+                    <td scope="col" class="table-danger">Blok</td>
+                          </tr>
+                  </thead>
+                  <tbody data-bind='foreach: allItems'>
+                    <tr>
+                      <td scope="row" data-bind='text: band'></td>
+                      <td align="center" data-bind='text: currency(prev_price)'></td>
+                      <td align="right" data-bind='text: available_block'></td>
+                      <td align="right" data-bind='text: spectrum_cap'></td>
+                      <td align="right" data-bind='text: eligibility_point_per_block'></td>
+                      <td align="center" data-bind='text: currency(penawaran)'></td>
+                      <td align="center" data-bind='text: block'></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row pt-3 pl-5">
+                <div class="col-md-10" style=""></div>
+                <div class="col-md-2" style=""><button id="createBidder" class="btn btn-info" href="#">Lakukan Penawaran</button></div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                            <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Penawaran Sah&nbsp;</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col">
+                        <table  id="t_sah" class="dt">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div>
+            <div class="tab-pane fade" id="tabthree" role="tabpanel">
+              <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 col-sm-12 table-responsive">
+                        <div class="form-group form-inline">
+                            <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Penawaran Sah&nbsp;</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col">
+                        <table  id="t_tidaksah" class="dt">
+                            <thead>
+                                <tr>
+                                    <th>item_lelang</th>
+                                    <th>item_detail_lelang</th>
+                                    <th>persyaratan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div> 
+            </div>
+            <div class="tab-pane" id="putaran" role="tabpanel">
+              <div class="card">
+                  <div class="card-header">
+                      <div class="col-md-12 col-sm-12 table-responsive">
+                          <div class="form-group form-inline">
+                              <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Jadwal Putaran Lelang&nbsp;</h2>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="col">
+                          <table  id="t_putaran" class="dt">
+                              <thead>
+                                  <tr>
+                                      <th>item_lelang</th>
+                                      <th>item_detail_lelang</th>
+                                      <th>persyaratan</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalPage" aria-hidden="true" aria-labelledby="modalPage" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+              <td scope="col">#</td>
+              <td scope="col" class="table-secondary">Minimum Penawaran</td>
+              <td scope="col" class="table-success">Spectrum Cap</td>
+              <td scope="col" class="table-success">Poin</td>
+              <td scope="col" class="table-warning">Penawaran</td>
+              <td scope="col" class="table-danger">Blok</td>
+              </tr>
+            </thead>
+            <tbody data-bind='foreach: bidItems'>
+              <tr>
+                <td scope="row" data-bind='text: band'></td>
+                <td align="center" data-bind='text: currency(prev_price)'></td>
+                <td align="right" data-bind='text: spectrum_cap'></td>
+                <td align="right" data-bind='text: eligibility_point_per_block'></td>
+                <td><input inputmode="decimal" class='form-control required number' data-bind="value: penawaran, inputmask: { value: penawaran, alias:'currency'}"/></td>
+                <td><input inputmode="decimal"  class='form-control required number' data-bind="value: block, inputmask: { value: block, alias:'numeric'}"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <span data-bind='text: error_message'></span><button data-bind='click: kirim'>Kirim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  {% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/static/js/currency.js"></script>
+  <script src="/static/js/pivottable.js"></script>
+  <script>
+  $(document).ready(function () {    
+    ko.bindingHandlers.inputmask =
+    {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var mask = valueAccessor();    
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                $(element).on('focusout change', function () {
+                    if ($(element).inputmask('isComplete')) {
+                        observable($(element).val());
+                    } else {
+                        observable(null);
+                    }
+                });
+            }
+            $(element).inputmask(mask);
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var mask = valueAccessor();
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                var valuetoWrite = observable();
+                $(element).val(valuetoWrite);
+            }
+        }
+    };
+
+    // select2
+    $('#nmlelang').select2();
+    
+    moment.locale('id'); 
+    var viewModel = {
+      eli_sekarang: ko.observable(), // Initially blank
+      eli_sebelum: ko.observable(), // Initially blank
+      first: ko.observable(true),
+      time_start: ko.observable(),
+      time_end: ko.observable(),
+      sisa_time: ko.observable(120*60),
+      allItems: ko.observableArray([]),
+      bidItems: ko.observableArray([]),
+      allItems: ko.observableArray([]),
+      mulai: ko.observable(),
+      selesai: ko.observable(),
+      periode: ko.observable(),
+      status: ko.observable(),
+      error_message: ko.observable(),
+      putaran: ko.observable(),
+      last_putaran: ko.observable(1),
+      mulai_putaran: ko.observable(),
+      sisa: ko.observable(),
+      kirim: function() {
+        id = $('#nmlelang').find(':selected').val();
+        var error = false;
+        this.bidItems().forEach(item => {
+          if (item.prev_price>parseFloat(item.penawaran)) error=true;
+          if (item.spectrum_cap<parseInt(item.block)) error=true;
+          console.log(item);
+        });
+        if (error) {
+          Swal.fire('Ada kesalahan dalam penawaran. Cek harga dan jumlah blok');
+        }
+        else 
+        $.ajax({
+          method: 'POST',
+          url: '/smra/api/v1/round_smra_temp/submit_bid/',
+          headers: {'X-CSRFToken': '{{ csrf_token }}'},
+          contentType : 'application/json',
+          dataType : 'json',
+          data: JSON.stringify(this.bidItems()),
+            success: function(result) {
+              if (result.code==200) {
+                $('#modalPage').modal('hide');
+                load_table(id);
+                //load_summary();
+              }
+              else {
+                viewModel.error_message("REVEAL");
+              }
+            },
+            error: function(error) {}
+        });
+      }
+    };
+    ko.applyBindings(viewModel);
+    function pad(num) {
+      return ("0"+num).slice(-2);
+    }
+    function hhmmss(secs) {
+      var minutes = Math.floor(secs / 60);
+      secs = secs%60;
+      var hours = Math.floor(minutes/60)
+      minutes = minutes%60;
+      return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
+    }
+
+    function load_table(id) {
+      viewModel.allItems([]);
+      putaran = viewModel.putaran();
+      $.ajax('/smra/api/v1/bid_bidder/?bidder_id={{ bidder_id }}&item_id='+id+"&round="+putaran,   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+            viewModel.allItems(data.results);
+          }
+      });
+    }
+
+    function load_biddingroundinfo(id) {
+      $.ajax('/smra/api/v1/bidding_round_smra/?item='+id, 
+      {
+        success: function (data, status, xhr) {// success callback function
+            data = data.results;
+            viewModel.putaran(data[0].round_state);
+            if (viewModel.putaran()>viewModel.last_putaran()) 
+            {
+              viewModel.bidItems(viewModel.allItems());
+              viewModel.last_putaran(viewModel.putaran());
+            }
+
+            viewModel.status(data[0].status_round );
+            viewModel.mulai(moment(data[0].start_time).format("HH:mm:ss"));
+            viewModel.selesai(moment(data[0].stop_time).format("HH:mm:ss"));
+
+            dt = moment(data[0].stop_time,'HH:mm:ss');
+            n = Date.now();
+            dt = dt - n;
+            if (viewModel.status()=="START") {
+              viewModel.sisa_time(moment(dt).format("mm:ss"));
+              $("#createBidder").attr("disabled","");
+            }
+            else {
+              viewModel.sisa_time("-");
+              $("#createBidder").attr("disabled","disabled");
+            }
+
+            if (viewModel.putaran()>viewModel.last_putaran()) 
+            {
+              load_table(id);
+              viewModel.first(false);
+            }
+            if (viewModel.first()) {
+              load_table(id);
+              viewModel.first(false);
+            }
+          }
+      });
+    }
+    var id = $('#nmlelang').find(':selected').val();
+    function loadData_Putaran(id) {
+      $.ajax({
+          url: '/smra/jadwal_putaran2/'+id + '/',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#t_putaran");
+              table.empty();
+              table.append(data);
+              $("#t_putaran").DataTable();
+          }
+      });
+    }
+    function loadData_hasil(id) {
+      $.ajax({
+          //url: '/smra2/hasil_smra2/'+id + '/{{ bidder_id }}/',
+          url: '/smra2/api/v1/hasil_cca/?item_lelang='+ id + '&bidder={{ bidder_id }}',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#t_hasil");
+              var sum = $.pivotUtilities.aggregatorTemplates.sum;
+              var numberFormat = $.pivotUtilities.numberFormat;
+              var intFormat = numberFormat({digitsAfterDecimal: 0});
+              var mps = data.results.map(function(mp) {
+                    return {"Band": mp.band, "Putaran": mp.round, "Blok": mp.block, "Penawaran": mp.price};
+                });
+              $("#t_hasil").pivot(mps,{rows:["Putaran"], cols:["Band","Blok"], aggregator: sum(intFormat)(["Penawaran"]) });
+              $('.pvtTable').addClass('table table-striped table-bordered');
+              $('.pvtTable tbody tr td').addClass('text-right');
+              $('.pvtTable thead tr th').addClass('text-center');
+          }
+      });
+    }
+    
+    load_biddingroundinfo(id);    
+    loadData_Putaran(id);
+    $(".dt").DataTable({paging: false, ordering: false,info: false,searching: false});
+
+    $('#nmlelang').on('select2:select', function (e) {
+      var id = e.params.data.id;
+      console.log(id);
+      load_biddingroundinfo(id);
+      load_table(id);
+      loadData_Putaran(id);
+      });
+
+    $("#createBidder").on("click",function(){
+      $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+      $('#modalPage').modal('show');
+      $('.modal-title').text("Masukkan Harga");
+      viewModel.bidItems(viewModel.allItems());
+    });
+    
+    //setInterval(function() {
+    //  var id = $('#nmlelang').find(':selected').val();
+    //  load_biddingroundinfo(id);
+      //loadData_hasil(id);
+    //}, 1000);
+
+  });
+</script>
+{% endblock %}

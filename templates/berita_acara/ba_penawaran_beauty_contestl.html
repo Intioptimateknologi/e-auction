@@ -1,0 +1,96 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+        
+    </style>
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+
+<h1 style="text-align:center; font-size:16px;">BERITA ACARA <br> PEMASUKAN DOKUMEN PENAWARAN PADA {{ seleksi|upper }}</h1>
+{% localize on %}
+<p style="text-align:center">Nomor {{ nomor }}, Tanggal {{ tanggal|date:'d F Y'}}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai {{ jadwal.tanggal_akhir|date:'l' }} tanggal {{ jadwal.tanggal_akhir|date:'d F Y'}} telah dilaksanakan Pemasukan Dokumen Penawaran secara daring, sebagaimana terlampir dalam Lampiran Berita Acara Ini.</li>
+  <li style="text-align: justify;">Perusahaan yang melakukan pemasukan dokumen penawaran {{ seleksi }} sebagaimana dimaksud dalam angka 1 (satu) di atas diurut berdasarkan waktu adalah:</li>
+  <table width="100%">
+      <tr>
+        <th width="10%">Nomor</th>
+        <th>Objek Seleksi</th>
+        <th>Nama Perusahaan</th>
+        <th >Waktu Pemasukan</th>
+      </tr>
+      {% for tb in table %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ tb.item }}</td>
+          <td>{{ tb.bidder }}</td>
+          <td>{{ tb.created|date:"d F y" }} pukul {{ tb.created|date:"H:i:s" }} WIB</td>
+        </tr>
+      {% endfor %}
+    </table>
+	<li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Pemasukan Dokumen Penawaran {{ seleksi }}. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "SHORT_DATE_FORMAT" %}</td>
+      </tr>
+      <tr>
+        <td>
+          <div style="width:50%">
+            <p style="text-align:center">Mengetahui</p>
+            <p style="text-align:center">Ketua Tim Pelaksana {{ seleksi }}</p>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+            <p style="text-align:center">{{ketua_pansel}}</p>
+          </div>
+        </td>
+        <td>
+          <p style="text-align:center"> Anggota Tim Pelaksana {{ seleksi }}</p><br>
+          <ol>
+            {% for i in pansel %}
+            {% if i.auctioner.jabatan_dalam_tim != 'ketua' %}{{forloop.counter}}. {{i.auctioner.users.nama_lengkap}} ({{i.auctioner.jabatan_dalam_tim}}),<br>................................<br>{% endif %}
+            
+            {% endfor %}
+          </ol>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

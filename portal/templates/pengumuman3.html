@@ -1,0 +1,127 @@
+{% load l10n %}
+
+
+<div class="slick-pengumuman" style="margin-left:0px;margin-right:0px; height:400px;">
+{% with p_umum2 as p_umum2_sliced %}
+    {% for p in p_umum2_sliced %}
+    
+    <div class="row" style="padding:20px;">
+        <div class="col">
+            <div class="card" style="background: rgb(251,253,255); height: 400px;  margin-bottom: 10px;border-radius: 20px; overflow: hidden;">
+                <img src="/media/{{ p.image }}" class="card-img-top" style="height:200px;">
+                    
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="card-text"><span style="color:#6C748E;">{% localize on %}{{p.tgl_release|date:"l, j F Y"}}{% endlocalize %}</span></p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="card-text"><strong><span style="color:black;">{{p.judul|capfirst|truncatechars:120}}</span></strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" style="background-color: rgb(255 255 255);text-align:center">
+                    <button class="btn btn-primary" type="button" style="border-radius: 10px; font-size: 14px; padding-right: 20px;padding-left: 20px;" data-bs-toggle="modal" data-bs-target="#modalpengumuman{{p.id}}" >
+                        Lihat Selengkapnya&nbsp;&nbsp;<i class="fa fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endwith %}
+</div>
+{% with p_umum2 as p_umum2_sliced %}
+    {% for p in p_umum2_sliced %}
+<div class="modal fade" role="dialog" tabindex="-1" id="modalpengumuman{{p.id}}" style=" align-items: center;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content" style="border-radius: 5px;">
+          <div class="modal-header" style="background-color:white;  border-bottom-width: 0px;">
+            <h4 class="modal-title"><i class="fa fa-bullhorn" style="border-radius:5px; padding:5px; background-color:black; color:whitesmoke"></i>&nbsp;&nbsp;Pengumuman</h4>
+               <button type="button" class="btn"  data-bs-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col">
+                    <img src="/media/{{ p.image }}" class="card-img-top" style="padding-top:10px; height:200px;">
+                      
+                         
+                      </h4>
+                      {% if p.tgl_release.date >= hari_sesudah %}
+                       <p style=" font-size:12px; color: white;">
+                      <span style="padding: 4px 8px;  background-color: #ff4444; border-radius:6px;">Baru</span>
+                      </p>
+                      {% elif p.tgl_release.date == tgl_skrng or p.tgl_release.date  == hari_sblm %}
+                      <p style=" font-size:12px; color: white;">
+                      <span style="padding: 4px 8px;  background-color: #ff4444; border-radius:6px;">Baru</span>
+                      </p>
+                      {% else %}
+
+                      {% endif %}
+                      <p style="text-align: left;">
+                        <span style="font-size:12px;">Nomor : {{ p.nomor }} | tanggal : {{ p.tgl_release }}</span>
+                      </p>
+                      <h4 style="text-align: center;">{{ p.judul|capfirst }}
+                  </div>
+                  
+                  </div>
+              </div>
+              <div class="row" style="margin-right: 5px;margin-left: 5px;">
+                  <div class="col overflow-auto" style="padding-right: 40px;margin-left: 40px;padding-bottom: 18px;max-height: 250px;">
+                      <p style="font-size:12px; text-align: justify; color: #6C748E;">{{ p.pengumuman|linebreaks }}<br></p>
+                  </div>
+              </div>
+              <div class="row ">
+                <div class="btn btn-block" style="height:55px; border-radius:10px; background-color:#9ec7df ;text-align:center; margin-right: 40px;margin-left: 40px;margin-bottom: 20px;">  
+                    <a class="btn" href="/media/{{p.dokumen}}" target="_blank" style="margin-top:0px;margin-bottom:10px; border-radius:10px; background-color:#546EF3 ;text-align: center; color: white;">
+                        <i class="fa fa-file-pdf btn" style=" background-color:#54B8F3; color:white; border-radius:5px;"></i>
+                        &nbsp;&nbsp;Unduh File Pengumuman&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-lg fa-solid fa-download"></i></i>
+                    </a>
+                  
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>
+{% endfor %}
+{% endwith %}
+<script>
+    $(document).ready(function(){
+      
+      $('.slick-pengumuman').slick({
+        centerMode: true,
+  centerPadding: '60px',
+  slidesToShow: 3,
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1
+      }
+    }
+  ]
+      });
+
+    });
+</script>
+
+
+
+
+    
+
+

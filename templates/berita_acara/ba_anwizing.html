@@ -1,0 +1,105 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+    
+    </style>
+</head>
+
+
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+  <section class="sheet padding-10mm">
+  {% localize on %}
+  <p style="text-align:center; font-size:16px; color:black">BERITA ACARA <br>PEMBERIAN PENJELASAN (AANWIJZING) {{ seleksi|upper }} </p>
+  <p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}  </p>
+  <p style="text-align:center">Nomor : {{ nomor }} </p>
+  {% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan  {{ jadwal.tanggal_akhir|date:'l' }} tanggal {{ jadwal.tanggal_akhir|date:'d F Y'}} telah dilaksanakan Pemberian Penjelasan (Aanwijzing) {{ seleksi}} yang diselenggarakan secara luring sesuai dengan Undangan Pemberian Penjelasan (Aanwijsing).</li>
+    <li style="text-align: justify;">Calon Peserta Seleksi yang menghadiri pemberian penjelasan (Aanwijzing) secara luring diurutkan berdasarkan tanggal kehadiran adalah sebagai berikut   </li>
+   
+    <table width="80%">
+      <tr>
+        <th>No</th><th>Perwakilan Perusahaan</th><th>Perusahaan Jaringan Bergerak Seluler</th><th>Tanggal Kehadiran</th>
+      </tr>
+      {% for t in table %}
+        <tr>
+          <td width="5%">
+          {{ forloop.counter }}</td>
+          <td width="30%">{{t.bidder_perwakilan.nama_lengkap}}</td>
+          <td width="30%">{{t.bidder_perwakilan.bidder.bidder.nama_perusahaan }}</td>
+          <td>{{t.tgl_kehadiran|date:'d F Y'}}</td>
+      </tr>
+        {% endfor %}
+    </table>    
+    <li style="text-align: justify;">Calon Peserta Seleksi yang menghadiri Pemberian Penjelasan (Aanwijzing) sebagaimana dimaksud dalam angka 1 telah memenuhi persyaratan sebagaimana tercantum dalam Dokumen {{ seleksi }} ("Dokumen Seleksi")</li>
+    <li style="text-align: justify;">Jawaban atas pertanyaan tertulis yang disampaikan oleh Calon Peserta Seleksi telah disepakati bersama oleh seluruh yang hadir dalam Pemberian Penjelasan (Aanwijzing) sebagaimana tercantum dalam Lampiran yang merupakan bagian tidak terpisahkan dari Berita Acara ini.</li>
+    <li style="text-align: justify;">Terdapat beberapa ketentuan dalam Dokumen Seleksi yang memerlukan perubahan dan/atau penjelasan lebih lanjut dan perlu dituangkan dalam Adendum Dokumen Seleksi, yaitu sebagai berikut: 
+      <br><br><br><br><br><br><br><br>
+    </li>
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Pemberian Penjelasan (Aanwijzing) {{ seleksi }}. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td>
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

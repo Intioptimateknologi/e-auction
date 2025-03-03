@@ -1,0 +1,52 @@
+{% load widget_tweaks %}
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Tambah/Ubah Persyaratan dan Format Dokumen Beauty Contest</h5>
+            <button type="button" class=" btn btn-danger" data-dismiss="modal">x</button>
+		</div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <form name="doc_bc" id="doc_bc" method="POST" >
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_nomor">Obyek Seleksi</label>
+                            {% render_field form.item|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Judul Dokumen</label>
+                            {% render_field form.judul|add_class:"form-control" style="height:40px;"%}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Nomor Dokumen</label>
+                            {% render_field form.nomor|add_class:"form-control" style="height:40px;"%}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Tgl Penetapan</label>
+                            {% render_field form.tgl_penetapan|add_class:"form-control" %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_nomor">Unggah File Word</label>
+                            {% render_field form.fotmat_doc|add_class:"form-control"|attr:"accept=.docx"  %}
+                        </div>
+                       <div class="form-group">
+                            <label for="id_nomor">Unggah File Excel</label>
+                            {% render_field form.format_xls|add_class:"form-control"|attr:"accept=.xlsx"  %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">Keterangan</label>
+                            {% render_field form.keterangan|add_class:"form-control" %}
+                        </div>
+                       
+                        <div class=""  style="text-align: right;">
+                            {% comment %} <input type="" class="btn btn-warning" value="Batal"> {% endcomment %}
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan">
+                        </div>
+                    </form>
+                </div>  
+            </div>              
+        </div>
+	  </div>
+  

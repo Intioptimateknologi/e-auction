@@ -1,0 +1,143 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<p style="text-align:center; font-size:16px;color:black">BERITA ACARA<br/>PENJELASAN SIMULASI LELANG {{ seleksi|upper }}</p>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan  {{ jadwal.tanggal_akhir|date:'l' }} tanggal {{ jadwal.tanggal_akhir|date:'d F Y'}}  telah dilaksanakan Pemberian Penjelasan Lelang Harga {{ seleksi }} .</li>
+    <li style="text-align: justify;">Calon Peserta Seleksi mengikuti Penjelasan Simulasi Lelang Harga pada kegiatan seleksi secara fisik maupun daring diurutkan berdasarkan tanggal kehadiran adalah sebagai berikut : 
+      <table width="80%">
+        <tr>
+          <th>No</th><th>Perwakilan Perusahaan</th><th>Perusahaan Jaringan Bergerak Seluler</th><th>Tanggal Kehadiran</th>
+        </tr>
+        {% for t in table %}
+          <tr>
+            <td width="5%">
+            {{ forloop.counter }}</td>
+            <td width="30%">{{t.bidder_perwakilan.nama_lengkap}}</td>
+            <td width="30%">{{t.bidder_perwakilan.bidder.bidder.nama_perusahaan }}</td>
+            <td>{{t.tgl_kehadiran|date:'d F Y'}}</td>
+        </tr>
+          {% endfor %}
+      </table>    
+    <li style="text-align: justify;">Beberapa catatan dalam kegiatan simulasi lelang harga yaitu:<br><br><br><br><br><br><br></li>
+    <li style="text-align: justify;">Berdasarkan hasil Penjelasan Lelang Harga, terdapat  ketentuan dalam Dokumen Seleksi yang memerlukan perubahan dan/atau penjelasan lebih lanjut dan perlu dituangkan dalam Adendum Dokumen Seleksi, yaitu:<br><br><br><br><br><br><br></li>
+
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Penjelasan Lelang Harga {{ seleksi }}. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+<br>
+<br>
+<br>
+<section class="sheet padding-10mm">
+  {% localize on %}
+  <p style="text-align:center; font-size:16px;color:black">BERITA ACARA<br/>SIMULASI LELANG {{ seleksi|upper }}</p>
+  <p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+  <p style="text-align:center">Nomor {{ nomor }}</p>
+  {% endlocalize %}
+  
+  <ol>
+    <li style="text-align: justify;">Pada hari {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan  {{ jadwal.tanggal_akhir|date:'l' }} tanggal {{ jadwal.tanggal_akhir|date:'d F Y'}}  telah dilaksanakan Pemberian Penjelasan Lelang Harga {{ seleksi }} .</li>
+      <li style="text-align: justify;">Calon Peserta Seleksi mengikuti Simulasi Lelang Harga pada kegiatan seleksi secara  daring diurutkan berdasarkan tanggal kehadiran adalah sebagai berikut : 
+        <table width="80%">
+          <tr>
+            <th>No</th><th>Perwakilan Perusahaan</th><th>Perusahaan Jaringan Bergerak Seluler</th><th>Tanggal Kehadiran</th>
+          </tr>
+          {% for t in table %}
+            <tr>
+              <td width="5%">
+              {{ forloop.counter }}</td>
+              <td width="30%">{{t.bidder_perwakilan.nama_lengkap}}</td>
+              <td width="30%">{{t.bidder_perwakilan.bidder.bidder.nama_perusahaan }}</td>
+              <td>{{t.tgl_kehadiran|date:'d F Y'}}</td>
+          </tr>
+            {% endfor %}
+        </table>    
+      <li style="text-align: justify;">Beberapa catatan dalam kegiatan simulasi lelang harga yaitu:<br><br><br><br><br><br><br></li>
+      <li style="text-align: justify;">Berdasarkan hasil Simulasi Lelang Harga, terdapat  ketentuan dalam Dokumen Seleksi yang memerlukan perubahan dan/atau penjelasan lebih lanjut dan perlu dituangkan dalam Adendum Dokumen Seleksi, yaitu:<br><br><br><br><br><br><br></li>
+  
+      <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Simulasi Lelang Harga {{ seleksi }}. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+  </ol>
+  
+  <div>
+    <table width="100%" style="border-color:white; border-width: 0px;">
+      <tbody>
+        <tr>
+          <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+        </tr>
+        <tr>
+          <td>
+            
+            <p style="text-align:center">Mengetahui</p>
+            <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+            <p style="text-align:center">{{ketua_pansel}}</p>
+           
+          </td>
+          <td>
+           
+            <p style="text-align:center"></p>
+            <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+            <p style="text-align:center">{{sekretaris_pansel}}</p>
+          
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </section>
+</body>
+</html>

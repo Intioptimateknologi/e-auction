@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_tim_lelang_list' %}">
+    tim_lelang Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>sk_pengangkatan</td><td>{{ object.sk_pengangkatan }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>nip</td><td>{{ object.nip }}</td></tr>
+    <tr><td>jabatan_dalam_tim</td><td>{{ object.jabatan_dalam_tim }}</td></tr>
+    <tr><td>jabatan</td><td>{{ object.jabatan }}</td></tr>
+    <tr><td>username</td><td>{{ object.users_ptr.username }}</td></tr>
+    <tr><td>Nama Lengkap</td><td>{{ object.users_ptr.nama_lengkap }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

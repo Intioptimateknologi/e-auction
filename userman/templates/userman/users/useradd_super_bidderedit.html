@@ -1,0 +1,390 @@
+{% block extrahead %}
+<!-- <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/survey-jquery"></script> -->
+
+<style>
+    .navbar {
+        height: 64px;
+        background-color: #007bff;
+      }
+    .brand-img {
+        height: 51.94px;
+    }
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+    .banner {
+        background: url(/static/img/portal/background-slider.png);
+        height: 768px;
+        width: 100%;
+    }
+    .logobesar {
+        position: absolute;
+        left: 85;
+        top: 209;
+    }
+    .portal_penjelasan {
+        position: absolute;
+        left: 85;
+        top: 411;
+        width: 643;
+    }
+    .button_yuk_mulai {
+        position: absolute;
+        left: 85;
+        top: 520;
+        width: 133;
+    }
+    .sdppi_side {
+        position: absolute;
+        right: 0;
+        top: 652;
+    }
+    .bi {
+        vertical-align: -.125em;
+        pointer-events: none;
+        fill: currentColor;
+      }
+      .nav-flush .nav-link {
+        border-radius: 0;
+      }
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 300px;
+        float: left;
+    }
+    .sv_row{
+        background-color: white;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col col-md-12">
+        <div class="card mt-5" id="management_block">
+            <div class="card-header">
+                <div class="h4 float-start">Edit Users Bidder</div>
+                <div hx-target="#management_block" hx-swap="outerHTML">
+                    <button hx-get="/userman/users/add/bidder" type="button" class="btn btn-secondary float-end" id="editpindahpage" style="display:none;">Edit</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="form_survey"></div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; padding-right: 20px; padding-bottom: 20px;">
+                <button class="btn btn-danger" onclick="tombol_batal()" style="margin-right: 20px;">Batal</button>
+                <button class="btn btn-success" onclick="tombol_selanjutnya()">Selanjutnya </button>
+            </div>    
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+(function () {
+    'use strict'
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  })()
+</script>
+<script>
+    var surveyDialog;
+    var fill_data1;
+    var fill_data2;
+    var fill_data;
+
+    $(document).ready(function() {
+        const label_tricky = document.getElementById('data_id_tricky');
+        const label_tricky_edit = document.getElementById('data_id_tricky_edit');
+        const hasil = label_tricky.getAttribute('text');
+        const hasil_edit = label_tricky_edit.getAttribute('text');
+
+        console.log(hasil);
+        console.log(hasil_edit);
+
+        $.ajax({
+            method: 'GET',
+            url: 'http://iotekno.id:8000/userman/api/v1/Users/'+hasil+'/',
+            contentType : 'application/json',
+            // headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            dataType : 'json',
+            // data: results,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa('rachmatg:P@ssw0rd.2019'));
+                },
+                success: function (data) {
+                    console.log(data);
+                    fill_data1 = 
+                    {
+                        "username": data.username,
+                        "nama_lengkap": data.nama_lengkap,
+                        "user_type": data.user_type,
+                    }
+
+                    data_bidder(hasil_edit);
+                },
+                error: function(error) {
+                    console.log(error);
+                    //$('#retValStatus').text("Ada masalah pada pengiriman data...");
+                }
+        });
+
+    });
+
+    function data_bidder(data_id){
+        $.ajax({
+            method: 'GET',
+            url: 'http://iotekno.id:8000/userman/api/v1/bidder/'+data_id+'/',
+            contentType : 'application/json',
+            // headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            dataType : 'json',
+            // data: results,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa('rachmatg:P@ssw0rd.2019'));
+                },
+                success: function (data) {
+                    console.log(data);
+                    fill_data2 = 
+                    {
+                        "active": data.active,
+                        "alamat_perusahaan": data.alamat_perusahaan,
+                        "jenis_penyelenggara": data.jenis_penyelenggara,
+                        "telp_perusahaan": data.telp_perusahaan,
+                        "nama_perusahaan": data.nama_perusahaan,
+                        "npwp_perusahaan": data.npwp_perusahaan,
+                        "email_perusahaan": data.email_perusahaan,
+                        "nib_perusahaan": data.nib_perusahaan,
+                        "surat_kuasa": data.surat_kuasa
+                    }
+
+                    survey_js();
+                },
+                error: function(error) {
+                    console.log(error);
+                    //$('#retValStatus').text("Ada masalah pada pengiriman data...");
+                }
+        });
+    }
+
+
+    function survey_js(){
+        fill_data = Object.assign({}, fill_data1, fill_data2)
+
+        var json = {
+            "title": "Pertanyaan",
+            "logoPosition": "right",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "username",
+                "title": "Username",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nama_lengkap",
+                "startWithNewLine": false,
+                "title": "Nama Pengguna",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nama_perusahaan",
+                "title": "Nama Perusahaan",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "question5",
+                "startWithNewLine": false,
+                "title": "Jenis Penyelengara",
+                "hideNumber": true,
+                "choices": [
+                {
+                "value": "jsb",
+                "text": "Jaringan Bergerak Seluler"
+                },
+                {
+                "value": "jks",
+                "text": "Jaringan Tetap Lokal Packet Switched"
+                },
+                ]
+                },
+                {
+                "type": "dropdown",
+                "name": "user_type",
+                "title": "Hak Akses",
+                "hideNumber": true,
+                "choices": [
+                {
+                "value": "A",
+                "text": "Admin"
+                },
+                {
+                "value": "B",
+                "text": "Bidder"
+                },
+                {
+                "value": "C",
+                "text": "Auctioner"
+                },
+                {
+                "value": "V",
+                "text": "View"
+                }
+                ]
+                },
+                {
+                "type": "boolean",
+                "name": "active",
+                "startWithNewLine": false,
+                "title": "Status",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "telp_perusahaan",
+                "title": "No Telepon Perusahaan",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "email_perusahaan",
+                "startWithNewLine": false,
+                "inputType": "email",
+                "title": "Email Perusahaan",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "alamat_perusahaan",
+                "title": "Alamat Perusahaan",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nib_perusahaan",
+                "title": "NIB Perusahaan",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "npwp_perusahaan",
+                "startWithNewLine": false,
+                "title": "NPWP",
+                "hideNumber": true
+                },
+                {
+                "type": "file",
+                "name": "surat_kuasa",
+                "title": "Upload File",
+                "hideNumber": true
+                }
+              ]
+             }
+            ],
+            "showTitle": false,
+            "showCompletedPage": false,
+            "showPageNumbers": false,
+            "showQuestionNumbers": "off",
+            "questionTitleLocation": "left",
+            "completeText": "Simpan",
+            "showNavigationButtons": "none",
+            "widthMode": "responsive"
+        };
+        Survey.StylesManager.applyTheme("darkblue");
+        surveyDialog = new Survey.Model(json,"form_survey");
+        surveyDialog.data = fill_data; 
+        surveyDialog.onComplete.add(sendDataToServer);
+    }
+
+    function sendDataToServer(sender) {
+        //send Ajax request to your web server.
+            var json_result = sender.data;
+            var data_kirim 
+            var url = json_result.sk_pengangkatan[0].content;
+            const isValidUrl = urlString=> {
+                var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+                '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+                return !!urlPattern.test(urlString);
+            }
+
+            if (isValidUrl(url) == true) {
+                var data_kirim = {
+                    "isactive": json_result.active,
+                    "alamat_perusahaan": json_result.alamat_perusahaan,
+                    "jenis_penyelenggara": json_result.jenis_penyelenggara,
+                    "telp_perusahaan": json_result.telp_perusahaan,
+                    "nama_perusahaan": json_result.nama_perusahaan,
+                    "npwp_perusahaan": json_result.npwp_perusahaan,
+                    "email_perusahaan": json_result.email_perusahaan,
+                    "nib_perusahaan": json_result.nib_perusahaan,
+                }
+            }else{
+                var data_kirim = {
+                    "isactive": json_result.active,
+                    "alamat_perusahaan": json_result.alamat_perusahaan,
+                    "jenis_penyelenggara": json_result.jenis_penyelenggara,
+                    "telp_perusahaan": json_result.telp_perusahaan,
+                    "nama_perusahaan": json_result.nama_perusahaan,
+                    "npwp_perusahaan": json_result.npwp_perusahaan,
+                    "email_perusahaan": json_result.email_perusahaan,
+                    "nib_perusahaan": json_result.nib_perusahaan,
+                    "surat_kuasa": json_result.surat_kuasa[0].content,
+                }
+            }
+
+            $.ajax({
+                method: 'PUT',
+                url: 'http://iotekno.id:8000/userman/api/v1/bidder/'+fill_data.id+'/',
+                contentType : 'application/json',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                dataType : 'json',
+                data: JSON.stringify(data_kirim),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Authorization', 'Basic ' + btoa('rachmatg:P@ssw0rd.2019'));
+                    },
+                    success: function (data) {
+                        swal.fire({
+                            title: "Tersimpan !",
+                            text: "Data Tersimpan",
+                            icon: "success"
+                        }).then(function() {
+                            location.reload();
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error.responseText);
+                        swal.fire({
+                            title: "Error !",
+                            text: error.responseText,
+                            icon: "error"
+                        })
+                    }
+            });
+        }
+
+    function tombol_batal(){
+        const myButton_bidder = document.getElementById('editpindahpage');
+        myButton_bidder.click();
+    }
+
+    function tombol_selanjutnya(){
+        surveyDialog.doComplete();
+    }
+</script>
+{% endblock %}

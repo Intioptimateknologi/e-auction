@@ -1,0 +1,94 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+   
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<p style="text-align:center; font-size:16px;"><b>BERITA ACARA <br> HASIL PEMILIHAN BLOK PITA FREKUENSI RADIO PADA {{ seleksi|upper }}</b></p>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari ini, {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan selesai telah dilaksanakan Rapat Pemilihan Blok Pita Frekuensi Radio pada kegiatan {{ seleksi }} bertempat di .......</li>
+  <li style="text-align: justify;">Peserta Seleksi yang menghadiri Rapat Pemilihan Blok Pita Frekuensi Radio adalah</li>
+    
+  <ul type="a">
+    {% for t in table %}
+      <li>{{ t.bidder.bidder.nama_perusahaan }} yang merupakan urutan ke-{{ t.ranking }} berdasarkan daftar peringkat hasil lelang seleksi yang diwakili oleh ....
+      </li>
+    {% endfor %}
+  </ul>
+
+  <li>Sesuai ketentuan pada Dokumen Seleksi, PT ... sebagai Peserta Seleksi peringkat Kesatu pada Daftar Peringkat Hasil Seleksi diberikan hak pertama untuk memilih blok Objek Seleksi, dilanjutkan oleh PT.    sebagai pesertaa seleksi peringkat Kedua pada Daftar Peringkat Hasil Seleksi  dan dilanjutkan oleh PT .... sebagai peserta seleksi peringkat Ketiga pada Daftar Peringkat Hasil Seleksi</li>
+
+
+    <li>Berdasarkan Rapat Pemilihan Blok Pita Frekuensi Radio {{ seleksi }}  ditetapkan hasil sebagai berikut:</li>
+    <table width="100%">
+        <tr>
+          
+          <th>Obyek Seleksi</th>
+          <th>Peringkat Hasil Seleksi</th>
+          <th>Peserta Seleksi</th>
+          <th>Harga Penawaran per MHz (Rp)</th>
+          <th>Blok Objek Seleksi yang dipilih</th>
+          <th>Rentang Pita Frekuensi Radio</th>
+          <th>Total Harga Penawaran Objek Seleksi (Rp)</th>
+        </tr>
+    {% for t in table2 %}
+      <tr>
+        <td>{{ t.item }}</td>
+        <td>{{ t.ranking }}</td>
+        <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
+        <td width="30%">{{ t.penawaran }}</td>
+        <td>{{ t.blok }}</td>
+        <td></td>
+        <td width="30%"></td>
+    </tr>
+      {% endfor %}
+    </table>
+
+	<li style="text-align: justify;">Demikian Berita Acara Hasil Pemilihan Blok Pita Frekuensi Radio ini dibuat dan ditandatangani pada kegiatan. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Perwakilan Peserta {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center"></p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

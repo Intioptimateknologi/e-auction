@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+    {% for i in menu_group %}
+    <li class="nav-item">
+        <a class="nav-link h-100 {% if forloop.first %} active {% endif %}" data-toggle="pill" href="#t_{{i.menu.id}}" role="tab">{{ i.menu.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="tab-content col-md-12">
+    {% for i in menu_group %}
+    <div class="tab-pane  {% if forloop.first %} active {% endif %}" id="t_{{i.menu.id}}" role="tabpanel">
+        <p>{{ i.menu.name }}</p>
+    </div>
+    {% endfor %}
+</div>    

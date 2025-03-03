@@ -1,0 +1,43 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+
+{% block extrahead %}
+{% endblock  %}
+
+{% block navbar %}
+  {% include 'new_index/parts/navbar_viewer.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="container-fluid" style="padding-left: 0px; padding-right: 0px; ">
+  <div class="row" style="height:650px;">
+    <div class="col-md-12">
+      <div hx-get="/portal/get_front_banner" hx-trigger="load"></div>
+    </div>
+  </div>
+  <div class="row" style="height:800px; background-image: linear-gradient(#0177BC, #AADFFF , #CCECFF);">
+    <div class="col-md-12">
+      <div class="col-md-12" style="padding-bottom: 10px; text-align:center;">
+        <div class="btn" style="margin-top:24px; padding-top:16px; padding-bottom:16px; padding-left:48px; padding-right:48px; border-radius:24px; background-color:#6C748E; color:#EDF5FD;"><b>Seleksi Izin Pita Frekuensi Radio</b><br>Dimulai pada <span class="btn rounded-pill" style="background-color:red; color:#EDF5FD;">21 Juni 2024</span></div>
+      </div>
+    
+      <div class="row col-md-12">
+        <p class="btn rounded-pill jdl_portal_depan" style=" background-color: #EDF5FD;color:black">Pengumuman</p>
+      </div>
+      <div class="row col-md-12">
+        <p class="sub_jdl_portal_depan" style="color:#ffffff;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+      </div>
+      <div class="col-md-12" style="padding-bottom: 0px;">
+        <div hx-get="/portal/get_pengumuman3" hx-trigger="load" style="height:600px;"></div>
+      </div>
+    </div>
+  </div>
+
+  
+  
+</div>
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %}
+{% block script %}
+
+{% endblock %}

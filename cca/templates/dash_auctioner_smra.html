@@ -1,0 +1,369 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        {% add_judul_auctioner user.id auctioner.item_lelang.id "/persiapan/pembukaan/" %}
+      </div>
+      <div class="row pt-3 pl-5">
+        <div class="col text-center">
+          <button class="btn btn-dark" id="init" href="#">Init</button>
+          <button class="btn btn-primary" id="start" href="#">Start</button>
+          <button class="btn btn-danger" id="stop" href="#">Stop</button>
+          <button class="btn btn-warning" id="suspend" href="#">Suspend</button>
+          <button class="btn btn-success" id="resume" href="#">Resume</button>
+          <button class="btn btn-info" id="closed" href="#">Closed</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="#tabone" class="active nav-link" data-toggle="pill" role="tab">PUTARAN CCA</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#" data-toggle="pill" role="tab">PENAWARAN SAH</a> </li>
+            <li class="nav-item"> <a href="#" class="nav-link" data-toggle="pill" role="tab">PENAWARAN TIDAK SAH</a> </li>
+            <li class="nav-item"> <a href="#putaran" class="nav-link" data-toggle="pill" role="tab">JADWAL PUTARN</a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <div class="row pt-2">
+                <div class="col-md-2">
+                  <div class="row">
+                  <h5>Putaran</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-primary"><span data-bind="text: putaran"></button>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <h5>Status</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-secondary"><span data-bind="text: status"></button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <h5>Waktu Awal</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-info"><span data-bind="text: mulai"></button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <h5>Waktu Akhir</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-warning"><span data-bind="text: selesai"</button>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="row">
+                    <h5>Durasi</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-success"><span data-bind="text: periode"</button>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="row">
+                    <h5>Sisa</h5>
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-danger"><span data-bind="text: sisa_time"</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3 pl-5" data-bind='foreach: allItems'>
+                  <div class="container h1 pt-2">
+                    <div class="col text-center">
+                      <span class="display-5" data-bind='text: band'></span>
+                    </div>
+                  </div>
+                  <div class="row w-100">
+                    <div class="col col-md-3">
+                      <div class="card">
+                        <div class="card-header bg-primary text-light">Jumlah Peserta</div>
+                        <div class="card-body text-center">
+                          <span class="display-6" data-bind='text: count'></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col col-md-3">
+                      <div class="card">
+                        <div class="card-header bg-secondary text-light">Eligibility Point</div>
+                        <div class="card-body text-center">
+                          <span class="display-6" data-bind='text: eligibility_point_per_block'></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col col-md-3">
+                      <div class="card">
+                        <div class="card-header bg-dark text-light">Spectrum Cap</div>
+                        <div class="card-body text-center">
+                          <span class="display-6" data-bind='text: spectrum_cap'></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col col-md-3">
+                      <div class="card">
+                        <div class="card-header bg-success text-light">Harga Dasar</div>
+                        <div class="card-body text-center">
+                          <span class="display-6" data-bind='text: reserved_price'></span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="putaran" role="tabpanel">
+              <div class="card">
+                  <div class="card-header">
+                      <div class="col-md-12 col-sm-12 table-responsive">
+                          <div class="form-group form-inline">
+                              <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Jadwal Putaran Lelang&nbsp;</h2>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="col">
+                          <table  id="t_putaran" class="dt">
+                              <thead>
+                                  <tr>
+                                      <th>item_lelang</th>
+                                      <th>item_detail_lelang</th>
+                                      <th>persyaratan</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  {% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  $(document).ready(function () {    
+    ko.bindingHandlers.inputmask =
+    {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var mask = valueAccessor();    
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                $(element).on('focusout change', function () {
+                    if ($(element).inputmask('isComplete')) {
+                        observable($(element).val());
+                    } else {
+                        observable(null);
+                    }
+                });
+            }
+            $(element).inputmask(mask);
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var mask = valueAccessor();
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                var valuetoWrite = observable();
+                $(element).val(valuetoWrite);
+            }
+        }
+    };
+    //$('#nmlelang').select2({placeholder: "Judul Seleksi",});
+    $('#nmlelang').on('select', function (e) {
+      var id = e.params.data.id;
+      load_biddingroundinfo(id);
+      load_summary(id);
+      loadData_Putaran(id);
+    });
+    
+    moment.locale('id'); 
+    var viewModel = {
+      eli_sekarang: ko.observable(), // Initially blank
+      eli_sebelum: ko.observable(), // Initially blank
+      time_start: ko.observable(),
+      time_end: ko.observable(),
+      sisa_time: ko.observable(120*60),
+      allItems: ko.observableArray([]),
+      bidItems: ko.observableArray([]),
+      allItems: ko.observableArray([]),
+      mulai: ko.observable(),
+      selesai: ko.observable(),
+      periode: ko.observable(),
+      status: ko.observable(),
+      error_message: ko.observable(),
+      putaran: ko.observable(),
+      mulai_putaran: ko.observable(),
+      last_putaran: ko.observable(1),
+      sisa: ko.observable(),
+      first: ko.observable(true),
+    };
+    ko.applyBindings(viewModel);
+    function pad(num) {
+      return ("0"+num).slice(-2);
+    }
+    function hhmmss(secs) {
+      var minutes = Math.floor(secs / 60);
+      secs = secs%60;
+      var hours = Math.floor(minutes/60)
+      minutes = minutes%60;
+      return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
+    }
+
+    function load_summary(id) {
+      $.ajax('/smra/api/v1/auction_smra_summary/?item_id='+id,   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+          console.log(data);
+          viewModel.allItems(data.results);
+          }
+      });
+    }
+    function load_roundinfo(id) {
+      $.ajax('/smra/api/v1/jadwal_smra/?item='+id,   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+            data = data.results;
+            //viewModel.mulai(data[0].harian_mulai);
+            //viewModel.selesai(data[0].harian_selesai);
+            viewModel.periode(hhmmss(data[0].durasi*60));
+            //viewModel.sisa_time(data[0].durasi*60);
+
+            dt = moment(viewModel.mulai(),'HH:mm;ss')
+            dt = dt.add(data[0].durasi, 'minutes');
+            //dt.setMinutes(dt.getMinutes() + data[0].durasi*60);
+            viewModel.selesai(dt.format("hh:mm:ss"));
+            //console.log(viewModel.allItems());
+          }
+      });
+    }
+
+    function load_biddingroundinfo(id) {
+      $.ajax('/smra/api/v1/bidding_round_smra/?item='+id,   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+            data = data.results;
+            viewModel.putaran(data[0].round_state);
+            if (viewModel.putaran()>viewModel.last_putaran()) 
+            {
+              viewModel.bidItems(viewModel.allItems());
+              viewModel.last_putaran(viewModel.putaran());
+            }
+
+            viewModel.status(data[0].status_round );
+            viewModel.mulai(moment(data[0].start_time).format("HH:mm:ss"));
+            viewModel.selesai(moment(data[0].stop_time).format("HH:mm:ss"));
+            dt = moment(viewModel.selesai(),'HH:mm:ss');
+            dt = dt - Date.now();
+            if (viewModel.status()=="START")
+              viewModel.sisa_time(moment(dt).format("mm:ss"));
+              
+            else
+              viewModel.sisa_time("-");
+            if (viewModel.putaran()>viewModel.last_putaran()) 
+            {
+              load_table(id);
+              viewModel.first(false);
+            }
+            if (viewModel.first()) {
+              load_summary(id);
+              viewModel.first(false);
+            }
+            viewModel.putaran(data[0].round_state );
+            viewModel.status(data[0].status_round );
+            viewModel.mulai_putaran(data[0].mulai);
+            viewModel.sisa(hhmmss(data[0].period_time));
+            //console.log(viewModel.allItems());
+          }
+      });
+    }
+    var id = $('#nmlelang').find(':selected').val();
+    function loadData_Putaran(id) {
+      $.ajax({
+          url: '/smra/jadwal_putaran2/'+id + '/',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#t_putaran");
+              table.empty();
+              table.append(data);
+              $("#t_putaran").DataTable();
+          }
+      });
+    }
+    var id = $('#nmlelang').find(':selected').val();
+    load_biddingroundinfo(id);
+    load_summary(id);
+    loadData_Putaran(id);
+    $(".dt").DataTable({paging: false, ordering: false,info: false,searching: false});
+
+    $("#init").on("click",function(){
+      var id = $('#nmlelang').find(':selected').val();
+      console.log(id);
+      $.ajax('/smra/api/v1/bidding_round_smra/'+id+'/init/',   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+          console.log(data);
+        }
+      });
+    });
+
+    $("#start").on("click",function(){
+      var id = $('#nmlelang').find(':selected').val();
+      console.log(id);
+      $.ajax('/smra/api/v1/bidding_round_smra/'+id+'/start/',   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+          console.log(data);
+          if (data.status!="OK") 
+            Swal.fire(data.status)
+          else
+            viewModel.status("START");
+        }
+      });
+    });
+
+    $("#stop").on("click",function(){
+      var id = $('#nmlelang').find(':selected').val();
+      console.log(id);
+      $.ajax('/smra/api/v1/bidding_round_smra/'+id+'/stop/',   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+          console.log(data);
+          viewModel.status("STOP");
+        }
+      });
+    });
+    setInterval(function() {
+      if (viewModel.status()=="START") {
+        var id = $('#nmlelang').find(':selected').val();
+        load_biddingroundinfo(id);
+      }
+    }, 1000);
+
+  });
+</script>
+{% endblock %}

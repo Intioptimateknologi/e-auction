@@ -1,0 +1,93 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST">
+<div id="modal-manca-update" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal modal-dialog-centered modal-lg">
+        <div class="modal-content" style="
+        border-radius: 10px;">
+            <div class="modal-header">
+                <h4 class="modal-title" style=" font-weight:700; color:black;">
+                    <i class="fa fa-edit circle-icon"></i>&nbsp;&nbsp;
+                    Ubah Informasi Lelang Mancanegara
+                </h4>
+                <p id="data_modal" style="display: none;">mancaupdate</p>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                            {% csrf_token %}
+                            <div class="form-group col-md-6">
+                                <label for="id_nomor" class="nama_label">Negara</label>
+                                {% render_field form.negara|add_class:"form-control negara-update" id="namanyaupdate" %}
+                            
+                                {% render_field form.nama_negara|add_class:"form-control d-none" value="" id="nama_negara" %}
+                            </div>
+                            <div class="form-row col-md-12">
+                                <div class="form-group col-md-2">
+                                    <label for="id_nomor"  class="nama_label">Tahun</label>
+                                    {% render_field form.tahun|add_class:"form-control" %}
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <label for="id_nomor" class="nama_label">Pita Seleksi (MHz)</label>
+                                    {% render_field form.pita|add_class:"form-control" %}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="id_nomor" class="nama_label">Bandwidth (MHz)</label>
+                                    <div class="form-field">
+                                        {% render_field form.bandwidth|add_class:"form-control" %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                <div class="form-field">
+                                    {% render_field form.keterangan|add_class:"form-control" style="height:200px;" %}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="id_nomor"  class="nama_label">Gambar</label>
+                                {% render_field form.image|add_class:"form-control nospaceinput " %}
+                            </div>
+                          
+                            <div class="form-group" style="display: none;">
+                                <div class="form-field">
+                                    <!-- Anda dapat mengatur nilai updated_by dengan username atau informasi lain yang sesuai -->
+                                    <input type="text" name="updated_by" class="form-control" value="{{ request.user.id }}" readonly>
+                                </div>
+                            </div>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{{ form.media }}
+<script>
+
+  $(document).ready(function() {
+  $('.negara-update').select2(
+      {
+        width: '100%',
+        theme: 'bootstrap4',  
+        dropdownParent: $("#modal-manca-update")
+         
+      }
+  );
+
+});
+</script>
+  

@@ -1,0 +1,88 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+{% block extrahead %}
+{% endblock %}
+{% block navbar %}
+{% if user.is_authenticated %}
+    {% include 'new_index/parts/navbar_admin.html' %}
+{% else %}
+    {% include 'new_index/parts/navbar_viewer.html' %}
+{% endif %}
+{% endblock %}
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">Histori Lelang di Indonesia</span>
+</div>
+<div class="container-fluid" style="padding-bottom: 100px; padding-left:100px;padding-right:100px; padding-top: 50px;">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    
+
+                    <table id="example" class="display" style="width:100%;" data-server-side="true" data-ajax="/portal/api/v1/history_lelang2/?format=datatables">
+                        <thead  style="background-color: #4a91dc; color: white;">
+                            <tr>
+                                <th>Tahun</th>
+                                <th>Pita</th>
+                                <th>Bandwidth</th>
+                                <th>Penyelenggaraan</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %} 
+{% block script %}
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+    // ngambil datatable + data ajax
+function persiapan_data(){
+    $('#example').DataTable({
+        "dom": '<"pull-left"f><"pull-right"l>tip',
+        "stripeClasses": ["odd-row", "even-row"],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "searching": true,
+        "columns": [
+            { "data": "tahun", "render": function(data, type, row, meta) {
+                if (type === 'display' || type === 'filter') {
+                    // 'data' contains the value of the cell, e.g., "2023-01-01"
+                    var dateObj = new Date(data);
+                    return dateObj.getFullYear(); // Extract the year and return it
+                }
+                // For all other types (sorting, type detection, etc.), return the raw data
+                return data;
+            } },
+            { "data": "pita" },
+            { "data": "bandwidth" },
+            { "data": "penyelenggaraan" },
+            { "data": "keterangan" },
+        ],
+        columnDefs: [
+            { className: 'text-center', targets: [0, 1, 2,3] },
+        ]
+    });
+}
+
+
+$(document).ready(function() {
+    persiapan_data();
+});
+
+</script>
+{% endblock %}

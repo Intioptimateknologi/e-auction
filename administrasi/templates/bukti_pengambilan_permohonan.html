@@ -1,0 +1,83 @@
+{% load static %}
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page {
+            size: A4
+        }
+
+        .box-character {
+            position: relative;
+        }
+
+        .box-character::before,
+        .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .box-character::before {
+            border: 2px solid red;
+            /* Change border properties as desired */
+            z-index: -1;
+        }
+
+        .box-character::after {
+            border: 2px solid white;
+            /* Change border properties as desired */
+        }
+        .container-page { 
+            padding: 0 25mm 25mm 25mm;
+        }
+    </style>
+</head>
+
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+    <section class="sheet">
+        <img src="{% static 'img/kop_surat_tr.png' %}" alt=""
+        style="width: 100%;"
+        >
+
+        <h1 style="text-align:center">TANDA TERIMA PERMOHONAN KEIKUTSERTAAN<br>{{ seleksi }}</h1>
+
+        <div class="container-page">
+            <p style="text-align: justify;">
+                Pada Hari Ini, {{tanggal|date:"l"}} tanggal {{tanggal|date:"d F Y"}} telah diserahkan 1 (satu) Paket Dokumen Permohonan
+                Keikutsertaan {{ seleksi }} kepada Tim {{ seleksi }} yang terdiri dari dokumen sebagai berikut :<br>
+            <ol>
+                <li>1 (satu) softcopy Formulir Permohonan Keikutsertaan {{ seleksi }}</li>
+                <li>1 (satu) softcopy Jaminan Keikutsertaan Seleksi (Bid Bond)</li>
+            </ol>
+            
+            <br />
+            yang diunggah pada pukul {{ tanggal|date:"H:i:s" }} WIB Kepada Sistem Seleksi {{ seleksi }} (e-Auction) oleh Perusahaan {{ bidder.bidder.bidder.nama_perusahaan }} yang diwakili sebagai berikut : <br />
+
+            <br />
+            <ol>
+                <li>Nama <span style="padding-left: 2.6rem">:</span>{{ bidder.nama_lengkap }}</li>
+                <li>Perusahaan <span style="padding-left: 0.45rem">:</span>{{ bidder.bidder.bidder.nama_perusahaan }}</li>
+                <li>No. KTP <span style="padding-left: 2rem">:</span>{{ bidder.nik_perwakilan }}</li>
+                <li>Jabatan <span style="padding-left: 2rem">:</span>{{ bidder.jabatan }}</li>
+            </ol>
+
+            <br />
+            Tanda Terima ini diterbitkan secara otomatis oleh sistem {{ seleksi }} dan merupakan tanda terima resmi dalam proses Seleksi {{ seleksi }}. Demikian tanda terima ini disampaikan untuk dapat digunakan sebagaimana mestinya.
+            
+            <br />
+    
+            </p>
+            
+            =============================0000=============================
+    
+        </div>
+    </section>
+</body>
+
+</html>

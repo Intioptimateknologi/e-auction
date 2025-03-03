@@ -1,0 +1,18 @@
+<style>
+.odd-row {background-color: #edf5fd !important;}
+.even-row {background-color: white !important;}
+</style>
+
+<div class="row text-center">
+{% for a in notice %}
+<div class="col" style="background-color:#EDF5FD; margin:20px; border-radius:20px; padding-top:10px;padding-bottom:10px;">
+    <p style="font-weight:600; color:black;">{{a.nama_notice}}</p>
+    <p  class="btn rounded-pill" style="background-color:red; padding-left:20px; padding-right:20px; color:white"> Akan Dimulai Pada <span class="btn rounded-pill" style="background-color:#ffffff;"">{{a.tanggal}}</span></p>
+</div>
+{% endfor %}
+</div>
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.11/pdfobject.min.js"></script>
+{% endblock %}
+
+

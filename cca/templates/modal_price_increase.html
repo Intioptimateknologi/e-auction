@@ -1,0 +1,40 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Kenaikan Harga Penawaran</h5>
+            <button type="button" class="close" data-dismiss="modal">x</button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                {{ form.item }}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Obyek Seleksi</label>
+                        {% render_field form.detail_item|add_class:"form-control currency" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Batas Bawah</label>
+                        {% render_field form.rentang_min|add_class:"form-control currency" placeholder="masukan jumlah penawar terendah" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Batas Atas</label>
+                        {% render_field form.rentang_max|add_class:"form-control currency"  placeholder="masukan jumlah penawar tertinggi"%}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Kenaikan (%)</label>
+                        {% render_field form.kenaikan|add_class:"form-control" placeholder="masukan besaran kenaikan" %}
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>

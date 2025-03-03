@@ -1,0 +1,75 @@
+<!-- <nav class="navbar" aria-label="First navbar example">
+      <a class="navbar-brand" href="#"><img class="brand-img" src="/static/img/portal/eauctionlogo.png"></a>
+      <a href="/accounts/login" class="btn btn-warning rounded-pill" type="button" style="width=77px">
+        <span class="">Masuk</span>
+      </a>
+
+      <div class="collapse navbar-collapse" id="navbarsExample01">
+        <ul class="navbar-nav me-auto mb-2">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-bold" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+  </nav> -->
+
+  <!-- NAVBAR UPDATE -->
+
+  {% load static %}
+
+  {% block extrahead %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight&amp;display=swap">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <style>
+    .NEW {
+      {% comment %} display: flex!important;
+    flex-basis: auto; {% endcomment %}
+    flex-direction: row;
+}
+.card{
+    border: none;
+}
+  </style>
+  {% endblock %}
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <nav class="navbar navbar-light navbar-expand-md py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+      <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center mr-2 bs-icon">
+        <img src="{% static 'img/e uaction logo.png' %}" class="img-fluid"></span>
+        <!-- <span>e-Auction<br></span> -->
+      </a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse NEW navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"></li>
+            </ul><a class="btn btn-warning" role="button" href="/accounts/logout" style="font-family: Inter, sans-serif;font-weight: bold;font-size: 15px;  border-radius:19px;">Logout</a>
+        </div>
+    </div>
+</nav>
+  <!-- NAVBAR UPDATE -->
+{% block script %}
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% load static %}
+<nav class="navbar navbar-light justify-content-between" style="background-color: #0072E4;">
+  <div style="display: flex; align-items: center;">
+    <a href="#mySidenav" data-bs-toggle="collapse" aria-expanded="true"><img src="/static/img/eauctionlogo.png"></a>
+  </div>       
+  <div>
+    {% if user.is_authenticated %}
+      <div class="btn-group" style="display: flex; align-items: center;">
+        <i class="fa-solid fa-bell" style="color: white;" aria-hidden="true"></i>
+        <img src="https://static.vecteezy.com/system/resources/previews/005/005/788/original/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg" style="width: 30px; height:30px; margin-left: 15px;" alt="Gambar" class="rounded-circle dropdown-toggle">
+        <div style="margin-left: 5px; margin-right: 30px;">
+            <p style="margin: 0px; font-size: 12px; font-weight: bold; color: white;">{{ user.get_username }}</p>
+        </div>
+        <div class="px-1">
+            <i class="fa-solid fa-chevron-down" style="color: white;" aria-hidden="true" data-bs-toggle="dropdown"></i>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="/userman/profile">My profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/accounts/logout">Logout</a>
+            </div>
+          </div>
+          </div>
+    {% else %}
+        <p>Welcome, new user. Please log in.</p>
+    {% endif %}
+  </div> 
+</nav>

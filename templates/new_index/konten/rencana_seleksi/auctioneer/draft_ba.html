@@ -1,0 +1,339 @@
+{% extends 'new_index/base1_auctioneer.html' %}
+
+{% block extrahead %}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+{% endblock %}
+
+{% block tambah_css %}
+<style>
+    .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    a{
+        text-decoration:none;
+    }
+
+    .odd-row {
+        background-color: #edf5fd !important;
+    }
+    
+    .even-row {
+        background-color: white !important;
+    }
+    .select2-container--default .select2-results__option .checkbox-input {
+    float: right;
+    margin-left: 177px;
+    }
+    #myTable {
+        font-size: 15px;
+    }
+</style>
+{% endblock  %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="container" style="padding-top: 0px;">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Berita Acara<br></h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card" id="management_block">
+                <div class="card-header" style="background-color: white;">
+                    <div class="h4 float-start" style="margin-bottom: 0px;">List Berita Acara</div>
+                    <hr>
+                    <div style="display: flex; flex-wrap: nowrap; justify-content: left; flex-direction: row;">
+                        <div class="col1">
+                            <label  class="nama_label">Tahun</label>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <!-- <label  class="nama_label">Test</label> -->
+                                <select name="" id="search_per" class="form-control">
+                                    <option value="" selected>--Silahkan Pilih Tahun--</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col1">
+                            <label  class="nama_label">Judul</label>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <!-- <label  class="nama_label">Test</label> -->
+                                <select name="" id="search_per_2" class="form-control">
+                                    <option value="" selected>--Silahkan Pilih Judul--</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-primary" >Cari</button>
+                            </div>
+                        </div>
+                        <div class="col" style="justify-content: right;">
+                            <div class="form-actions" style="margin-left: 300px;">
+                                <button type="button" id="tambah_data" class="btn btn-secondary float-end" style="background-color: #fff;color: #007bff;border-color: #007bff; font-size:14px;" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-plus-circle"></i> Tambah Baru</button>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+                <div class="card-body">
+                    <!-- <div id="bidderlist" class="gridStyle" data-bind="koGrid: gridOptions"></div> -->
+                    <table id="myTable" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Nomor Dokumen</th>
+                            <th style="text-align: center;">Judul Berita Acara</th>
+                            <th style="text-align: center;">Penerima</th>
+                            <th style="text-align: center;">Tanggal</th>
+                            <th style="text-align: center;">Keterangan</th>
+                            <th style="text-align: center;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #edf5fd; margin-top: 50px;">
+                                <td style="padding-top: 0px;color: #000000; text-align: center;" >1</td>
+                                <td style="text-align: center;padding-top: 0px;color: #000000;">123456<br></td>
+                                <td style="color: #000000;text-align: center;padding-top: 0px;">Berita Acara Testing</td>
+                                <td style="text-align: center;padding-top: 0px;color: #000000;">Budi Dwi Prasetyo<br></td>
+                                <td style="text-align: center;padding-top: 0px;">5 Juni 2023<br></td>
+                                <td style="text-align: center;padding-top: 0px;">Ini adalah Testing</td>
+                                <td style="text-align: center;padding-top: 0px;"><i style="color: rgb(0,114,228)" data-toggle="modal" data-target="#myModal1" class="fa fa-eye" aria-hidden="true"></i> <i style="color: #28a745;" class="fa fa-file-pdf-o fa fa-file-pdf" aria-hidden="true"></i> <i style="color: rgb(0,114,228)" class="fa fa-pen edit_icon"></i> <i style="color: #dc3545" class="fa fa-eraser delete_icon" aria-hidden="true"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block modal %}
+    <!-- modal add -->
+    <div id="myModal" class="modal fade" role="dialog" >
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color: #007bff;">Tambah Berita Acara</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" enctype="multipart/form-data">
+                    <form id="myForm">
+                        <div class="form-group">
+                            <label  class="form-control-label">Nomor Dokumen</label>
+                            <input type="text" name="nomordokumen" id="nomordokumen" placeholder="Nomor Dokumen" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-control-label">Penerima</label><br>
+                            <select id="myDropdown" multiple="multiple" style="width: 467px;">
+                              <option value="option1">User 1</option>
+                              <option value="option2">User 2</option>
+                              <option value="option3">User 3</option>
+                              <option value="option4">User 4</option>
+                              <option value="option5">User 5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-control-label">Judul Berita Acara</label>
+                            <input type="text" name="judulberitaacara" id="judulberitaacara" placeholder="Judul" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-control-label">Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" placeholder="Judul" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan:</label>
+                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="upload-file">Upload File:</label>
+                            <input type="file" class="form-control-file" id="upload-file">
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button type="button" class="btn btn-danger" onclick="tutup_modal('myModal')" id="tombol_batal">Batal</button>
+                            <button type="submit" class="btn btn-primary ml-3" id="tombol_simpan">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal1" class="modal fade" role="dialog" >
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color: #007bff;">Lihat Berita Acara</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" enctype="multipart/form-data">
+                    <form id="myForm">
+                        <div class="form-group">
+                            <label  class="form-control-label">Nomor Dokumen</label>
+                            <input type="text" name="nomordokumen" id="nomordokumen" placeholder="Nomor Dokumen" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-control-label">Penerima</label><br>
+                            <select id="myDropdown1" multiple="multiple" style="width: 467px;">
+                              <option value="option1">User 1</option>
+                              <option value="option2">User 2</option>
+                              <option value="option3">User 3</option>
+                              <option value="option4">User 4</option>
+                              <option value="option5">User 5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-control-label">Judul Berita Acara</label>
+                            <input type="text" name="judulberitaacara" id="judulberitaacara" placeholder="Judul" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-control-label">Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" placeholder="Judul" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan:</label>
+                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="upload-file">Upload File:</label>
+                            <input type="file" class="form-control-file" id="upload-file">
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button type="button" class="btn btn-danger" onclick="tutup_modal('myModal')" id="tombol_batal">Batal</button>
+                            <button type="submit" class="btn btn-primary ml-3" id="tombol_simpan">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal add -->
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+let tableDraftBA = new DataTable('#myTable');
+
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+
+    
+    function tutup_modal(data){
+        $("#"+data+"").modal('hide');
+    }
+
+    $('#myDropdown').select2({
+        templateResult: function(data) {
+          if (!data.id) {
+            return data.text;
+          }
+
+          var $checkboxLabel = $('<label class="checkbox-label"></label>');
+          var $checkbox = $('<input type="checkbox" class="checkbox-input">');
+          $checkboxLabel.append(data.text).append($checkbox);
+
+          $checkbox.prop('checked', data.element.selected);
+
+          return $checkboxLabel;
+        }
+    });
+
+    $(document).ready(function () {
+    // Menampilkan dropdown ketika tombol diklik
+    $("#showDropdownBtn").click(function () {
+      $("#myDropdown").show();
+    });
+
+    // Inisialisasi plugin Select2 pada dropdown
+    $("#myDropdown").select2({
+      templateResult: function (data) {
+        if (!data.id) {
+          return data.text;
+        }
+
+        var $checkbox = $('<input type="checkbox" class="checkbox-input" style+"margin-right: 500px">');
+        var $option = $('<span></span>').text(data.text).prepend($checkbox);
+
+        $checkbox.prop('checked', data.element.selected);
+
+        return $option;
+      }
+    });
+
+    $('#myDropdown1').select2({
+        templateResult: function(data) {
+          if (!data.id) {
+            return data.text;
+          }
+
+          var $checkboxLabel = $('<label class="checkbox-label"></label>');
+          var $checkbox = $('<input type="checkbox" class="checkbox-input">');
+          $checkboxLabel.append(data.text).append($checkbox);
+
+          $checkbox.prop('checked', data.element.selected);
+
+          return $checkboxLabel;
+        }
+    });
+
+    $(document).ready(function () {
+    // Menampilkan dropdown ketika tombol diklik
+    $("#showDropdownBtn").click(function () {
+      $("#myDropdown1").show();
+    });
+
+    // Inisialisasi plugin Select2 pada dropdown
+    $("#myDropdown1").select2({
+      templateResult: function (data) {
+        if (!data.id) {
+          return data.text;
+        }
+
+        var $checkbox = $('<input type="checkbox" class="checkbox-input" style+"margin-right: 500px">');
+        var $option = $('<span></span>').text(data.text).prepend($checkbox);
+
+        $checkbox.prop('checked', data.element.selected);
+
+        return $option;
+      }
+    });
+});
+});
+</script>
+{% endblock  %}

@@ -1,0 +1,58 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal modal-dialog-centered modal-lg">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h4 class="modal-title"><i class="fa fa-edit circle-icon"></i>&nbsp;&nbsp;Perwakilan Perusahaan</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="form-group">
+                        {% render_field form.bidder %}
+                    </div>
+                    <div class="form-group">
+                        <label   class="nama_label">Nama Lengkap</label>
+                        {% render_field form.nama_lengkap|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label   class="nama_label">NIK</label>
+                        {% render_field form.nik_perwakilan|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label  class="nama_label">Email</label>
+                        {% render_field form.email|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label  class="nama_label">Tandatangan Digital</label>
+                        {% render_field form.ttd|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label  class="nama_label">Profil E-Sign Peruri</label>
+                        {% render_field form.profil_peruri|add_class:"form-control" %}
+                    </div>
+                    <div class="" style="display: flex; justify-content: flex-end;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="tombol_batal">Batal</button>
+                        <input type="submit" class="btn btn-primary ml-3" value="Simpan">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+	  </div>
+	</div>
+  </div>
+</form>

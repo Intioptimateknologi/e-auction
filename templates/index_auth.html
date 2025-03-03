@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block extrahead %}
+<style>
+    .navbar {
+        height: 64px;
+        background-color: #007bff;
+      }
+    .brand-img {
+        height: 51.94px;
+    }
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+    .banner {
+        background: url(/static/img/portal/background-slider.png);
+        height: 768px;
+        width: 100%;
+    }
+    .logobesar {
+        position: absolute;
+        left: 85;
+        top: 209;
+    }
+    .portal_penjelasan {
+        position: absolute;
+        left: 85;
+        top: 411;
+        width: 643;
+    }
+    .button_yuk_mulai {
+        position: absolute;
+        left: 85;
+        top: 520;
+        width: 133;
+    }
+    .sdppi_side {
+        position: absolute;
+        right: 0;
+        top: 652;
+    }
+</style>
+{% endblock %}
+{% block navbar %}
+{% include "component/navbar_auth.html" %}
+{% endblock %}
+{% block content %}
+<div class="banner">
+    <img class="logobesar" src="/static/img/portal/eauction_logo_besar.png">
+    <div class="portal_penjelasan text-white">
+        Aplikasi lelang e-Auction adalah sistem seleksi pita frekuensi radio 
+        secara elektronik untuk melakukan evaluasi administrasi, teknis, dan 
+        harga untuk memilih pengguna izin pita frekuensi radio secara 
+        transparan dan auditable.
+    </div>
+    <button class="button_yuk_mulai btn btn-warning rounded-pill">Yuk, mulai</button>
+    <img class="sdppi_side" src="/static/img/portal/sdppi.png">
+</div>
+<div class="row">
+    <div class="col">
+    </div>
+</div>
+    <div class="row pt-5 pb-5 pl-5 pr-5 row-cols-4 row-cols-md-2">
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include "component/footer.html" %}
+{% endblock %}
+{% block script %}
+<script src="/static/js/knockout.js"></script>
+<script src="/static/js/survey.core.min.js"></script>
+<script src="/static/js/survey.i18n.min.js"></script>
+<script src="/static/js/survey.knockout.ui.min.js"></script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title"><i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;Alamat Panitia</h3>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col">
+                    
+                        {% csrf_token %}
+                        {{ form.media }}
+                        {% render_field form.item_lelang %}
+                        <!-- <div class="form-group">
+                            <label for="id_nomor"  class="nama_label">CQ</label>
+                            {% render_field form.cq|add_class:"form-control" %}
+                        </div> -->
+                        <div class="form-group col-md-12">
+                            <label for="id_judul"  class="nama_label">Alamat</label>
+                            {% render_field form.alamat|add_class:"form-control" %}
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="form-group col-md-4">
+                                <label  class="nama_label">Provinsi</label>
+                                {% render_field form.provinsi|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label  class="nama_label">Kab/Kota</label>
+                                {% render_field form.kota|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label   class="nama_label">Kodepos</label>
+                                {% render_field form.kodepos|add_class:"form-control" %}
+                            </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="form-group col-6">
+                                <label class="nama_label" for="id_keterangan">Telp</label>
+                                {% render_field form.telp|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group col-6">
+                                <label class="nama_label" for="id_keterangan">Email</label>
+                                {% render_field form.email|add_class:"form-control" %}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label  class="nama_label">Status</label><br>
+                            &nbsp;&nbsp;{% render_field form.status|add_class:"form-group checknya" %}&nbsp;&nbsp;Aktif
+                            <!-- <label class="form-check-label" for="tayang">Aktif?</label> -->
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="nama_label" for="id_keterangan">Keterangan</label>
+                            {% render_field form.keterangan|add_class:"form-control" %}
+                        </div>
+                    </form>
+                </div>  
+            </div>              
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+	  </div>
+	</div>
+  </div>
+</form>

@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_dokumen_perusahaan_list' %}">
+    dokumen_perusahaan Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>dokumen</td><td>{{ object.dokumen }}</td></tr>
+    <tr><td>nama_dokumen</td><td>{{ object.nama_dokumen }}</td></tr>
+    <tr><td>verification_note</td><td>{{ object.verification_note }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>verified_at</td><td>{{ object.verified_at }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>verified</td><td>{{ object.verified }}</td></tr>
+    <tr><td>verified_by</td><td>{{ object.verified_by }}</td></tr>
+    <tr><td>id_perusahaan</td><td>{{ object.id_perusahaan }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

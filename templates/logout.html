@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+      <div class="card login-card">
+        <div class="row no-gutters">
+          <div class="col-md-6">
+            <img src="{% static 'img/eauction-banner.png' %}" alt="login" class="login-card-img img-fluid">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <div class="brand-wrapper">
+                <img src="{% static 'img/logo.png' %}" alt="logo" class="logo img-fluid" >
+              </div>
+              <!-- <p class="login-card-description">Login</p> -->
+              <form method="post">
+                {% csrf_token %}
+                  <div class="form-group">
+                   
+                    <h6 style="align-items: center;" class="text-center">Logout Successfully</h6>
+                  </div>
+                  <div class="form-group mb-4">
+                    
+                  </div>
+                  <div class="flex-sb-m w-full p-t-3 p-b-32" style="display: flex; justify-content: space-between; flex-wrap: nowrap;">
+                    <div>
+                    </div>
+                  </div>
+                  <a class="btn btn-block login-btn mb-4" href="/accounts/login">Please Login</a>
+                  <br>  
+                </form>
+               
+               
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </main>
+{% endblock %}  

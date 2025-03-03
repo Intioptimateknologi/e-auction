@@ -1,0 +1,112 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+
+{% block extrahead %}
+
+{% endblock  %}
+
+{% block navbar %}
+  {% include 'new_index/parts/navbar_viewer.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="container-fluid">
+    <div class="row" style="height:650px;" style="margin-left:-10px;">
+        <div class="col-md-12">
+            <div hx-get="/portal/get_front_banner" hx-trigger="load"></div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-10px;height:800px; background-image: linear-gradient(#0177BC, #AADFFF , #CCECFF);">
+        <div class="col-md-12" style="padding-left:80px; padding-right:80px; padding-top:20px">
+            <div class="col-md-12" style="padding-bottom: 0px;">
+                <div hx-get="/portal/get_notice_lelang" hx-trigger="load"></div>
+            </div>
+            
+            <div class="row col-md-12" style="padding-top:20px">
+                <p class="btn rounded-pill jdl_portal_depan" style=" background-color: #EDF5FD;color:black">Pengumuman</p>
+            </div>
+            <div class="row col-md-12" style="padding-left:10px;">
+                <p class="sub_jdl_portal_depan" style="color:#ffffff;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 0px;">
+                <div hx-get="/portal/get_pengumuman3" hx-trigger="load" style="height:600px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height:800px;margin-left:-10px;">
+        <div class="col-md-12" style="padding-left:80px; padding-right:80px; padding-top:20px">
+            <div class="col-md-12">
+                <p class="btn rounded-pill jdl_portal_depan" style=" background-color: #2463D1;color:whitesmoke">Dasar Hukum</p>
+            </div>
+            <div class="col-md-12" style="padding-left:10px;">
+                <p class="sub_jdl_portal_depan" style="color:#000000;">Seleksi Pengguna Izin Pita Frekuensi Radio</p>
+            </div>
+            <div class="col-md-12" style="padding-left:10px;">
+                <p class="text-right">
+                    <a class="btn" href="/dasar_hukum/" target="_blank" style="text-align:right; margin-top:10px;margin-bottom:10px; border-radius:10px; background-color:#1F4993 ;text-align: center; color: white; font-size:12px;">
+                        &nbsp;&nbsp;Lihat Semua Dasar Hukum &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-solid fa-angle-right"></i>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 0px; padding-left:100px;padding-right:100px;">
+                <div hx-get="/portal/get_aturan_lelang" hx-trigger="load"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height:800px;margin-left:-10px;">
+        <div class="col-md-12" style="padding-left:80px; padding-right:80px; padding-top:20px; background-image: linear-gradient(#0177BC, #71C0EF);">
+        
+            <div class="col-md-12">
+                <p class="btn rounded-pill jdl_portal_depan" style=" background-color: whitesmoke;color:black">Istilah</p>
+            </div>
+            <div class="col-md-12" style="padding-left:10px;">
+                <p class="sub_jdl_portal_depan" style="color:white;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+            </div>
+            <div class="col-md-12" style="padding-left:10px;">
+                <p class="text-right">
+                    <a class="btn" href="/istilah_lelang/" target="_blank" style="text-align:right; margin-top:10px;margin-bottom:10px; border-radius:10px; background-color:#1F4993 ;text-align: center; color: white; font-size:12px;">
+                        &nbsp;&nbsp;Lihat Semua Istilah &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-solid fa-angle-right"></i>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 0px;">
+                <div hx-get="/portal/get_istilah_lelang" hx-trigger="load" style="height:600px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-10px; background-image: linear-gradient(#0177BC, #71C0EF);">
+        <div class="col-md-12" style="padding-left:80px; padding-right:80px; padding-top:20px;">
+            <div class="col-md-12">
+                <p class="btn rounded-pill jdl_portal_depan" style=" background-color: whitesmoke;color:black">Histori Lelang</p>
+            </div>
+            <div class="col-md-12">
+                <p class="sub_jdl_portal_depan" style="color:white;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+            </div>
+          
+            <div class="col-md-12" style="padding-left:60px; padding-right:60px; padding-top:20px">
+                <div class="col-md-12" >
+                    <p class="btn rounded-pill jdl_portal_depan" style=" background-color: #2463D1;color:white">Lelang di Indonesia</p>
+                </div>
+                <div class="col-md-12" style="padding-bottom: 0px;">
+                    <div hx-get="/portal/get_history_lelang" hx-trigger="load"></div>
+                </div>
+            </div>
+        </div>
+        <div class="btn col-md-12 text-left" style="border-radius:30px; margin-left:40px; margin-right:80px; padding-top:20px; margin-bottom:30px;">
+            <div class="col-md-12" >
+                <p class="btn rounded-pill jdl_portal_depan" style=" background-color:whitesmoke;color:black; margin-right:70px; margin-left:10px">Informasi Lelang Mancanegara</p>
+            </div>
+            <div class="col-md-12">
+                <p class="sub_jdl_portal_depan" style="color:white; padding-left: 15px;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 0px; padding-right:90px; padding-left:60px;">
+                <div hx-get="/portal/lelang_mancanegara" hx-trigger="load"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %}
+{% block script %}
+
+{% endblock %}

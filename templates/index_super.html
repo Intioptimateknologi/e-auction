@@ -1,0 +1,465 @@
+{% extends "base.html" %}
+{% block extrahead %}
+<style>
+    .navbar {
+        height: 64px;
+        background-color: #007bff;
+      }
+    .brand-img {
+        height: 51.94px;
+    }
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+    .banner {
+        background: url(/static/img/portal/background-slider.png);
+        height: 768px;
+        width: 100%;
+    }
+    .logobesar {
+        position: absolute;
+        left: 85;
+        top: 209;
+    }
+    .portal_penjelasan {
+        position: absolute;
+        left: 85;
+        top: 411;
+        width: 643;
+    }
+    .button_yuk_mulai {
+        position: absolute;
+        left: 85;
+        top: 520;
+        width: 133;
+    }
+    .sdppi_side {
+        position: absolute;
+        right: 0;
+        top: 652;
+    }
+    .bi {
+        vertical-align: -.125em;
+        pointer-events: none;
+        fill: currentColor;
+      }
+      .nav-flush .nav-link {
+        border-radius: 0;
+      }
+      body {
+        overflow-x: hidden;
+      }
+</style>
+
+{% endblock %}
+{% block navbar %}
+{% include "component/navbar_super.html" %}
+{% endblock %}
+{% block content %}
+<div class="banner row" style="
+margin-left: 0px;
+margin-right: 0px;
+">
+    <div class="col col-md-1 bg-light" style="width:4.5rem;">
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center pt-5">
+            <li class="nav-item">
+                <a href="/" class="nav-link active py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/users/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Users Management">
+                    <i class="fa fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/bidder/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bidder Management">
+                    <i class="fa fa-users"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/tim_lelang/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Auctioner Management">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Viewer Management">
+                    <i class="fa fa-user-secret"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Place Bid">
+                    <i class="fa fa-usd"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Activity">
+                    <i class="fa fa-line-chart"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Round Summary">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Posted Result">
+                    <i class="fa fa-id-card"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Messages">
+                    <i class="fa fa-comments"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Schedules">
+                    <i class="fa fa-calendar"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Download">
+                    <i class="fa fa-download"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Logout">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="col col-md-11">
+        <img class="logobesar" src="/static/img/portal/eauction_logo_besar.png">
+        <div class="portal_penjelasan text-white">
+            Aplikasi lelangs e-Auction adalah sistem seleksi pita frekuensi radio 
+            secara elektronik untuk melakukan evaluasi administrasi, teknis, dan 
+            harga untuk memilih pengguna izin pita frekuensi radio secara 
+            transparan dan auditable.
+        </div>
+        <button class="button_yuk_mulai btn btn-warning rounded-pill">Yuk, mulai</button>
+        <img class="sdppi_side" src="/static/img/portal/sdppi.png">
+    </div>
+</div>
+{% comment %} <div class="row">
+  <div class="col">
+    </div>
+</div>
+    <div class="row pt-5 pb-5 ps-5 pe-5 row-cols-4">
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Pita Frekuensi Radio A`
+                </div>
+                <div class="card-body">
+                    Akhir Pendaftaran<br/>
+                    30 Mei 2023<br/>
+                    <h4>Rp 180.000.000,00</h4>
+                    Kota Jakarta Timur
+                </div>
+            </div>
+        </div>
+</div> {% endcomment %}
+<div class="container py-4 py-xl-5">
+    <div class="row mb-5">
+        <div class="col">
+            <p style="color: rgb(44,113,226);display: inline-flex;font-size: 23px;margin-bottom: 42px;margin-top: 0px;"><br><br><strong><span style="color: rgb(44, 113, 226);"><i class="fa-solid fa-calendar-days" style="color: #7984A7;"></i>&nbsp; &nbsp;List Informasi &amp; Jadwal Lelang</span></strong><br><br></p>
+            <p style="color: rgb(92,92,92);font-size: 14px;margin-top: -44px; display: flex;justify-content: space-between;flex-wrap: nowrap;flex-direction: row;align-items: center;">Menampilkan Jadwal Tanggal Lelang Terbaru <br> <button class="btn" style="background-color: #F6F8FC;border-left-width: 0px;border-right-width: 0px;padding-left: 1opx;padding-right: 12px;padding-left: 12px;padding-bottom: 12px;padding-top: 12px;box-shadow: 0 0 1px #b6b6b6;"><i class="fa-solid fa-filter fa-2xs" style="color: #7983a7;"></i></button></p>
+        </div>
+    </div>
+    <div class="card-group"></div>
+    <div class="card-group kartu">
+        <div class="card">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+        </div>
+        <div class="card" style="border-radius: 15px;">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+        </div>
+        <div class="card" style="background: rgba(255,255,255,0);border-radius: 15px;">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+        </div>
+        <div class="card" style="background: rgba(255,255,255,0);border-radius: 15px;">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;border-radius: 15px;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);">Akhir Pendaftaran<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;">30 Maret 2023 10:00<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(44,113,226);margin-top: -14px;font-weight: bold;">Rp. 180.000.000.000<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;"><i class="fa-solid fa-location-dot"></i> Kota Jaka Timur<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="pagination pagination-sm">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+</div>
+<form style="background: #fafafa;" class="py-4 py-xl-5">
+    <div class="form-row">
+        <div class="col" style="padding: 0px 0px;">
+            <div class="container" style="margin-bottom: 50px; margin-top: 40px;">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <h1 style="font-size: 24px;color: rgb(0,114,228);padding-top: 24px;padding-bottom: 10px;font-weight: bold;"><i class="fa-solid fa-building-shield "style="color: #7984A7;" ></i> Aturan Seleksi<br></h1>
+                        <p style="font-size: 12px;color: rgb(108,116,142);font-family: Inter, sans-serif;text-align: left;padding-right: 16px;">Dalam hal untuk mendukung optimalisasi spektrum frekuensi radio maka pengalokasian pita frekuensi radio dilakukan dengan metode seleksi berbasis harga penawaran tertinggi. Sehubungan dengan hal tersebut maka dukungan layanan pembangunan rancang bangun dan aturan seleksi dalam sistem E-Auction untuk pelaksanaan seleksi sangat dibutuhkan untuk menjamin kelancaran proses seleksi. Sehubungan dengan hal tersebut, Pemerintah didorong untuk menyediakan sistem seleksi pita frekuensi radio secara elektronik untuk melakukan evaluasi baik administrasi, teknik maupun harga. Kegiatan pembangunan sistem seleksi pita</p>
+                        <p style="font-size: 12px;color: rgb(0,114,228);font-family: Inter, sans-serif;text-align: left;padding-right: 16px;"><a href="#">Lihat Detail Aturan <i class="fa-solid fa-arrow-right"></i></a><br></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 style="font-size: 24px;color: rgb(0,114,228);padding-top: 24px;padding-bottom: 10px;font-weight: bold;" ><i class="fa-solid fa-clock-rotate-left" style="color: #7984A7; "></i> History Lelang <br> <div  style="display: flex;justify-content: flex-end;flex-wrap: nowrap;flex-direction: row;align-items: center;"><button class="btn" style="background-color: white;border-left-width: 0px;border-right-width: 0px;padding-left: 1opx;padding-right: 12px;padding-left: 12px;padding-bottom: 12px;padding-top: 12px;box-shadow: 0 0 1px #b6b6b6;"><i class="fa-solid fa-filter fa-2xs" style="color: #7983a7;"></i></button></div></h1>
+                        <div class="table-responsive" style="background: #ffffff;border-radius: 10px;border-width: 2px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="color: rgb(108,116,142);font-family: Inter, sans-serif;font-size: 14px;">Tanggal Lelang<br></th>
+                                        <th style="color: rgb(108,116,142);font-family: Inter, sans-serif;font-size: 14px;">Nama Paket<br></th>
+                                        <th style="color: rgb(108,116,142);font-family: Inter, sans-serif;font-size: 14px;">Tahapan<br></th>
+                                        <th style="color: rgb(108,116,142);font-family: Inter, sans-serif;font-size: 14px;">HPS<br></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: #e7f1fa;">
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">30-02-2023 09:00 WITA<br></td>
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">Pita Frekuensi Radio J<br></td>
+                                        <td style="font-size: 11px;color: rgb(0,115,231);font-family: Inter, sans-serif;">Sudah Selesai<br></td>
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">141,2 Jt<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">27-02-2023 10:00 WITA<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">Pita Frekuensi Radio M<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(0,114,228);">Sudah Selesai<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">132,4 Jt<br></td>
+                                    </tr>
+                                     <tr style="background: #e7f1fa;">
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">30-02-2023 09:00 WITA<br></td>
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">Pita Frekuensi Radio J<br></td>
+                                        <td style="font-size: 11px;color: rgb(0,115,231);font-family: Inter, sans-serif;">Sudah Selesai<br></td>
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">141,2 Jt<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">27-02-2023 10:00 WITA<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">Pita Frekuensi Radio M<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(0,114,228);">Sudah Selesai<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">132,4 Jt<br></td>
+                                    </tr>
+                                    <tr style="background: #e7f1fa;">
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">30-02-2023 09:00 WITA<br></td>
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">Pita Frekuensi Radio J<br></td>
+                                        <td style="font-size: 11px;color: rgb(0,115,231);font-family: Inter, sans-serif;">Sudah Selesai<br></td>
+                                        <td style="font-size: 11px;color: rgb(114,114,114);font-family: Inter, sans-serif;">141,2 Jt<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">27-02-2023 10:00 WITA<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">Pita Frekuensi Radio M<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(0,114,228);">Sudah Selesai<br></td>
+                                        <td style="font-size: 11px;font-family: Inter, sans-serif;color: rgb(114,114,114);">132,4 Jt<br></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container py-4 py-xl-5">
+    <div class="row mb-5">
+        <div class="col">
+            <p style="color: rgb(44,113,226);display: inline-flex;font-size: 23px; font-weight: bold;   margin-bottom: 42px;margin-top: 0px;"><br><br><strong><i class="fa-solid fa-earth-americas" style="color: #7984A7;"></i><span style="color: rgb(44, 113, 226);">&nbsp; &nbsp;</span></strong>Informasi Lelang Mancanegara<br><br></p>
+            <p style="color: rgb(92,92,92);font-size: 14px;margin-top: -44px; display: flex;justify-content: space-between;flex-wrap: nowrap;flex-direction: row;align-items: center; ">Lelang Frekuensi Radio Terbaru Di Beberapa Negara <br><button class="btn" style="background-color: #F6F8FC;border-left-width: 0px;border-right-width: 0px;padding-left: 1opx;padding-right: 12px;padding-left: 12px;padding-bottom: 12px;padding-top: 12px;box-shadow: 0 0 1px #b6b6b6;"><i class="fa-solid fa-filter fa-2xs" style="color: #7983a7;"></i></button></p>
+
+        </div>
+    </div>
+    <div class="card-group"></div>
+    <div class="card-group kartu">    
+        <div class="card">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;"><strong><span style="color: rgb(44, 113, 226);">Rp. 180.000.000.000</span></strong><br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Singapore<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-calendar-day"></i> Maret 2023<br></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;"><strong><span style="color: rgb(44, 113, 226);">Rp. 180.000.000.000</span></strong><br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Singapore<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-calendar-day"></i> Maret 2023<br></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;"><strong><span style="color: rgb(44, 113, 226);">Rp. 180.000.000.000</span></strong><br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Singapore<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-calendar-day"></i> Maret 2023<br></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body" style="margin: 5px;border-radius: 15px;background: #fafafa;box-shadow: 0 0 1px #b6b6b6;">
+                <h4 class="card-title" style="color: rgb(0,114,228);font-size: 16px;border-radius: 15px;">Pita Frekuensi Radio A<br></h4>
+                <p class="card-text" style="font-size: 16px;color: rgb(86,88,89);border-radius: 15px;"><strong><span style="color: rgb(44, 113, 226);">Rp. 180.000.000.000</span></strong><br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(133,133,133);margin-top: -14px;border-radius: 15px;"><i class="fa-solid fa-location-dot"></i> Singapore<br></p>
+                <p class="card-text" style="font-size: 16px;color: rgb(95,95,95);margin-top: -14px;font-weight: bold;border-radius: 15px;"><i class="fa-solid fa-calendar-day"></i> Maret 2023<br></p>
+            </div>
+        </div>
+    </div>
+    <div class="paginations">
+        <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+        <div data-tooltip="Tooltip 2" class="pagination__dot"></div>
+        <div data-tooltip="Tooltip 3" class="pagination__dot"></div>
+        <div data-tooltip="Tooltip 4" class="pagination__dot"></div>
+        <div data-tooltip="Tooltip 5" class="pagination__dot"></div>
+      
+      </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include "component/footer.html" %}
+{% endblock %}
+{% block script %}
+<script>
+(function () {
+    'use strict'
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  })()
+</script>
+
+<script src="/static/js/knockout.js"></script>
+<script src="/static/js/survey.core.min.js"></script>
+<script src="/static/js/survey.i18n.min.js"></script>
+<script src="/static/js/survey.knockout.ui.min.js"></script>
+
+{% endblock %}

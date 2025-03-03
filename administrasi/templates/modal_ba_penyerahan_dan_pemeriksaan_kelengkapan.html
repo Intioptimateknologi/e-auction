@@ -1,0 +1,47 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header">
+                <h3 class="modal-title"  style="color: #007bff;">Pemeriksaan Kelengkapan</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form name="item_lelang" id="item_lelang" method="POST" >
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Nomor</label>
+                                {% render_field form.nomor|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Judul</label>
+                                {% render_field form.judul|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Tanggal</label>
+                                {% render_field form.tanggal|add_class:"form-control" type="datetime-local" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">File</label>
+                                {% render_field form.file|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="id_nomor"  class="nama_label">Owner</label>
+                                <select name="owner" class="form-control" id="id_owner">
+                                    <option value="PEMERIKSAAN" selected>Pemeriksaan</option>
+                                </select>
+                            </div>
+                           
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>

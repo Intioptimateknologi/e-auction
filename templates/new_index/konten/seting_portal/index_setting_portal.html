@@ -1,0 +1,1165 @@
+{% extends 'new_index/base1.html' %}
+
+{% block extrahead %}
+
+{% endblock  %}
+
+{% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">Setting Portal</span>
+</div>
+<div class="col-md-12" style="text-align:center;margin-left:-1px;margin-right:0px; background-color:#ececec">
+    <ul class="nav nav-pills" id="custom-content-below-tab" role="tablist" >
+        <li class="nav-item  navtabli" style="margin-left:20px">
+            <a class="navtab link_tab nav-link active"  id="pills-Profile-tab" data-toggle="pill" href="#pills-Profile" role="tab" aria-controls="pills-Profile" aria-selected="false"><i class="fa fa-building"></i>&nbsp;Profil</a>
+        </li>
+        <li class="nav-item navtabli">
+            <a class="navtab link_tab nav-link" id="pills-Istilah-Lelang-tab" data-toggle="pill" href="#pills-istilah-lelang" role="tab" aria-controls="pills-istilah-lelang" aria-selected="false"><i class="fa fa-file-lines"></i>&nbsp;Daftar Istilah</a>
+        </li>
+            <li class="nav-item  navtabli">
+            <a class="navtab link_tab nav-link"  id="pills-History-Lelang-tab" data-toggle="pill" href="#pills-History-Lelang" role="tab" aria-controls="pills-History-Lelang" aria-selected="false"><i class="fa fa-timeline"></i>&nbsp;>Histori Seleksi</a>
+        </li>
+            <li class="nav-item  navtabli">
+            <a class="navtab link_tab nav-link"  id="pills-Informasi-Lelang-tab" data-toggle="pill" href="#pills-Informasi-Lelang" role="tab" aria-controls="pills--Informasi-Lelang" aria-selected="false"><i class="fa fa-globe"></i>&nbsp;Lelang Mancanegara</a>
+        </li>
+            <li class="nav-item  navtabli">
+            <a class="navtab link_tab nav-link" id="pills-Aturan-Lelang-tab" data-toggle="pill" href="#pills-Aturan-Lelang" role="tab" aria-controls="pills-Aturan-Lelang" aria-selected="false"><i class="fa fa-scale-balanced"></i>&nbsp;Dasar Hukum</a>
+        </li>
+            <li class="nav-item  navtabli">
+            <a class="navtab link_tab nav-link"  id="pills-Banner-Slide-tab" data-toggle="pill" href="#pills-Banner-Slide" role="tab" aria-controls="pills-Banner-Slide" aria-selected="false"><i class="fa fa-flag"></i>&nbsp;Banner Slide</a>
+        </li>
+        <li class="nav-item  navtabli">
+            <a class="navtab link_tab nav-link"  id="pills-Short-Notice-tab" data-toggle="pill" href="#pills-Short-Notice" role="tab" aria-controls="pills-Short-Notice" aria-selected="false"><i class="fa fa-note-sticky"></i>&nbsp;Short Notice</a>
+        </li>
+    </ul>
+</div>
+<div class="col-md-12" style="text-align:center; background:#4a91dc;margin-left:-1px;margin-right:0px;padding-top:10px; padding-bottom:10px;">
+    
+</div>
+<div class="col" style="padding-top: 10px; padding-left:30px; padding-right:50px; max-width: 3000px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab-content" id="custom-tabs-one-tabContent">
+                <!-- PROFILE -->
+                <div class="tab-pane fade show active" id="pills-Profile" role="tabpanel" aria-labelledby="pills-Profile-tab">
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col-md-12">
+                            <div style="display: flex;">
+                                <div class="col">
+                                    <div class="jdl_tab">Profil </div>
+                                    <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card row">
+                                <table class="table" id="table-profil" class="display" style="width:100%;" >
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <!-- END PROFILE -->
+            
+                <!-- ISTILAH LELANG -->
+                <div class="tab-pane fade" id="pills-istilah-lelang" role="tabpanel" aria-labelledby="pills-Istilah-Lelang-tab">
+                    <div class="col-md-12" style="padding-bottom: 0px;">
+                        <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+                            <div class="col-md-12" >
+                                <div style="display: flex;">
+                                    <div class="col">
+                                        <div class="jdl_tab">Istilah </div>
+                                        <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                                    </div>
+                                    <div class="col text-right">
+                                        <button type="button" id="tambah_istilah" class="btn btn-primary" style="font-size:12px;"><i class="fa-solid fa-plus-circle"></i> Tambah Istilah Baru</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col">
+                                <div class="row" style="margin:10px">
+                                    <table class="table table-striped" id="table-istilah-lelang" class="display" style="width:100%;" data-server-side="true" data-ajax="/portal/api/v1/istilah_lelang/?format=datatables">
+                                        <thead style="background-color: #032056; color: #fff;"> 
+                                            <tr>
+                                                <th data-data="id"></th>
+                                                <th data-data="nama_istilah">Istilah</th>
+                                                <th data-data="penjelasan" style="width:65%">Penjelasan</th>
+                                                <th data-data="created" >Tanggal Dibuat</th>
+                                                <th data-data="last_updated" >Tanggal Diubah</th>
+                                                <th data-data="dibuat_oleh">Dibuat Oleh</th>
+                                                <th data-data="updated_by">Diubah Oleh</th>
+                                                <th style="width:100px">Aksi</th> 
+                                            </tr>                                                                        
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>       
+                        </div>
+                    </div>
+                </div>
+                <!-- END ISTILAH LELANG -->
+            
+                <!-- HISTORY LELANG -->
+                <div class="tab-pane fade" id="pills-History-Lelang" role="tabpanel" aria-labelledby="pills-History-Lelang-tab">
+                    <div class="col-md-12" style="padding-bottom: 0px;">
+                        <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+                            <div class="col-md-12" >
+                                <div style="display: flex; justify-content: space-between; align-items: center; align-content: center; flex-wrap: nowrap; flex-direction: row;">
+                                    <div>                                               
+                                        <div class="jdl_tab">Histori</div>
+                                        <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                                    </div>  
+                                    <div> 
+                                        <button type="button"  id="tambah_history" class="btn btn-primary" style="font-size: 12px"><i class="fa-solid fa-plus-circle"></i> Tambah Sejarah Baru</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col">
+                                <div class="row" style="margin:10px">
+                                    <table class="table table-striped" id="table-history-lelang" class="display" style="width:100%"  data-server-side="true" data-ajax="/portal/api/v1/history_lelang/?format=datatables">
+                                        <thead style="background-color: #032056; color: #fff;"> 
+                                            <tr>
+                                                <th data-data="id">ID</th>
+                                                <th data-data="tahun">Tahun</th>
+                                                <th data-data="pita">Pita (MHz)</th>
+                                                <th data-data="bandwidth">Bandwidth (MHz)<br></th>
+                                                <th data-data="penyelenggaraan">Jenis Penyelenggaraan<br></th>
+                                                <th data-data="pemenang">Pemenang Seleksi<br></th>
+                                                <th data-data="keterangan">Keterangan</th>
+                                                <th data-data="image">Halaman Depan</th>
+                                                <th data-data="created" >Tanggal Dibuat</th>
+                                                <th data-data="last_updated" >Tanggal Diubah</th>
+                                                <th data-data="dibuat_oleh">Dibuat Oleh</th>
+                                                <th data-data="updated_by">Diubah Oleh</th>
+                                                <th style="width:100px">Aksi</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END HISTORY LELANG -->                
+            
+                <!-- INFORMASI LELANG -->
+                <div class="tab-pane fade" id="pills-Informasi-Lelang" role="tabpanel" aria-labelledby="pills-Informasi-Lelang-tab">
+                    <div class="col-md-12" style="padding-bottom: 0px;">
+                        <div class="row" style="margin-bottom: 0px;padding-bottom: 16pxpx;">
+                            <div class="col-md-12" >
+                                <div style="display: flex; justify-content: space-between; align-items: center; align-content: center; flex-wrap: nowrap; flex-direction: row;">
+                                    <div style="col">
+                                        <div class="jdl_tab">Informasi Lelang Mancanegara</div>
+                                        <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>                                                
+                                    </div>  
+                                    <div style="col"> 
+                                        <button type="button" id="tambah_lelang_manca" class="btn btn-primary"  style="font-size: 12px"><i class="fa-solid fa-plus-circle"></i> Tambah Informasi Baru</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col">
+                                <div class="row" style="margin:10px">
+                                    <table class="table table-striped" id="table-informasi-lelang" class="display" style="width:100%"  data-server-side="true" data-ajax="/portal/api/v1/lelang_mancanegara/?format=datatables">
+                                        <thead style="background-color: #032056; color: #fff;"> 
+                                            <tr>
+                                                <th data-data="id">ID</th>
+                                                <th data-data="nama_negara">Negara</th>
+                                                <th data-data="tahun">Tahun Seleksi</th>
+                                                <th data-data="pita">Pita (MHz)<br></th>
+                                                <th data-data="bandwidth">Bandwidth (MHz)<br></th>
+                                                <th data-data="keterangan">Keterangan<br></th>
+                                                <th data-data="image">Halaman Depan</th>
+                                                <th data-data="created" >Tanggal Dibuat</th>
+                                                <th data-data="last_updated" >Tanggal Diubah</th>
+                                                <th data-data="dibuat_oleh">Dibuat Oleh</th>
+                                                <th data-data="updated_by">Diubah Oleh</th>
+                                                <th style="width:100px">Aksi</th>                                                            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END INFORMASI LELANG -->
+
+
+                <!-- Dasar Hukum -->
+                <div class="tab-pane fade" id="pills-Aturan-Lelang" role="tabpanel" aria-labelledby="pills-Aturan-Lelang-tab">
+                    <div class="col-md-12" style="padding-bottom: 0px;">
+                        <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+                            <div class="col-md-12" >
+                                <div style="display: flex; justify-content: space-between; align-items: center; align-content: center; flex-wrap: nowrap; flex-direction: row;">
+                                    <div style="col">
+                                        <div class="jdl_tab">Dasar Hukum</div>
+                                        <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                                    </div>                                                
+                                    <div style="col">   
+                                        <button type="button" id="tambah_hukum" class="btn btn-primary"  style="font-size: 12px"><i class="fa-solid fa-plus-circle"></i> Tambah Dasar Hukum Baru</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col">
+                                <div class="row" style="margin:10px">
+                                    <table class="table table-striped table_isi_tengah" id="table-aturan-lelang" class="display" style="width:100%" data-server-side="true"  data-ajax="/portal/api/v1/aturan_lelang/?format=datatables">
+                                        <thead style="background-color: #032056; color: #fff;"> 
+                                            <tr>
+                                                <th data-data="id" style="text-align:center">ID</th>
+                                                <th data-data="jenis_kebjakan" style="text-align:center">Jenis Kebijakan<br></th>
+                                                <th data-data="nomor" style="text-align:center">Nomor</th>
+                                                <th data-data="nama_kebijakan" style="text-align:center">Judul</th>
+                                                <th data-data="tanggal" style="text-align:center">Tanggal Penetapan</th>
+                                                <th data-data="keterangan" width="30%" style="text-align:center">Keterangan</th>
+                                                <th data-data="file" style="text-align:center">File<br></th>
+                                                <th data-data="created"  style="text-align:center">Tanggal Dibuat</th>
+                                                <th data-data="last_updated"  style="text-align:center">Tanggal Diubah</th>
+                                                <th data-data="dibuat_oleh" style="text-align:center">Dibuat Oleh</th>
+                                                <th data-data="updated_by" style="text-align:center">Diubah Oleh</th>
+                                                <th style="width:80px" style="text-align:center">Aksi</th>                                                                                                                  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Dasar Hukum -->
+
+                <!-- Short Notice -->
+                <div class="tab-pane fade" id="pills-Short-Notice" role="tabpanel" aria-labelledby="pills-Aturan-Lelang-tab">
+                    <div class="col-md-12" style="padding-bottom: 0px;">
+                        <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+                            <div class="col-md-12" >
+                                <div style="display: flex; justify-content: space-between; align-items: center; align-content: center; flex-wrap: nowrap; flex-direction: row;">
+                                    <div style="col">
+                                        <div class="jdl_tab">Short Notice</div>
+                                        <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                                    </div>                                                
+                                    <div style="col">   
+                                        <button type="button" id="tambah_short_notice" class="btn btn-primary"  style="font-size: 12px"><i class="fa-solid fa-plus-circle"></i> Tambah Short Notice</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col">
+                                <div class="row" style="margin:10px">
+                                    <table class="table table-striped table_isi_tengah" id="table-short-notice" class="display" style="width:100%" data-server-side="true"  data-ajax="/portal/api/v1/notice_lelang/?format=datatables">
+                                        <thead style="background-color: #032056; color: #fff;"> 
+                                            <tr>
+                                                <th data-data="id" style="text-align:center">ID</th>
+                                
+                                                <th data-data="nama_notice" style="text-align:center">Judul</th>
+                                                <th data-data="tanggal" style="text-align:center">Tanggal</th>
+                                                <th data-data="last_updated"  style="text-align:center">Tanggal Diubah</th>
+                                                <th data-data="dibuat_oleh" style="text-align:center">Dibuat Oleh</th>
+                                                <th data-data="updated_by" style="text-align:center">Diubah Oleh</th>
+                                                <th style="width:80px" style="text-align:center">Aksi</th>                                                                                                                  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Short Notice -->
+
+                <!-- BANNER SLIDE -->
+                <div class="tab-pane fade" id="pills-Banner-Slide" role="tabpanel" aria-labelledby="pills-Banner-Slide-tab">
+                    <div class="col-md-12" style="padding-bottom: 0px;">
+                        <div class="row" style="margin-bottom: 0px;padding-bottom: 16pxpx;">
+                            <div class="col-md-12" >
+                                <div style="display: flex; justify-content: space-between; align-items: center; align-content: center; flex-wrap: nowrap; flex-direction: row;">
+                                    <div style="col">
+                                        <div class="jdl_tab">Banner Slide</div>
+                                        <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>       
+                                    </div>  
+                                    <div style="col"> 
+                                        <button type="button" id="tambah_banner" class="btn btn-primary"  style="font-size: 12px"><i class="fa-solid fa-plus-circle"></i> Tambah Banner Baru</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col">
+                                <div class="row" style="margin:10px">
+                                    <table class="table table-striped" id="table-banner-slide" class="display" style="width:100%" data-server-side="true" data-ajax="/portal/api/v1/banner/?format=datatables">
+                                        <thead style="background-color: #032056; color: #fff;"> 
+                                            <tr>
+                                                <th data-data="id" style="text-align:center">ID</th>
+                                                <th data-data="nama_banner" style="text-align:center">Nama Banner</th>
+                                                <th data-data="tag" style="text-align:center">Ditampilkan Pada Portal</th>
+                                                <th data-data="caption" width="30%">Keterangan</th>
+                                                <th data-data="image">Gambar<br></th>
+                                                <th data-data="created" >Tanggal Dibuat</th>
+                                                <th data-data="last_updated" >Tanggal Diubah</th>
+                                                <th data-data="dibuat_oleh">Dibuat Oleh</th>
+                                                <th data-data="updated_by">Diubah Oleh</th>
+                                                <th style="width:100px">Aksi</th> 
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END BANNER SLIDE -->
+            
+            </div>
+        </div> 
+        <!-- /.card -->
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+</div> 
+
+<div id="imageModal" class="modal fade " tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Image Viewer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+
+{% include 'new_index/parts/add_on/js/portal/profil.html' %}
+{% include 'new_index/parts/add_on/modal/portal/profil.html' %}  
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+var istilahTable = $('#table-istilah-lelang').DataTable({
+    "autoWidth": false,
+    "language": {
+    "search": "Cari Data / Informasi :"
+    },
+    "order": [[4, 'desc']],
+    "columnDefs": [
+        {"className": "dt-center", "targets": "_all"},
+        {"width": "50%", "targets": 2},
+        {
+            "targets": 3,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        },
+        {
+          
+            "targets": 4,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        },
+    ],
+    columns: [
+    { "searchable": false, data: "id", className: "d-none"},
+    { "searchable": true, "sortable": true },
+    { "searchable": true, "width":"30%" },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": false, "sortable": false , "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+    },
+    { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+     },
+    { "searchable": false, "sortable": false,'data': null, "render": function (data, type, row, meta) { 
+        return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+            row.id+' class="btn btn-sm btn-warning icon edit"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+            row.id+' class="btn btn-sm btn-danger icon delete"><i class="fa fa-trash"></i></div>'
+        } 
+    },
+  ]
+});
+
+var mancaNegaraTable = $('#table-informasi-lelang').DataTable({
+    "autoWidth": false,
+    "language": {
+    "search": "Cari Data / Informasi  :"
+    },
+    "order": [[7, 'desc']],
+    "columnDefs": [
+    {"className": "dt-center", "targets": "_all"},   
+    {
+          
+            "targets": 7,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        },
+        {
+          
+            "targets": 8,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        }
+    ],
+    columns: [
+    { "searchable": false, data: "id", className: "d-none"},
+    { "searchable": false, "sortable": false, data: "negara" },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": true },
+    { 
+            "searchable": true,
+            "render": function (data, type, row, meta) { 
+                if (row.image) {
+                    // Jika ada data gambar (ganti 'image' dengan nama kolom gambar Anda)
+                    // return '<i class="fa-solid fa-image"><img src="' + row.image + '" alt="Gambar" width="100"></i>';//
+                    return '<div class="image-icon" data-image="' + row.image + '"><img src="' + row.image + '" alt="Gambar" width="100px"></div>';
+
+                } else {
+                    // Jika tidak ada data gambar, tampilkan tanda '-' atau pesan lainnya
+                    return '-';
+                }
+            } 
+    },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     }
+    },
+    { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     }
+    },
+
+    { "searchable": false, "sortable": false,'data': null, "render": function (data, type, row, meta) { 
+        return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+            row.id+' class="btn btn-sm btn-warning icon edit"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+            row.id+' class="btn btn-sm btn-danger icon delete"><i class="fa fa-trash"></i></div>'
+        } 
+    },
+  ]
+});
+
+var historyLelang = $('#table-history-lelang').DataTable({
+    "autoWidth": false,
+    "language": {
+    "search": "Cari Data / Informasi :"
+    },
+    "order": [[9, 'desc']],
+    "columnDefs": [
+        {"className": "dt-center", "targets": "_all"},
+        {
+           
+            "targets": 8,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        },
+        {
+          
+            "targets": 9,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        }
+    ],
+    columns: [
+    { "searchable": false, data: "id", className: "d-none"},
+    { "searchable": false,  "render": function (data, type, row, meta) {
+            if (type === 'display') {
+            
+                var date = new Date(data);
+                return date.toLocaleDateString('id-ID', {
+                   
+                    year: 'numeric',
+                   
+                });
+            }
+            return data; 
+        }
+    },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": true },
+
+    { 
+            "searchable": true,
+            "render": function (data, type, row, meta) { 
+                if (row.image) {
+                    // Jika ada data gambar (ganti 'image' dengan nama kolom gambar Anda)
+                    // return '<i class="fa-solid fa-image"><img src="' + row.image + '" alt="Gambar" width="100"></i>';//
+                    return '<div class="image-icon" data-image="' + row.image + '"><img src="' + row.image + '" alt="Gambar" width="100px"></div>';
+
+                } else {
+                    // Jika tidak ada data gambar, tampilkan tanda '-' atau pesan lainnya
+                    return '-';
+                }
+            } 
+    },
+        
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+     },
+     { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+     },
+     { "searchable": false, "sortable": false,'data': null, "render": function (data, type, row, meta) { 
+        return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+            row.id+' class="btn btn-sm btn-warning icon edit"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+            row.id+' class="btn btn-sm btn-danger icon delete"><i class="fa fa-trash"></i></div>'
+        } 
+    },
+  ]
+});
+
+var aturanTable = $('#table-aturan-lelang').DataTable({
+    "autoWidth": false,
+    "language": {
+    "search": "Cari Data / Informasi :"
+    },
+    "order": [[8, 'desc']],
+    "columnDefs": [
+    {"className": "dt-center", "targets": "_all"},    
+    {
+          
+          "targets": 4,
+          "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                 
+                  var date = new Date(data);
+                  return date.toLocaleDateString('id-ID', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric'
+                      
+                  });
+              }
+              return data; 
+          }
+         },
+        {
+          
+            "targets": 7,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        },
+        {
+          
+            "targets": 8,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        }
+    ],
+    columns: [
+    { "searchable": false, data: "id", className: "d-none"},
+    { "searchable": true },
+    
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": false, "sortable": false },
+    { "searchable": true, "sortable": false },
+  
+    { "searchable": false, "render": function (data, type, row, meta) { 
+        return row.file?'<a class="btn btn-sm btn-info" href="'+row.file+'" target="_blank"><i class="fa fa-file-pdf"></i></a>':'-' }
+    },
+    { "searchable": true, "sortable": true },
+    { "searchable": true, "sortable": true },
+      { "searchable": false, "sortable": false , "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+    },
+    { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+     },
+     { "searchable": false, "sortable": false,'data': null, "render": function (data, type, row, meta) { 
+        return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+            row.id+' class="btn btn-sm btn-warning icon edit"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+            row.id+' class="btn btn-sm btn-danger icon delete"><i class="fa fa-trash"></i></div>'
+        } 
+    },
+  ]
+});
+
+var bannerTable = $('#table-banner-slide').DataTable({
+    "autoWidth": false,
+    "language": {
+    "search": "Cari Data / Informasi :"
+    },
+    "order": [[6, 'desc']],
+    "columnDefs": [
+    {"className": "dt-center", "targets": "_all"},
+    {
+      
+        "targets": 5,
+        "render": function (data, type, row, meta) {
+            if (type === 'display') {
+               
+                var date = new Date(data);
+                return date.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+            return data; 
+        }
+    },
+    {
+      
+        "targets": 6,
+        "render": function (data, type, row, meta) {
+            if (type === 'display') {
+               
+                var date = new Date(data);
+                return date.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+            return data; 
+        }
+    },
+    {
+        "targets": 2,
+        "render": function (data, type, row, meta) { 
+            if (type === 'display') {
+                return row.tag === 'front' ? 'Aktif' : 'Tidak Aktif';
+            }
+            return data;
+        }
+    }
+],
+        columns: [
+        { "searchable": false, data: "id", className: "d-none"},
+        { "searchable": true, "sortable": true },
+        { "searchable": true },
+        { "searchable": true },
+        
+        { 
+            "searchable": true,
+            "render": function (data, type, row, meta) { 
+                if (row.image) {
+                    // Jika ada data gambar (ganti 'image' dengan nama kolom gambar Anda)
+                    // return '<i class="fa-solid fa-image"><img src="' + row.image + '" alt="Gambar" width="100"></i>';//
+                    return '<div class="image-icon" data-image="' + row.image + '"><img  src="' + row.image + '" alt="Gambar" width="100px"></div>';
+
+                } else {
+                    // Jika tidak ada data gambar, tampilkan tanda '-' atau pesan lainnya
+                    return '-';
+                }
+            } 
+        },
+        
+        
+        { "searchable": true },
+        { "searchable": true },
+        { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+            if (data) {
+                return data
+            } else {
+                return "-"
+            }
+         }
+        },
+        { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+            if (data) {
+                return data
+            } else {
+                return "-"
+            }
+         }
+        },
+        { "searchable": false, "sortable": false,'data': null, "render": function (data, type, row, meta) { 
+        return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+            row.id+' class="btn btn-sm btn-warning icon edit"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+            row.id+' class="btn btn-sm btn-danger icon delete"><i class="fa fa-trash"></i></div>'
+        } 
+        },
+        
+    ]
+});
+
+
+var shortnoticeTable = $('#table-short-notice').DataTable({
+    "autoWidth": false,
+    "language": {
+    "search": "Cari Data / Informasi :"
+    },
+    "order": [[3, 'desc']],
+    "columnDefs": [
+    {"className": "dt-center", "targets": "_all"},    
+    {
+          
+          "targets": 2,
+          "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                 
+                  var date = new Date(data);
+                  return date.toLocaleDateString('id-ID', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric'
+                      
+                  });
+              }
+              return data; 
+          }
+         },
+        
+        {
+          
+            "targets": 3,
+            "render": function (data, type, row, meta) {
+                if (type === 'display') {
+                   
+                    var date = new Date(data);
+                    return date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return data; 
+            }
+        }
+    ],
+    columns: [
+    { "searchable": false, data: "id", className: "d-none"},
+    { "searchable": true },
+    { "searchable": true },
+    { "searchable": true, "sortable": true },
+      { "searchable": false, "sortable": false , "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+    },
+    { "searchable": false, "sortable": false, "render": function (data, type, row, meta) { 
+        if (data) {
+            return data
+        } else {
+            return "-"
+        }
+     },
+     },
+     { "searchable": false, "sortable": false,'data': null, "render": function (data, type, row, meta) { 
+        return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+            row.id+' class="btn btn-sm btn-warning icon edit"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+            row.id+' class="btn btn-sm btn-danger icon delete"><i class="fa fa-trash"></i></div>'
+        } 
+    },
+  ]
+});
+$( "#tambah_profil" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/portal/portal_block/create/",
+        drfURL: "/portal/api/v1/portal_block/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            profil.ajax.reload();
+        }
+    });
+} );
+
+$( "#tambah_istilah" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/portal/istilah_lelang/create/",
+        drfURL: "/portal/api/v1/istilah_lelang/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            istilahTable.ajax.reload();
+        }
+    });
+} );
+$("#table-istilah-lelang").on("click",".edit",function() {
+    showEditModal({
+        formURL: "/portal/portal/istilah_lelang/update/"+this.id+'/',
+        drfURL: "/portal/api/v1/istilah_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            istilahTable.ajax.reload();
+        }
+    });
+});
+$("#table-istilah-lelang").on("click",".delete",function() {
+    deleteData({
+        drfURL: "/portal/api/v1/istilah_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            istilahTable.ajax.reload();
+        }
+    });
+});
+
+$( "#tambah_history" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/portal/history_lelang/create/",
+        drfURL: "/portal/api/v1/history_lelang/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            historyLelang.ajax.reload();
+        }
+    });
+} );
+$("#table-history-lelang").on("click",".edit",function() {
+    showEditModal({
+        formURL: "/portal/portal/history_lelang/update/"+this.id+'/',
+        drfURL: "/portal/api/v1/history_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            historyLelang.ajax.reload();
+        }
+    });
+});
+$("#table-history-lelang").on("click",".delete",function() {
+    deleteData({
+        drfURL: "/portal/api/v1/history_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            historyLelang.ajax.reload();
+        }
+    });
+});
+$( "#tambah_lelang_manca" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/portal/lelang_mancanegara/create/",
+        drfURL: "/portal/api/v1/lelang_mancanegara/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            mancaNegaraTable.ajax.reload();
+        }
+    });
+} );
+$("#table-informasi-lelang").on("click",".edit",function() {
+    showEditModal({
+        formURL: "/portal/portal/lelang_mancanegara/update/"+this.id+'/',
+        drfURL: "/portal/api/v1/lelang_mancanegara/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            mancaNegaraTable.ajax.reload();
+        }
+    });
+});
+
+$("#table-informasi-lelang").on("click",".delete",function() {
+    deleteData({
+        drfURL: "/portal/api/v1/lelang_mancanegara/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            mancaNegaraTable.ajax.reload();
+        }
+    });
+});
+$( "#tambah_banner" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/banner/create/",
+        drfURL: "/portal/api/v1/banner/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            bannerTable.ajax.reload();
+        }
+    });
+} );
+$("#table-banner-slide").on("click",".edit",function() {
+    showEditModal({
+        formURL: "/portal/portal/banner/update/"+this.id+'/',
+        drfURL: "/portal/api/v1/banner/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            bannerTable.ajax.reload();
+        }
+    });
+});
+$("#table-banner-slide").on("click",".delete",function() {
+    deleteData({
+        drfURL: "/portal/api/v1/banner/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            bannerTable.ajax.reload();
+        }
+    });
+});
+
+$( "#tambah_hukum" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/portal/aturan_lelang/create/",
+        drfURL: "/portal/api/v1/aturan_lelang/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            aturanTable.ajax.reload();
+        }
+    });
+} );
+$("#table-aturan-lelang").on("click",".edit",function() {
+    showEditModal({
+        formURL: "/portal/portal/aturan_lelang/update/"+this.id+'/',
+        drfURL: "/portal/api/v1/aturan_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            aturanTable.ajax.reload();
+        }
+    });
+});
+$("#table-aturan-lelang").on("click",".delete",function() {
+    deleteData({
+        drfURL: "/portal/api/v1/aturan_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            aturanTable.ajax.reload();
+        }
+    });
+});
+
+$( "#tambah_short_notice" ).on( "click", function() {
+    showModal2({
+        formURL: "/portal/portal/notice_lelang/create/",
+        drfURL: "/portal/api/v1/notice_lelang/",
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            shortnoticeTable.ajax.reload();
+        }
+    });
+} );
+$("#table-short-notice").on("click",".edit",function() {
+    showEditModal({
+        formURL: "/portal/portal/notice_lelang/update/"+this.id+'/',
+        drfURL: "/portal/api/v1/notice_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            shortnoticeTable.ajax.reload();
+        }
+    });
+});
+$("#table-short-notice").on("click",".delete",function() {
+    deleteData({
+        drfURL: "/portal/api/v1/notice_lelang/"+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(response) {
+            shortnoticeTable.ajax.reload();
+        }
+    });
+});
+
+
+
+$(document).ready(function() { 
+    $('#modal').on('shown.bs.modal', function() {
+        var paragraphText = $('#data_modal').text();
+
+        
+            if (paragraphText == "manca") {
+                var itemSelect = document.getElementById("namanya");
+                var inputTag = document.getElementById("nama_negara");
+        
+                itemSelect.addEventListener("change", function() {
+                    var dipilihValue = itemSelect.options[itemSelect.selectedIndex].text;
+                    
+                    inputTag.value = dipilihValue;
+                });
+            }
+            if (paragraphText == "mancaupdate"){
+                var itemSelect = document.getElementById("namanyaupdate");
+                var inputTag = document.getElementById("nama_negara");
+                itemSelect.addEventListener("change", function() {
+                    var dipilihValue = itemSelect.options[itemSelect.selectedIndex].text;
+                    
+                    inputTag.value = dipilihValue;
+                });
+            }
+    });  
+    
+});
+$(document).ready(function() {
+    
+    $('#table-banner-slide').on('click', '.image-icon', function() {
+        var imageUrl = $(this).data('image');
+        $('#modalImage').attr('src', imageUrl);
+        $('#imageModal').modal('show'); 
+    });
+});
+
+</script>
+{% endblock  %}

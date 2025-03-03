@@ -1,0 +1,57 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" role="dialog" style="display:block;">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+                <h4 class="modal-title" style=" font-weight:700; color:black;">
+                    <i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;
+                    Tambah Istilah
+                </h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                       
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_nama_istilah" class="nama_label">Nama Istilah</label>
+                                {% render_field form.nama_istilah|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_penjelasan"  class="nama_label" >Penjelasan</label>
+                                <div class="form-field">
+                                    {% render_field form.penjelasan|add_class:"form-control"%}
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <div class="form-field">
+                                    <!-- Anda dapat mengatur nilai updated_by dengan username atau informasi lain yang sesuai -->
+                                    <input type="text" name="updated_by" class="form-control" value="{{ request.user.id }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form.media }}
+</form>

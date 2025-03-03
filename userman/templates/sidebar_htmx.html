@@ -1,0 +1,168 @@
+{% load mptt_tags %}
+{% load static %}
+{% load judul_tags %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="overflow:hidden;">
+    <!-- begin:: Brand Logo -->
+    <div style="background-color: #007bff;padding-top: 0px;padding-bottom: -5px; padding-left:-10px;">
+        <img src="{% static 'img/e-auction.png' %}" style="height: 60px;" />
+    </div>
+    <!-- end:: Brand Logo -->
+    <div
+        class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-transition os-host-scrollbar-horizontal-hidden">
+        <div class="os-resize-observer-host observed">
+            <div class="os-resize-observer" style="left: 0px; right: auto;"></div>
+        </div>
+        <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;">
+            <div class="os-resize-observer"></div>
+        </div>
+        <!-- begin:: Content -->
+        <div class="os-content-glue" style="margin: 0px -8px; width: 249px; height: 645px;">
+            <div class="os-padding">
+                <div class="os-viewport os-viewport-native-scrollbars-invisible os-viewport-native-scrollbars-overlaid"
+                    style="overflow-y: scroll;">
+                    <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                data-accordion="false">
+                                <li class="nav-item">
+                                    <a href="/" class="nav-link nav-linka">
+                                        <i class="fa-solid fa-house nav-icon" style="color: white;"></i>
+                                        <p class="text_side_bar">
+                                            Home
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <!-- {% recursetree menu %}
+                                {% if node.id in menugroup %}
+                                {% if node.enabled %}
+                                <li class="nav-item tricky">
+                                    {% if node.level < 1 and children %} <a
+                                        href="{% if node.link and node.level == 0 %}{{node.link}}{% elif node.link and node.level > 0 %}{{node.link}}{% else %}#{{ node.id }}{% endif %}"
+                                        class="nav-link nav-linka">
+                                        <i class="{{ node.icon_class }} nav-icon" style="color: white;"></i>
+                                        <p class="text_side_bar">
+                                            {{ node.name }}
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                        </a>
+
+                                        <ul class="nav nav-treeview" id="menu_{{ node.id }}">
+                                            {% if not node.is_leaf_node %}
+                                            {{ children }}
+                                            {% endif %}
+                                        </ul>
+                                        {% else %}
+                                        <a href="{% if node.link and node.level == 0 %}{{node.link}}{% elif node.link and node.level > 0 %}{{node.link}}{% else %}#{{ node.id }}{% endif %}"
+                                            class="nav-link nav-linka">
+                                            <div style="display: flex; align-items: center;">
+                                                <i class="{{ node.icon_class }} nav-icon" style="color: white;"></i>
+                                                <p class="text_side_bar">{{ node.name }}</p>
+                                            </div>
+                                        </a>
+                                        {% endif %}
+                                </li>
+                                {% endif %}
+                                {% endif %}
+                                {% endrecursetree %} -->
+                                {% recursetree menu %}
+
+                                {% if node.id in menugroup %}
+                                {% if node.enabled %}
+                                <li class="mm nav-item tricky">
+                                    {% if node.level < 1 and children %} <a
+                                        href="{% if node.link %}{{node.link}}{% else %}#{% endif %}"
+                                        class="t{% if node.link %}{{ node.link|repl }}{% endif %} nav-link nav-linka"
+                                        id="{{ node.slug }}">
+                                        <i class="{{ node.icon_class }} nav-icon" style="color: white; "></i>
+                                        <p class="text_side_bar">
+                                            {{ node.name }}
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                        </a>
+
+                                        <ul class="nav nav-treeview"
+                                            id="menu_{{ node.id }}">
+                                            {% if not node.is_leaf_node %}
+                                            {{ children }}
+                                            {% endif %}
+                                        </ul>
+                                        {% else %}
+                                        <a href="{% if node.link and node.level == 0 %}{{node.link}}{% elif node.link and node.level > 0 %}{{node.link}}{% else %}#{{ node.id }}{% endif %}"
+                                            class="t{% if node.link %}{{ node.link|repl }}{% endif %}c nav-link  nav-linka"
+                                            id="{{ node.slug }}">
+                                            <div style="display:flex; align-items: center;">
+                                                <i class="{{ node.icon_class }} nav-icon" style="color: white; "></i>
+                                                <p class="text_side_bar">{{ node.name }}</p>
+                                            </div>
+
+                                        </a>
+                                        {% endif %}
+                                </li>
+                                {% endif %}
+                                {% endif %}
+                                {% endrecursetree %}
+
+                                <li class="nav-item">
+                                    <a href="javascript:;"
+                                        id="logout-sidebar"
+                                        onclick="handleLogout()"
+                                        class="nav-link nav-linka">
+                                        <i class="fa-solid fa-power-off nav-icon" style="color: #ff0000;"></i>
+                                        <p class="text_side_bar">
+                                            Logout
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end:: Content -->
+    </div>
+</aside>
+
+<!-- <script src="https://unpkg.com/htmx.org@2.0.0"></script> -->
+<script>
+    /* const currentPath = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll(".nav-linka");
+
+    console.log(sidebarLinks)
+
+    sidebarLinks.forEach(function (link) {
+        link.classList.remove("active");
+    });
+
+    sidebarLinks.forEach(function (link) {
+        if (link.getAttribute("href") === currentPath) {
+            link.classList.add("active");
+        } else {
+            console.log("Not match")
+        }
+    }); */
+    /* function createSidebar(text) {
+       var sidebar = "";
+       var lineLength = 20;
+       var words = text.split(' ');
+       var currentLine = "";
+ 
+       for (var i = 0; i < words.length; i++) {
+         if ((currentLine + words[i]).length > lineLength) {
+           sidebar += currentLine.trim() + '\n';
+           currentLine = "";
+         }
+         currentLine += words[i] + ' ';
+       }
+ 
+       sidebar += currentLine.trim();
+       return sidebar;
+     }
+ 
+     $(document).ready(function() {
+       var sidebarText = createSidebar(inputText);
+       $('#sidebar').text(sidebarText);
+     });*/
+</script>

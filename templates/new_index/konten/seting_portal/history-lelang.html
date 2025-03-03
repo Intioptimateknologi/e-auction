@@ -1,0 +1,248 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block extrahead %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://kit.fontawesome.com/45fe4c1444.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display:  none;
+    }
+</style>
+{% endblock %}
+<body style="background: rgb(246,248,252);">
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    <div class="container" style="padding-top: 0px;">
+        <div class="row">
+            <div class="col">
+                <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">History Lelang<br></h1>
+                <hr>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 0px;padding-top: 20px;">
+            <div class="col">
+                <a href="/setting_portal/banner_slide/">
+                <h1 style="font-size: 14px;font-weight: bold;color: rgb(121,132,167);text-align: center;">Banner Slide</h1>
+                </a>
+            </div>
+            <div class="col" style="text-align: center;">
+                <a href="/setting_portal/istilah_lelang/">
+                    <h1 style="font-size: 14px;font-weight: bold;color: rgb(121,132,167);text-align: center;">Istilah Lelang</h1>
+                </a></div>
+            <div class="col">
+                <a href="/setting_portal/aturan_lelang/">
+                <h1 style="font-size: 14px;font-weight: bold;color: rgb(121,132,167);text-align: center;">Aturan Lelang</h1>
+                </a>
+            </div>
+            <div class="col">
+                <h1 style="font-size: 14px;font-weight: bold;color: var(--bs-blue);text-align: center;">History Lelang</h1>
+            </div>
+            <div class="col">
+                <a href="/setting_portal/informasi_lelang/">
+                <h1 style="font-size: 14px;font-weight: bold;color: rgb(121,132,167);text-align: center;">Informasi Lelang Macanegara</h1>
+                </a>
+            </div>
+            <div class="col">
+                <h1 style="font-size: 14px;font-weight: bold;color: rgb(121,132,167);text-align: center;"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <hr style="margin-top: 0px;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="padding-bottom: 14px;padding-top: 7px;">
+                            <div class="col"><input type="text" class="cari form-control form-control-sm" placeholder="Cari" style="width: 222px;height: 36px; border-radius: 10px;border-color: #007bff;"></div>
+                            <div class="col tombol" style="display: inline-flex;display: inline-flex;flex-wrap: nowrap;flex-direction: row;align-items: center;justify-content: flex-end;"><button class="btn btn-primary" type="button" style="font-weight: bold;background: #007bff;padding-right: 21px;padding-left: 21px;" data-toggle="modal" data-target="#myModal">+ Tambah</button></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="color: #444444;">No</th>
+                                                <th style="text-align: center;color: #444444;">Pita<br></th>
+                                                <th style="text-align: center;color: #444444;">Tahun<br></th>
+                                                <th style="text-align: center;color: #444444;">Pemenang<br></th>
+                                                <th style="text-align: center;color: #444444;">Hasil<br></th>
+                                                <th style="text-align: center;color: #444444;">Keterangan</th>
+                                                <th style="text-align: center;color: #444444;">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="background: #edf5fd;">
+                                                <td style="padding-top: 0px;color: #606060;">1</td>
+                                                <td style="text-align: center;padding-top: 0px;color: #606060;">SMRA<br></td>
+                                                <td style="text-align: center;padding-top: 0px;">2020<br></td>
+                                                <td style="text-align: center;padding-top: 0px;color: #606060;">PT Widya Karya<br></td>
+                                                <td style="text-align: center;padding-top: 0px;color: var(--bs-teal);">Diterima<br></td>
+                                                <td style="text-align: center;padding-top: 0px;"><span style="color: rgb(0, 114, 228);">Lihat</span><br></td>
+                                                <td style="text-align: center;padding-top: 0px;"><div style="display: flex; justify-content: center;"><button hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><i class="fa-solid fa-pen" style="color: #0068f0;"></i></button>&nbsp;&nbsp;<button class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"><i class="fa-regular fa-trash-can" style="color: #ff0040;"></i></button></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #606060;">2</td>
+                                                <td style="text-align: center;color: #606060;">SMRA<br></td>
+                                                <td style="text-align: center;">2020<br></td>
+                                                <td style="text-align: center;color: #606060;">PT Widya Karya<br></td>
+                                                <td style="text-align: center;color: var(--bs-teal);">Diterima<br></td>
+                                                <td style="text-align: center;color: var(--bs-link-color);">Lihat</td>
+                                                <td style="text-align: center;"><div style="display: flex; justify-content: center;"><button hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><i class="fa-solid fa-pen" style="color: #0068f0;"></i></button>&nbsp;&nbsp;<button class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"><i class="fa-regular fa-trash-can" style="color: #ff0040;"></i></button></div></td>
+                                            </tr>
+                                            <tr style="background: #EDF5FD;">
+                                                <td style="color: #606060;">3</td>
+                                                <td style="text-align: center;color: #606060;">SMRA<br></td>
+                                                <td style="text-align: center;">2020<br></td>
+                                                <td style="text-align: center;color: #606060;">PT Widya Karya<br></td>
+                                                <td style="text-align: center;color: var(--bs-teal);">Diterima<br></td>
+                                                <td style="text-align: center;"><span style="color: rgb(0, 114, 228);">Lihat</span><br></td>
+                                                <td style="text-align: center;"><div style="display: flex; justify-content: center;"><button hx-get="/userman/tim_lelang/edit/attr: {\'id\': $data.getProperty($parent)}\" class="edit badge mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Edit" style="border-color:white;"><i class="fa-solid fa-pen" style="color: #0068f0;"></i></button>&nbsp;&nbsp;<button class="delete badge  mr-1" data-bind=\"attr: {\'id\': $data.getProperty($parent)}\" value="Delete" style= "border-color:white;"><i class="fa-regular fa-trash-can" style="color: #ff0040;"></i></button></div></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <nav style="margin-top: 13px;">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+     <!-- modal -->
+     <div id="myModal" class="modal fade" role="dialog" >
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color:#0068f0">Tambah History Lelang</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="form_survey"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="{% static 'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {% endblock %}
+</body>
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+
+    <script>
+        $(document).ready(function() {
+            var surveyJSON = {
+                "title": "Pertanyaan",
+                "logoPosition": "right",
+                "pages": [
+                    {
+                    "name": "page1",
+                    "elements": [
+                    {
+                    "type": "text",
+                    "name": "pita",
+                    "title": "Pita",
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "tahun",
+                    "title": "Tahun",
+                    "hideNumber": true,
+                    "inputType": "number"
+                    },
+                    {
+                    "type": "text",
+                    "name": "pemenang",
+                    "title": "Pemenang",
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "dropdown",
+                    "name": "hasil",
+                    "title": "Hasil",
+                    "hideNumber": true,
+                    "choices": [
+                    "item1",
+                    "item2"
+                    ]
+                    },
+                    {
+                    "type": "comment",
+                    "name": "question1",
+                    "title": "Keterangan",
+                    "hideNumber": true
+                    }
+                ]
+                }
+                ],
+                "showTitle": false,
+                "showCompletedPage": false,
+                "showPageNumbers": true,
+                "showQuestionNumbers": "off",
+                "questionTitleLocation": "top",
+                "completeText": "Simpan",
+                "widthMode": "responsive"
+               };
+        
+               $("#form_survey").Survey({
+            model: new Survey.Model(surveyJSON),
+            onComplete: function (survey, options) {
+                // Handle survey completion here
+                console.log(survey.data);
+            }
+        });
+        });
+    </script>
+  
+    {% endblock %}
+</html>

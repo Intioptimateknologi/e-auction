@@ -1,0 +1,36 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title">Tambah Bidder</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                {{ form.item_lelang }}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nama Bidder</label>
+                        {% render_field form.bidder|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Eligibility Point</label>
+                        {% render_field form.eligibility|add_class:"form-control" %}
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="nama_label" for="keterangan">IP Address</label>
+                        {% render_field form.ip_address|add_class:"form-control" %}
+                    </div> -->
+                </div>
+                
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>

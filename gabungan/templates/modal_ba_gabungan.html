@@ -1,0 +1,54 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Tambah Berita Acara</h5>
+            <button type="button" class="close" data-dismiss="modal">x</button>
+		</div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <form name="item_lelang" id="item_lelang" method="POST" >
+                        {% csrf_token %}
+                        {{ form.media }}
+                        {% render_field form.item_lelang %}
+                        <div class="form-group">
+                            <label for="id_nomor">Nomor</label>
+                            {% render_field form.nomor|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_judul">Judul</label>
+                            {% render_field form.judul|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_tanggal">Tanggal</label>
+                            {% render_field form.tanggal|add_class:"form-control" type="datetime-local" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_keterangan">Keterangan</label>
+                            {% render_field form.keterangan|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nomor">File</label>
+                            {% render_field form.file|add_class:"form-control" %}
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label for="id_owner">Owner</label>
+                            <select name="owner" class="form-control" id="id_owner">
+                                <option value="GABUNGAN" selected>Gabungan</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <div class=""  style="text-align: right;">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                <input type="submit" class="btn btn-primary" value="Simpan">
+                            </div>
+                            </div>
+                    </form>
+                </div>  
+            </div>              
+        </div>
+	  </div>
+	</div>
+  </div>

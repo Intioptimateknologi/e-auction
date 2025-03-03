@@ -1,0 +1,59 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Obyek Seleksi Umum</h5>
+            <button type="button" class="close" data-dismiss="modal">x</button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                {% render_field form.item_lelang %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Pita</label>
+                        {% render_field form.band|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Lebar Pita Per Blok</label>
+                        {% render_field form.bandwidth|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Maksimum Blok</label>
+                        {% render_field form.max_block|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Spectrum Cap</label>
+                        {% render_field form.spectrum_cap|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Eligibility</label>
+                        {% render_field form.eligibility_point_per_block|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="harga_minimal">Harga Dasar Penawaran</label>
+                        {% render_field form.harga_minimal|add_class:"currency form-control"|attr:"type:text" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Urutan</label>
+                        {% render_field form.urutan|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="harga_minimal">Disabled?</label>
+                        {% render_field form.disabled|add_class:"form-checkbox"%}
+                    </div>
+                </div>
+                
+                <div class="card-footer d-flex float-right">
+                    <div class="" style="text-align: right;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                    </div>
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>

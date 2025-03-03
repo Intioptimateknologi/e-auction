@@ -1,0 +1,111 @@
+loadData({URL: '/adm_lelang/ba_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+$("#{{attribute.tambah_btn}}").click(function() {         
+    showModal2({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/modal_ba_create/{{item_lelang.id}}/{{i.menu.tahapan.id}}/",
+        drfURL: "/adm_lelang/api/v1/ba/",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/adm_lelang/ba_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    });
+});
+
+$("#{{attribute.element}}").on("click",".update",function() {
+    showEditModal({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/modal_ba_update/"+this.id+"/",
+        drfURL: "/adm_lelang/api/v1/ba/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/adm_lelang/ba_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    })
+});
+
+$("#{{attribute.element}}").on("click",".delete",function() {
+    deleteData({id: this.id, 
+        drfURL: '/adm_lelang/api/v1/ba/'+this.id+'/',
+        csrf: '{{csrf_token}}',
+        onSuccess: function(data) {
+            swal.fire({
+                title: "Data Terhapus !",
+                text: "",
+                icon: "success"
+            })
+            loadData({URL: '/adm_lelang/ba_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    });
+});
+
+$("#{{attribute.element}}").on("click",".send",function() {
+    id = this.id;
+    swal.fire({
+        title: "Kirim Berita Acara",
+        text: "Kirim berita acara ke auctioner dan bidder?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+        if (result.isConfirmed) {
+            const pathname = window.location.pathname
+            $.ajax({
+                url: '/adm_lelang/api/v1/ba/'+id+'/kirim_undangan/' + '?pathname=' + pathname,
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    $.ajax({
+                        url: '/adm_lelang/api/v1/ba/'+id+'/',
+                        method: "GET",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data) {
+                            //window.location.href = data.file;
+                            swal.fire({
+                                title: "Terkirim",
+                                text: "Terkirim",
+                                icon: "success"
+                            });
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+});
+
+$("#{{attribute.element}}").on("click",".download-draft",function() {
+    console.log('Clicked!')
+    let id = this.id
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/download_ba/' + id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true,
+        },
+        success: function (data, status, xhr) {
+            
+            window.location.href = '/adm_lelang/adm_lelang/download_ba/' + id + '/'
+
+            swal.fire({
+                title: "Berhasil!",
+                text: "Draft berhasil diunduh.",
+                icon: "success"
+            });
+        },
+        error: function (xhr, status, error) {
+            let errorResponse = xhr.responseJSON
+            let errorMessage = errorResponse.error_message || "Terjadi kesalahan dalam mengunduh draft."
+            console.log();
+            swal.fire({
+                title: "Gagal!",
+                text: errorMessage,
+                icon: "error"
+            });
+        }
+    });
+});

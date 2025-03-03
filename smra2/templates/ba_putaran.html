@@ -1,0 +1,65 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+    
+    </style>
+</head>
+<body class="A4">
+    <section class="sheet padding-25mm">
+
+        <h1 style="text-align:center">FORMULIR PENAWARAN LELANG HARGA PUTARAN LELANG (ROUND) {{ putaran_t|upper }}</h1>
+
+<p style="text-align: justify;">
+Kepada Yth. Tim Seleksi {{ seleksi }} Tahun {{ tahun }}, atas nama <b>{{ bidder.nama_perusahaan }}</b>, dengan ini menyatakan bahwa:</p>
+
+<ol>
+	<li style="text-align: justify;">Telah membaca dan memahami ketentuan lelang harga pada Dokumen Seleksi {{ seleksi }} Tahun {{ tahun }}.</li>
+	<li style="text-align: justify;">Menyatakan kebenaran atas harga penawaran yang disampaikan dalam formulir penawaran lelang harga ini.</li>
+	<li style="text-align: justify;">Dalam hal terbukti tidak memenuhi ketentuan dalam penyampaian dokumen penawaran lelang harga, maka bersedia dikenai sanksi sesuai ketentuan yang ditetapkan dalam Dokumen Seleksi {{ seleksi }} Tahun {{ tahun }} dan ketentuan perundang-undangan.</li>
+	<li style="text-align: justify;">Menyampaikan harga penawaran pada putaran lelang (round) {{ putaran_t }} untuk {{ block }} ({{ block_t }}) blok untuk Objek Seleksi {{ item }} pada {{ seleksi }} Tahun {{ tahun }} sebesar:</li>
+</ol>
+
+<p style="text-align:center"><span style="font-size:24px">Rp {{ harga|floatformat:"2g" }}</span></p>
+
+<p>Terbilang:</p>
+<p>({{ terbilang|title }} Rupiah)</p>
+<p>Untuk dan atas nama <b>{{ bidder.nama_perusahaan }}</b> sebagai Peserta Seleksi {{ seleksi }} Tahun {{ tahun }}.</p>
+<br/>
+<br/>
+
+<p>Jakarta, {% now "SHORT_DATE_FORMAT" %}</p>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<p>{{ wakil|title }}</p>
+</section>
+</body>
+</html>

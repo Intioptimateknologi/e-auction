@@ -1,0 +1,276 @@
+{% extends 'new_index/base1.html' %}
+
+{% block extrahead %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<style>
+    #table_registrasi_users_filter{
+        padding-right: 1rem !important;
+    }
+
+    .dataTables_scroll{
+        padding-right: 1rem;
+    }
+</style>
+{% endblock  %}
+
+{% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">Registrasi User</span>
+</div>
+<div class="container-fluid contain_table" >
+    <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+        <div class="col-md-12" >
+            <div style="display: flex;">
+                <div class="col">
+                    <div class="jdl_tab">Daftar User</div>
+                    <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                </div>
+                <div class="col text-right">           
+                    <button type="button" id="tambah_data" class="btn btn-primary" style="font-size:12px;"><i class="fa-solid fa-plus-circle"></i> Tambah User Baru</button>
+                </div>      
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div style="margin:10px">
+                    <div class="table-responsive">
+                        <table id="table_registrasi_users" class="" style="width:100%; overflow:auto; "  data-server-side="true" data-ajax="/userman/api/v1/Users/?format=datatables">
+                            <thead style="width: 100%;">
+                                <tr class="background_table">
+                                    <th>No</th>
+                                    <th>masaberlaku2</th>
+                                    <th>Username</th>
+                                    <th>Nama Pengguna</th>
+                                    <th>Telepon Pengguna</th>
+                                    <th>Email Pengguna</th>
+                                    <th>Jenis User</th>
+                                    <th>Masa Berlaku</th>
+                                    <th>Status Akun</th>
+                                    <!-- <th>Status Aktivasi</th> -->
+                                    <th>Aktivasi Login</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Diubah Oleh</th>
+                                    <th>Tanggal Dibuat</th>
+                                    <th>Tanggal Diubah</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block modal %}
+    <!-- modal add -->
+    <div id="myModal_pdf" class="modal fade" role="dialog" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Menampilkan PDF</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="form_survey"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>      
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+    function formatDate(date) {
+        return moment(date).format('DD-MMM-YYYY HH:mm:ss').toUpperCase();
+    }
+
+    function formatDate2(date) {
+        return moment(date).format('DD-MMM-YYYY');
+    }
+
+    function cetak_akun(){
+        cetak_pdf(var_cetak_akun);
+    };
+
+    $(document).ready(function() {
+        var userTable = $('#table_registrasi_users').DataTable({
+            "stripeClasses": ["odd-row", "even-row"],
+            "paging": true,
+            "ordering": true,
+            "order": [[14, 'desc']],
+            "info": true,
+            "searching": true,
+            "columns": [
+                { "searchable": false, data: "id", className: "d-none" },
+                { "searchable": false, data: "masaberlaku2", className: "d-none" },
+                { "data": "username" },
+                { "data": "nama_lengkap", "className": "font_table text-bold"},  
+                { "data": "mobile_number" },
+                { "data": "email" },
+                { "data": "user_type", "searchable": false, "orderable": true, "render": function(data){
+                    switch(data) {
+                        case "A":
+                            return '<span class="badge bg-black">Admin</span>';
+                            break;
+                        case "B":
+                            return '<span class="badge badge-success">Bidder</span>';
+                            break;
+                        case "C":
+                            return '<span class="badge badge-primary">Auctioneer</span>';
+                            break;
+                        case "V":
+                            return '<span class="badge badge-info">Viewer</span>';
+                            break;
+                        default:
+                            return '<span class="badge badge-info">Tidak diketahui</span>';
+                    }
+                }},
+                { "data": "masaberlaku1", "searchable": false, "orderable": true,"render": function(data, type, row){
+                    return formatDate2(row.masaberlaku1) + " s/d " + formatDate2(row.masaberlaku2);
+                }},
+                { "data": "is_active", "searchable": false, "orderable": true, "render": function(data){
+                    if (data == true) {
+                        return '<span class="badge badge-success">Aktif</span>';
+                    } else {
+                        return '<span class="badge badge-danger">Nonaktif</span>';
+                    }
+                } },
+                // { "data": "pending", "searchable": false, "orderable": true,"render": function(data){
+                //     if (data == true) {
+                //         return '<span class="badge badge-success">Aktif</span>';
+                //     } else {
+                //         return '<span class="badge badge-danger">Nonaktif</span>';
+                //     }
+                // } },
+                { "data": "first_login", "searchable": false, "orderable": true,"render": function(data){
+                    if (data == true) {
+                        return '<span class="badge badge-success">Sudah</span>';
+                    } else {
+                        return '<span class="badge badge-danger">Belum</span>';
+                    }
+                } },
+                { "data": "dibuat_oleh", "searchable": false, "orderable": true, "render": function (data, type, row, meta) { 
+                    if (data) {
+                        return data
+                    } else {
+                        return "-"
+                    }
+                } },
+                { "data": "diubah_oleh", "searchable": false, "orderable": true, "render": function (data, type, row, meta) { 
+                    if (data) {
+                        return data
+                    } else {
+                        return "-"
+                    }
+                } },
+                { "data": "created", "searchable": false, "orderable": true,"render": function(data, type, row){
+                    return formatDate(row.created);
+                }},    
+                { "data": "last_updated", "searchable": false, "orderable": true, "render": function(data, type, row){
+                    return formatDate(row.last_updated);
+                }},
+                { 'data': null, "render": function (data, type, row, meta) { 
+                    url = "/userman/cetak_password/";
+                    return '<div style="display:flex ; align-items: center; justify-content: center; font-size: 15px;"><a class="btn btn-success btn-sm" target="_blank" href="'+url+row.id+'/'+'" class="btn"><i id='+
+                        row.id+' class="fa fa-print"></i></a>&nbsp;&nbsp;<button  id='+
+                     row.id+' class="btn btn-sm btn-warning edit_icon"><i class="fa fa-pen-to-square text-white"></i></button>&nbsp;&nbsp;<button  id='+
+                     row.id+' class="btn btn-sm btn-danger delete_icon"><i class="fa fa-trash"></i></div></div>' } 
+                },
+            ],
+            columnDefs: [
+                { className: 'dt-head-center font_table ', targets: '_all' },
+            ]
+        });
+    
+        $('#table_registrasi_users tbody').on( 'click', '.edit_icon', function () {
+            id = this.id
+            showModal2({
+                formURL: "/userman/modal_users/"+id+'/',
+                drfURL: "/userman/api/v1/Users/"+id+'/',
+                csrf: '{{csrf_token}}',
+                method: 'PUT',
+                onSuccess: function(response) {
+                    $("#modal").modal('toggle');
+                    userTable.ajax.reload();
+                }
+            });      
+        });
+
+        $('#table_registrasi_users tbody').on( 'click', '.delete_icon', function () {
+            id = this.id
+            deleteData({
+                drfURL: "/userman/api/api_delete_users/"+id+'/',
+                csrf: '{{csrf_token}}',
+                onSuccess: function(response) {
+                    // $("#modal").modal('toggle');
+                    userTable.ajax.reload();
+                }
+            })
+        });
+
+        $('#table_registrasi_users tbody').on( 'click', '.lihat_icon', function () {
+            var tr = $(this).closest('tr');
+            var data =$('#table_registrasi_users').DataTable().row( tr ).data();
+            var_cetak_akun = data;
+            menampilkan_pdf(data);
+        });
+
+        $('#table_registrasi_users tbody').on( 'click', '.cetak_icon', function () {
+            var tr = $(this).closest('tr');
+            var data =$('#table_registrasi_users').DataTable().row( tr ).data();
+            cetak_pdf(data);
+        });
+
+
+        $( "#tambah_data" ).on( "click", function() {
+            showModal2({
+                formURL: "/userman/modal_users/",
+                drfURL: "/userman/api/v1/Users/",
+                csrf: '{{csrf_token}}',
+                onSuccess: function(response) {
+                    $("#modal").modal('toggle');
+                    userTable.ajax.reload();
+                }
+            });        
+        });
+
+        function menampilkan_pdf(data_view){
+            $('#username_view').val(data_view.username)
+            $('#nama_pengguna_view').val(data_view.nama_lengkap);
+            $('#email_view').val(data_view.email);
+            $('#telepon_view').val(data_view.mobile_number);
+            $('#date1_view').val(data_view.masaberlaku1);
+            $('#date2_view').val(data_view.masaberlaku2);
+            $('#gundam_3').val(membaca_true_false(data_view.isactive, 2)).trigger("change");
+            $('#tipe_akun_view').val(data_view.user_type).trigger("change");
+            $('#myModal_view').modal('show');
+        }
+    });
+
+</script>
+{% endblock  %}

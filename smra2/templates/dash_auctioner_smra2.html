@@ -1,0 +1,786 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+  .pvtTotal, .pvtTotalLabel, .pvtGrandTotal {display: none}
+</style>
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+
+  {% if user_type == "C" %}
+  {% add_judul_auctioner user.id auctioner.item_lelang.id "/smra2/dashboard_auctioner/" "Kendali Putaran SMRA" %}
+  {% elif user_type == "V" %}
+  {% add_judul_viewer user.id item_lelang.id "/smra2/dashboard_auctioner/" "Kendali Putaran SMRA" %}
+  {% elif user_type == "A" %}
+  {% add_judul_admin user.id item_lelang.id "/smra2/dashboard_auctioner/" "Kendali Putaran SMRA" %}
+  {% endif %}
+    
+<div class="col-md-12 background_navtab">
+  <ul class="nav nav-pills">
+    <li class="nav-item navtabli" style="margin-left:30px;"> <a href="#tabone" class="navtab nav-link text-bold active" style="color:#032056" data-toggle="pill" role="tab">KENDALI </a></li>
+    <li class="nav-item navtabli" style="margin-left:30px;"> <a href="#putaran" class="navtab nav-link text-bold" style="color:#032056" data-toggle="pill" role="tab">JADWAL PUTARAN</a> </li>
+    <li class="nav-item navtabli" style="margin-left:30px;"> <a href="#terminal" class="navtab nav-link text-bold" style="color:#032056" data-toggle="pill" role="tab">LOG KEGIATAN SELEKSI SMRA</a> </li>
+  </ul>
+</div>
+<div class="col-md-12" style="text-align:center; background:#4a91dc;margin-left:-1px;margin-right:0px;padding-top:10px; padding-bottom:10px;">
+</div>
+
+<div class="tab-content mt-2" style="padding-left:20px; padding-right:20px;">
+  <div class="col-12 tab-pane fade show active" id="tabone" role="tabpanel" >
+    <div class="tab-content mt-2">
+      <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+        <span data-bind="visible:connected1" class="btn bg-green">SSE ON <i class="fas fa-link"></i></span>
+        <div class="row pt-3 " data-bind='foreach: allItems()'>
+          <div class="card w-100">
+            <div class="card-header" style="background-color:#032056;">
+              <div class="row">
+                <div class="col-4">
+                  <span class="text-white h2 text-bold" >Pita </span> <span  data-bind='text: band' class="text-white h1 text-bold"></span>
+                </div>
+                <div class="col-8 text-right">
+                  <span class="text-white h6 btn btn-outline-light" style="background-color:#032056;">Jumlah Blok<br><b><span scope="row" data-bind='text: max_block' class="h4 text-bold"></span></b> blok</span>
+                  <span class="text-white h6 btn btn-outline-light" style="background-color:#032056;">Spectrum Cap<br><b><span scope="row" data-bind='text: spectrum_cap'  class="h4  text-bold"></b> blok</span>    
+                  <span class="text-white h6 btn btn-outline-light" style="background-color:#032056;">Harga Dasar Penawaran<br><b><span scope="row" data-bind='text: min_price'  class="h4  text-bold"></b> per blok</span>
+                  <span class="text-white h6 btn btn-outline-light" style="background-color:#032056;">Jumlah Peserta<br><b><span scope="row" data-bind='text: count'  class="h4  text-bold"></b> Peserta</span>  
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-2">
+                  <div class="card">
+                    <div class="card-header bg-dark text-center">
+                        <i class="fa fa-arrow-rotate-right"></i>&nbsp;&nbsp;<br><b>Putaran</b>
+                    </div>
+                    <div class="card-body text-center"  style="height:100px">
+                      
+                      <span scope="row" class="text-bold h2 text-black" data-bind='text: round'></span>
+                        <!-- ko if: khusus()==true -->
+                        <br><span scope="row" class="text-bold h5 btn bg-danger">Khusus</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'INIT' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-black">INISIASI</span>
+                        <!-- /ko --> 
+                        <!-- ko if: status_round() == 'START' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-green">MULAI</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'STOP' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-blue">VALIDASI</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'WAIT' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-warning">TUNGGU</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'FINAL' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-red">SELESAI</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'CLOSED' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-gray">BERSAMBUNG</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'SUSPEND' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-gray">DITUNDA</span>
+                        <!-- /ko -->
+                        <!-- ko if: status_round() == 'NOSCHEDULE' --> 
+                        <br><span scope="row" class="text-bold h5 btn bg-gray">BERHENTI<br>TIDAK ADA JADWAL</span>
+                        <!-- /ko -->
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-4">
+                  <div class="card">
+                    <div class="card-header bg-dark text-center">
+                      <i class="fa fa-money"></i>&nbsp;&nbsp;<br><b>Harga Minimum Penawaran Pada Putaran Ini</b>
+                    </div>
+                    <div class="card-body text-center"  style="height:100px">
+                      <!-- ko if: status_round() !== "FINAL" -->
+                      <span scope="row" class="text-bold text-black" style="font-size: 2vw;" data-bind='attr: {id: "min_price_" + $index()}, text: prev_price'></span>
+                      <!-- /ko -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="card">
+                    <div class="card-header bg-dark text-center">
+                      <i class="fa fa-hourglass"></i>&nbsp;&nbsp;<br><b>Mulai</b>
+                    </div>
+                    <div class="card-body text-center" style="height:100px">
+                      <span scope="row" class="text-bold h3 text-blue" data-bind='html: mulai_text'></spam>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="card">
+                    <div class="card-header bg-dark text-center">
+                      <i class="fa fa-hourglass-end"></i>&nbsp;&nbsp;<br><b>Berakhir</b>
+                    </div>
+                    <div class="card-body text-center"  style="height:100px">
+                      <span scope="row" class="text-bold h3 text-blue" data-bind='html: selesai_text'></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="card">
+                    <div class="card-header bg-dark text-center">
+                      <i class="fa fa-hourglass-half"></i>&nbsp;&nbsp;<br><b>Sisa</b>
+                    </div>
+                    <div class="card-body text-center"  style="height:100px">
+                      <!-- ko if: status_round() !== "FINAL" -->
+                      <!-- ko if: status_round() == 'WAIT' -->   
+                      <span scope="row" class="text-bold h1 text-green" data-bind='html: sisa'></span>
+                      <!-- /ko -->
+                      <!-- ko if: status_round() == 'START' -->
+                      <span scope="row" class="text-bold h1 text-red" data-bind='html: sisa'></span>
+                      <!-- /ko -->
+                      <!-- /ko -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <!--div class="col-md-1 text-center">
+                  <button style="border-radius:20px; "  class="btn btn-success btn-block" data-bind="click: $root.run" data-toggle="tooltip" data-placement="right" title="Jalankan Penjadwal"><i title="Jadwalkan" class="fa-solid fa-person-running"></i></button>
+                </div-->
+                <div class="col-md-1 text-center">
+                  <button style="border-radius:20px; "  class="btn btn-info btn-block" data-bind="click: $root.init" data-toggle="tooltip" data-placement="right" title="Init"><i title="Init" class="fa-solid fa-gear"></i><br>Inisiasi</button>
+                </div>
+                <div class="col-md-1 text-center">
+                  <!-- ko if: status_round() !== 'FINAL' -->                        
+                  <button style="border-radius:20px; "  class="btn btn-success btn-block" data-bind="click: $root.start"><i class="fa-solid fa-play" data-toggle="tooltip" data-placement="right" title="Start"></i><br>Mulai</button>
+                
+                  <!-- /ko -->
+                </div>
+                <div class="col-md-2 text-center">
+                  <!-- ko if: status_round() !== 'FINAL' -->                        
+                  <button style="border-radius:20px; " class="btn btn-danger  btn-block" data-bind="click: $root.restart"><i class="fa-solid fa-repeat" data-toggle="tooltip" data-placement="right" title="Restart Round"></i><br>Ulang Putaran</button>
+                  
+                  <!-- /ko -->
+                </div>
+                <div class="col-md-1 text-center">
+                  <!-- ko if: status_round() !== 'FINAL' -->                        
+                  <button style="border-radius:20px; "  class="btn btn-warning  btn-block" data-bind="click: $root.pause"><i class="fa-solid fa-pause" data-toggle="tooltip" data-placement="right" title="Pause"></i><br>Tunda</button>
+                  
+                  <!-- /ko -->
+                </div>
+                <div class="col-md-1 text-center">
+                  <!-- ko if: status_round() !== 'FINAL' -->                        
+                  <button style="border-radius:20px; "  class="btn btn-success  btn-block" data-bind="click: $root.resume"><i class="fa-solid fa-forward" data-toggle="tooltip" data-placement="right" title="Resume"></i><br>Lanjutkan</button>
+                  
+                  <!-- /ko -->
+                </div>
+                <div class="col-md-2 text-center">
+                  <!-- ko if: status_round() !== 'FINAL' -->                        
+                  <button style="border-radius:20px; "  class="btn btn-secondary  btn-block" data-bind="click: $root.resumelanjut"><i class="fa-solid fa-forward" data-toggle="tooltip" data-placement="right" title="Resume"></i><br>Ulang Validasi</button>
+                  
+                  <!-- /ko -->
+                </div>
+                <div class="col-md-1 text-center">
+                  <!-- ko if: status_round() !== 'FINAL' -->                        
+                  <button style="border-radius:20px; "  class="btn btn-danger  btn-block" data-bind="click: $root.close"><i class="fa-solid fa-flag-checkered" data-toggle="tooltip" data-placement="right" title="Close"></i><br>Selesai</button>
+                  
+                  <!-- /ko -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="putaran" role="tabpanel">
+    <div class="card">
+        <div class="card-header">
+            <div class="col-md-12 col-sm-12 table-responsive">
+                <div class="form-group form-inline">
+                    <span class="bawah_judul_tab" >Jadwal Putaran Lelang&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col">
+                <table  id="t_putaran" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>item_lelang</th>
+                            <th>item_detail_lelang</th>
+                            <th>persyaratan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+  </div>
+  <div class="tab-pane" id="terminal" role="tabpanel">
+    <div class="timeline">
+      <div data-bind="foreach: log_terminal">
+        <div class="timeline-item">
+          <div class="timeline-body" data-bind="text: JSON.stringify($data)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+  
+{% endblock %}
+  {% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/static/js/currency.js"></script>
+  <script src="/static/js/countdown.js"></script>
+  <script>
+    function komapperToKO(src) {
+      var mapped = [];
+      var map = function (obj) {
+          obj = ko.unwrap(obj);
+          if (obj === null
+              || obj === undefined
+              || typeof obj === "number"
+              || typeof obj === "boolean"
+              || typeof obj === "string"
+              || typeof obj === "function"
+              ) {
+              return obj;
+          }
+          else if (obj instanceof Array) {
+              var ares = [];
+              for (var i = 0; i < obj.length; i++) {
+                  ares.push(map(obj[i]));
+              }
+              return ko.observableArray(ares);
+          }
+          else {
+              var prev = mapped.find(x => x.src === obj);
+              if (prev)
+                  return prev.dst;
+              var res = {};
+              mapped.push({ src: obj, dst: res });
+  
+              for (var p in obj) {
+                  var pv = ko.unwrap(obj[p]);
+                  if (typeof pv === "function") {
+                      res[p] = pv;
+                  }
+                  else if (pv instanceof Array) {
+                      res[p] = map(pv);
+                  }
+                  else {
+                      res[p] = ko.observable(map(pv));
+                  }
+              }
+              return res;
+          }
+      }
+      return map(src);
+    }
+  </script>
+  <script src="/static/js/eauctions_modal.js"></script>
+  <script>
+    $(document).ready(function () {   
+      var uri = '/events/auctioneer/';
+      var es = new ReconnectingEventSource(uri);
+
+      ko.bindingHandlers.inputmask =
+      {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var mask = valueAccessor();    
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                $(element).on('focusout change', function () {
+                    if ($(element).inputmask('isComplete')) {
+                        observable($(element).val());
+                    } else {
+                        observable(null);
+                    }
+                });
+            }
+            $(element).inputmask(mask);
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var mask = valueAccessor();
+            var observable = mask.value;
+            if (ko.isObservable(observable)) {
+                var valuetoWrite = observable();
+                $(element).val(valuetoWrite);
+            }
+        }
+       };
+   
+    // select2
+    //$('#nmlelang').select2();
+
+    var hasilModel = moment.locale('id'); 
+    var viewModel = {
+      connected1: ko.observable(false),
+      connected2: ko.observable(false),
+      terminal: ko.observable("wait"),
+      time_for_start:  ko.observable(false),
+      eli_sekarang: ko.observable(), // Initially blank
+      eli_sebelum: ko.observable(), // Initially blank
+      first: ko.observable(true),
+      time_start: ko.observable(),
+      time_end: ko.observable(),
+      sisa_time: ko.observable(120*60),
+
+      bidItems: ko.observableArray([]),
+      log_terminal: ko.observableArray([{"message":"Starting log------------"}]),
+      allItems: ko.observableArray([]),
+      allHasil: ko.observableArray([]),
+      mulai: ko.observable(),
+      selesai: ko.observable(),
+      periode: ko.observable(),
+      status: ko.observable(),
+      error_message: ko.observable(),
+      waspada: ko.observable(false),
+      putaran: ko.observable(),
+      last_putaran: ko.observable(1),
+      mulai_putaran: ko.observable(),
+      sisa: ko.observable(),
+      /*selesai_text: ko.computed(function() {
+        return "<span class='h5'>"+moment(this.selesai1()).format('DD MMM YYYY').toUpperCase()+"</span><br><span class='h2 text-bold'>"+moment(this.mulai1()).format('HH:mm:ss').toUpperCase()+"</span><br><span class='h6'>WIB</span>"
+      }),
+      mulai_text: ko.computed(function() {
+        return "<span class='h5'>"+moment(this.mula1()).format('DD MMM YYYY').toUpperCase()+"</span><br><span class='h2 text-bold'>"+moment(this.selesai1()).format('HH:mm:ss').toUpperCase()+"</span><br><span class='h6'>WIB</span>"
+      }),*/
+      start: function(data) {
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Apakah Anda Yakin Untuk Memulai Lelang?',
+          text: "Proses Lelang Siap Dilaksanakan!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/start/',   // request url
+            {
+              success: function (data, status, xhr) {// success callback function
+                if (data.status!="OK")
+                {
+                  Swal.fire({title: "Informasi", text: data.status, icon: "warning", allowOutsideClick: false,
+                  allowEscapeKey: false,})
+                }
+              load_table(id);
+              }
+            });
+          }
+        })     
+      },
+
+      stop: function(data) {
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan men-stop?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/stop/',   // request url
+            {
+              success: function (data, status, xhr) {// success callback function
+                if (data.status!="OK")
+                {
+                  Swal.fire({title: "Informasi", text: data.status, icon: "warning", allowOutsideClick: false,
+                  allowEscapeKey: false,})
+                }
+              load_table(id);
+              }
+            });
+          }
+        })
+      },
+
+      restart: function(data) {
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan me-reset putaran?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/reset_round/',   // request url
+            {
+              success: function (data, status, xhr) {// success callback function
+                if (data.status!="OK")
+                {
+                  Swal.fire({title: "Informasi", text: data.status, icon: "warning", allowOutsideClick: false,
+                  allowEscapeKey: false,})
+                }
+              load_table(id);
+              }
+            });
+          }
+        })
+      },
+
+      pause: function(data) {
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan pause?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/pause/',   // request url
+            {
+              success: function (data, status, xhr) {// success callback function
+                if (data.status!="OK")
+                {
+                  Swal.fire({title: "Informasi", text: data.status, icon: "warning", allowOutsideClick: false,
+                  allowEscapeKey: false,})
+                }
+              load_table(id);
+              }
+            });
+          }
+        });
+      },
+
+      resume: function(data) {
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan me-resume '+ data.band()+'?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) { 
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/resume/',   // request url
+              {
+                success: function (data, status, xhr) {// success callback function
+                  if (data.status!="OK")
+                  {
+                    Swal.fire({title: "Informasi", text: data.status, icon: "warning",allowOutsideClick: false,
+                    allowEscapeKey: false,})
+                  }
+                  load_table(id);
+                }
+              });
+          }
+        })
+      },
+
+      resumelanjut: function(data) {
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan me-resume '+data.band()+'?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) { 
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/resumelanjut/',   // request url
+              {
+                success: function (data, status, xhr) {// success callback function
+                  if (data.status!="OK")
+                  {
+                    Swal.fire({title: "Informasi", text: data.status, icon: "warning",allowOutsideClick: false,
+                    allowEscapeKey: false,})
+                  }
+                  load_table(id);
+                }
+              });
+          }
+        })
+      },
+
+      close: function(data) {        
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan menghentikan lelang?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/close/',   // request url
+            {
+              success: function (data, status, xhr) {// success callback function
+                if (data.status!="OK")
+                {
+                  Swal.fire({title: "Informasi", text: data.status, icon: "warning",allowOutsideClick: false,
+                  allowEscapeKey: false,})
+                }
+              load_table(id);
+              }
+            });
+          }
+        })
+      },
+
+      init: function(data) {
+
+        id = data.item_lelang()
+        Swal.fire({
+          title: 'Yakin akan menginisiasi ke awal?',
+          text: "Ini tidak dapat diulang!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, lanjutkan!',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax('/smra2/api/v1/round_smra/'+data.item()+'/init/',   // request url
+            {
+                success: function (data, status, xhr) {// success callback function
+                  if (data.status!="OK")
+                  {
+                    Swal.fire({title: "Informasi", text: data.status, icon: "warning",allowOutsideClick: false,
+                    allowEscapeKey: false,})
+                  }
+                  load_table(id);
+              }
+            });
+          }
+        })
+      },
+      loadData_hasil: function(id,item=null) {
+        $.ajax({
+            url: '/smra2/auctioner_hasil/'+ id +'/',
+            method: "GET",
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+              return data;
+            }
+        });
+      },
+
+      loadData_hasil_maxmin: function(id,item=null) {
+        $.ajax({
+            url: '/smra2/auctioner_hasil_maxmin/'+ id +'/',
+            method: "GET",
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+              return data;
+            }
+        });
+      },
+    };
+    
+    ko.applyBindings(viewModel);
+   
+    function pad(num) {
+      return ("0"+num).slice(-2);
+    }
+    function hhmmss(secs) {
+      var minutes = Math.floor(secs / 60);
+      secs = secs%60;
+      var hours = Math.floor(minutes/60)
+      minutes = minutes%60;
+      return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
+      // return pad(hours)+":"+pad(minutes)+":"+pad(secs); for old browsers
+    }
+    /*
+    countdown.setLabels(
+      '| detik| menit| jam|',
+      '| detik| menit| jam|',
+      ', dan ');
+    */
+    countdown.setLabels(
+      '|s|m|h|',
+      '|s|m|h|',
+      ' : ');
+    function formatDate1(date) {
+        return moment(date).format('DD-MMM-YYYY').toUpperCase();
+       
+    }
+   
+    function load_table(id) {
+      //viewModel.allItems([]);
+      putaran = 1;//viewModel.putaran();
+      
+      $.ajax('/smra2/api/v1/sum_round_smra/?item_lelang='+id,   // request url
+      {
+        success: function (data, status, xhr) {// success callback function
+          hasil = new Array();
+          data.results.forEach(function(item,index,arr) {
+            if (item.status_round=="START") {
+              end = moment(item.selesai1).tz("Asia/Jakarta");;
+              start = moment(item.mulai1).tz("Asia/Jakarta");
+              item.sisa= moment.duration(end.diff(start) ).seconds();
+            }
+            if (item.status_round=="WAIT")
+            {
+              end = moment(item.selesai1).tz("Asia/Jakarta");
+              start = moment(item.mulai1).tz("Asia/Jakarta");
+              item.sisa= moment.duration(end.diff(start) ).seconds();
+            }
+            if (item.status_round=="INIT")
+            {
+              viewModel.mulai("");
+              viewModel.selesai("");
+              viewModel.sisa("");
+
+            }
+            if (item.status_round=="STOP")
+            {
+              viewModel.mulai("");
+              viewModel.selesai("");
+              viewModel.sisa("");
+
+            }
+            if (item.status_round=="CLOSED")
+            {
+              viewModel.mulai("");
+              viewModel.selesai("");
+              viewModel.sisa("");
+
+            }
+            if (item.status_round=="FINAL")
+            {
+            }
+            item.mulai_text = ko.computed(function() {
+              if (["START", "WAIT"].includes(item.status_round)) {
+                return "<span class='h5'>"+moment(item.mulai1).format('DD MMM YYYY').toUpperCase()+"</span><br><span class='h2 text-bold'>"+moment(item.mulai1).format('HH:mm:ss').toUpperCase()+"</span><br><span class='h6'>WIB</span>";
+              }
+            }, this);
+            item.selesai_text = ko.computed(function() {
+              if (["START", "WAIT"].includes(item.status_round)) {
+                return "<span class='h5'>"+moment(item.selesai1).format('DD MMM YYYY').toUpperCase()+"</span><br><span class='h2 text-bold'>"+moment(item.selesai1).format('HH:mm:ss').toUpperCase()+"</span><br><span class='h6'>WIB</span>";
+              }
+            }, this);
+            item.band = item.band[0]['band'] + '-' + item.band[0]['cakupan'];
+            //+ ', rentang: ' + item.band[0]['rentang_frekuensi'] + ', cakupan: ' + item.band[0]["cakupan"];
+            item.min_price = currency(item.min_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
+            item.prev_price = currency(item.prev_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
+                       
+          });
+          //console.log(data.results);
+
+          v = komapperToKO(data.results);
+          viewModel.allItems(v);
+          viewModel.waspada(false);
+        }
+      });
+    }
+
+    var id = $('#nmlelang').val();
+  
+    load_table(id);
+    //loadData({URL: '/smra2/jadwalbg/'+id+'/', element_id: $("#t_putaran")})
+    loadData({URL: '/smra2/jadwal_putaran/'+id+'/', element_id: $("#t_putaran")})
+
+
+    setInterval(function() {
+      allitems = viewModel.allItems();
+      allitems().forEach(function(item, index) {
+        //console.log(item);
+          sekarang = moment();//.tz("Asia/Jakarta");
+          selesai = moment(item.selesai1())
+          mulai = moment(item.mulai1())
+          if (item.status_round()=="WAIT") {
+            if (sekarang <= mulai)
+              item.sisa(countdown(sekarang, mulai, countdown.HOURS|countdown.MINUTES|countdown.SECONDS))
+            else
+              item.sisa("0s")
+          } else if (item.status_round()=="START") {
+            if (sekarang <= selesai)
+              item.sisa(countdown(sekarang, selesai, countdown.HOURS|countdown.MINUTES|countdown.SECONDS))
+            else
+              item.sisa("0s")
+          }
+      })
+      viewModel.allItems(allitems)
+    }, 1000);
+
+    es.onopen = function () {
+      //load_table(id);
+      viewModel.connected1(true);
+      console.log("ESS connected");
+    };
+
+    es.onerror = function () {
+      console.log('*** connection lost, reconnecting...');
+      viewModel.connected1(false);
+    };
+
+    es.addEventListener('stream-reset', function () {
+      console.log('*** client too far behind, please refresh');
+    }, false);
+
+    es.addEventListener('stream-error', function (e) {
+      // hard stop
+      es.close();
+      e = JSON.parse(e.data);
+      console.log('*** stream error: ' + e.condition + ': ' + e.text);
+    }, false);
+
+    es.addEventListener('message', function (e) {
+      console.log('event: ' + e.data);
+      msg = JSON.parse(e.data);
+      terminal = viewModel.log_terminal();
+      terminal.push(msg);
+      viewModel.log_terminal(terminal);
+      // if an event arrives that was already in the initial pageload,
+      //   ignore it
+      load_table(id);
+      if (msg.message=="status_time_end") {
+        console.log(msg.message)
+        viewModel.time_for_start(moment(msg.time_end));
+      
+      } else {
+        console.log(msg.message)
+
+        viewModel.time_for_start(0);
+      }
+    }, false);      
+   
+  });
+
+</script>
+{% endblock %}

@@ -1,0 +1,94 @@
+
+{% for p in profil %}
+{% comment %} <div class="row">
+        <div class="col">
+            <h1 style="font-size: 24px;font-weight: bold; color: #04195B;">Latar Belakang</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p style="text-align: justify;color: #6C748E;">{{p.latar_belakang}}<br></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card h-100" style="border-radius: 11px;box-shadow: 0px 0px 7px rgb(224,224,224);">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h1 style="font-size: 24px;font-weight: bold;">Visi</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p style="text-align: justify;color: #6C748E;">{{p.visi}}<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100" style="border-radius: 11px;box-shadow: 0px 0px 7px rgb(224,224,224);">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h1 style="font-size: 24px;font-weight: bold;">Misi</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-xxl-flex align-items-xxl-center" style="display: flex;">
+                            <p style="text-align: justify;color: #6C748E;"><br>{{p.misi}}<br><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    <div class="postcontent nobottommargin clearfix">
+        <!--content-->
+        <h2 style="font-weight:700; margin-bottom: 30px;">Profil Sistem Seleksi Pita Frekuensi Radio Secara Elektronik</h2>
+        
+            <div class="fancy-title title-dotted-border text-center" style=" background: url('https://www.bpk.go.id/theme/images/icons/dotted.png') repeat-x center; margin:11.200px 11.200px;">
+            <h3 style="background-color: #f4f6f9; display:inline-block; padding: 0 15px;">SEJARAH SELEKSI PITA FREKUENSI RADIO</h3>
+            </div>
+            
+            <blockquote style ="padding: 24px 20px;">
+            <p style="text-align: justify;">{{p.sejarah_seleksi}}</p>
+            </blockquote>
+
+
+        <div class="fancy-title title-dotted-border text-center" style=" background: url('https://www.bpk.go.id/theme/images/icons/dotted.png') repeat-x center;  margin:11.200px 11.200px;">
+            <h3 style="background-color: #f4f6f9; display:inline-block; padding: 0 15px;">LATAR BELAKANG</h3>
+            </div>
+            <blockquote style ="padding: 24px 20px;">
+                <p style="text-align: justify;">{{p.latar_belakang}}</p>
+            </blockquote>
+
+        <div class="fancy-title title-dotted-border text-center" style=" background: url('https://www.bpk.go.id/theme/images/icons/dotted.png') repeat-x center;  margin:11.200px 11.200px;" >
+        <h3 style="background-color: #f4f6f9; display:inline-block; padding: 0 15px;">VISI</h3>
+        </div>
+        
+        <blockquote style ="padding: 24px 20px;">
+        <p style="text-align: justify;">{{p.visi}}</p>
+        </blockquote>
+        
+       
+        
+        <div class="fancy-title title-dotted-border text-center" style=" background: url('https://www.bpk.go.id/theme/images/icons/dotted.png') repeat-x center; margin:11.200px 11.200px;">
+        <h3 style="background-color: #f4f6f9; display:inline-block; padding: 0 15px;">MISI</h3>
+        </div>
+        
+        <blockquote style ="padding: 24px 20px;">
+        <p style="text-align: justify;">{{p.misi}}</p>
+        </blockquote>
+
+        <div class="fancy-title title-dotted-border text-center" style=" background: url('https://www.bpk.go.id/theme/images/icons/dotted.png') repeat-x center; margin:11.200px 11.200px;">
+        <h3 style="background-color: #f4f6f9; display:inline-block; padding: 0 15px;">TUGAS DIREKTORAT PENATAAN SUMBER DAYA</h3>
+        </div>
+        
+        <blockquote style ="padding: 24px 20px;">
+        1<p style="text-align: justify;">{{p.tugas_dir}}</p>
+        </blockquote>
+        
+       
+{% endfor %}

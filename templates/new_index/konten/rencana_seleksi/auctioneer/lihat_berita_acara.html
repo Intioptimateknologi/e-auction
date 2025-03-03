@@ -1,0 +1,559 @@
+{% extends 'new_index/base1_auctioneer.html' %}
+{% load static %}
+{% block extrahead %}
+<head>
+</head>
+<style>
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+
+</style>
+{% endblock %}
+ 
+<body style="background: rgb(246,248,252);">
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    <div class="container-fluid">
+        <div class="col">
+            <h4 >Lihat BA</h1>
+            <nav>
+                <ol class="breadcrumb bg-transparent">
+                    <li class="breadcrumb-item " ><a href=""> Upload Dokumen</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Bukti Pengambilan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lihat BA</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="card card-primary card-tabs">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col">
+                        <label  class="form-control-label">Nomor Dokumen</label>
+                        <input type="text" name="nomordokumen" id="nomordokumen" placeholder="Nomor Dokumen" class="form-control" value="9283177321872" disabled>
+                    </div>
+                    <div class="form-group col">
+                        <label  class="form-control-label">Penerima</label>
+                        <select name="penerima" id="penerima" class="form-control" disabled>
+                            <option value="">-- Pilih Penerima --</option>
+                            <option value="user1" selected>User 1</option>
+                            <option value="user1">User 1</option>
+                            <option value="user1">User 1</option>
+                            <option value="user1">User 1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label  class="form-control-label">Judul Berita Acara</label>
+                        <input type="text" name="judulberitaacara" id="judulberitaacara" placeholder="Judul" class="form-control" value="Dokumen 1" disabled>
+                    </div>
+                    <div class="form-group col">
+                        <button class="btn btn-success">Download BA</button>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label  class="form-control-label">Tanggal</label>
+                        <input type="date" name="tanggal" id="tanggal" placeholder="Judul" class="form-control" value="01/05/2023" disabled>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label  class="form-control-label">Keterangan</label>
+                        <textarea class="form-control" disabled>melakukan lelang secara berkala</textarea>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.card -->
+        </div>
+        
+        
+    </div>
+
+    <!-- modal rencana seleksi -->
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="title-modal">Tambah Rencana Seleksi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="content-modal">
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-success">Setuju</button>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+
+    
+
+
+</body>
+{% block script %}
+
+    <script>
+        let tableRencanaSeleksi = new DataTable('#table-rencana-seleksi');
+        let tableDasarHukum = new DataTable('#table-dasar-hukum');
+        let tableObjekSeleksi = new DataTable("#table-objek-seleksi");
+        let tablePenanggungJawab = new DataTable("#table-penanggung-jawab");
+        let tableAlamat = new DataTable("#table-alamat");
+        let tablePersyaratan = new DataTable("#table-persyaratan");
+        let tableJadwal = new DataTable("#table-jadwal");
+        let tableKegiatan = new DataTable("#table-kegiatan");
+
+        var jsonRencanaSeleksi = {
+                "pages": [
+                {
+                "name": "page1",
+                "elements": [
+                    {
+                    "type": "text",
+                    "name": "judul",
+                    "title": "Judul",
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "tahun",
+                    "title": "Tahun",
+                    "hideNumber": true,
+                    "inputType": "number"
+                    },
+                    {
+                    "type": "dropdown",
+                    "name": "auctioner",
+                    "title": "Auctioneer",
+                    "hideNumber": true,
+                    "choices": [
+                    {
+                    "value": "auc1",
+                    "text": "Auctioneer 1"
+                    },
+                    {
+                    "value": "auc2",
+                    "text": "Auctioneer 2"
+                    },
+                    {
+                    "value": "auc3",
+                    "text": "Auctioneer 3"
+                    },
+                    {
+                    "value": "auc4",
+                    "text": "Auctioneer 4"
+                    },
+                    {
+                    "value": "auc5",
+                    "text": "Auctioneer 7"
+                    },
+                    {
+                    "value": "auc6",
+                    "text": "Auctioneer 8"
+                    }
+                    ]
+                    }
+                ]
+                }
+                ],
+                "showCompletedPage": false,
+        };
+        
+        let jsonDasarHukum = {
+            "title": "Tambah Dasar Hukum",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "nomor",
+                "title": "Nomor Dasar Hukum",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul Dasar Hukum",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "tanggal",
+                "title": "Tanggal",
+                "hideNumber": true,
+                "inputType": "date"
+                },
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "comment",
+                "name": "keterangan",
+                "title": "Keterangan",
+                "hideNumber": true
+                }
+            ]
+            }
+            ]
+            }
+        
+        let jsonObjekSeleksi = {
+            "title": "Tambah Objek Seleksi",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "nama",
+                "title": "Nama Objek",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "comment",
+                "name": "keterangan",
+                "title": "Keterangan",
+                "hideNumber": true
+                }
+            ]
+            }
+            ]
+            }
+        let jsonPenanggungJawab = {
+            "title": "Tambah Penanggung Jawab",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nama",
+                "title": "Nama Lengkap",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nip",
+                "title": "NIP",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "jabatan",
+                "title": "Jabatan di KOMINFO",
+                "hideNumber": true,
+                "choices": [
+                "item1",
+                "item2"
+                ]
+                },
+                {
+                "type": "text",
+                "name": "jabatan_tim",
+                "title": "Jabatan di Tim",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "status",
+                "title": "Status",
+                "hideNumber": true,
+                "choices": [
+                "item1",
+                "item2"
+                    ]
+                    }
+                ]
+                }
+                ]
+        }
+        let jsonAlamat = {
+            "title": "Tambah Alamat",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "kantor",
+                "title": "Kantor",
+                "hideNumber": true
+                },
+                {
+                "type": "comment",
+                "name": "alamat",
+                "title": "Alamat",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nip",
+                "title": "Telefon",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "jabatan_tim",
+                "title": "Email",
+                "hideNumber": true,
+                "inputType": "email"
+                },
+                {
+                "type": "dropdown",
+                "name": "status",
+                "title": "Status",
+                "hideNumber": true,
+                "choices": [
+                "item1",
+                "item2"
+                ]
+                }
+            ]
+            }
+            ]
+            }
+        let jsonPersyaratan = {
+            "title": "Tambah Persyaratan",
+            "pages": [
+            {
+            "name": "page1",
+            "elements": [
+                {
+                "type": "text",
+                "name": "judul",
+                "title": "Judul",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "tahun",
+                "title": "Tahun",
+                "hideNumber": true,
+                "inputType": "number"
+                },
+                {
+                "type": "text",
+                "name": "urutan",
+                "title": "Urutan",
+                "hideNumber": true
+                },
+                {
+                "type": "comment",
+                "name": "persyaratan",
+                "title": "Persyaratan",
+                "hideNumber": true
+                },
+                {
+                "type": "comment",
+                "name": "keterangan",
+                "title": "Keterangan",
+                "hideNumber": true
+                }
+            ]
+            }
+            ]
+            }
+        let jsonKegiatan = {
+            "title": "Tambah Kegiatan",
+            "pages": [
+            {
+                "name": "page",
+                "elements": [
+                    {
+                        "type": "text",
+                    "name": "judul",
+                    "title": "Judul",
+                    "hideNumber": true,
+                    "maxWidth": "50%",
+                   
+                    },
+                    {
+                    "type": "text",
+                    "name": "tahun",
+                    "title": "Tahun",
+                    "startWithNewLine": false,
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "dropdown",
+                    "name": "jadwal_seleksi",
+                    "title": "Jadwal Seleksi",
+                    "hideNumber": true,
+                    "choices": [
+                    "",
+                    "",
+                    ""
+                    ]
+                    },
+                    {
+                    "type": "text",
+                    "name": "kegiatan",
+                    "title": "Kegiatan",
+                    "hideNumber": true
+                    },
+                    {
+                    "type": "text",
+                    "name": "tanggal",
+                    "title": "Tanggal",
+                    "hideNumber": true,
+                    "inputType": "datetime-local"
+                    },
+                    {
+                    "type": "text",
+                    "name": "tanggal1",
+                    "startWithNewLine": false,
+                    "title": "Tanggal",
+                    "hideNumber": true,
+                    "inputType": "datetime-local"
+                    },
+                    
+                    {
+                    "type": "comment",
+                    "name": "keterangan",
+                    "title": "Keterangan",
+                    "hideNumber": true
+                    }
+                ]
+                }
+                ]
+            }
+     
+        
+
+        function changeFormTo(opsi)
+        {
+            let jsons = ''; // ini nanti untuk tampung data json
+            let hitApi = ''; // ini nanti ganti sesuai hit api kemana
+            let titleModal = '';
+            let mainTitle = '';
+            switch(opsi){
+                case 'RencanaSeleksi':
+                    mainTitle = 'Rencana Seleksi';
+                    jsons = jsonRencanaSeleksi;
+                    titleModal = 'Tambah Rencana Seleksi';
+                    break;
+                case 'DasarHukum':
+                    mainTitle = 'Dasar Hukum';
+                    titleModal = 'Tambah Dasar Hukum';
+                    jsons = jsonDasarHukum;
+                    break;
+                case 'ObjekSeleksi':
+                    mainTitle = 'Objek Seleksi';
+                    titleModal = 'Tambah Objek Seleksi';
+                    jsons = jsonObjekSeleksi;
+                    break;
+                case 'PenanggungJawab':
+                    mainTitle = 'Penanggung Jawab';
+                    titleModal = 'Tambah Penanggung Jawab';
+                    jsons = jsonPenanggungJawab;
+                    break;
+                case 'Alamat':
+                    mainTitle = 'Alamat';
+                    titleModal = 'Tambah alamat';
+                    jsons = jsonAlamat;
+                    break;
+                case 'Persyaratan':
+                    mainTitle = 'Persyaratan';
+                    titleModal = 'Tambah Persyaratan';
+                    jsons = jsonPersyaratan;
+                    break;
+                case 'Kegiatan':
+                    mainTitle = 'Kegiatan';
+                    titleModal = 'Tambah Kegiatan';
+                    jsons = jsonKegiatan;
+                    break;
+            }
+            $("#title-main").html(mainTitle);
+            $("#content-modal").Survey({
+                model: new Survey.Model(jsons),
+                onComplete: function (survey, options) {
+                    // Handle survey completion here
+                    console.log(survey.data);
+                }
+            });
+        }
+
+       
+        $("#content-modal").Survey({
+            model: new Survey.Model(jsonRencanaSeleksi),
+            onComplete: function (survey, options) {
+                // Handle survey completion here
+                console.log(survey.data);
+            }
+        });
+
+                
+       
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}

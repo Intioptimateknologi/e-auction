@@ -1,0 +1,47 @@
+loadData({URL: '/adm_lelang/pengumuman_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")});
+
+$("#{{attribute.tambah_btn}}").click(function() {         
+    showModal2({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/modal_pengumuman/{{item_lelang.id}}/{{i.menu.tahapan.id}}/",
+        drfURL: "/adm_lelang/api/v1/pengumuman_lelang/",
+        tombol_tambah: '{{attribute.tambah_btn}}',
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+//            disable_tambah();
+            console.log('tambah pengumuman');
+            //loadData({URL: '/adm_lelang/modal_pengumuman/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+            //loadData({URL: '/adm_lelang/adm_lelang/pengumuman_lelang2/{{item_lelang.id}}/{{i.menu.tahapan.id}}/', element_id: $("#{{attribute.element}}")})
+            loadData({URL: '/adm_lelang/pengumuman_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    });
+});
+
+$("#{{attribute.element}}").on("click",".update",function() {
+    showEditModal({
+        csrf: '{{csrf_token}}',
+        formURL: "/adm_lelang/modal_pengumuman/"+this.id+"/",
+        drfURL: "/adm_lelang/api/v1/pengumuman_lelang/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData({URL: '/adm_lelang/pengumuman_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    })
+});
+
+$("#{{attribute.element}}").on("click",".delete",function() {
+    deleteData({id: this.id, 
+        csrf: '{{csrf_token}}',
+        drfURL: '/adm_lelang/api/v1/pengumuman_lelang/'+this.id+'/',
+        onSuccess: function(data) {
+            swal.fire({
+                title: "Data Terhapus !",
+                text: "",
+                icon: "success"
+            })
+            $("#{{attribute.tambah_btn}}").prop( "disabled", false );
+            loadData({URL: '/adm_lelang/pengumuman_auctioner/{{item_lelang.id}}/{{i.menu.tahapan.id}}/{{user.id}}/', element_id: $("#{{attribute.element}}")})
+        }
+    });
+});

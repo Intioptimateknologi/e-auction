@@ -1,0 +1,1230 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block extrahead %}
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+    <div class="card ">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h1 style="color: rgb(0,114,228);font-size: 24px;font-weight: bold;">Rencana Seleksi			
+                            </h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                            
+                                        <div class="form-group form-inline">
+                                            <label for="nmlelang">Judul Seleksi&nbsp;</label>
+                                            <select class="form-control" id="nmlelang" style="width:600px" >
+                                                {% for org in item %}
+                                                  <option value="{{org.id}}"
+                                                      {% if org == current_org %}selected="selected"{% endif %}>
+                                                      {{org.nama_lelang|capfirst}}
+                                                  </option>
+                                                {% endfor %}
+                                              </select>
+                                            <!--select class="form-control" id="nmlelang" style="width:600px" ></select-->
+                                            <input type="hidden" id="item_lelang">
+                                            <!-- <button id="tambahjudul" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                            <button id="updatejudul" disabled class="btn btn-outline"><i class="icon text-light"><img style="height:18px;" src="/static/img/edit-3.svg"></i></button>
+                                            <button id="disablejudul" disabled class="btn btn-outline"><i class="icon text-light"><img style="height:18px;" src="/static/img/trash-2.svg"></i></button> -->
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">        
+            <div class="row">
+                <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#detil" role="tab">Detail</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#home" role="tab">Obyek Seleksi</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#giat" role="tab">Kegiatan</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#dasar" role="tab">Aturan Lelang</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#panitia" role="tab">Panitia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#alamat" role="tab">Alamat Tim Seleksi</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#viewer" role="tab">Viewer</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#syarat" role="tab">Persyaratan Peserta</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#bidder" role="tab">Bidder</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#jadwal" role="tab">Tahapan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#putaran" role="tab">Putaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-bold" data-toggle="pill" href="#template" role="tab">Template Berita Acara</a>
+                    </li> -->
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content col-md-12">
+                    <div class="tab-pane" id="detil" role="tabpanel">
+                        <div class="card p-3">
+                            <div class="container px-5 my-5">
+                                <form name="item_lelang" id="item_lelang" method="POST">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Judul Seleksi</label>
+                                            <input type="text" disabled class="form-control" id="exampleInputEmail1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="nama_label" for="keterangan">Keterangan</label>
+                                            <textarea disabled class="form-control" id="keterangan" type="text" style="height: 10rem;"></textarea>
+                                        </div>
+                                    </div>                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Obyek Seleksi&nbsp;</h2>
+                                        <!-- <button id="tambah_obyek" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="obyek" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Band</th>
+                                                <th>Rentang Frekuensi</th>
+                                                <th>Teknologi</th>
+                                                <th>Reserved Price</th>
+                                                <th>Eligibility/Block</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="giat" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Pengumuman&nbsp;</h2>
+                                        <button id="tambah_pengumuman" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekpengumumanseleksi" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Nomor</th>
+                                                <th>Judul</th>
+                                                <th>Tanggal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>                    
+                    <div class="tab-pane" id="dasar" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Aturan Lelang&nbsp;</h2>
+                                        <!-- <button id="tambah_dasar" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekdasarhukum" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Nomor</th>
+                                                <th>Judul</th>
+                                                <th>Tanggal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="panitia" role="tabpanel" style="width: 100%;">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Panitia&nbsp;</h2>
+                                        <button id="tambah_auctioner" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_auctioner" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>item_lelang</th>
+                                                <th>item_detail_lelang</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="alamat" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Alamat&nbsp;</h2>
+                                        <button id="tambah_alamat" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_alamat" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>item_lelang</th>
+                                                <th>item_detail_lelang</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- <div class="tab-pane" id="viewer" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Viewer&nbsp;</h2>
+                                        <button id="tambah_viewer" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_viewer" class="dt">
+                                        <thead>
+                                            <tr>
+                                                <th>item_lelang</th>
+                                                <th>item_detail_lelang</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div> -->
+                    <!-- <div class="tab-pane" id="bidder" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Bidder&nbsp;</h2>
+                                        <button id="tambah_bidder" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_bidder" class="dt">
+                                        <thead>
+                                            <tr>
+                                                <th>item_lelang</th>
+                                                <th>item_detail_lelang</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div> -->
+                    <div class="tab-pane" id="syarat" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Persyaratan Peserta&nbsp;</h2>
+                                        <button id="tambah_syarat" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objeksyarat" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>item_lelang</th>
+                                                <th>item_detail_lelang</th>
+                                                <th>persyaratan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="jadwal" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Jadwal&nbsp;</h2>
+                                        <button id="tambah_jadwal" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="objekjadwal" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>agenda</th>
+                                                <th>tanggal</th>
+                                                <th>status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="putaran" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Jadwal Putaran Lelang&nbsp;</h2>
+                                        <button id="tambah_putaran" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_putaran" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>item_lelang</th>
+                                                <th>item_detail_lelang</th>
+                                                <th>persyaratan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="template" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Template Dokumen Berita Acara&nbsp;</h2>
+                                        <button id="tambah_ba" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_ba" class="dt" style="width: 100%;">
+                                        <thead>
+                                            
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/static/js/currency.js"></script>
+<script>
+    function deleteData(options) {
+        var defaults = {
+            element_id: "#form",
+            form_id: "#form",
+            id: null,
+            drfURL: null,
+            onSuccess: null,
+            onError: null,
+            errorClass: ".invalid",
+        };
+        var settings = $.extend(defaults, options);
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: settings.drfURL+settings.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        settings.onSuccess(data);
+                    },
+                    error: function(error) {
+                        swal.fire("Menghapus gagal. Yang dihapus sudah ada obyeknya.")
+                    }
+                });
+            } else if (result.isDenied) {
+            }
+        })
+      };
+</script>
+<script>
+    function showModalCurrency(options) {
+      // Default settings
+      var defaults = {
+          modalID: "#modal",
+          modalContent: ".modal-content",
+          modalForm: ".modal-content form",
+          formURL: null,
+          method: 'POST',
+          drfURL: null,
+          onSuccess: null,
+          onError: null,
+          isDeleteForm: false,
+          errorClass: ".invalid",
+      };
+  
+      // Extend default settings with provided options
+      var settings = $.extend(defaults, options);
+      $(settings.modalID).find(settings.modalContent).load(settings.formURL, function () {
+          $(settings.modalID).modal("show");
+          $(settings.modalID).on("focus", ".currency", function() { 
+            $(this).inputmask({alias:'currency'});
+          });
+          $(settings.modalForm).attr("action", settings.formURL);
+          addEventHandlers(settings);
+      });
+      var addEventHandlers = function (settings) {
+          $(settings.modalForm).on("submit", function (event) {
+              if (event.originalEvent !== undefined && settings.isDeleteForm === false) {
+                  event.preventDefault();
+                  isFormValid(settings, null);
+                  return true;
+              }
+          });
+          // Modal close handler
+          $(settings.modalID).on("hidden.bs.modal", function (event) {
+              $(settings.modalForm).remove();
+          });
+      };
+      var isFormValid = function (settings, callback) {
+          $.ajax({
+              type: $(settings.modalForm).attr("method"),
+              method: settings.method,
+              headers: { "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value },
+              url: settings.drfURL,
+              data: new FormData($(settings.modalForm)[0]),
+              contentType: false,
+              processData: false,
+              beforeSend: function () {
+                  $(settings.submitBtn).prop("disabled", true);
+              },
+              success: function (response) {
+                  if ($(response).find(settings.errorClass).length > 0) {
+                      // Form is not valid, update it with errors
+                      $(settings.modalID).find(settings.modalContent).html(response);
+                      $(settings.modalForm).attr("action", settings.formURL);
+                      // Reinstantiate handlers
+                      addEventHandlers(settings);
+                  } else {
+                      // Form is valid, submit it
+                      if (settings.onSuccess) settings.onSuccess(response);
+                      //callback(settings);
+                  }
+              }
+          });
+      }
+    };
+</script>
+<script>
+var item_lelang;
+$(document).ready(function() {
+  var judul_lelang = $('#nmlelang').select2();
+  loadData_ba()
+
+
+  document.addEventListener('htmx:load', function(event) {
+    $("#administrasi_lelang").addClass("active");
+  });
+  
+  /*{
+    ajax: {
+      url: '/adm_lelang/api/v1/item_lelang',
+      processResults: function (data) {
+        return {results: $.map(data.results, function (item) 
+            return {
+                text: item.nama_lelang,
+                id: item.id
+                }
+            })
+        }}
+    }
+  });*/
+
+  // LOAD PART
+  function loadData(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/detail_itemlelang2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#obyek");
+            table.empty();
+            table.append(data);
+            // $("#obyek").DataTable();
+        }
+    });
+  }
+  function loadData_pengumuman(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/pengumuman_lelang/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekpengumumanseleksi");
+            table.empty();
+            table.append(data);
+            // $("#objekpengumumanseleksi").DataTable();
+        }
+    });
+  }
+  function loadData_dasarhukum(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/dasar_hukum2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekdasarhukum");
+            table.empty();
+            table.append(data);
+            // $("#objekdasarhukum").DataTable();
+        }
+    });
+  }
+  
+  function loadData_persyaratan_lelang(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/persyaratan_lelang/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objeksyarat");
+            table.empty();
+            table.append(data);
+            // $("#objeksyarat").DataTable();
+        }
+    });
+  }
+  function loadData_jadwal(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/jadwal_lelang/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#objekjadwal");
+            table.empty();
+            table.append(data);
+            // $("#objekjadwal").DataTable();
+        }
+    });
+  }
+
+  function loadData_Auctioner(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/auctioner_lelang/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_auctioner");
+            table.empty();
+            table.append(data);
+            // $("#t_auctioner").DataTable();
+        }
+    });
+  }
+  function loadData_Viewer(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/viewer_lelang/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_viewer");
+            table.empty();
+            table.append(data);
+            // $("#t_viewer").DataTable();
+        }
+    });
+  }
+
+  function loadData_Bidder(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/bidder_lelang/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_bidder");
+            table.empty();
+            table.append(data);
+            // $("#t_bidder").DataTable();
+        }
+    });
+  }
+
+  function loadData_Putaran(id) {
+    $.ajax({
+        url: '/smra/jadwal_putaran/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_putaran");
+            table.empty();
+            table.append(data);
+            // $("#t_putaran").DataTable();
+        }
+    });
+  }
+  function loadData_Alamat(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/alamat_panitia/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_alamat");
+            table.empty();
+            table.append(data);
+            // $("#t_alamat").DataTable();
+        }
+    });
+  }
+
+  function loadData_ba(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/berita_acara/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_ba");
+            table.empty();
+            table.append(data);
+            // $("#t_ba").DataTable();
+        }
+    });
+  }
+  let id_item_lelang = null;
+
+  $('#nmlelang').on('select2:select', function (e) {
+    id_item_lelang = e.params.data.id;
+    $("#item_lelang").val(id_item_lelang);
+    $("#updatejudul").prop('disabled', false);
+    $("#disablejudul").prop('disabled', false);
+    loadData(id_item_lelang)
+    loadData_pengumuman(id_item_lelang)
+    loadData_dasarhukum(id_item_lelang)
+    loadData_persyaratan_lelang(id_item_lelang)
+    loadData_jadwal(id_item_lelang)
+    loadData_Auctioner(id_item_lelang)
+    loadData_Viewer(id_item_lelang)
+    loadData_Alamat(id_item_lelang)
+    loadData_Putaran(id_item_lelang)
+    loadData_Bidder(id_item_lelang)
+  });
+  
+//   $(".dt").DataTable({paging: false, ordering: false,info: false,searching: false});
+  
+  // TAMBAH PART
+  $("#tambahjudul").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_itemlelang/",
+            drfURL: "/adm_lelang/api/v1/item_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+            }
+        });
+    });
+  
+  $("#tambah_dasar").click(function() { 
+      showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_dasar_hukum/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/dasar_hukum/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                loadData_dasarhukum(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+  
+    $("#tambah_obyek").click(function() { 
+        showModalCurrency({
+            formURL: "/adm_lelang/adm_lelang/modal_obyek_seleksi/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/detail_itemlelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_pengumuman").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_pengumuman_lelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_pengumuman(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_syarat").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_persyaratan_lelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/persyaratan_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_persyaratan_lelang(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_putaran").click(function() { 
+        showModal({
+            formURL: "/smra/modal_jadwal_putaran/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/smra/api/v1/jadwal_smra/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                loadData_Putaran(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_jadwal").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_jadwal_seleksi/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_jadwal(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_auctioner").click(function() { 
+        showModal({
+            formURL: "/smra/modal_auctionerlelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/auctioner_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Auctioner(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+    $("#tambah_viewer").click(function() { 
+        showModal({
+            formURL: "/smra/modal_viewerlelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/viewer_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Viewer(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_bidder").click(function() { 
+        showModal({
+            formURL: "/smra/modal_bidderlelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/bidder_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Bidder(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_alamat").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_alamat_panitia/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/alamat_panitia/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Alamat(document.getElementById('item_lelang').value)
+                //loadData_Viewer(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+
+    $("#tambah_ba").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_create/",
+            drfURL: "/adm_lelang/api/v1/template_berita_acara/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_ba();
+            }
+        });
+    });
+
+    // UPDATE PART
+
+    $("#updatejudul").click(function() { 
+        showModal ({
+            formURL: "/adm_lelang/adm_lelang/modal_update_itemlelang/"+ document.getElementById('item_lelang').value+ "/",
+            drfURL: "/adm_lelang/api/v1/item_lelang/"+document.getElementById('item_lelang').value+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+            }
+        })
+    });
+
+  $("#objekdasarhukum").on("click",".dasar_hukum_update",function() {
+      showModal({
+        formURL: "/adm_lelang/adm_lelang/modal_update_dasar_hukum/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+        drfURL: "/adm_lelang/api/v1/dasar_hukum/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            loadData_dasarhukum(document.getElementById('item_lelang').value);
+        }
+      })
+  });
+
+    $("#obyek").on("click",".objek_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_obyek_seleksi/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/detail_itemlelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#objekpengumumanseleksi").on("click",".pengumuman_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_pengumuman_lelang/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_pengumuman(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#objeksyarat").on("click",".persyaratan_lelang_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_persyaratan_lelang/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/persyaratan_lelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_persyaratan_lelang(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#objekjadwal").on("click",".jadwal_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_jadwal_seleksi/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_jadwal(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#t_alamat").on("click",".alamat_panitia_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_alamat_panitia/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/alamat_panitia/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Alamat(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#t_putaran").on("click",".putaran_update",function() {
+        showModal({
+            formURL: "/smra/modal_update_putaran/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/smra/api/v1/jadwal_smra/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_Putaran(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#t_ba").on("click",".ba_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update/"+this.id+"/",
+            drfURL: "/adm_lelang/api/v1/template_berita_acara/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_ba();
+            }
+        })
+    });
+
+    // DELETE PART
+    $("#disablejudul").click(function() { 
+        deleteData ({
+            id: document.getElementById('item_lelang').value,
+            drfURL: "/adm_lelang/api/v1/item_lelang/",
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData(document.getElementById('item_lelang').value);
+                });
+            }
+        })
+    });
+    $("#obyek").on("click",".objek_seleksi_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/detail_itemlelang/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#objekpengumumanseleksi").on("click",".pengumuman_seleksi_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/pengumuman_lelang/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_pengumuman(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#objeksyarat").on("click",".persyaratan_lelang_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/persyaratan_lelang/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_persyaratan_lelang(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    
+    $("#objekjadwal").on("click",".jadwal_seleksi_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/jadwal_seleksi/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_jadwal(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#objekdasarhukum").on("click",".dasar_hukum_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/dasar_hukum/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_dasarhukum(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_alamat").on("click",".alamat_panitia_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/alamat_panitia/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_Alamat(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_putaran").on("click",".putaran_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/smra/api/v1/jadwal_smra/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_Putaran(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_viewer").on("click",".viewer_lelang_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/viewer_lelang/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_Viewer(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_bidder").on("click",".bidder_lelang_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/bidder_lelang/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_Bidder(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_auctioner").on("click",".auctioner_lelang_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/auctioner_lelang/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_Auctioner(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_ba").on("click",".ba_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: '/adm_lelang/api/v1/template_berita_acara/',
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_ba(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+
+});
+
+</script>
+{% endblock %}

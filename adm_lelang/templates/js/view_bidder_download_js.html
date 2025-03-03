@@ -1,0 +1,47 @@
+$("#{{attribute.element}}").on("click",".bidder_download",function() {
+    id = this.id
+    showModalDownload({
+        csrf: '{{csrf_token}}',
+        formURL: "{{attribute.modal_url}}"+this.id+"/",
+        drfURL: "{{attribute.drf_url}}",
+        onSuccess: function(response) {
+            $("#modal").modal('hide');
+            $.ajax({
+                url: '{{ attribute.drf2_url}}'+response.id+'/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    $(".").prop( "disabled", true );
+                    window.open(
+                        data.file,
+                        '_blank' 
+                    );
+                }
+            });
+        }
+    })
+});
+
+<!-- single download true -->
+{% if attribute.single_download %}
+    $.ajax({
+        method: "GET",
+        url: '{{attribute.check_download}}'+{{item_lelang.id}}+'/',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if(response > 0){
+                //$(".bidder_download").prop( "disabled", true );
+            }
+        },
+        error: function (request, status, error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Terjadi Kesalahan !',
+                text: error,
+            })
+        }
+    });
+{% endif %} 

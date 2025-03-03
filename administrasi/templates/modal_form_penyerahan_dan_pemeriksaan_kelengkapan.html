@@ -1,0 +1,120 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Pemeriksaan Kelengkapan</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col">
+                    <div class="row">
+                       
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group col-12">
+                                <label for="id_nomor"  class="nama_label">Bidder</label>
+                                {% render_field form.bidder|add_class:"form-checkbox three-column" %}
+                            </div>
+                            <div class="form-group  col-12">
+                                <label for="id_nomor"  class="nama_label"> Kelengkapan Formulir Permohonan Keikutsertaan Seleksi 
+                                </label>
+                                <div style="display: flex;">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="radio1">
+                                        <input type="radio" class="form-check-input" id="id_sampul1" name="sampul1" value="Ada" {%if form.sampul1.value == "Ada"%} checked{% endif %}>Lengkap
+                                        </label>
+                                    </div>
+                                    &nbsp;
+                                    &nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="radio2">
+                                        <input type="radio" class="form-check-input" id="id_sampul1" name="sampul1" value="Tidak Ada" {%if form.sampul1.value == "Tidak Ada"%} checked{% endif %}>Tidak Lengkap
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group  col-12">
+                                <label for="id_nomor"  class="nama_label">Kelengkapan Jaminan Keikutsertaan Seleksi (Bid Bond)</label>
+                                <div style="display: flex;">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="radio1">
+                                        <input type="radio" class="form-check-input" id="id_bidbond" name="bidbond" value="Ada" {%if form.bidbond.value == "Ada"%} checked{% endif %}>Lengkap
+                                        </label>
+                                    </div>
+                                    &nbsp;
+                                    &nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="radio2">
+                                        <input type="radio" class="form-check-input" id="id_bidbond" name="bidbond" value="Tidak Ada" {%if form.bidbond.value == "Tidak Ada"%} checked{% endif %}>Tidak Lengkap
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group  col-12">
+                                <label for="id_nomor"  class="nama_label">Kelengkapan Dokumen Penawaran Harga</label>
+                                <div style="display: flex;">
+                                    <div class="form-check">
+                                        <label class="form-check-label nama_label" for="radio1">
+                                        <input type="radio" class="form-check-input" id="id_sampul2" name="sampul2" value="Ada" {%if form.sampul2.value == "Ada"%} checked{% endif %}>Lengkap
+                                        </label>
+                                    </div>
+                                    &nbsp;
+                                    &nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label nama_label" for="radio2">
+                                        <input type="radio" class="form-check-input" id="id_sampul2" name="sampul2" value="Tidak Ada" {%if form.sampul2.value == "Tidak Ada"%} checked{% endif %}>Tidak Lengkap
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Hasil Pemeriksaan</label>
+                                <div style="display: flex;">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="radio1">
+                                        <input type="radio" class="form-check-input" id="id_hasil_pemeriksaan" name="hasil_pemeriksaan" value="Ada" checked>Ada
+                                        </label>
+                                    </div>
+                                    &nbsp;
+                                    &nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="radio2">
+                                        <input type="radio" class="form-check-input" id="id_hasil_pemeriksaan" name="hasil_pemeriksaan" value="Tidak Ada">Tidak Ada
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="form-group  col-12">
+                                <label for="id_keterangan" class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group  col-12">
+                                <label for="id_nomor"  class="nama_label">File</label>
+                                {% render_field form.file|add_class:"form-control"|attr:"accept=.pdf" %}
+                            </div>
+                           
+                    </div>  
+                </div>              
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("item_lelang").addEventListener("submit", function(event) {
+        document.getElementById("submitBtn").disabled = true; 
+    });
+</script>

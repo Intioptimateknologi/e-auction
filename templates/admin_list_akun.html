@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/45fe4c1444.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://adminlte.io/themes/v3/plugins/moment/moment.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
+
+    <!-- Default V2 theme -->
+    <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+    <!-- ... -->
+    <script type="text/javascript" src="https://unpkg.com/survey-jquery"></script>
+    <title>Document</title>
+</head>
+
+<style>
+    a{
+        color: #7984A7;
+    }
+
+    a:hover {
+        color: #007bff; /* Replace with the desired color code */
+    }
+
+    .text_putih{
+        color: white;
+    }
+
+    table.dataTable tbody tr.odd {
+        background-color: #EDF5FD;
+    }
+</style>
+
+<body>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-light justify-content-between" style="background-color: #007bff;">
+        
+        <div style="display: flex; align-items: center;">
+            <img src="https://static.wikia.nocookie.net/houkai-star-rail/images/2/29/Honkai_Star_Rail.png/revision/latest?cb=20211008061250" style="width: 30px; height:30px;" alt="Gambar" class="bulat">
+            <a class="navbar-brand" style="color: white; margin-left: 10px;" href="#">e-Auction</a>
+        </div>
+        
+        <div>
+            <div class="btn-group" style="display: flex; align-items: center;">
+
+                <i class="fa fa-bell text_putih" aria-hidden="true"></i>
+
+                <img src="https://static.wikia.nocookie.net/houkai-star-rail/images/2/29/Honkai_Star_Rail.png/revision/latest?cb=20211008061250" style="width: 30px; height:30px; margin-left: 15px;" alt="Gambar" class="bulat dropdown-toggle">
+                
+                <div style="margin-left: 5px; margin-right: 30px;">
+                    <p style="margin: 0px; font-size: 12px; font-weight: bold;" class="text_putih">Admin</p><p class="text_putih" style="margin: 0px; font-size: 8px;">John</p>
+                </div>
+
+                <i class="fa fa-chevron-down text_putih" aria-hidden="true" data-toggle="dropdown"></i>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+            </div>
+        </div> 
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            <div class="d-flex flex-column flex-shrink-0 bg-white col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" style="width: 4.5rem;">
+                <ul class="nav nav-pills nav-flush flex-column mb-auto text-center" style="align-content: space-around">
+                <li class="nav-item">
+                    <a href="#" class="nav-link py-3 " aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                    <i class="fa fa-home" aria-hidden="true"><use xlink:href="#home"></use></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 " title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                    <i class="fa fa-file" aria-hidden="true"><use xlink:href="#file"></use></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 " title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                        <i class="fa fa-desktop" aria-hidden="true"><use xlink:href="#dekstop"></use></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 " title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
+                        <i class="fa fa-list-alt" aria-hidden="true"><use xlink:href="#list"></use></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link py-3 " title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                        <i class="fa fa-power-off" aria-hidden="true"><use xlink:href="#power_off"></use></i>
+                    </a>
+                </li>
+                </ul>
+            </div>
+
+            <!-- main konte -->
+            <div class="col"><button class="btn btn-primary" type="button" style="background: #ffffff;border-style: none;border-color: rgb(249,249,249);"><i class="fas fa-arrow-left" style="color: rgb(0,0,0);"></i></button>
+                <p style="margin-left: 37px;margin-top: -30px;"><strong>Tambah / Edit Biodata</strong></p>
+            <main role="main" class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" style="background-color: #F6F8FC;">
+                
+                <div class="card-body"> 
+                   
+                    <div id="forms_survey">
+                    
+
+                    </div>
+                    
+                    
+                </div>
+               
+
+            </main>
+        </div>
+            
+        </div>
+    </div>
+
+    <script>
+       Survey
+        .StylesManager
+        .applyTheme("defaultV2");
+
+    const surveyJson =
+    {
+            
+    "pages": [
+    {
+    "name": "page1",
+    "elements": [
+        {
+        "type": "text",
+        "name": "username",
+        "title": "Username",
+        "hideNumber": true
+        },
+        {
+        "type": "text",
+        "name": "nm_pengguna",
+        "startWithNewLine": false,
+        "title": "Nama Pengguna",
+        "hideNumber": true
+        },
+        {
+        "type": "dropdown",
+        "name": "hak_akses",
+        "title": "Hak Akses",
+        "hideNumber": true,
+        "choices": [
+        "item1",
+        "item2",
+        "item3"
+        ]
+        },
+        {
+        "type": "dropdown",
+        "name": "nm_perusahaan",
+        "title": "Nama Perusahaan",
+        "hideNumber": true,
+        "choices": [
+        {
+        "value": "djarum",
+        "text": "PT Djarum"
+        }
+        ]
+        },
+        {
+        "type": "dropdown",
+        "name": "jenis",
+        "startWithNewLine": false,
+        "title": "Jenis Penyelenggara",
+        "hideNumber": true,
+        "choices": [
+        "item1",
+        "item2",
+        "item3"
+        ]
+        },
+        {
+        "type": "dropdown",
+        "name": "status",
+        "title": "Status",
+        "hideNumber": true,
+        "choices": [
+        "item1",
+        "item2",
+        "item3"
+        ]
+        },
+        {
+        "type": "file",
+        "name": "upload",
+        "startWithNewLine": false,
+        "title": "Upload File",
+        "hideNumber": true,
+        "maxSize": 0
+        }
+    ]
+   
+}
+
+ ],
+
+ "pageNextTExt": "next",
+        "widthMode": "responsive",
+        
+
+};
+const survey = new Survey.Model(surveyJson);
+    survey.focusFirstQuestionAutomatic = false;
+    $(function() {
+        $("#forms_survey").Survey({ model: survey });
+    });
+    </script>
+
+</body>
+</html>

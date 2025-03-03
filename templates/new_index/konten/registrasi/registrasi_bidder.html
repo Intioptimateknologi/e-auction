@@ -1,0 +1,461 @@
+{% extends 'new_index/base1.html' %}
+
+{% block extrahead %}
+{% endblock  %}
+
+{% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">Daftar Bidder</span>
+</div>
+<div class="col-md-12" style="text-align:center;margin-left:-1px;margin-right:0px; background-color:#ececec">
+    <ul class="nav nav-pills" id="custom-content-below-tab" role="tablist" >
+    <li class="nav-item  navtabli">
+        <a class="navtab nav-link text-bold active " id="custom-tabs-one-1-tab" data-toggle="pill" href="#custom-tabs-one-1" role="tab" aria-controls="custom-tabs-one-1" aria-selected="true"><i class="fa fa-people-roof"></i>&nbsp;&nbsp;Daftar Perwakilan</a>
+    </li>
+    <li class="nav-item  navtabli">
+        <a class="navtab nav-link text-bold "  id="custom-tabs-one-2-tab" data-toggle="pill" href="#custom-tabs-one-2" role="tab" aria-controls="custom-tabs-one-2" aria-selected="false"><i class="fa fa-people-group"></i>&nbsp;&nbsp;Daftar Bidder</a>
+    </li>
+    <li class="nav-item  navtabli">
+        <a class="navtab nav-link text-bold"  id="custom-tabs-one-3-tab" data-toggle="pill" href="#custom-tabs-one-3" role="tab" aria-controls="custom-tabs-one-3" aria-selected="false"><i class="fa fa-building"></i>&nbsp;&nbsp;Daftar Perusahaan</a>
+    </li>
+    
+    </ul>
+</div>
+<div class="col-md-12" style="text-align:center; background:#4a91dc;margin-left:-1px;margin-right:0px;padding-top:10px; padding-bottom:10px;">
+</div>
+<div class="col" style="padding-top: 10px; padding-left:30px; padding-right:50px; max-width: 3000px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab-content" id="custom-tabs-one-tabContent">
+                <div class="tab-pane fade" id="custom-tabs-one-2" role="tab" aria-labelledby="custom-tabs-one-3-tab">
+                    <div class="col-md-12" style="margin-bottom: 0px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div>    
+                                <div class="jdl_tab">Bidder </div>
+                                <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                            </div>
+                            <div class="text-right"> 
+                                <button type="button" id="tambah_bidder" class="btn btn-primary"  style="font-size:12px"><i class="fa-solid fa-plus-circle"></i> Tambah Bidder Baru</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col">
+                        <div class="row" style="margin:10px">
+                            <div class="table-responsive">
+                                <table id="bidderTable" class="display" style="width:100%; overflow:auto" data-server-side="true" data-ajax="/userman/api/v1/bidder_users/?format=datatables">
+                                    <thead>
+                                       <tr style="background-color: #032056;">
+                                           <th>ID</th>
+                                           <th>Username</th>
+                                           <th>Nama Perusahaan</th>
+                                           <th>Aktif</th>
+                                           <th width="100px">Tanggal Dibuat</th>
+                                           <th width="100px">Tanggal Diubah</th>
+                                           <th>Dibuat Oleh</th>
+                                           <th>Diubah Oleh</th>
+                                           <th width="60px">Aksi</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                   </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   
+                <div class="tab-pane fade show active" id="custom-tabs-one-1" role="tab" aria-labelledby="custom-tabs-one-1-tab">
+                    <div class="col-md-12" style="margin-bottom: 0px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div> 
+                                <div class="jdl_tab">Perwakilan Bidder </div>
+                                <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                            </div>
+                            <div class="text-right">        
+                                <button type="button" id="tambah_perwakilan" class="btn btn-primary"  style="font-size:12px"><i class="fa-solid fa-plus-circle"></i> Tambah Perwakilan Baru</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col">
+                        <div class="row" style="margin:10px">
+                            <div class="table-responsive">
+                                <table id="perwakilanTable" class="display" style="width:100%;  overflow:auto" data-server-side="true" data-ajax="/userman/api/v1/bidder_perwakilan/?format=datatables">
+                                    <thead>
+                                        <tr style="background-color: #032056;">
+                                            <th>ID</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>NIK</th> 
+                                            <th>Email</th>
+                                            <th>Telp Mobile</th>
+                                            <th>Jabatan</th>
+                                            <th>Ip Address</th>
+                                            <th>SK</th>
+                                            <th>Aktif</th>
+                                            <th width="100px">Tanggal Dibuat</th>
+                                            <th width="100px">Tanggal Diubah</th>
+                                            <th>Dibuat Oleh</th>
+                                            <th>Diubah Oleh</th>
+                                            <th width="60px">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>    
+                    </div>
+                </div> 
+
+                <div class="tab-pane fade" id="custom-tabs-one-3" role="tab" aria-labelledby="custom-tabs-one-2-tab">
+                    <div class="col-md-12" style="margin-bottom: 0px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div> 
+                                <div class="jdl_tab">Daftar Perusahaan</div>
+                                <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                            </div>
+                            <div class="text-right">
+                                <button type="button" id="tambah_perusahaan" class="btn btn-primary" style="font-size:12px"><i class="fa-solid fa-plus-circle"></i> Tambah Perusahaan Baru</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col">
+                        <div class="row" style="margin:10px">
+                            <div class="table-responsive">
+                                <table id="perusahaanTable" class="display" style="width:100%;  overflow:auto;" data-server-side="true" data-ajax="/userman/api/v1/bidder/?format=datatables">
+                                    <thead>
+                                        <tr style="background-color: #032056;">
+                                            <th>ID</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>Alamat Perusahaan</th>
+                                            <th>Email Perusahaan</th>
+                                            <th>Telp Perusahaan</th>
+                                            <th>NIB</th>
+                                            <th>NPWP</th>
+                                            <th>Status</th>
+                                            <th width="100px">Tanggal Dibuat</th>
+                                            <th width="100px">Tanggal Diubah</th>
+                                            <th>Dibuat Oleh</th>
+                                            <th>Diubah Oleh</th>
+                                            <th width="60px">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+{% block script %}
+
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+{% include 'js_tambahan/js_tambahan.html' %}
+<script>
+    function formatDate(date) {
+        return moment(date).format('DD-MMM-YYYY HH:mm:ss').toUpperCase();
+    }
+
+    var bdrTable = $('#bidderTable').DataTable({
+        "language": {
+            "search": "Cari Data / Informasi  :"
+        },
+        "columns": [
+            { "data": "id", "searchable": false, "className": "d-none" },
+            { "data": "users.username", "className": "text-bold font_table" }, 
+            { "data": "bidder.nama_perusahaan", searchable: false, "className": "text-bold font_table" }, 
+            { "data": "active", "render": function (data, type, row, meta) { 
+                if (data==true) {
+                    return "<span class='badge badge-success'>Aktif</span>"
+                } else {
+                    return "<span class='badge badge-danger'>Non Aktif</span>"
+                }
+            } },
+            { "data": "created", "searchable": false, "orderable": true, "render": function(data, type, row){
+                    return formatDate(row.created);
+            }},    
+            { "data": "last_updated", "searchable": false, "orderable": true, "render": function(data, type, row){
+                return formatDate(row.last_updated);
+            }},
+            { "data": "dibuat_oleh.nama_lengkap", "searchable": true, "render": function (data, type, row, meta) { 
+                if (data) {
+                    return data
+                } else {
+                    return "-"
+                }
+            } },
+            { "data": "diubah_oleh.nama_lengkap", "searchable": true, "render": function (data, type, row, meta) { 
+                if (data) {
+                    return data
+                } else {
+                    return "-"
+                }
+            } },
+            { 'data': null, orderable: false, "render": function (data, type, row, meta) { 
+                    return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+                     row.id+' class="btn btn-sm btn-warning edit_bidder"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+                     row.id+' class="btn btn-sm btn-danger delete_bidder"><i class="fa fa-trash"></i></div>'
+                    } 
+            },
+        ],
+        "order": [[5, 'desc']],
+        "columnDefs": [
+            { className: 'dt-head-center font_table', targets: '_all' },
+        ],
+
+    });
+
+    var perusahaanTable = $('#perusahaanTable').DataTable({
+        "language": {
+        "search": "Cari Data / Informasi  :"
+        },
+        "columns": [
+            { "data": "id", "searchable": false, "className": "d-none" },
+            { "data": "nama_perusahaan" , "className": "text-bold font_table" },
+            { "data": "alamat_perusahaan" },
+            { "data": "email_perusahaan" },
+            { "data": "telp_perusahaan" },
+            { "data": "nib_perusahaan" },
+            { "data": "npwp_perusahaan" },
+
+            { "data": "active", searchable: false, "render": function (data, type, row, meta) { 
+                if (data==true) {
+                    return "<span class='badge badge-success'>Aktif</span>"
+                } else {
+                    return "<span class='badge badge-danger'>Non Aktif</span>"
+                }
+            } },
+            { "data": "created", "searchable": false, "orderable": true,"render": function(data, type, row){
+                    return formatDate(row.created);
+            }},    
+            { "data": "last_updated", "searchable": false, "orderable": true, "render": function(data, type, row){
+                return formatDate(row.last_updated);
+            }},
+            { "data": "dibuat_oleh.nama_lengkap", "render": function (data, type, row, meta) { 
+                if (data) {
+                    return data
+                } else {
+                    return "-"
+                }
+            } },
+            { "data": "diubah_oleh.nama_lengkap", "render": function (data, type, row, meta) { 
+                if (data) {
+                    return data
+                } else {
+                    return "-"
+                }
+            } },
+
+            { 'data': null, orderable: false, "render": function (data, type, row, meta) { 
+                return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+                    row.id+' class="btn btn-sm btn-warning edit_perusahaan"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+                    row.id+' class="btn btn-sm btn-danger delete_perusahaan"><i class="fa fa-trash"></i></div>'
+                } 
+            },
+        ],
+        "order": [[9, 'desc']],
+        "columnDefs": [
+        { className: 'dt-head-center font_table', targets: '_all' }
+        ],
+   
+    });
+    
+    var perwakilanTable = $('#perwakilanTable').DataTable({
+        "responsive": true,
+        "language": {
+            "search": "Cari Data / Informasi  :"
+        },
+        "columns": [
+        { "data": "id", "searchable": false, "className": "d-none" },
+            { "data": "nama_lengkap", "searchable": true, "sortable": false, "className": "text-bold font_table" }, 
+            { "data": "bidder.bidder.nama_perusahaan", "className": "text-bold font_table", "searchable": true }, 
+            { "data": "nik_perwakilan", "searchable": false },
+            { "data": "email", "searchable": true },
+            { "data": "mobile_number" },
+            { "data": "jabatan", "searchable": false },
+            { "data": "ip_address", "searchable": false, "render": (data, type, row, meta) => data ? data : "-" },
+            { "data": "", "searchable": false,
+                    "render": function(data, type, row){
+                    return "<a class='btn btn-sm btn-secondary' target='_blank' href=" +(row.sk_pengangkatan) + 
+                    "'><i class='fa fa-file-pdf'></i></a>";
+                }
+            },
+            { "data": "active", "render": function (data, type, row, meta) { 
+                if (data==true) {
+                    return "<span class='badge badge-success'>Aktif</span>"
+                } else {
+                    return "<span class='badge badge-danger'>Non Aktif</span>"
+                }
+            } },
+            { "data": "created", "searchable": false, "orderable": false,"render": function(data, type, row){
+                    return formatDate(row.created);
+            }},    
+            { "data": "last_updated", "searchable": false, "orderable": false, "render": function(data, type, row){
+                return formatDate(row.last_updated);
+            }},
+            { "data": "dibuat_oleh.nama_lengkap", "searchable": true, "render": function (data, type, row, meta) { 
+                if (data) {
+                    return data
+                } else {
+                    return "-"
+                }
+            } },
+            { "data": "diubah_oleh.nama_lengkap", "searchable": true, "render": function (data, type, row, meta) { 
+                if (data) {
+                    return data
+                } else {
+                    return "-"
+                }
+            } },
+
+            { 'data': null, orderable: false,  "render": function (data, type, row, meta) { 
+                return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+                    row.id+' class="btn btn-sm btn-warning edit_perwakilan"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+                    row.id+' class="btn btn-sm btn-danger delete_perwakilan"><i class="fa fa-trash"></i></div>'
+                } 
+            },
+        ],
+        "order": [[10, 'desc']],
+        "columnDefs": [
+        { className: 'dt-head-center font_table', targets: '_all' }
+        ],
+    });
+
+    $("#tambah_bidder").click(function() { 
+        showModal2({
+            formURL: "/userman/modal_bidder_user/",
+            drfURL: "/userman/api/v1/bidder_users2/",
+            csrf: '{{csrf_token}}',
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                bdrTable.ajax.reload();
+            }
+        });
+    });
+
+    $("#tambah_perusahaan").click(function() { 
+        showModal2({
+            formURL: "/userman/modal_bidder/",
+            drfURL: "/userman/api/v1/bidder/",
+            csrf: '{{csrf_token}}',
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                perusahaanTable.ajax.reload();
+            }
+        });
+    });
+    $("#tambah_perwakilan").click(function() { 
+        showModal2({
+            formURL: "/userman/modal_bidder_perwakilan/",
+            drfURL: "/userman/api/v1/crudbidderperwakilanViewSet/",
+            csrf: '{{csrf_token}}',
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                perwakilanTable.ajax.reload();
+            }
+        });
+    });
+
+    $("#bidderTable").on('click','.edit_bidder',function(data){
+        showEditModal({
+            formURL: "/userman/modal_bidder_user/"+this.id+'/',
+            drfURL: "/userman/api/v1/bidder_users2/"+this.id+'/',
+            csrf: '{{csrf_token}}',
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                bdrTable.ajax.reload();
+            }
+        });
+    });
+
+    $("#bidderTable").on('click','.delete_bidder',function(data){
+        deleteData({
+            drfURL: "/userman/api/v1/bidder_users2/"+this.id+'/',
+            onSuccess: function(response) {
+                bdrTable.ajax.reload();
+            }
+        });
+    });
+        
+    $("#perusahaanTable").on('click','.toggle_perusahaan',function(data){
+        patchData({
+            drfURL:  "/userman/api/v1/bidder/"+this.id+"/",
+            data: JSON.stringify({'active': data.target.checked}),
+            csrf: '{{csrf_token}}',
+            method: "PUT",
+        })
+    });
+    $("#perusahaanTable").on('click','.edit_perusahaan',function(data){
+        showEditModal({
+            formURL: "/userman/modal_bidder/"+this.id+'/',
+            drfURL: "/userman/api/v1/bidder/"+this.id+'/',
+            csrf: '{{csrf_token}}',
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                perusahaanTable.ajax.reload();
+            }
+        });
+    });
+
+    $("#perusahaanTable").on('click','.delete_perusahaan',function(data){
+        deleteData({
+            drfURL: "/userman/api/v1/bidder/"+this.id+'/',
+            csrf: '{{csrf_token}}',
+            onSuccess: function(response) {
+                perusahaanTable.ajax.reload();
+            }
+        });
+    });
+
+    $("#perwakilanTable").on('click','.toggle_perwakilan',function(data){
+        patchData({
+            csrf: '{{csrf_token}}',
+            drfURL:  "/userman/api/v1/crudbidderperwakilanViewSet/"+this.id+"/",
+            data: JSON.stringify({'active': data.target.checked}),
+        })
+    });
+    $("#perwakilanTable").on('click','.edit_perwakilan',function(data){
+        showEditModal({
+            csrf: '{{csrf_token}}',
+            formURL: "/userman/modal_bidder_perwakilan/"+this.id+'/',
+            drfURL: "/userman/api/v1/crudbidderperwakilanViewSet/"+this.id+'/',
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                perwakilanTable.ajax.reload();
+            }
+        });
+    });
+    $("#perwakilanTable").on('click','.delete_perwakilan',function(data){
+        deleteData({
+            csrf: '{{csrf_token}}',
+            drfURL: "/userman/api/v1/bidder_perwakilan/"+this.id+'/',
+            onSuccess: function(response) {
+                perwakilanTable.ajax.reload();
+            }
+        });
+    });
+
+</script>
+
+{% endblock  %}

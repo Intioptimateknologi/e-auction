@@ -1,0 +1,66 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Kirim Undangan Penyusunan Jawaban Sanggahan</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <p id="data_modal" style="display: none;">add_kirim_sanggah_ps_undangan</p>
+                        <form id="coba">    
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Nomor</label>
+                                {% render_field form.nomor|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Judul</label>
+                                {% render_field form.judul|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Tanggal</label>
+                                <!-- {% render_field form.tanggal|add_class:"form-control" %} -->
+                                <input type="datetime-local" name="tanggal" class="form-control" required="" id="id_tanggal">
+                                <!-- <input type="datetime-local" name="mulai" class="form-control" required="" id="id_mulai"> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Tempat</label>
+                                {% render_field form.tempat|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Agenda</label>
+                                {% render_field form.agenda|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Link Meet</label>
+                                {% render_field form.link_teleconference|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">File</label>
+                                {% render_field form.file|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_pengguna" class="nama_label">Auctioneer :</label>
+                                <select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_auctioneer_2" name="auctioneer_2">
+                                </select>
+                            </div>
+                            {% comment %} <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Bidder</label>
+                                {% render_field form.bidder|add_class:"form-control" %}
+                            </div> {% endcomment %}
+                            
+                           
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>

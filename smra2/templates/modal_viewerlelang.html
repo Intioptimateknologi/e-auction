@@ -1,0 +1,51 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title">Tambah Viewer</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+            
+                {% csrf_token %}
+                {{ form.item_lelang }}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nama Viewer</label>
+                        {% render_field form.viewer|add_class:"form-control viewernya" %}
+                    </div>
+                </div>
+               
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+	  </div>
+	</div>
+  </div>
+</form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('.viewernya').select2(
+        {
+            dropdownParent: $("#modal"),
+            theme: 'bootstrap4', 
+        }
+    );
+    
+});
+</script>

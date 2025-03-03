@@ -1,0 +1,2376 @@
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-13 07:05:58.022850+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:21 later at 2023-07-13 07:06:23.327458+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:01:26 later at 2023-07-13 07:07:53.870980+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:04:21 later at 2023-07-13 07:12:20.067171+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:10:30 later at 2023-07-13 07:22:52.437749+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:21:41 later at 2023-07-13 07:44:36.931695+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:40:06 later at 2023-07-13 08:24:48.253740+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 1:08:21 later at 2023-07-13 09:33:12.117046+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-13 09:52:04.119376+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:21 later at 2023-07-13 09:52:29.434241+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:01:26 later at 2023-07-13 09:54:00.352711+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:04:21 later at 2023-07-13 09:58:21.503552+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-13 09:57:03.988971+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:21 later at 2023-07-13 09:57:29.268350+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:01:26 later at 2023-07-13 09:58:59.717679+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-13 10:00:06.877896+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:21 later at 2023-07-13 10:00:32.127714+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:01:26 later at 2023-07-13 10:02:02.541424+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:21:41 later at 2023-07-13 10:37:44.195245+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:40:06 later at 2023-07-13 10:59:52.204271+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-13 10:24:05.422174+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-13 10:29:04.280977+00:00
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:06 later at 2023-07-18 09:03:18.687063+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:00:21 later at 2023-07-18 09:03:43.960599+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:01:26 later at 2023-07-18 09:05:14.616827+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:04:21 later at 2023-07-18 09:09:40.790441+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:10:30 later at 2023-07-18 09:20:13.588531+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:21:41 later at 2023-07-18 09:41:57.354388+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 0:40:06 later at 2023-07-18 10:22:06.268371+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 1:08:21 later at 2023-07-18 11:30:31.796813+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 1:49:26 later at 2023-07-18 13:20:00.945947+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 2:46:45 later at 2023-07-18 16:06:47.194630+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 4:04:06 later at 2023-07-18 20:10:56.475656+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 5:45:41 later at 2023-07-19 01:56:37.880392+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 7:56:06 later at 2023-07-19 09:52:47.279057+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 10:40:21 later at 2023-07-19 20:33:10.404552+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 14:03:50 later at 2023-07-20 10:37:01.938863+00:00
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 18:12:21 later at 2023-07-21 04:49:23.763469+00:00
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 23:12:06 later at 2023-07-22 04:01:32.939647+00:00
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Rescheduling 1
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 1 for 1 day, 5:09:41 later at 2023-07-23 09:11:14.267885+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:00:06 later at 2023-07-22 12:00:08.225564+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:00:21 later at 2023-07-22 12:00:33.869093+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:01:26 later at 2023-07-22 12:02:04.387723+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:04:21 later at 2023-07-22 12:06:25.825906+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:10:30 later at 2023-07-22 12:16:58.876124+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:21:41 later at 2023-07-22 12:38:44.765577+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:40:06 later at 2023-07-22 13:18:54.646771+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1:08:21 later at 2023-07-22 14:27:18.258165+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1:49:26 later at 2023-07-22 16:16:49.584639+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 2:46:45 later at 2023-07-22 19:03:35.639986+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 4:04:06 later at 2023-07-22 23:07:46.223835+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 5:45:41 later at 2023-07-23 04:53:30.276865+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 7:56:06 later at 2023-07-23 12:49:37.933858+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 10:40:21 later at 2023-07-23 23:29:59.212961+00:00
+Failed to retrieve tasks. Database unreachable.
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 14:03:50 later at 2023-07-24 13:33:51.556596+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 27, in round2_start
+    models.round_smra2.objects.update_or_create(bidder=bdr.bidder, item=item_llg, defaults=updated_values)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 18:12:21 later at 2023-07-25 07:46:17.602672+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:00:06 later at 2023-07-28 04:30:10.708851+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:00:21 later at 2023-07-28 04:30:35.982166+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:01:26 later at 2023-07-28 04:32:06.368645+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:04:21 later at 2023-07-28 04:36:27.792329+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:10:30 later at 2023-07-28 04:47:00.341089+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:21:41 later at 2023-07-28 05:08:44.125037+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 0:40:06 later at 2023-07-28 05:48:55.099869+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1:08:21 later at 2023-07-28 06:57:21.104680+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1:49:26 later at 2023-07-28 08:46:48.177906+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 2:46:45 later at 2023-07-28 11:33:36.431397+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 4:04:06 later at 2023-07-28 15:37:43.190193+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 5:45:41 later at 2023-07-28 21:23:25.696658+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 7:56:06 later at 2023-07-29 05:19:36.678802+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 10:40:21 later at 2023-07-29 15:59:59.434045+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 14:03:50 later at 2023-07-30 06:03:52.452788+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 18:12:21 later at 2023-07-31 00:16:18.351728+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 23:12:06 later at 2023-07-31 23:28:24.717428+00:00
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1 day, 5:09:41 later at 2023-08-02 04:38:07.904689+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1 day, 12:12:06 later at 2023-08-03 16:50:15.086115+00:00
+Rescheduling 34
+Traceback (most recent call last):
+  File "/home/auction/.local/lib/python3.10/site-packages/background_task/tasks.py", line 43, in bg_runner
+    func(*args, **kwargs)
+  File "/home/auction/kominfo2/smra2/tasks.py", line 39, in round2_stop
+    round_smra = models.round_smra2.objects.distinct("round").filter(item=item_llg)[0]
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 449, in __getitem__
+    qs._fetch_all()
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/query.py", line 121, in __iter__
+    for row in compiler.results_iter(results):
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1500, in apply_converters
+    value = converter(value, expression, connection)
+  File "/home/auction/.local/lib/python3.10/site-packages/django/db/models/fields/json.py", line 94, in from_db_value
+    return json.loads(value, cls=self.decoder)
+  File "/usr/lib/python3.10/json/__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not float
+Rescheduling task 34 for 1 day, 20:26:45 later at 2023-08-05 13:17:02.561621+00:00
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.
+Failed to retrieve tasks. Database unreachable.

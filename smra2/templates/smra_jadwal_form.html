@@ -1,0 +1,33 @@
+{% load widget_tweaks %}
+<form name="jadwal_smra_form" id="jadwal_smra_form" method="POST">
+    <div class="card-body">
+        {% csrf_token %}
+        {{ form.item }}
+        <div class="form-group">
+            <label for="mulai">Jadwal Mulai</label>
+            {% render_field form.mulai class+="form-control datetimepicker-input" %}
+        </div>
+        <div class="form-group">
+            <label for="selesai">Jadwal Selesai</label>
+            {% render_field form.selesai class+="form-control datetimepicker-input" %}
+        </div>
+        <div class="form-group">
+            <label for="mulai">Jadwal Mulai Harian</label>
+            {% render_field form.harian_mulai class+="form-control datetimepicker-input" %}
+        </div>
+        <div class="form-group">
+            <label for="selesai">Jadwal Selesai Harian</label>
+            {% render_field form.harian_selesai class+="form-control datetimepicker-input" %}
+        </div>
+        <div class="form-group">
+            <label for="durasi">Lama Waktu per Round</label>
+            {% render_field form.durasi class+="form-control datetimepicker-input" %}
+        </div>
+    </div>                                                
+    <div class="card-footer">
+        <div class="" style="text-align: right;">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+            <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+        </div>
+    </div>
+</form>

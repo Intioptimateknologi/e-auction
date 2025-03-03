@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+    {% for i in menu_group %}
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#t_{{i.menu.id}}" role="tab">{{ i.menu.name }}</a>
+    </li>
+    {% endfor %}
+</ul>

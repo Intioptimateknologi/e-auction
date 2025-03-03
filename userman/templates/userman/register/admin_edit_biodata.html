@@ -1,0 +1,302 @@
+
+
+{% load static %}
+{% block extrahead %}
+<!-- jika anda mau ngasih tambahan header disni khusus di page ini aja contoh header cdn-->
+<head>
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/45fe4c1444.js" crossorigin="anonymous"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/moment/moment.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
+    <!-- Default V2 theme -->
+    <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+    
+    <!-- ... -->
+    <script type="text/javascript" src="https://unpkg.com/survey-jquery"></script>
+</head>
+{% endblock %}
+
+{% block tambah_css %}
+<!-- jika anda mau ngasih css disni khusus di page ini aja-->
+<style>
+    a{
+        color: #7984A7;
+    }
+
+    a:hover {
+        color: #007bff; /* Replace with the desired color code */
+    }
+
+    .text_putih{
+        color: white;
+    }
+    .navbar {
+        height: 64px;
+        background-color: #007bff;
+      }
+    .brand-img {
+        height: 51.94px;
+    }
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+    .banner {
+        background: url(/static/img/portal/background-slider.png);
+        height: 768px;
+        width: 100%;
+    }
+    .logobesar {
+        position: absolute;
+        left: 85;
+        top: 209;
+    }
+    .portal_penjelasan {
+        position: absolute;
+        left: 85;
+        top: 411;
+        width: 643;
+    }
+    .button_yuk_mulai {
+        position: absolute;
+        left: 85;
+        top: 520;
+        width: 133;
+    }
+    .sdppi_side {
+        position: absolute;
+        right: 0;
+        top: 652;
+    }
+    .bi {
+        vertical-align: -.125em;
+        pointer-events: none;
+        fill: currentColor;
+      }
+      .nav-flush .nav-link {
+        border-radius: 0;
+      }
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 300px;
+        float: left;
+    }
+</style>
+{% endblock  %}
+{% block navbar %}
+{% include "component/navbar_super.html" %}
+{% endblock %}
+{% block content %}
+<div class="row" style="
+margin-left: 0px;
+margin-right: 0px;">
+    <div class="col col-md-1 bg-light" style="width:4.5rem;">
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center pt-5">
+            <li class="nav-item">
+                <a href="/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/users/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Users Management">
+                    <i class="fa fa-user"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/bidder/" class="nav-link active py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bidder Management">
+                    <i class="fa fa-users"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/userman/tim_lelang/" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Auctioner Management">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Viewer Management">
+                    <i class="fa fa-user-secret"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Place Bid">
+                    <i class="fa fa-usd"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Activity">
+                    <i class="fa fa-line-chart"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Round Summary">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Posted Result">
+                    <i class="fa fa-id-card"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Messages">
+                    <i class="fa fa-comments"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Schedules">
+                    <i class="fa fa-calendar"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Download">
+                    <i class="fa fa-download"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Logout">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col col-md-11">
+        <div style="display: flex;align-items: center;margin-left: 25px; margin-top: 25px;"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <h4 style="margin-bottom: 0%; margin-left: 15px;">Tambah / Edit Biodata</h4></div>
+        <div id="surveyContainer"> 
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- jika anda mau ngasih js disni khusus di page ini aja-->
+<script>
+    Survey
+        .StylesManager
+        .applyTheme("defaultV2");
+    
+    const surveyJson = {
+        "logoPosition": "right",
+        "pages": [
+        {
+        "name": "page1",
+        "elements": [
+            {
+            "type": "panel",
+            "name": "panel1",
+            "elements": [
+            {
+            "type": "text",
+            "name": "username",
+            "title": "Username",
+            "hideNumber": true
+            },
+            {
+            "type": "text",
+            "name": "nm_pengguna",
+            "startWithNewLine": false,
+            "title": "Nama Pengguna",
+            "hideNumber": true
+            },
+            {
+            "type": "dropdown",
+            "name": "hak_akses",
+            "title": "Hak Akses",
+            "hideNumber": true,
+            "choices": [
+                "item1",
+                "item2",
+                "item3"
+            ]
+            },
+            {
+            "type": "panel",
+            "name": "panel2",
+            "elements": [
+                {
+                "type": "text",
+                "name": "nama",
+                "title": "Nama",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "nip",
+                "startWithNewLine": false,
+                "title": "NIP",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "jabatan",
+                "title": "Jabatan",
+                "hideNumber": true
+                },
+                {
+                "type": "text",
+                "name": "jabatan2",
+                "startWithNewLine": false,
+                "title": "Jabatan di Tim",
+                "hideNumber": true
+                },
+                {
+                "type": "dropdown",
+                "name": "question1",
+                "title": "Status",
+                "hideNumber": true,
+                "choices": [
+                {
+                "value": "aktif",
+                "text": "Aktif"
+                },
+                {
+                "value": "non",
+                "text": "Non Aktif"
+                }
+                ]
+                },
+                {
+                "type": "file",
+                "name": "suart_kuasa",
+                "startWithNewLine": false,
+                "title": "Upload Surat Kuasa",
+                "hideNumber": true,
+                "maxSize": 0
+                }
+            ],
+            "title": "Daftar Perwakilan Perusahaan"
+            }
+            ]
+            }
+        ]
+        }
+        ],
+        "widthMode": "responsive",
+        "showCompletedPage": false
+    };
+    
+    const survey = new Survey.Model(surveyJson);
+    survey.focusFirstQuestionAutomatic = false;
+    
+    function alertResults (sender) {
+        const results = JSON.stringify(sender.data);
+        alert(results);
+    }
+    
+    survey.onComplete.add(alertResults);
+    
+    $(function() {
+        $("#surveyContainer").Survey({ model: survey });
+    }); 
+</script>
+{% endblock  %}

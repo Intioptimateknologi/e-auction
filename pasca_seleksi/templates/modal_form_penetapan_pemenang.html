@@ -1,0 +1,92 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Form Penetapan Pemenang</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                       
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Nomor</label>
+                                {% render_field form.nomor|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Judul</label>
+                                {% render_field form.judul|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Tanggal</label>
+                                {% render_field form.tanggal|add_class:"form-control" type="date" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                <label for="id_nomor"  class="nama_label">Akses ke User</label>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-yellow">Auctioner</div>
+                                        <div class="card-body">
+                                        {% render_field form.auctioneer|add_class:"form-checkbox" %}
+                                        <!--select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_auctioneer_2" name="auctioneer_2">
+                                        </select-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-purple">Viewer</div>
+                                        <div class="card-body">
+                                        {% render_field form.viewer|add_class:"form-checkbox" %}
+                                        <!--select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_auctioneer_2" name="auctioneer_2">
+                                        </select-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-cyan">Bidder</div>
+                                        <div class="card-body">
+                                        
+                                        {% render_field form.bidder|add_class:"form-checkbox" %}
+                                        <!--select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_bidder_2" name="bidder_2">
+                                        </select-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">File Link</label>
+                                {% render_field form.file_link|add_class:"form-control"|attr:"accept=.pdf"  %}
+                            </div>
+                          
+                    </div>  
+                </div>              
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

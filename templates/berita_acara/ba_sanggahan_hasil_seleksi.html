@@ -1,0 +1,375 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<h1 style="text-align:center; font-size:16px;">BERITA ACARA <br>HASIL {{ seleksi|upper }}</h1>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol class="custom-list">
+	<li style="text-align: justify;" class="alphabet-label" data-alphabet="1">Kami yang bertanda tangan di bawah ini
+
+        <table width="100%">
+          <tbody>
+            <tr>
+              <td>Nama</td>
+              <td>:</td>
+              <td>{{ ps_ketua.nama }}</td>
+            </tr>
+            <tr>
+              <td>Jabatan</td>
+              <td>:</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Jabatan dalam Tim</td>
+              <td>:</td>
+              <td>{{ ps_ketua.tanggung_jawab}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table width="100%">
+          <tbody>
+            <tr>
+              <td>Nama</td>
+              <td>:</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Jabatan</td>
+              <td>:</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Jabatan dalam Tim</td>
+              <td>:</td>
+              <td>{{ ps_ketua.tanggung_jawab}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+    mewakili Tim {{ seleksi }} (untuk selanjutnya disebut sebagai “Tim Seleksi”) yang ditetapkan melalui Keputusan Menteri ..........  dalam rangka kegiatan {{ seleksi }} (untuk selanjutnya disebut sebagai “Seleksi”), dengan ini menyatakan bahwa proses {{ seleksi|upper }} telah selesai dilakukan dengan hasil sebagaimana dijelaskan di bawah ini.
+  </li>
+  <br>
+  <li class="alphabet-label" data-alphabet="2">
+    Dasar Hukum
+    
+  </li>
+  <br>
+  <li class="alphabet-label" data-alphabet="3">
+    Tahapan kegiatan yang telah dilaksanakan oleh Tim Seleksi adalah sebagai berikut:
+    <ul class="custom-list">
+   
+      <li>Tim Seleksi melakukan Pengumuman Pembukaan Seleksi {{ps_pengumuman.tgl_release}} melalui Pengumuman Nomor: {{ps_pengumuman.nomor}} tentang {{ps_pengumuman.judul}} dan diumumkan kepada publik melalui Siaran Pers {{ps_pengumuman.nomor}} di website www.kominfo.go.id dan portal</li>
+      
+      <li>Tim Seleksi melaksanakan tahapan Pengambilan Dokumen Seleksi pada hari {{ps_undangan_doksel.tanggal}} secara daring, dan telah didokumentasikan melalui Berita Acara Pengambilan Dokumen {{ seleksi|upper }} (Berita Acara Nomor {{ps_ba_doksel.nomor}} Tanggal {{ps_ba_doksel.tanggal}}). Perusahaan yang telah hadir dan mengambil Dokumen Seleksi dalam kurun waktu sebagaimana dimaksud diurut berdasarkan waktu pengambilan Dokumen Seleksi adalah: {{ps_pengambilan_dokumen_seleksi.bidder_perwakilan.bidder}} {{ps_pengambilan_dokumen_seleksi.tgl_download}}</li>
+      
+      <li>Tim Seleksi melaksanakan tahapan Penyampaian Pertanyaan Tertulis {{ps_tahapan_pertanyaan.tanggal_awal|date:'d F Y'}} s/d {{ps_tahapan_pertanyaan.tanggal_akhirl|date:'d F Y'}}, dan telah didokumentasikan melalui Berita Acara Penyampaian Pertanyaan Tertulis atas {{ seleksi }}(Berita Acara Nomor {{ps_ba_pertanyaan.nomor}} Tanggal {{ps_ba_pertanyaan.tanggal}}). Perusahaan yang telah menyampaikan pertanyaan tertulis atas Dokumen Seleksi secara daring (online) dalam kurun waktu sebagaimana dimaksud diurut berdasarkan waktu penyampaian pertanyaan tertulis adalah: {{ps_undangan_aanwijing.bidder}}</li>
+      
+      <li>Terhadap pertanyaan tertulis yang telah disampaikan sebagaimana dimaksud angka 3.8, Tim Seleksi melaksanakan tahapan Pemberian Penjelasan pada {{ps_undangan_aanwijing.created}} bertempat di {{ps_undangan_aanwijing.temmpat}} dan telah didokumentasikan melalui Berita Acara Pemberian Penjelasan (Aanwijzing) {{ seleksi }}(Berita Acara Nomor {{ps_ba_aanwijing.nomor}} Tanggal {{ps_ba_aanwijing.tanggal}}) . Calon Peserta Seleksi yang menghadiri Pemberian Penjelasan adalah: </li>
+      
+      <li>Tim Seleksi melaksanakan Simulasi Lelang Harga pada Kegiatan {{ seleksi }} pada hari {{ps_undangan_simulasi.tanggal}} sampai dengan selesai bertempat di {{ps_undangan_simulasi.tempat}} dan telah didokumentasikan melalui Berita Acara Simulasi Lelang Harga Pada Kegiatan {{ seleksi }} (Berita Acara Nomor {{ps_ba_simulasi.nomor}} Tanggal {{ps_ba_simulasi.tanggal}}). Calon Peserta Seleksi yang menghadiri Penjelasan dan Simulasi Lelang Harga adalah:
+        <ul>
+          {% for t in ps_bidder %}
+            <li>{{t}}</li>
+          {% endfor %}
+        </ul>
+      </li>
+
+      {% if ps_addendum_doksel != "none" %}
+          <li>Oleh karena beberapa ketentuan dalam Dokumen Seleksi memerlukan perubahan dan/atau penjelasan lebih lanjut sehingga perlu dituangkan dalam Adendum Dokumen Seleksi, maka dilakukan Penetapan Keputusan Tim {{ seleksi|upper }} Nomor: {{ ps_addendum_doksel.nomor }} tentang Adendum Dokumen {{ seleksi|upper }} (untuk selanjutnya disebut sebagai “Adendum Dokumen Seleksi”) pada tanggal {{ ps_addendum_doksel.tanggal }}.</li>
+      {% endif %}
+
+      <li>Tim Seleksi melaksanakan tahapan Permohonan Keikutsertaan {{ seleksi }} pada {{ps_tahapan_permohonan_keikutsertaan.tanggal_awal|date:'d F Y'}} s/d {{ps_tahapan_permohonan_keikutsertaan.tanggal_akhirl|date:'d F Y'}} secara daring, dan telah didokumentasikan melalui Berita Acara Permohonan Keikutsertaan {{ seleksi|upper }} (Berita Acara Nomor {{ps_ba_permohonan.nomor}} Tanggal {{ps_ba_permohonan.tanggal}})</li>
+      
+      <li>Tim Seleksi melaksanakan tahapan Penyerahan dan Pemeriksaan Kelengkapan Dokumen Permohonan sebagai bagian dari tahapan Evaluasi Administrasi {{ seleksi|upper }} pada {{ ps_undangan_permohonan.tanggal }}, bertempat {{ps_undangan_permohonan.temmpat}} dan telah didokumentasikan melalui Berita Acara Penyerahan dan Pemeriksaan Kelengkapan Dokumen Permohonan {{ seleksi|upper }} (Berita Acara Nomor {{ps_ba_permohonan.nomor}} Tanggal {{ps_ba_permohonan.tanggal}}).
+        <ul>
+          <li>Peserta Seleksi yang menghadiri tahapan Penyerahan dan Pemeriksaan Kelengkapan Dokumen Permohonan untuk {{ seleksi|upper }} adalah sebagai berikut:[nama perusahaan dan wakil perusahaan]</li>
+          <li>Penyerahan dan Pemeriksaan kelengkapan Dokumen Permohonan, terdiri atas:
+              <ul>
+                <li>Ada atau tidaknya Formulir Permohonan Keikutsertaan {{ seleksi }};</li>
+                <li>Ada atau tidaknya Jaminan Keikutsertaan {{ seleksi }}; dan</li>
+                <li>Ada atau tidaknya “SAMPUL 2”</li>
+              </ul>
+          </li>
+        </ul>
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Peserta Seleksi</th>
+              <th>Hasil Pemeriksaan Kelengkapan Dokumen Permohonan</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in ps_pemeriksaan %}
+            <tr>
+                <td width="10%">
+                {{ forloop.counter }}
+                </td>
+                <td width="">{{t.perwakilan.bidder}}</td>
+                <td>
+                  {% if t.bidbond == "Ada" and t.sampul1 == "Ada" and t.sampul2 == "Ada" %}
+                    Lengkap
+                  {% else %}
+                    Tidak Lengkap
+                  {% endif %}
+                </td>
+                <td>{{t.keterangan}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </li>
+      <li>Tim Seleksi melaksanakan Verifikasi Dokumen Administrasi sebagai bagian dari tahapan Evaluasi Administrasi {{ seleksi|upper }} pada {{ps_undangan_verifikasi.tanggal}}.
+          <ul>
+            <li>Dokumen administrasi yang dilakukan verifikasi adalah:
+              <ul>
+                <li>Formulir Permohonan Keikutsertaan  {{ seleksi }}; dan</li>
+                <li>Jaminan Keikutsertaan  {{ seleksi }}.</li>
+              </ul>
+            </li>
+            <li>Hasil verifikasi Dokumen Administrasi {{ seleksi }} adalah sebagai berikut:
+              <br>
+              Verifikasi Jaminan Permogonan Keikutsertaan {{ seleksi }}
+              <br>
+              <table width="100%">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Peserta Seleksi</th>
+                    <th>Hasil Pemeriksaan Kelengkapan Dokumen Permohonan</th>
+                    <th>Keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for t in ps_verifikasi %}
+                    <tr>
+                        <td width="10%">
+                        {{ forloop.counter }}
+                        </td>
+                        <td width="">{{t.bidder.bidder.nama_perusahaan}}</td>
+                        <td>{{t.bidbond}}</td>
+                        <td>{{t.keterangan}}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <br>
+              Verifikasi Jaminan Keikutsertaan {{ seleksi }}
+              <br>
+              <table width="100%">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Peserta Seleksi</th>
+                    <th>Hasil Pemeriksaan Kelengkapan Dokumen Permohonan</th>
+                    <th>Keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for t in ps_verifikasi %}
+                    <tr>
+                        <td width="10%">
+                        {{ forloop.counter }}
+                        </td>
+                        <td width="">{{t.bidder}}</td>
+                        <td>{{t.sampul1}}</td>
+                        <td>{{t.keterangan}}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </li>
+          </ul>
+      </li>
+      <li>Berdasarkan hasil Pemeriksaan Kelengkapan Dokumen Permohonan yang telah dilaksanakan pada {{ps_undangan_pemeriksaan.tanggal}} dan hasil Verifikasi Dokumen Administrasi pada {{ps_undangan_verifikasi.tanggal}} Tim Seleksi menyusun hasil tahapan Evaluasi Administrasi {{ seleksi|upper }} dan telah didokumentasikan melalui Berita Acara Hasil Evaluasi Administrasi {{ seleksi|upper }} (Berita Acara Nomor {{ps_ba_hasil_evaluasi.nomor}} Tanggal {{ps_ba_hasil_evaluasi.tanggal}}) adalah sebagai berikut:
+        <br>
+        <br>
+        Verifikasi Formulir Permohonan Keikutsertaan {{ seleksi }}
+        <br>
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Peserta Seleksi</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in ps_hasil_evaluasi %}
+              {% if t.kesimpulan1 == True and t.kesimpulan2 == True and t.kesimpulan3 == True %}
+                <tr>
+                  <td width="10%">
+                    {{ forloop.counter }}
+                  </td>
+                  <td>{{ t.nama_perusahaan }}</td>
+                  <td>{{ t.keterangan }}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <br>
+
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Peserta Seleksi</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in ps_hasil_evaluasi %}
+            {% if t.kesimpulan1 == True and t.kesimpulan2 == True and t.kesimpulan3 == True %}
+              {% else %}
+                <tr>
+                  <td width="10%">
+                    {{ forloop.counter }}
+                  </td>
+                  <td>{{ t.nama_perusahaan }}</td>
+                  <td>{{ t.keterangan }}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </li>
+      
+      <li>Tim Seleksi melakukan Pengumuman Hasil Evaluasi Administrasi {{ seleksi|upper }} pada hari {{ ps_pengumuman_hasil_evaluasi.tgl_release }} melalui Pengumuman Nomor: {{ps_pengumuman_hasil_evaluasi.nomor}} tentang {{ps_pengumuman_hasil_evaluasi.judul}}, dan diumumkan kepada publik melalui Siaran Pers {{ps_pengumuman_hasil_evaluasi.nomor}} di website www.kominfo.go.id. dan melalui portal.</li>
+      
+      <li>Peserta Seleksi dapat menyampaikan Sanggah secara tertulis dalam jangka waktu 1 (satu) hari kerja setelah hari pengumuman hasil evaluasi administrasi, disertai dengan bukti-bukti yang memperkuat sanggahan. Sanggahan disampaikan secara daring pada {{ps_tahapan_sanggahan_adm.tanggal_awal|date:'d F Y'}} s/d {{ps_tahapan_sanggahan_adm.tanggal_akhir|date:'d F Y'}}.</li>
+
+      <li>Sampai dengan batas akhir , Tim Seleksi menemukenali {{ ps_sanggahan_sanggahan_ada|length }} yang disampaikan kepada Tim {{ seleksi }} dan hal tersebut telah didokumentasikan melalui Berita Acara Masa Sanggahan Hasil Evaluasi Administrasi {{ seleksi|upper }}( Berita Acara Nomor {{ps_sanggahan_sanggahan.nomor}} Tanggal {{ps_sanggahan_sanggahan.tanggal}}).</li>
+
+      <li>Sesuai  ketentuan  dalam dokumen {{ seleksi }}, dikarenakan tidak ada sanggahan, maka peserta seleksi yang lulus tahapan evaluasi administrasi akan mengikuti tahapan selanjutnya yaitu tahapan lelang harga dalam {{ seleksi|upper }}.</li>
+
+      <li>Tim Seleksi melaksanakan tahapan lelang harga pada  hari {{ps_undangan_smra.tanggal|date:'d F Y'}} secara daring Lelang Harga hari ke-{{ ps_ba_smra|length }} pada {{ seleksi|upper }} dilaksanakan hingga {{ps_putaran_smra.round}} putaran hari ke-{{ ps_ba_smra|length }},. Hasil Tahapan lelang hari kesatu telah didokumentasikan melalui Berita Acara Hasil Lelang Harga Hari Kesatu pada {{ seleksi|upper }} (Berita Acara Nomor [{{ps_ba_smra.0.nomor}} lelang hari ke-{{ ps_ba_smra|length }}] Tanggal [{{ps_ba_smra.0.tanggal|date:'d F Y'}} BA lelang hari ke-{{ ps_ba_smra|length }}]).</li>
+      
+      <li>Adapun	Daftar Peringkat Hasil Lelang Harga Pada {{ seleksi }}adalah:
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>Putaran Lelang(Round)</th>
+              <th>Peserta Seleksi</th>
+              <th>Harga Penawaran</th>
+              <th>Urutan Peringkat Hasil Lelang Harga</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in queryset_ps_hasil_smra %}
+                <tr>
+                  <td>{{ t.round }}</td>
+                  <td>{{ t.nama_perusahaan }}</td>
+                  <td>{{ t.price }}</td>
+                  <td>{{ t.ranking }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </li>
+
+      <li>Sesuai ketentuan pada Dokumen Seleksi, dalam hal berdasarkan Daftar Peringkat Hasil Lelang Harga, peringkat kesatu, kedua, dan ketiga diisi oleh lebih dari 1 (satu) peserta seleksi, maka proses seleksi akan dilanjutkan ke Tahapan Pemilihan Blok Pita Frekuensi Radio.
+      </li>
+
+      <li>Tim Seleksi melaksanakan tahapan Pemilihan Blok Pita Frekuensi Radio pada tanggal [tanggal undangan pilih blok] bertempat [tempat undangan pilih blok] dan telah didokumentasikan melalui Berita Acara Hasil Pemilihan Blok Pita Frekuensi radio (Berita Acara Nomor [nomor BA pilih blok] Tanggal [tanggal BA pilih blok]).
+      </li>
+
+      <li>Tim Seleksi melakukan Pengumuman Hasil {{ seleksi }} untuk Tahapan Lelang Harga dan Hasil Pemilihan Blok Pita Frekuensi Radio pada hari [tanggal pengumuman hasil lelang] melalui Pengumuman Nomor: [nomor pengumuman hasil lelang] tentang Pengumuman Hasil {{ seleksi|upper }} untuk Tahapan Lelang Harga dan Hasil Pemilihan Blok Pita Frekuensi Radio, dan diumumkan kepada publik melalui Siaran Pers No. [nomor siaran press pengumuman] di website www.kominfo.go.id, dan portal yang menginformasikan peringkat hasil lelang harga dan hasil pemilihan blok pita frekuensi radio sebagai berikut :
+        <br>
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>Peringkat Hasil Lelang Harga</th>
+              <th>Peserta Seleksi</th>
+              <th>Hasil Pemeriksaan Kelengkapan Dokumen Permohonan</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in ps_hasil_pemilihan_blok %}
+            <tr>
+              <td>{{ t.ranking }}</td>
+              <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
+              <td>{{ t.penawaran }}</td>
+              <td>{{ t.item }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </li>
+      <li>Sesuai ketentuan dalam dokumen seleksi, bahwa Objek {{ seleksi }}, terdiri atas {{ps_blok_pasca_seleksi|length}} blok pita frekuensi radio yang rinciannya adalah sebagai berikut:
+        <ul>
+          {% for t in ps_blok_pasca_seleksi %}
+            <li>Obyek {{t.item}} Blok {{t.nama_block}}</li>
+          {% endfor %}
+        </ul>
+      </li>
+      
+      <li>
+        Sesuai ketentuan pada dokumen {{ seleksi }}, Peserta Seleksi dapat menyampaikan sanggahan secara tertulis dalam jangka waktu 1 (satu) hari kerja setelah hari pengumuman hasil Seleksi, disertai dengan bukti-bukti yang memperkuat sanggahan. Sanggahan secara daring disampaikan pada {{ps_tahapan_sanggahan_ps.tanggal_awal|date:'d F Y'}} s/d {{ps_tahapan_sanggahan_ps.tanggal_akhirl|date:'d F Y'}}.
+      </li>
+      
+      <li>
+        Sampai dengan batas akhir, Tim Seleksi menemukenali tidak terdapat sanggahan yang disampaikan kepada Tim {{ seleksi }}dan hal tersebut telah didokumentasikan melalui Berita Acara Masa Sanggahan {{ seleksi|upper }}(Berita Acara Nomor {{ps_ba_sanggahan_ps.nomor}} Tanggal {{ps_ba_sanggahan_ps.tanggal}}).
+      </li>
+      
+      <li>
+        Demikian Berita Acara Hasil {{ seleksi }} ini dibuat, dan ditandatangani oleh Tim Seleksi di bawah ini yang telah ditetapkan melalui Keputusan Menteri Komunikasi dan Informatika Nomor [nomor dasar hukum seleksi] tentang [judul dasar hukum].
+      </li>
+
+      <li>Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+    </ul>
+  </li>
+</ol>
+
+<br>
+<br>
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

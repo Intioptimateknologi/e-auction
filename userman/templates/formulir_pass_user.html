@@ -1,0 +1,78 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+  <style>@page { size: A4 }</style>
+</head>
+<body class="A4">
+    <section class="sheet padding-25mm">
+
+<article><h4 style="text-align:center">DOKUMEN AKSES AKUN<br>SISTEM SELEKSI PENGGUNA PITA FREKUENSI RADIO SECARA ELEKTRONIK (E-AUCTION) 
+  UNTUK ADMINISTRASI PADA SELEKSI PENGGUNA PITA FREKUENSI RADIO 700 MHz DAN 26 GHz UNTUK KEPERLUAN PENYELENGGARAAN JARINGAN BERGERAK SELULER</h1>
+<center style="font-size:12px;">Nomor: ... /AKSEL/TIMSEL/ .... / 2024 </center>
+<center style="font-size:12px;">Tanggal :  {{ tanggal|date }}</center>
+<ol>
+	<li style="text-align: justify;font-size:12px;">Bahwa untuk keperluan administrasi secara elektronik, pada hari ... tanggal {{ tanggal|date }} ( .... ) 
+    telah diserahkan skun Sistem Seleksi Pengguna Pita Frekuensi Radio Secara Elektronik (e-Auction) untuk mengakses situs web : http:seleksi-ipfr.kominfo.go.id sebagai berikut :</li>
+  
+    <table style="@page{size: A4};width:100%;table, tr, td {border: 1px solid black;}; font-size:12px;">
+      <tbody>
+      <tr>
+        <td width="50%"><b>Nama User</b></td><td width="50%">: {{user}}</td>
+      </tr>
+      <tr>
+        <td width="50%"><b>Password OTP</b></td><td width="50%">: {{password}}</td>
+      </tr>
+      <tr>
+        <td width="50%"><b>Nama Lengkap</b></td><td width="50%">: {{namalengkap}}</td>
+      </tr>
+      <tr>
+        <td width="50%"><b>Tipe User</b></td><td width="50%">: {{usertype}}</td>
+      </tr>
+      <tr>
+        <td width="50%"><b>Mulai Berlaku Akun</b></td><td width="50%">: {{masa_berlaku_awal}} </td>
+      </tr>
+      <tr>
+        <td width="50%"><b>Akhir Berlaku</b></td><td width="50%">: {{masa_berlaku_akhir}}</td>
+      </tr>
+      </tbody>
+    </table>
+	<li style="text-align: justify;font-size:12px;">Sesuai ketentuan dalam Dokumen Seleksi :</li>
+    <table style="@page{size: A4};width:100%;table, tr, td {border: 1px solid black;}; font-size:12px;">
+      <tbody>
+      <tr>
+        <td width="5%" style="vertical-align: text-top;">a)</td><td>username sebagaimana dimaksud bersifat tetap dan tidak dapat diubah</td>
+      </tr>
+      <tr>
+        <td width="5%" style="vertical-align: text-top;">b)</td><td>password wajid diganti paling lambat tanggal {{sampai}} Pukul 15:00</td>
+      </tr>
+      <tr>
+        <td width="5%" style="vertical-align: text-top;">c)</b></td><td>jika penerima akun tidak melakukan pergantian kata sandi (password) paling lambat sesuai batas waktu yang ditentukan, maka penerima akun tidak dapat mengakses sistem e-Auction; dan</td>
+      </tr>
+      <tr>
+        <td width="5%" style="vertical-align: text-top;">d)</b></td><td>penerima akun bertanggungjawab penuh dalam penggunaan dan menjaga kerahasiaan dari username dan password</td>
+      </tr>
+    </table>
+   
+  <li style="text-align: justify;font-size:12px;">Demikian disampaikan untuk dipergunakan sebagaimana mestinya. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+</article>
+<div class="row"> 
+    <table>
+      <tr>
+        <td style="font-size:12px; width:50%;" ></td>
+        <td style="font-size:12px; width:50%;" >
+        <center>Jakarta, {{ tanggal|date }}</center>
+        <center>Admin Seleksi Pengguna Pita Frekuensi Radio 700 MHz dan 26 GHz untuk Keperluan Penyelenggaraan Jaringan Bergerak Seluler Tahun 2024
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          
+        </td>
+       </tr>
+      </table> 
+</div>
+</section>
+</body>
+</html>

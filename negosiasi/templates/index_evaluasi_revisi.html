@@ -1,0 +1,1356 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+{% block extrahead %}
+<style>
+    /* .navbar-expand{
+        flex-wrap: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    a{
+        text-decoration:none;
+    }
+    .sd-page.sd-body__page.sd-page__empty-header{
+        background-color: white;
+    }
+    .sd-action-bar.sd-footer.sd-body__navigation.sd-clearfix{
+        display: none;
+    }
+
+    
+    a.active {
+        border-bottom: 2px solid blue!important;
+        background-color:transparent!important;
+    }
+
+    .nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    }
+    .nav-link:hover {
+    color: #55c57a;
+    }
+
+    .nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    }
+
+    /* ul {
+    list-style: none;
+    margin-top: 1rem;
+    padding-inline-start: 0;
+    } */
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #d9ecff;
+    }
+   
+    .aktif{
+        color: #33cc33;
+    }
+    .aktif-striped{
+        color: #33cc33;
+    } */
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        width: 100%; 
+        height: 200px;
+    }
+    .card-footer{
+        display: none;
+    }
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-default">
+                            <div class="card-header" style="background-color: #6C757D;">
+                                <h1 style="color: white;font-size: 14px;font-weight: bold;">Negosiasi &gt; Evaluasi Perbaikan Penawaran Harga</h1>
+                            </div>
+                            <div class="card-body">
+                                {% if user_type == "C" %}
+                                {% add_judul_auctioner user.id item_lelang.id "/negosiasi/evaluasi_revisi_penawaran/" %}
+                                {% elif user_type == "V" %}
+                                {% add_judul_viewer user.id item_lelang.id "/negosiasi/evaluasi_revisi_penawaran/" %}
+                                {% elif user_type == "A" %}
+                                {% add_judul_admin user.id item_lelang.id "/negosiasi/evaluasi_revisi_penawaran/" %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="card-body">        
+            <div class="row">
+                <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#detil" role="tab">Detail Seleksi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#home" role="tab">Obyek Seleksi</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#kirim" role="tab">Kirim Undangan Evaluasi Revisi Sampul 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#undangan" role="tab">Undangan Evaluasi Revisi Sampul 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#form" role="tab">Form Evaluasi Revisi Sampul 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#hasil" role="tab">Hasil Evaluasi Revisi Sampul 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#draft" role="tab">Draft BA Evaluasi Revisi Sampul 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#ba" role="tab">BA Evaluasi Revisi Sampul 2</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content col-md-12">
+                    <div class="tab-pane" id="detil" role="tabpanel">
+                        <div class="card p-3">   
+                            <div class="container px-5 my-5" id="item_lelang_display" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="home" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Obyek Seleksi&nbsp;</h2>
+                                        <button id="tambah_obyek" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="obyek" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Band</th>
+                                                <th>Rentang Frekuensi</th>
+                                                <th>Teknologi</th>
+                                                <th>Reserved Price</th>
+                                                <th>Eligibility/Block</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="kirim" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Kirim Undangan Evaluasi Revisi Sampul 2</h2>
+                                        <button id="tambah_kirim" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table id="t_kirim" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>                    
+                    <div class="tab-pane" id="undangan" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Undangan Evaluasi Revisi Sampul 2</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_undangan" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="form" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Form Evaluasi Revisi Sampul 2</h2>
+                                        <button id="tambah_form" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_form" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="hasil" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Hasil Evaluasi Revisi Sampul 2</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_hasil" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="draft" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">Draft BA Evaluasi Revisi Sampul 2</h2>
+                                        <button id="tambah_draft" class="btn btn-outline ml-2"><i class="icon text-light"><img style="height:18px;" src="/static/img/plus.svg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_draft" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="ba" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-md-12 col-sm-12 table-responsive">
+                                    <div class="form-group form-inline">
+                                        <h2 style="color: rgb(0,114,228);font-size: 16px;font-weight: bold;">BA Evaluasi Revisi Sampul 2</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <table  id="t_ba" class="dt" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    {% comment %} <p style="display: none;" text="{{user.user_type}}" id="tricky_user_type"></p>
+    <p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+    <p style="display: none;" id="tricky_user_bidder_id"></p> {% endcomment %}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-form@4.3.0/dist/jquery.form.min.js"></script>
+<script>
+function deleteData(options) {
+    var defaults = {
+        element_id: "#form",
+        form_id: "#form",
+        id: null,
+        drfURL: null,
+        onSuccess: null,
+        onError: null,
+        errorClass: ".invalid",
+    };
+    var settings = $.extend(defaults, options);
+    Swal.fire({
+        icon: 'warning',
+        title: 'Hapus data',
+        text: "Ingin menghapus data ini ?",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: 'DELETE',
+                url: settings.drfURL+settings.id+'/',
+                contentType : 'application/json',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                dataType : 'json',
+                success: function (data) {
+                    settings.onSuccess(data);
+                },
+                error: function(error) {
+                    swal.fire("Menghapus gagal. Yang dihapus sudah ada obyeknya.")
+                }
+            });
+        } else if (result.isDenied) {
+        }
+    })
+};
+var item_lelang;
+$(document).ready(function() {
+  var judul_lelang = $('#nmlelang').select2({
+    ajax: {
+      url: '/adm_lelang/api/v1/item_lelang',
+      processResults: function (data) {
+        return {results: $.map(data.results, function (item) {
+            return {
+                text: item.nama_lelang,
+                id: item.id
+                }
+            })
+        }}
+    }
+  });
+
+  function loadData(id) {
+    $.ajax({
+        url: '/adm_lelang/adm_lelang/detail_itemlelang2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#obyek");
+            table.empty();
+            table.append(data);
+            // $("#obyek").DataTable();
+        }
+    });
+  }
+
+    //  load data
+    function load_itemlelang_form(data) {
+    checkRecord({        
+        drfURL: "/adm_lelang/api/v1/item_lelang/"+data+"/",
+        onSuccess: function(response) {
+            loadForm({
+                element_id: "#item_lelang_display",
+                form_id: "#item_lelang_form",
+                formURL: "/adm_lelang/adm_lelang/item_lelang/update/"+data+"/",
+                drfURL: "/adm_lelang/api/v1/item_lelang/"+data+"/",
+                method: 'PUT',
+                onSuccess: function(response) {
+                }
+            });
+        },
+        onError: function(response) {
+            loadForm({
+                element_id: "#item_lelang_display",
+                form_id: "#item_lelang_form",
+                formURL: "/adm_lelang/adm_lelang/item_lelang/update/"+data+"/",
+                drfURL: "/adm_lelang/api/v1/item_lelang/"+data+"/",
+                onSuccess: function(response) {
+                }
+            });
+        }
+    });
+}
+
+  function loadData_kirim(id) {
+    $.ajax({
+        url: '/negosiasi/nego/undangan_evaluasi_revsampul2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_kirim");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  function loadData_undangan(id) {
+    $.ajax({
+        url: '/negosiasi/nego/undangan_evaluasi_revsampul22/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_undangan");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  function loadData_draft(id) {
+    $.ajax({
+        url: '/negosiasi/nego/berita_acara/'+id + '/EVREVSAMPUL2/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_draft");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  function loadData_ba(id) {
+    $.ajax({
+        url: '/negosiasi/nego/berita_acara2/'+id + '/EVREVSAMPUL2/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_ba");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  function loadData_form(id) {
+    $.ajax({
+        url: '/negosiasi/nego/form_evaluasi_revsampul2/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_form");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  function loadData_hasil(id) {
+    $.ajax({
+        url: '/negosiasi/nego/form_evaluasi_revsampul22/'+id + '/',
+        method: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (data) {
+            var table = $("#t_hasil");
+            table.empty();
+            table.append(data);
+        }
+    });
+  }
+
+  let id_item_lelang = null;
+
+  $('#nmlelang').on('select2:select', function (e) {
+    id_item_lelang = e.params.data.id;
+    $("#item_lelang").val(id_item_lelang);
+    //console.log(get_id_lelang());
+    $("#updatejudul").prop('disabled', false);
+    $("#disablejudul").prop('disabled', false);
+    loadData(id_item_lelang)
+    load_itemlelang_form(id_item_lelang);
+    loadData_kirim(id_item_lelang);
+    loadData_undangan(id_item_lelang);
+    loadData_draft(id_item_lelang);
+    loadData_ba(id_item_lelang);
+    loadData_form(id_item_lelang);
+    loadData_hasil(id_item_lelang);
+    // loadData2(id_item_lelang)
+    // loadData3(id_item_lelang)
+    // loadData4(id_item_lelang)
+    // loadData5(id_item_lelang)
+    // loadData6(id_item_lelang)
+    // loadData_Auctioner(id_item_lelang)
+    // loadData_Viewer(id_item_lelang)
+  });
+  
+  $("#item_lelang").ajaxForm({
+    dataType:  'json', 
+    success:   function(data) {console.log(data)},
+    beforeSubmit: function(arr, $form, options) {
+        console.log(arr);
+        console.log($form);
+        console.log(options);
+        //return false;
+      }      
+  });
+  
+  //CREATE
+    $("#tambah_kirim").click(function() { 
+        showModal({
+            formURL: "/negosiasi/nego/modal_undg_evsampul2/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/negosiasi/api/v1/undangan_evaluasi_revsampul2/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                swal.fire({
+                    title: "Data Berhasil Ditambahkan !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadData_kirim(document.getElementById('item_lelang').value);
+                })
+            }
+        });
+    });
+
+    $("#tambah_draft").click(function() { 
+        showModal({
+            formURL: "/negosiasi/nego/modal_ba_evrevsampul2/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/negosiasi/api/v1/berita_acara_nego/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                swal.fire({
+                    title: "Data Berhasil Ditambahkan !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadData_draft(document.getElementById('item_lelang').value);
+                })
+            }
+        });
+    });
+
+    $("#tambah_form").click(function() { 
+        showModal({
+            formURL: "/negosiasi/nego/modal_form_evsampul2/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/negosiasi/api/v1/form_evaluasi_revsampul2/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                swal.fire({
+                    title: "Data Berhasil Ditambahkan !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                loadData_form(document.getElementById('item_lelang').value);
+                })
+            }
+        });
+    });
+
+  $("#tambah_dasar").click(function() { 
+      showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_dasar_hukum/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/dasar_hukum/",
+            onSuccess: function(response) {
+                $("#modal").modal('toggle');
+                loadData3(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+  
+  $("#objekdasarhukum").on("click",".dasar_hukum_update",function() {
+      showModal({
+        formURL: "/adm_lelang/adm_lelang/modal_update_dasar_hukum/"+this.id+ "/" + document.getElementById('item_lelang').value+"/",
+        drfURL: "/adm_lelang/api/v1/dasar_hukum/"+this.id+"/",
+        method: "PUT",
+        onSuccess: function(response) {
+            $("#modal").modal('toggle');
+            loadData3(document.getElementById('item_lelang').value);
+        }
+      })
+  });
+  
+  /*$(".dasar_hukum_update").modalForm({
+    formURL: "/adm_lelang/adm_lelang/modal_update_dasar_hukum/"+document.getElementById('item_lelang').value+"/"+this.id+"/",
+    drfURL: "/adm_lelang/api/v1/dasar_hukum/"+this.id+"/",
+    onSuccess: function(response) {
+        $("#modal").modal('toggle');
+        loadData3(document.getElementById('item_lelang').value);
+    }
+  });*/
+
+    // ditambahin objek seleksi(model detail item lelang)//
+    // create
+    $("#tambah_obyek").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_obyek_seleksi/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/detail_itemlelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+    // edit
+    $("#t_kirim").on("click",".undg_ev_revsimpul2_update ",function() {
+        showModal({
+            formURL: "/negosiasi/nego/modal_update_undg_evsampul2/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/negosiasi/api/v1/undangan_evaluasi_revsampul2/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_kirim(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#t_draft").on("click",".ba_update",function() {
+        showModal({
+            formURL: "/negosiasi/nego/modal_update_ba_evrevsampul2/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/negosiasi/api/v1/berita_acara_nego/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_draft(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#t_form").on("click",".undg_simpul2_update",function() {
+        showModal({
+            formURL: "/negosiasi/nego/modal_update_form_evsampul2/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/negosiasi/api/v1/form_evaluasi_revsampul2/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData_form(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+
+    $("#obyek").on("click",".objek_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_obyek_seleksi/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/detail_itemlelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+    // hapus
+    $("#t_kirim").on("click",".undg_ev_revsimpul2_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: "/negosiasi/api/v1/undangan_evaluasi_revsampul2/",
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_kirim(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_draft").on("click",".ba_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: "/negosiasi/api/v1/berita_acara_nego/",
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_draft(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#t_form").on("click",".undg_simpul2_delete",function() {
+        deleteData({id: this.id, 
+            drfURL: "/negosiasi/api/v1/form_evaluasi_revsampul2/",
+            onSuccess: function(data) {
+                swal.fire({
+                    title: "Data Terhapus !",
+                    text: "",
+                    icon: "success"
+                }).then(function() {
+                    loadData_form(document.getElementById('item_lelang').value);
+                });
+            }
+        });
+    });
+
+    $("#obyek").on("click",".objek_seleksi_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/adm_lelang/api/v1/detail_itemlelang/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadData(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+    // ditambahin//
+
+    // ditambahin objek seleksi(model detail item lelang)//
+    // create
+    $("#tambah_pengumuman").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_pengumuman_lelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData2(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+    // edit
+    $("#objekpengumumanseleksi").on("click",".pengumuman_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_pengumuman_lelang/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData2(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+    // hapus
+    $("#objekpengumumanseleksi").on("click",".pengumuman_seleksi_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/adm_lelang/api/v1/pengumuman_lelang/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadData2(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+    // ditambahin//
+
+    // ditambahin panitia seleksi//
+    // create
+    $("#tambah_pansel").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_panitia_seleksi/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/pengumuman_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData4(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+    // edit
+    $("#objekpanitiaseleksi").on("click",".panitia_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_panitia_seleksi/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/panitia_seleksi/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData4(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+    // hapus
+    $("#objekpanitiaseleksi").on("click",".panitia_seleksi_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/adm_lelang/api/v1/panitia_seleksi/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadData4(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+    });
+    // ditambahin//
+
+    // ditambahin panitia seleksi//
+    // create
+    $("#tambah_syarat").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_persyaratan_lelang/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/persyaratan_lelang/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData5(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+    // edit
+    $("#objeksyarat").on("click",".persyaratan_lelang_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_persyaratan_lelang/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/persyaratan_lelang/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData5(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+    // hapus
+    $("#objeksyarat").on("click",".persyaratan_lelang_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/adm_lelang/api/v1/persyaratan_lelang/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadData5(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+            }
+        })
+    });
+    // ditambahin//
+
+    // ditambahin panitia seleksi//
+    // create
+    $("#tambah_jadwal").click(function() { 
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_jadwal_seleksi/"+document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData6(document.getElementById('item_lelang').value);
+            }
+        });
+    });
+    // edit
+    $("#objekjadwal").on("click",".jadwal_seleksi_update",function() {
+        showModal({
+            formURL: "/adm_lelang/adm_lelang/modal_update_jadwal_seleksi/"+this.id+"/"+ document.getElementById('item_lelang').value+"/",
+            drfURL: "/adm_lelang/api/v1/jadwal_seleksi/"+this.id+"/",
+            method: "PUT",
+            onSuccess: function(response) {
+                $("#modal").modal('hide');
+                loadData6(document.getElementById('item_lelang').value);
+            }
+        })
+    });
+    // hapus
+    $("#objekjadwal").on("click",".jadwal_seleksi_delete",function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus data',
+            text: "Ingin menghapus data ini ?",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'DELETE',
+                    url: '/adm_lelang/api/v1/jadwal_seleksi/'+this.id+'/',
+                    contentType : 'application/json',
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    dataType : 'json',
+                    success: function (data) {
+                        swal.fire({
+                            title: "Data Terhapus !",
+                            text: "",
+                            icon: "success"
+                        }).then(function() {
+                            loadData6(document.getElementById('item_lelang').value);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else if (result.isDenied) {
+            }
+        })
+    });
+    // ditambahin//
+
+
+var base64_data_file;
+var item_lelang;
+
+$('#modal').on('shown.bs.modal', function() {
+    var textValue = $('#data_modal').text();
+
+    item_lelang = document.getElementById('item_lelang').value;
+    $('.select2bs4').select2();
+
+    // undangan add
+    if (textValue === 'add_evrev_sampul2_undangan') {
+        append_data_bidder();
+        append_data_auct();
+
+        // submit undagngan
+        $('#coba').submit(function(event) {
+            event.preventDefault();
+            console.log("tertekan");
+        
+            var selectedOptions = [];
+            var selectedOptions_auctioneer = [];
+            $('#id_bidder_2 option:selected').each(function() {
+                selectedOptions.push($(this).val());
+            });
+
+            $('#id_auctioneer_2 option:selected').each(function() {
+                selectedOptions_auctioneer.push($(this).val());
+            });
+
+            console.log(selectedOptions);
+
+            if (selectedOptions.length != 0) {
+                for (let index = 0; index < selectedOptions.length; index++) {
+                const element = selectedOptions[index];
+                
+                var formData = new FormData();
+                formData.append('file', $('#id_file')[0].files[0]);
+                formData.append('item_lelang', $('#id_item_lelang').val());
+                formData.append('nomor', $('#id_nomor').val());
+                formData.append('judul', $('#id_judul').val());
+                formData.append('tanggal', $('#id_tanggal').val());
+                formData.append('keterangan', $('#id_keterangan').val());
+                formData.append('tempat', $('#id_tempat').val());
+                formData.append('agenda', $('#id_agenda').val());
+                formData.append('link_teleconference', $('#id_link_teleconference').val());
+                formData.append('bidder', element);
+            
+                $.ajax({
+                    method: 'POST',
+                    url: '/negosiasi/api/v1/undangan_evaluasi_revsampul2/',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                        if (index == selectedOptions.length-1) {
+                            if (selectedOptions_auctioneer.length == 0) {
+                                swal.fire({
+                                    title: "Berhasil !",
+                                    text: "Data Berhasil Ditambah!",
+                                    icon: "success"
+                                }).then(function() {
+                                    $("#modal").modal('hide');
+                                    loadData_kirim(document.getElementById('item_lelang').value);
+                                });
+                            } else {
+                                auctioner(selectedOptions_auctioneer);
+                            }
+                            
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+            }else{
+                auctioner(selectedOptions_auctioneer);
+            }
+
+            
+        });
+
+        // looping
+        function auctioner(arr){
+            for (let index = 0; index < arr.length; index++) {
+                const element = arr[index];
+                
+                var formData = new FormData();
+                formData.append('file', $('#id_file')[0].files[0]);
+                formData.append('item_lelang', $('#id_item_lelang').val());
+                formData.append('nomor', $('#id_nomor').val());
+                formData.append('judul', $('#id_judul').val());
+                formData.append('tanggal', $('#id_tanggal').val());
+                formData.append('keterangan', $('#id_keterangan').val());
+                formData.append('tempat', $('#id_tempat').val());
+                formData.append('agenda', $('#id_agenda').val());
+                formData.append('link_teleconference', $('#id_link_teleconference').val());
+                formData.append('auctioneer', element);
+            
+                $.ajax({
+                    method: 'POST',
+                    url: '/negosiasi/api/v1/undangan_evaluasi_revsampul2/',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                        if (index == arr.length-1) {
+                            swal.fire({
+                                title: "Berhasil !",
+                                text: "Data Berhasil Ditambah!",
+                                icon: "success"
+                            }).then(function() {
+                                $("#modal").modal('hide');
+                                loadData_kirim(document.getElementById('item_lelang').value);
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+        }
+
+    }
+
+    // ba add
+    if (textValue === 'add_dokesel_draftba') {
+        append_data_bidder();
+        append_data_auct();
+
+        // submit BA
+        $('#ba_form').submit(function(event) {
+            event.preventDefault();
+            console.log("tertekan ba");
+        
+            var selectedOptions = [];
+            var selectedOptions_auctioneer = [];
+            $('#id_bidder_2 option:selected').each(function() {
+                selectedOptions.push($(this).val());
+            });
+
+            $('#id_auctioneer_2 option:selected').each(function() {
+                selectedOptions_auctioneer.push($(this).val());
+            });
+
+            if (selectedOptions.length != 0) {
+                for (let index = 0; index < selectedOptions.length; index++) {
+                const element = selectedOptions[index];
+                
+                var formData = new FormData();
+                formData.append('file', $('#id_file')[0].files[0]);
+                formData.append('item_lelang', $('#id_item_lelang').val());
+                formData.append('nomor', $('#id_nomor').val());
+                formData.append('judul', $('#id_judul').val());
+                formData.append('tanggal', $('#id_tanggal').val());
+                formData.append('keterangan', $('#id_keterangan').val());
+                formData.append('bidder', element);
+                formData.append('owner', "AANWIZING");
+            
+                $.ajax({
+                    method: 'POST',
+                    url: '/persiapan/api/v1/berita_acara_persiapan/',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                        if (index == selectedOptions.length-1) {
+                            if (selectedOptions_auctioneer.length == 0) {
+                                swal.fire({
+                                    title: "Berhasil !",
+                                    text: "Data Berhasil Ditambah!",
+                                    icon: "success"
+                                }).then(function() {
+                                    selesai();
+                                });
+                            } else {
+                                auctioner_ba(selectedOptions_auctioneer);
+                            }
+                            
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+            } else {
+                auctioner_ba(selectedOptions_auctioneer);
+            }
+            
+        });
+
+        // looping
+        function auctioner_ba(arr){
+            for (let index = 0; index < arr.length; index++) {
+                const element = arr[index];
+                
+                var formData = new FormData();
+                formData.append('file', $('#id_file')[0].files[0]);
+                formData.append('item_lelang', $('#id_item_lelang').val());
+                formData.append('nomor', $('#id_nomor').val());
+                formData.append('judul', $('#id_judul').val());
+                formData.append('tanggal', $('#id_tanggal').val());
+                formData.append('keterangan', $('#id_keterangan').val());
+                formData.append('auctioneer', element);
+                formData.append('owner', "AANWIZING");
+            
+                $.ajax({
+                    method: 'POST',
+                    url: '/persiapan/api/v1/berita_acara_persiapan/',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                        if (index == arr.length-1) {
+                            swal.fire({
+                                title: "Berhasil !",
+                                text: "Data Berhasil Ditambah!",
+                                icon: "success"
+                            }).then(function() {
+                                selesai();
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+        }
+    }
+
+    // edit
+    if (textValue === 'edit_dokesel') {
+            var selectedTexta = $('#id_bidder').find('option:selected').text();
+            var selectedTextb = $('#id_auctioneer').find('option:selected').text();
+
+            if (selectedTexta === '---------') {
+                $('#id_bidder').prop('disabled', true);
+            } else {
+                $('#id_bidder').prop('disabled', false);
+            }
+
+
+            if (selectedTextb === '---------') {
+                $('#id_auctioneer').prop('disabled', true);
+            } else {
+                $('#id_auctioneer').prop('disabled', false);
+            }
+    }
+});
+
+$('.custom-file-input').on('change',function(){
+    console.log("berubah")
+    var fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+
+    var file = this.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+        base64_data_file = reader.result;
+    };
+
+    reader.readAsDataURL(file)
+})
+
+
+// doksel selesai
+function selesai() {
+    console.log("selesai");
+    location.reload();
+}
+// 
+
+//append data
+function append_data_bidder(){
+
+    $.ajax({
+    method: 'GET',
+    url: "/userman/api/api_join_users_bidder_lelang/"+item_lelang+"/",
+    contentType : 'application/json',
+    dataType : 'json',
+        success: function (data) {
+            var data_data = data;
+
+            for (let index = 0; index < data_data.length; index++) {
+                const element = data_data[index];
+                $('#id_bidder_2').append('<option value="'+element.id_bidder+'">'+element.username+'('+element.nama_perwakilan+')</option>');
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+function append_data_auct(){
+    $.ajax({
+    method: 'GET',
+    url: "/userman/api/api_join_users_auctioneer_lelang/"+item_lelang+"/",
+    contentType : 'application/json',
+    dataType : 'json',
+        success: function (data) {
+            var data_data = data;
+
+            for (let index = 0; index < data_data.length; index++) {
+                const element = data_data[index];
+                $('#id_auctioneer_2').append('<option value="'+element.id_auctioneer+'">'+element.username+'('+element.nama_perwakilan+')</option>');
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+//append data
+
+});
+</script>
+{% endblock %}

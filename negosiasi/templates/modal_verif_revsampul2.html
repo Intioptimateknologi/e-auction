@@ -1,0 +1,29 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Verifikasi Revisi Sampul 2</h5>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">x</button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                {% render_field form.item_lelang %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Verifikasi</label>
+                        {% render_field form.verifikasi|add_class:"form-control" %}
+                    </div>
+                </div>
+                <div class=""  style="text-align: right;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                             
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>

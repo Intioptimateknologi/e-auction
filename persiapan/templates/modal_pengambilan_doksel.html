@@ -1,0 +1,105 @@
+{% load widget_tweaks %}
+{% load l10n %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title ">Tanda Terima Pengambilan Dokumen Seleksi</h3>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="data_modal" style="display: none;">muncul</p>
+                <div class="col">
+                    <div class="col">
+                        
+                            {% csrf_token %}
+                            <div style="display: none;">
+                                {% render_field form.dokumen_seleksi %}
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="id_bidder" class="nama_label">Perwakilan Peserta:</label><br>
+                                        {% render_field form.bidder_perwakilan|add_class:"form-control  wakilnya" %}
+                                        <!--select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_bidder_2" name="bidder_2">
+                                        </select-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row col-12">
+                                    <div class="row form-group" style="display: flex;">
+                                        <div class="col-md-12">
+                                        <label for="id_bidder" class="nama_label">Waktu Unduh:</label>
+                                        </div>
+                                        <div class="col-md-12" style="margin-left:-20px;">
+                         
+                                        <iframe src="https://free.timeanddate.com/clock/i9e9919s/n624/tlid38/fs12/tt0/tw0/ta1/tb2" frameborder="0" width="183" height="16"></iframe>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:20px;">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input checknya" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1" style="text-align: left;">Dengan ini saya menyatakan bahwa saya selaku perwakilan telah mengunduh Dokumen Seleksi  dengan Waktu Pengambilan sebagaimana tertera diatas</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>  
+                </div>              
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" id="submitButton" disabled class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+<script>
+    $( document ).ready(function() {
+        $('#submitButton').prop('disabled', true);
+        $('#modal').on('shown.bs.modal', function() {
+            var paragraphText = $('#data_modal').text();
+            if (paragraphText == "muncul") {
+               
+            }
+            
+            $('#exampleCheck1').change(function() {
+            if ($(this).prop('checked')) {
+                $('#submitButton').prop('disabled', false);
+            } else {
+                $('#submitButton').prop('disabled', true);
+            }
+        });
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('.wakilnya').select2(
+        {
+            width:'100%',
+            dropdownParent: $("#modal"),
+            theme: 'bootstrap4', 
+        }
+    );
+    
+});
+</script>

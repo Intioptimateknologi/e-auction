@@ -1,0 +1,14 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}Yth. Bapak / Ibu {% endblocktrans %}
+
+{% blocktrans %}Bersama ini kami sampaikan {{ judul }} sebagaimana dapat diunduh pada tautan berikut  <a href="https://{{domain}}/media/{{ file }}">link ini</a>.{% endblocktrans %}
+
+{% blocktrans %}Link Zoom {{ link }}{% endblocktrans %}
+
+{% blocktrans %}Demikian disampaikan, kami sampaikan terimakasih{% endblocktrans %}
+
+{% blocktrans %}Salam{% endblocktrans %}
+
+{% blocktrans %}Tim {{ site_name }}{% endblocktrans %}
+
+{% endautoescape %}

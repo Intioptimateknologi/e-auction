@@ -1,0 +1,53 @@
+{% load widget_tweaks %}
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title"><i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;Judul Seleksi</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+                {% csrf_token %}
+                {% render_field form.id %}
+                <div class="card-body">
+                    <div class="form-group col-2">
+                        <label  class="nama_label">Tahun</label>
+                        {% render_field form.tahun|add_class:"form-control" %}
+                    </div>
+                    
+                    <div class="form-group col-12">
+                        <label  class="nama_label">Judul Seleksi</label>
+                        {% render_field form.nama_lelang|add_class:"form-control" %}
+                    </div>
+                       
+                    <div class="form-group  col-12">
+                        <label class="nama_label" for="keterangan">Keterangan</label>
+                        {% render_field form.keterangan|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group col-12">
+                        <label class="nama_label" for="keterangan">Status</label><br>
+                        <div class="col-md-1">
+                            &nbsp;&nbsp;&nbsp;&nbsp;{% render_field form.tayang|add_class:"form-check-input checknya" %}&nbsp;&nbsp;Aktif
+                        
+                        
+                    </div>
+                    
+                </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+	  </div>
+	</div>
+  </div>
+</form>

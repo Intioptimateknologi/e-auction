@@ -1,0 +1,65 @@
+{% load widget_tweaks %}
+<form name="form_data" id="form_data" method="POST">
+<div id="modal" class="modal fade show" style="display:block;" role="dialog" >
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;Mengelola Tahapan</h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Nama Tahapan</label>
+                                {% render_field form.name|add_class:"form-control" label="Nama" placeholder="Nama Tahapan" type="text" %}  
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Judul</label>
+                                {% render_field form.judul|add_class:"form-control" placeholder="Judul" type="text" %}  
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Urutan</label>
+                                {% render_field form.orderby|add_class:"form-control" placeholder="Judul" type="text" %}  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Attribute</label>
+                                {% render_field form.attribute|add_class:"form-control" placeholder="Attribute (Dalam JSON)"  type="text" %}  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Parent</label>
+                                {% render_field form.parent|add_class:"form-control custom-select" %}  
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

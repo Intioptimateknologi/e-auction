@@ -1,0 +1,26 @@
+    <ul class="nav nav-tabs" data-bind='foreach: allItems()'>
+      <li class="nav-nav-item active"><a data-bind='css: {"active": $index()==0}, attr:{href:"#hasil"+id()}, text:band' class="nav-link text-bold" data-toggle="pill" role="tab"></a> </li>
+    </ul>
+    <div class="tab-content mt-2" data-bind='foreach: allItems()'>
+      <div class="tab-pane" data-bind='css: {"active": $index()==0}, attr:{id:"hasil"+id()}' role="tabpanel">
+        <div class="card"><div class="card-body">
+          <div class="row">
+            <div class="col col-md-5">
+              <embed data-bind="attr: {src:grafik()}">
+            </div>
+            <div class="col col-md-7">
+              <div data-bind="html: hasil()"></div>
+            </div>
+          </div>
+          <div class="row pt-5 bordered">
+            <div class="col col-md-5">
+              <embed data-bind="attr: {src:grafik2()}">
+            </div>
+            <div class="col col-md-7">
+              <div data-bind="html: hasil2()"></div>
+            </div>
+          </div>
+
+        </div></div>
+      </div>
+    </div>

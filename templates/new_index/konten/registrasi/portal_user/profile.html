@@ -1,0 +1,72 @@
+{% extends 'new_index/base1.html' %}
+{% load static %}
+{% block extrahead %}
+<style>
+    .footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+
+    .carousel-item img {
+    z-index: unset;
+  }
+
+</style>
+{% endblock %}
+{% block navbar %}
+{% if user.is_authenticated %}
+    {% include 'new_index/parts/navbar_admin.html' %}
+{% else %}
+    {% include 'new_index/parts/navbar_viewer.html' %}
+{% endif %}
+{% endblock %}
+{% block konten_isi %}
+<div class="container" style="padding-top: 20px; padding-bottom:100px;">
+    <div hx-get="/portal/get_profile" hx-trigger="load"></div>
+    {% comment %} <div class="row">
+        <div class="col">
+            <h1 style="font-size: 24px;font-weight: bold; color: #04195B;">Latar Belakang</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p style="text-align: justify;color: #6C748E;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card h-100" style="border-radius: 11px;box-shadow: 0px 0px 7px rgb(224,224,224);">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h1 style="font-size: 24px;font-weight: bold;">Visi</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p style="text-align: justify;color: #6C748E;">Menjadi lembaga yang terkemuka dalam pelelangan sinyal radio untuk mendukung perkembangan dan penggunaan teknologi komunikasi yang efektif dan terpadu di Indonesia.<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100" style="border-radius: 11px;box-shadow: 0px 0px 7px rgb(224,224,224);">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h1 style="font-size: 24px;font-weight: bold;">Misi</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-xxl-flex align-items-xxl-center" style="display: flex;">
+                            <p style="text-align: justify;color: #6C748E;"><br>1. Meningkatkan transparansi dan akuntabilitas dalam proses pelelangan sinyal radio guna memberikan kesempatan yang adil bagi semua pemangku kepentingan.<br>2. Memastikan ketersediaan dan kelancaran sinyal radio yang berkualitas tinggi untuk mendukung konektivitas yang optimal di seluruh Indonesia.<br>3. Mendorong inovasi dan adopsi teknologi terbaru dalam penyediaan sinyal radio untuk memenuhi kebutuhan masyarakat dan industri.<br><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+</div>
+{% include 'new_index/parts/footer_index.html' %}
+{% endblock %} 

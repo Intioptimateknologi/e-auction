@@ -1,0 +1,34 @@
+{% load render_table from django_tables2 %}
+<div class="nav nav-tabs" id="tabs">
+    <div class="nav-item">
+        <a hx-get="/portal/manage_banner/" class="nav-link active" >Banner Slide</a>
+    </div>
+    <div class="nav-item">
+        <a hx-get="/portal/manage_istilah/" class="nav-link text-bold" >Istilah Lelang</a>
+    </div>
+    <div class="nav-item">
+        <a hx-get="/portal/manage_aturan/" class="nav-link text-bold" >Aturan Lelang</a>
+    </div>
+    <div class="nav-item">
+        <a hx-get="/portal/manage_history/" class="nav-link text-bold" >History Lelang</a>
+    </div>
+    <div class="nav-item">
+        <a hx-get="/portal/manage_mancanegara/" class="nav-link text-bold" >Lelang Mancanegara</a>
+    </div>
+    <div class="nav-item">
+        <a hx-get="/portal/manage_content/" class="nav-link text-bold" >Kelola Konten</a>
+    </div>
+</div>
+</div>
+<div class="card mb-0 w-100">
+    <div class="card-header" style="background-color: white;">
+        <div style="display: flex; justify-content: space-between; align-items: center; align-content: center; flex-wrap: nowrap; flex-direction: row;">
+            <div class="h4 float-start" style="color: rgb(0,114,228);">Banner Slide</div>
+            <button type="button" id="tambah_data" class="btn btn-secondary float-end" style="background-color: #fff;color: #007bff;border-color: #007bff; font-size:14px;" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-plus-circle"></i> Tambah Baru</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="table-banner-slide" class="table-responsive" hx-get="/portal/banner_table/" hx-trigger="load delay:100ms" hx-target="#banner_tables" hx-swap="innerHTML">
+        </div>
+    </div>
+</div>

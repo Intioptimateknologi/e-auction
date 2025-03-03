@@ -1,0 +1,38 @@
+{% load widget_tweaks %}
+
+<form name="item_lelang" id="item_lelang" method="POST" >
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h3 class="modal-title">Form Pemasukan Penawaran Berdasarkan Dokumen Penawaran</h5>
+            <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+		</div>
+		<div class="modal-body">
+                {% csrf_token %}
+                {% render_field form.item_lelang %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="nama_label" for="keterangan">Status</label><br>
+                        &nbsp;&nbsp;{% render_field form.verifikasi|add_class:"form-control checknya" %}&nbsp;&nbsp;Sesuai
+                    </div>
+                </div>
+               
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+	  </div>
+	</div>
+  </div>
+  </script>
+</form>

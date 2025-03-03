@@ -1,0 +1,223 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+    
+    </style>
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+
+<h1 style="text-align:center; font-size:16px;">BERITA ACARA<br> HASIL LELANG HARGA TAHAP ASSIGNMENT STAGE UNTUK {{ seleksi|upper }}</h1>
+{% localize on %}
+<p style="text-align:center">Nomor {{ nomor }}, Tanggal {{ tanggal|date:'d F Y'}}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari ini, {{ ba.0.tanggal|date:'d F Y' }} telah dilaksanakan Lelang Harga Assignment  Hari ke ke-{{ ba|length }} untuk {{ seleksi|upper }}</li>
+    <li style="text-align: justify;">Peserta Seleksi mengikuti tahapan Lelang Harga Assignment  ke-{{ ba|length }} untuk {{ seleksi|upper }} melalui sistem Seleksi Pengguna Izin Pita Frekuensi Radio Secara Elektronik (e-auction) dan menggunakan IPv4 yang telah terdaftar pada Formulir Keikutsertaan.</li>
+    <li style="text-align: justify;">Lelang harga pada hari ke-{{ ba|length }} dimulai dan diakhiri sebagai berikut :</li>
+
+    <table width="100%">
+      <thead>
+        <tr>
+          <th>Waktu Mulai</th>
+          <th>Waktu Akhir</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in waktu %}
+          <tr>
+            <td>{{ t.mulai }}</td>
+            <td>{{ t.selesai }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <li>Rekapitulasi  Penawaran Harga Peserta Seleksi pada Assignment  sebagaimana lampiran 1 Berita Acara ini.</li>
+    <li>Selanjutnya Sistem Aplikasi melakukan pemilihan kombinasi penawaran terbaik dengan hasil sebagaimana lampiran 2 Berita Acara ini.</li> 
+    <li>Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan hari ke-{{ ba|length }} tahapan lelang harga Assignment  untuk {{ seleksi|upper }}. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td>&nbsp;</td><td>Jakarta, {% now "SHORT_DATE_FORMAT" %}</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="width:50%">
+              <p style="text-align:center">Mengetahui</p>
+              <p style="text-align:center">Ketua Tim Pelaksana {{ seleksi }}</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              <pstyle="text-align:center">{{ketua_pansel}}</p>
+            </div>
+          </td>
+          <td>
+            <p style="text-align:center"> Anggota Tim Pelaksana {{ seleksi }}</p>
+            <ol>
+              {% for i in pansel %}
+                <li>{{i.auctioner.users.nama_lengkap}} ({{i.auctioner.jabatan_dalam_tim}}), ................................</li>
+              {% endfor %}
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<p>Lampiran 1</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Peserta Seleksi</th>
+        <th>Obyek Seleksi</th>
+        <th>Jumlah Blok Penawaran</th>
+        <th>Harga Penawaran per Blok</th>
+        <th>Waktu Penawaran</th>
+        <th>Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for queryset in detail %}
+        {% for t in queryset %}
+          <tr>
+            <td>{{ t.bidder }}</td>
+            <td>{{ t.item }}</td>
+            <td>{{ t.blok }}</td>
+            <td>{{ t.price }}</td>
+            <td>{{ t.submit|date:'d F Y' }}</td>
+            <td> {% if t.valid %}
+                valid
+            {% else %}
+                tidak valid
+            {% endif %}</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td>&nbsp;</td><td>Jakarta, {% now "SHORT_DATE_FORMAT" %}</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="width:50%">
+              <p style="text-align:center">Mengetahui</p>
+              <p style="text-align:center">Ketua Tim Pelaksana {{ seleksi }}</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              <pstyle="text-align:center">{{ketua_pansel}}</p>
+            </div>
+          </td>
+          <td>
+            <p style="text-align:center"> Anggota Tim Pelaksana {{ seleksi }}</p>
+            <ol>
+              {% for i in pansel %}
+                <li>{{i.auctioner.users.nama_lengkap}} ({{i.auctioner.jabatan_dalam_tim}}), ................................</li>
+              {% endfor %}
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Lampiran 2</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Peserta Seleksi</th>
+        <th>Obyek Seleksi</th>
+        <th>Harga Penawaran per Blok</th>
+        <th>Waktu Penawaran</th>
+        <th>Urutan Peringkat</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for queryset in detail %}
+        {% for t in queryset %}
+          <tr>
+            <td>{{ t.bidder }}</td>
+            <td>{{ t.item }}</td>
+            <td>{{ t.price }}</td>
+            <td>{{ t.submit|date:'d F Y' }}</td>
+            <td>{{ t.ranking }}</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td>&nbsp;</td><td>Jakarta, {% now "SHORT_DATE_FORMAT" %}</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="width:50%">
+              <p style="text-align:center">Mengetahui</p>
+              <p style="text-align:center">Ketua Tim Pelaksana {{ seleksi }}</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              <pstyle="text-align:center">{{ketua_pansel}}</p>
+            </div>
+          </td>
+          <td>
+            <p style="text-align:center"> Anggota Tim Pelaksana {{ seleksi }}</p>
+            <ol>
+              {% for i in pansel %}
+                <li>{{i.auctioner.users.nama_lengkap}} ({{i.auctioner.jabatan_dalam_tim}}), ................................</li>
+              {% endfor %}
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+</body>
+</html>

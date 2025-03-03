@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'userman_Users_list' %}">
+    Users Listing
+    </a>
+</p>
+    
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="form-group row">
+      <label class="col-sm-2 nama_label" for="username">Username: </label>
+      <input class="form-control col-sm-10"
+         id="username" type="text"
+         name="username" value="{{ object.username }}">
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 nama_label" for="mobile_number">password: </label>
+    <input class="form-control col-sm-10"
+       id="password" type="text"
+       name="password" value="{{ object.password }}">
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 nama_label" for="email">Email: </label>
+    <input class="form-control col-sm-10"
+       id="email" type="text"
+       name="email" value="{{ object.email }}">
+</div>
+<div class="form-group row">
+      <label class="col-sm-2 nama_label" for="mobile_number">Nomor Mobile: </label>
+      <input class="form-control col-sm-10"
+         id="mobile_number" type="text"
+         name="mobile_number" value="{{ object.mobile_number }}">
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 nama_label" for="mobile_number">Nama Lengkap: </label>
+    <input class="form-control col-sm-10"
+       id="nama_lengkap" type="text"
+       name="nama_lengkap" value="{{ object.nama_lengkap }}">
+</div>
+<div class="form-group row">
+  <label class="col-sm-2 nama_label" for="mobile_number">isactive: </label>
+  <input class="form-control col-sm-10"
+     id="isactive" type="text"
+     name="isactive" value="{{ object.isactive }}">
+</div>
+<div class="form-group row">
+  <label class="col-sm-2 nama_label" for="mobile_number">User Type: </label>
+  <input class="form-control col-sm-10"
+     id="user_type" type="text"
+     name="user_type" value="{{ object.user_type }}">
+</div>
+
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

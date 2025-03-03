@@ -1,0 +1,88 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<p style="text-align:center; font-size:16px;"><b>BERITA ACARA <br> MASA SANGGAHAN HASIL EVALUASI ADMINISTRASI {{ seleksi|upper }}</b></p>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Sesuai ketentuan pada Dokumen {{seleksi}}, Peserta Seleksi dapat menyampaikan Sanggahan Hasil Evaluasi Administrasi disertai bukti yang memperkuat sanggahan kepada Tim Seleksi paling lambat 2 (dua) hari kerja setelah hari Pengumuman Hasil Evaluasi Administrasi paling lambat .... </li>
+    
+    {% if sanggahan %}
+      <li style="text-align: justify;">Berkenaan dengan hal tersebut di atas, pada hari {{t.created|date:'L'}} tanggal {{t.created|date:'d F Y'}} hingga batas waktu yang ditentukan, Tim seleksi menemukenali <b>terdapat/tidak terdapat sanggahan</b>  dari peserta seleksi kesimpulan sebagai tersebut: </li> 
+     <table width="100%" >
+      <tr>
+        <th>No</th><th>Peserta Seleksi</th><th>Jawaban Sanggahan</th><th>Keterangan</th><th>Tindak Lanjut</th>
+      </tr>
+      {% for t in jawaban %}
+        <tr>
+          <td width="10%">
+          {{ forloop.counter }}</td>
+          <td width="30%">{{t.bidder.bidder.nama_perusahaan}}</td>
+          <td width="20%">
+           {{t.jawaban_sanggah}}
+          </td>
+          <td width="20%">
+            {{t.keterangan}}
+           </td>
+           <td width="20%">
+            {{t.tindak_lanjut_seleksi}}
+           </td>
+      </tr>
+        {% endfor %}
+    </table>
+    <p>dengan data dukung jawaban sebagaimana pada lampiran II.</p>
+    <li style="text-align: justify;">Berdasarkan hasil kesimpulan diatas, maka proses {{seleksi}} akan <b>Lanjut / Berhenti / Berhenti Sementara</b></li>
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Masa Sanggahan {{seleksi}} disusun. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+   
+    {% else %}
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Masa Sanggahan {{seleksi}} disusun. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+    {% endif %}
+      
+    
+</ol>
+
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

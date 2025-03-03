@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="
+        border-radius: 20px;
+    ">
+            <div class="modal-header">
+                <h3 class="modal-title">Pengambilan Akun</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form name="item_lelang" id="item_lelang" method="POST" >
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">File Undangan</label>
+                                {% render_field form.file|add_class:"form-control" %}
+                            </div>
+                           
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>

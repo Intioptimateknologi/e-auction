@@ -1,0 +1,55 @@
+{% load widget_tweaks %}
+<form name="notice_lelang" id="notice_lelang" method="POST">
+<div id="modalx" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal modal-dialog-centered modal-lg">
+        <div class="modal-content" style="
+        border-radius: 10px;">
+            <div class="modal-header">
+                <h4 class="modal-title" style=" font-weight:700; color:black;">
+                    <i class="fa fa-add circle-icon"></i>&nbsp;&nbsp;
+                    Tambah Short Notice Lelang
+                </h4>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                            {% csrf_token %}
+
+                            <div class="form-group col-md-12">
+                                <label for="id_nomor"  class="nama_label">Nama Notice</label>
+                                <div class="form-field">
+                                    {% render_field form.nama_notice|add_class:"form-control nospaceinput" %}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="id_nomor"  class="nama_label">Tanggal Penetapan</label>
+                                <div class="form-field">
+                                    {% render_field form.tanggal|add_class:"form-control nospaceinput" type="date" %}
+                                </div>
+                            </div>
+                            
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal"><i class="fa fa-ban fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Batal</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" value="Simpan"><i class="fa fa-floppy-disk fa-lg "></i>&nbsp;&nbsp;&nbsp;&nbsp;Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form.media }}
+</form>
+
+
+  

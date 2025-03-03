@@ -1,0 +1,206 @@
+{% extends 'new_index/base1.html' %}
+{% block extrahead %}
+
+{% endblock  %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="jdl_menu_bg col-md-12">
+    <span class="jdl_menu">Registrasi Admin</span>
+</div>
+
+<div class="container-fluid contain_table" >
+    <div class="row">
+        <div class="col-md-12" style="padding-bottom: 0px;">
+            <div class="row" style="margin-bottom: 0px;padding-bottom: 16px;">
+                <div class="col-md-12" >
+                    <div style="display: flex;">
+                        <div class="col">
+                            <div class="jdl_tab">Daftar Admin</div>
+                            <div class="jdl_sub_tab">Sistem Seleksi Pengguna Pita Frekuensi Radio</div>
+                        </div>
+                        <div class="col text-right">            
+                            <button type="button" id="tambah_data" class="btn btn-primary" style="font-size:12px;"><i class="fa-solid fa-plus-circle"></i> Tambah Admin Baru</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card body" style="padding:10px;width:100%">
+                    <div class="table-responsive">
+                        <table id="myTable" class="display" style="width:100%" data-server-side="true" data-ajax="/userman/api/v1/admin/?format=datatables">
+                            <thead>
+                                <tr class="background_table">
+                                    <th>id</th>
+                                    <th>users</th>
+                                    <th>sk_pengangkatan</th>
+                                    <th>Nama Pengguna</th>
+                                    <th>Username</th>
+                                    <th>NIP</th>
+                                    <th>Jabatan</th>
+                                    <th>Jabatan dalam Tim</th>
+                                    <th>SK</th>
+                                    <th width="60px">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block modal %}
+    <!-- modal add -->
+    <div id="myModal_pdf" class="modal fade" role="dialog" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Menampilkan PDF</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="form_survey"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal add -->
+
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+    </div>   
+
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+    let id_global;
+    var base64_data_file;
+
+    function formatDate(date) {
+        return moment(date).format('DD-MMM-YYYY HH:mm:ss').toUpperCase();
+    }
+
+    $(document).ready(function() {
+        $('#modal').on('shown.bs.modal', function() {
+            $('.select2').select2({
+                theme: 'bootstrap4', // Specify the theme here
+                dropdownParent: $(this) // Use $(this) to refer to the current modal
+            });
+        });
+
+        var userTable = $('#myTable').DataTable({
+            "stripeClasses": ["odd-row", "even-row"],
+            "paging": true,
+            "responsive": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "searching": true,
+            "scrollX": true,
+            "columns": [
+                { "searchable": false, data: "id", className: "d-none" },
+                { "data": "users",  "searchable": false, "className": "d-none"},
+                { "data": "sk_pengangkatan",  "searchable": false, "className": "d-none"},
+                { "data": "nama_lengkap", "className": "text-bold font_table"},  
+                { "data": "username" },
+                { "data": "nip" },
+                { "data": "jabatan", "render": function (data, type, row, meta) { 
+                    if (data) {
+                        return '<span class="badge badge-dark">'+data+'</span>';
+                    } else {
+                        return "-"
+                    }
+                } },
+                { "data": "jabatan_dalam_tim", "searchable": false, "orderable": false, "render": function(data){
+                switch(data) {
+                        case "pengarah":
+                            return '<span class="badge bg-black">Pengarah</span>';
+                            break;
+                        case "pembina":
+                            return '<span class="badge badge-success">Pembina</span>';
+                            break;
+                        case "ketua":
+                            return '<span class="badge badge-primary">Ketua</span>';
+                            break;
+                        case "sekretaris":
+                            return '<span class="badge badge-info">Seketaris</span>';
+                            break;
+                        case "anggota":
+                            return '<span class="badge badge-secondary">Anggota</span>';
+                            break;
+                        default:
+                            return '<span class="badge badge-info">Tidak diketahui</span>';
+                    }
+                }},
+                { 'data': "sk_pengangkatan", "render": function (data, type, row, meta) {return data?'<div><a class="btn btn-secondary btn-sm" target="_blank" href="'+row.sk_pengangkatan+'"><i class="fa fa-download"></i></a></div>':'-'}},
+
+                { 'data': null, "render": function (data, type, row, meta) { 
+                    return '<div style="display:flex align-items: center; justify-content: space-between; font-size: 15px; color:white;"><button  id='+
+                     row.id+' class="btn btn-sm btn-warning edit_icon"><i class="fa fa-pen-to-square text-white"></i></button> <button  id='+
+                     row.id+' class="btn btn-sm btn-danger delete_icon"><i class="fa fa-trash"></i></div>'
+                    } 
+                },
+            ],
+            columnDefs:[
+                { className: 'dt-head-center font_table', targets: '_all' },
+            ]
+        });
+
+        $( "#tambah_data" ).on( "click", function() {
+            showModal2({
+                formURL: "/userman/modal_admin/",
+                drfURL: "/userman/api/v1/admin/",
+                csrf: '{{csrf_token}}',
+                onSuccess: function(response) {
+                    $("#modal").modal('toggle');
+                    userTable.ajax.reload();
+                }
+            });        
+        });
+
+        $('#myTable tbody').on( 'click', '.edit_icon', function () {
+            id = this.id
+            showEditModal({
+                formURL: "/userman/modal_admin/"+id+'/',
+                drfURL: "/userman/api/v1/admin/"+id+'/',
+                csrf: '{{csrf_token}}',
+                onSuccess: function(response) {
+                    $("#modal").modal('toggle');
+                    userTable.ajax.reload();
+                }
+            });      
+        });
+
+        $('#myTable tbody').on( 'click', '.delete_icon', function () {
+            id = this.id
+            deleteData({
+                drfURL: "/userman/api/v1/admin/"+id+'/',
+                csrf: '{{csrf_token}}',
+                onSuccess: function(response) {
+                    userTable.ajax.reload();
+                }
+            })
+        });
+
+    });
+</script>
+{% endblock  %}

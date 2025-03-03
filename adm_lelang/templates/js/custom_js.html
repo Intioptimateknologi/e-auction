@@ -1,0 +1,67 @@
+loadData({URL: '{{attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+                {% if attribute.has_create %}
+                {
+                    $("#{{attribute.tambah_btn}}").click(function() {
+                        {% if attribute.currency %}
+                        showModalCurrency({
+                            {% else %}
+                        showModal2({
+                            {% endif %}         
+                            csrf: '{{csrf_token}}',
+                            formURL: "{{attribute.modal_url}}{{item_lelang.id}}/",
+                            drfURL: "{{attribute.drf_url}}",
+                            onSuccess: function(response) {
+                                $("#modal").modal('hide');
+                                loadData({URL: '{{attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+                                {% if attribute.single_record %}
+                                    $("#{{attribute.tambah_btn}}").prop( "disabled", true );
+                                    $("#{{attribute.tambah_btn}}").addClass( "invisible" );
+                                {% endif %}
+                            }
+                        });
+                    });    
+                }
+                {% endif %}
+
+                <!-- single record true -->
+                {% if attribute.single_record %}
+
+                    <!-- $("#{{attribute.tambah_btn}}").prop( "disabled", true ); -->
+                {% endif %}
+
+                $("#{{attribute.element}}").on("click",".update",function() {
+                    {% if attribute.currency %}
+                    showModalCurrency({
+                        {% else %}
+                    
+                    showModal2({
+                    {% endif %}         
+                        csrf: '{{csrf_token}}',
+                        formURL: "{{attribute.update_url}}"+this.id+"/",
+                        drfURL: "{{attribute.drf_url}}"+this.id+"/",
+                        method: "PUT",
+                        onSuccess: function(response) {
+                            $("#modal").modal('hide');
+                            loadData({URL: '{{attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+                        }
+                    })
+                });
+
+                $("#{{attribute.element}}").on("click",".delete",function() {
+                    deleteData({id: this.id, 
+                        csrf: '{{csrf_token}}',
+                        drfURL: '{{attribute.drf_url}}'+this.id+'/',
+                        onSuccess: function(data) {
+                            loadData({URL: '{{attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+                            swal.fire({
+                                title: "Data Terhapus !",
+                                text: "",
+                                icon: "success"
+                            })
+                            {% if attribute.tambah_btn %}
+                            $("#{{attribute.tambah_btn}}").prop( "disabled", false );
+                            {% endif %}
+                            loadData({URL: '{{attribute.table_url }}{{item_lelang.id}}/', element_id: $("#{{ attribute.element }}")})
+                        }
+                    });
+                });

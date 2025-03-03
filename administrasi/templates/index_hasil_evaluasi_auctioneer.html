@@ -1,0 +1,70 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    
+        {% if user_type == "C" %}
+        {% add_judul_auctioner user.id item_lelang.id "/administrasi/evaluasi/" "Administrasi > Hasil Evaluasi" %}
+        {% elif user_type == "V" %}
+        {% add_judul_viewer user.id item_lelang.id "/administrasi/evaluasi/" "Administrasi > Hasil Evaluasi" %}
+        {% elif user_type == "A" %}
+        {% add_judul_admin user.id item_lelang.id "/administrasi/evaluasi/" "Administrasi > Hasil Evaluasi" %}
+        {% endif %}
+                    
+{% include "tabs_all.html" %}
+    
+<p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+<p style="display: none;" id="tricky_user_bidder_id"></p>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/eauctions_modal.js"></script>
+
+<script>
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+    $("#init_btn").on("click",function() {
+        swal.fire({
+            title: "Impor Hasil Pemeriksaan dan Verifikasi sebagai Hasil Evaluasi",
+            text: "Pengambilan Data hasil Pemeriksaan Kelengkapan dan Verifikasi untuk Menjadi Hasil Evaluasi Administrasi secara otomatis",
+            icon: "success",
+            showCancelButton: true,
+        }).then((result)=> {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/administrasi/api/v1/form_evaluasi/'+$("#nmlelang").val()+'/init/',
+                    method: "GET",
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (data) {
+                        swal.fire("Proses Pengambilan / Import Data Selesai")
+                    }
+                });
+            }
+        });
+    })
+});
+
+</script>
+{% endblock %}

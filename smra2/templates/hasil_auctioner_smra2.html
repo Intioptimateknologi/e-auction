@@ -1,0 +1,79 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+  .pvtTotal, .pvtTotalLabel, .pvtGrandTotal {display: none}
+</style>
+{% endblock %}
+{% block navbar %}
+{% include 'new_index/parts/navbar_kosong.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+
+
+  {% if user_type == "C" %}
+  {% add_judul_auctioner user.id item_lelang.id "/smra2/hasil_putaran_auctioneer/" "Hasil Lelang"%}
+  {% elif user_type == "V" %}
+  {% add_judul_viewer user.id item_lelang.id "/smra2/hasil_putaran_auctioneer/" "Hasil Lelang"%}
+  {% elif user_type == "A" %}
+  {% add_judul_admin user.id item_lelang.id "/smra2/hasil_putaran_auctioneer/" "Hasil Lelang"%}
+  {% elif user_type == "B" %}
+  {% add_judul_bidder user.id item_lelang.id "/smra2/hasil_putaran_auctioneer/" "Hasil Lelang"%}
+  {% endif %}               
+{% include "tabs_all.html" %}
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+  
+  {% endblock %}
+  {% block script %}
+  <script src="/static/js/eauctions_modal.js"></script>
+  
+
+  <script>
+  $(document).ready(function() {
+        {% include "js/js_temp_all.html" %}
+        var uri = '/events/auctioneer/';
+        var es = new ReconnectingEventSource(uri);
+
+        es.onopen = function () {
+          //load_table(id);
+          console.log("ESS connected");
+        };
+    
+        es.onerror = function () {
+          console.log('*** connection lost, reconnecting...');
+        };
+    
+        es.addEventListener('stream-reset', function () {
+          console.log('*** client too far behind, please refresh');
+        }, false);
+    
+        es.addEventListener('stream-error', function (e) {
+          // hard stop
+          es.close();
+          e = JSON.parse(e.data);
+          console.log('*** stream error: ' + e.condition + ': ' + e.text);
+        }, false);
+    
+        es.addEventListener('message', function (e) {
+          console.log('event: ' + e.data);
+          msg = JSON.parse(e.data);
+          load_table(id);
+          loadData({URL: '/smra2/hasil2_smra2/'+$('#nmlelang').val()+'/', element_id: $("#highest_smra2")})
+        }, false);      
+  
+  });
+
+
+      
+  </script>  
+{% endblock %}

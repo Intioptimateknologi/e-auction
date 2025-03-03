@@ -1,0 +1,36 @@
+{% extends 'new_index/konten/rencana_seleksi/index_rencana_seleksi.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block konten_isi %}
+
+    <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+                                                <form method="post" >
+                                                    {% csrf_token %}
+                                                        <div class="modal-header" style="padding-right: 40px;padding-left: 40px;">
+                                                            <p class="modal-title" style="color: #04195B; font-weight:700;font-size: 18px;">Edit Rencana Seleksi</p>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            
+                                                            <div class="row">
+                                                                <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                                                                    <p style="color: #1E1E1E;margin-bottom: 0px;margin-top: 16px;">Judul</p>
+                                                                    {% render_field editrencana.judul class="form-control form-control-sm" placeholder="Masukkan Judul" style="border-radius: 10px;"  value="{{getdata.judul}}"%}
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col" style="padding-right: 40px;padding-left: 40px;padding-bottom: 18px;">
+                                                                    <p style="color: #1E1E1E;margin-bottom: 0px;margin-top: 16px;">Tahun</p>
+                                                                    {% render_field editrencana.tahun class="form-control form-control-sm" placeholder="Masukkan Tahun" style="border-radius: 10px;"  value="{{getdata.tahun}}"%}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a type="button" class="btn btn-danger" href="/rencana_seleksi/index_rencana ">Batal</a>
+                                                            <button type="submit" value="submit" class="btn btn-success" style="font-size: 14px; ">Setuju</button>
+                                                        </div>
+                                                </form>
+                </div>
+            </div>
+
+{% endblock %} 

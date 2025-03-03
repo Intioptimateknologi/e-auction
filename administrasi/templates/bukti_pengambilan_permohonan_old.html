@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page {
+            size: A4
+        }
+
+        .box-character {
+            position: relative;
+        }
+
+        .box-character::before,
+        .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .box-character::before {
+            border: 2px solid red;
+            /* Change border properties as desired */
+            z-index: -1;
+        }
+
+        .box-character::after {
+            border: 2px solid white;
+            /* Change border properties as desired */
+        }
+    </style>
+</head>
+
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+    <section class="sheet padding-25mm">
+
+        <h1 style="text-align:center">TANDA TERIMA PERMOHONAN KEIKUTSERTAAN</h1>
+
+        <p style="text-align: justify;">
+            Pada hari ini {{tanggal|date:"l"}} tanggal {{tanggal|date:"d F Y"}} telah diserahkan permohonan
+            keikutsertaan dalam bentuk :<br>
+        <ol>
+            <li>1 (satu) softcopy Formulir Permohonan Keikutsertaan</li>
+            <li>1 (satu) softcopy Jaminan Keikutsertaan Seleksi (Bid Bond)</li>
+        </ol>
+        <br />
+        yang diunduh pada pukul {{ tanggal|date:"H:i:s" }} dari Perusahaan {{ bidder.bidder.bidder.nama_perusahaan }}
+        kepada Tim Pelaksana {{ seleksi }} melalui Sistem Seleksi Izin Pita Frekuensi Radio (e-auction) diamana
+        perusahaan diwakili oleh: <br />
+        <br />
+        <table>
+            <tr>
+                <td>Nama</td>
+                <td>{{ bidder.nama_lengkap }}</td>
+            </tr>
+            <tr>
+                <td>Perusahaan</td>
+                <td>{{ bidder.bidder.bidder.nama_perusahaan }}</td>
+            </tr>
+            <tr>
+                <td>No. KTP</td>
+                <td>{{ bidder.nik_perwakilan }}</td>
+            </tr>
+            <tr>
+                <td>Jabatan</td>
+                <td>{{ bidder.jabatan }}</td>
+            </tr>
+        </table>
+
+        </p>
+        Tim Pelaksana {{ seleksi }}<br />
+        <br /><br />
+        TTD<br />
+        <br /><br />
+        {{ bidder.bidder.bidder.nama_perusahaan }}<br />
+        <br /><br />
+        TTD<br />
+        {{ bidder.nama_lengkap }}
+
+    </section>
+</body>
+
+</html>

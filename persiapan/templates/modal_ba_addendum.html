@@ -1,0 +1,63 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Berita Acara</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="data_modal" style="display: none;">add_ba_addendum</p>
+                <div class="card">
+                    <div class="card-body">
+                        <form id="modal_ba_addendum" enctype="multipart/form-data" >
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group">
+                                <label for="id_nomor"  class="nama_label">Nomor</label>
+                                {% render_field form.nomor|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_judul">Judul</label>
+                                {% render_field form.judul|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_tanggal">Tanggal</label>
+                                {% render_field form.tanggal|add_class:"form-control" type="datetime-local" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_keterangan">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_pengguna" class="nama_label">Bidder :</label>
+                                <select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_bidder_2" name="bidder_2">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_pengguna" class="nama_label">Auctioneer :</label>
+                                <select class="form-control select2bs4 select2-primary" style="width: 100% !important; height: 30px !important;" multiple="multiple" id="id_auctioneer_2" name="auctioneer_2">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_file">File</label>
+                                {% render_field form.file|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="id_owner">Owner</label>
+                                <select name="owner" class="form-control" id="id_owner">
+                                    <option value="ADDENDUM" selected>Addendum</option>
+                                </select>
+                            </div>
+                           
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %} <script>
+    document.getElementById("modal_ba_addendum").addEventListener("submit", function(event) {
+        document.getElementById("submitBtn").disabled = true; 
+    });
+</script> {% endcomment %}

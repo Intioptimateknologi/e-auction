@@ -1,0 +1,95 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <style>
+        @page { size: A4 }
+        .box-character {
+            position: relative;
+          }
+          
+          .box-character::before,
+          .box-character::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          
+          .box-character::before {
+            border: 2px solid red; /* Change border properties as desired */
+            z-index: -1;
+          }
+          
+          .box-character::after {
+            border: 2px solid white; /* Change border properties as desired */
+          }
+        
+    </style>
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+
+<h1 style="text-align:center; font-size:16px;">BERITA ACARA <br> HASIL EVALUASI DOKUMEN PERBAIKAN PENAWARAN HARGA {{ seleksi|upper }}</h1>
+{% localize on %}
+<p style="text-align:center">Nomor {{ nomor }}, Tanggal {{ tanggal|date:'d F Y'}}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari ini, {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan selesai telah dilaksanakan rapat Penetapan Hasil Evaluasi Dokumen Perbaikan Penawaran Harga {{ seleksi }} bertempat di .</li>
+  <li style="text-align: justify;">Tim Seleksi yang menghadiri rapat Penetapan Hasil Penilaian sebagaimana dimaksud pada angka 1 adalah sebagaimana terlampir :</li>
+  <li style="text-align: justify;">Hasil Evaluasi Formulir Perbaikan Penawaran Harga {{ seleksi }} adalah sebagai berikut:</li>
+    <table width="100%">
+        <tr>
+            <th>No.</th>
+            <th>Nama Perusahaan</th>
+            <th >Harga Penawaran</th>
+            <th>Jumlah Blok</th>
+        </tr>
+    {% for t in table %}
+      <tr>
+        <td width="10%">
+        {{ forloop.counter }}
+        </td>
+        <td width="">{{t.revisi_penawaran.bidder}}</td>
+        <td width="30%">{{ t.revisi_penawaran.harga }}</td>
+        <td>{{ t.revisi_penawaran.blok }}</td>
+        <td>{{ t.hasi }}</td>
+    </tr>
+      {% endfor %}
+    </table>
+	<li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Pemasukan Formulir Penawraan Harga {{seleksi|upper}}. Apabila di kemudian hari ditemukan adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td>&nbsp;</td><td>Jakarta, {% now "SHORT_DATE_FORMAT" %}</td><td></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div style="width:50%">
+              <p style="text-align:center">Mengetahui</p>
+              <p style="text-align:center">Ketua Tim Pelaksana {{ seleksi }}</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              <pstyle="text-align:center">{{ketua_pansel}}</p>
+            </div>
+          </td>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title">Form Evaluasi Perbaikan Penawaran Harga</h5>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">x</button>
+		</div>
+		<div class="modal-body">
+            <form name="item_lelang" id="item_lelang" method="POST" >
+                {% csrf_token %}
+                {% render_field form.item_lelang %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label" for="keterangan">Penawaran</label>
+                        {% render_field form.revisi_penawaran|add_class:"form-control"  id="hitam"  required="true" %}
+                    </div>
+
+                    <!--New code Add-->
+                    <div class="form-group" id="munculblok">
+                        <label class="form-label">Blok</label>
+                        <input class="form-control" id="jumlahblok" value="" disabled="true">
+                    </div>
+                    <div class="form-group"  id="munculpenawaran">
+                        <label class="form-label">Nilai Penawaran</label>
+                        <input class="form-control" id="jumlahpenawaran" value="" disabled="true">
+                    </div>
+                    <!--end new code-->
+
+                    <div class="form-group">
+                        <label for="id_nomor">Hasil Evaluasi</label>
+                        {% render_field form.hasil|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_nomor">Keterangan</label>
+                        {% render_field form.catatan|add_class:"form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_nomor">Dokumen</label>
+                        {% render_field form.dokumen|add_class:"form-control" accept=".pdf" %}
+                    </div>
+                </div>
+                <div class=""  style="text-align: right;">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                </div>
+            </form>
+        </div>
+	  </div>
+	</div>
+  </div>
+<script>
+    $(document).ready(function() {
+        $('#modal').on('shown.bs.modal', function() {
+            console.log("Modal loaded!");
+            var $selectElement = $('#id_nama_perusahaan');
+            var bidderValue = $('#tricky_user_bidder_id').attr('text');
+           
+            $selectElement.val(bidderValue);
+           
+
+            // add new code
+            if ($("#hitam").val() === ""){
+                $("#munculblok").hide();
+                $("#munculpenawaran").hide();
+            }
+
+            const itemSelect = document.getElementById("hitam");
+           
+                
+            itemSelect.addEventListener("change", function () {
+                        
+                const dipilihValue = itemSelect.value;
+               
+
+                fetch('/negosiasi/api/v1/revisi_penawaran/')
+                .then(response => {
+            
+                return response.json();
+                
+                }).then(data => {
+                
+                const results = data.results;
+                const filterresults = results.filter(hasil => hasil.id == dipilihValue);
+
+                const inputTag = document.getElementById("jumlahblok");
+                inputTag.value = filterresults[0].blok;
+                const inputTag2 = document.getElementById("jumlahpenawaran");
+                const currencyValue = parseFloat(filterresults[0].harga).toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+                inputTag2.value = currencyValue;
+                
+                
+                if (dipilihValue == filterresults[0].id ){
+                    $("#munculblok").show();
+                    $("#munculpenawaran").show();
+                }
+                else{
+                    $("#munculblok").hide();
+                    $("#munculpenawaran").hide();
+                }
+
+               
+                
+                }).catch(error => {
+               
+                });
+                
+            })
+    
+            // end new code
+        
+        });
+    });
+</script>

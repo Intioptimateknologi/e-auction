@@ -1,0 +1,672 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block extrahead %}
+
+<style>
+ .carousel-image {
+  object-fit: cover;
+}
+.tomboll {
+  display: flex;
+  /*justify-content: right;*/
+}
+
+.cari {
+  border-color: #007bff;
+  border-radius: 9px;
+}
+
+.tombol1 {
+  color: var(--bs-btn-disabled-border-color);
+  background-color: white;
+}
+
+.tomboltengah {
+  display: flex;
+  align-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.kepinggir {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.footer_bg {
+        background: url(/static/img/portal/background-footer.png);
+    }
+
+</style>
+{% endblock  %}
+
+{% block navbar %}
+{% include 'new_index/parts/navbar_admin.html' %}
+{% endblock %}
+
+{% block konten_isi %}
+<div class="container-fluid" style="padding-left: 2%; padding-right: 2%;">
+    <div class="row" style="padding-bottom: 15px;padding-top: 15px;">
+       {% comment %} <div class="col-lg-8 h-100"> {% endcomment %}
+        <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 h-100" style="padding-bottom: 10px;">
+            <div hx-get="/portal/get_front_banner" hx-trigger="load"></div>
+        </div>
+       {% comment %} <div class="col h-100 w-100"> {% endcomment %}
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 h-100 w-100">
+            <div class="row">
+                <div class="col col-lg-8">
+                    <h1 style="font-size: 24px;font-weight: bold;">Pengumuman</h1>
+                    <p style="color:#6C748E;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+                </div>
+                <div class="col">
+                    <p style="text-align: right;"><span style="color: rgb(13, 110, 253);"><a href="/pengumuman/" style="text-decoration:none;">Lihat Semua</a></span><br></p>
+                    <div style="display:flex;justify-content: flex-end;flex-direction: row;flex-wrap: wrap;align-content: space-between;align-items: stretch; position: relative; top: -13px;">
+                        <button id="btnBack" onclick="showBack()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-left"></i></button>
+                        <button id="btnNext" onclick="showNext()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div id="pengumuman"></div>
+            {% comment %} <div style="display:flex;justify-content: flex-end;flex-direction: row;flex-wrap: wrap;align-content: space-between;align-items: stretch;position: relative;top: -80px;right: 12px;">
+            <button id="btnBack" onclick="showBack()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-left"></i></button>
+            <button id="btnNext" onclick="showNext()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-right"></i></button>
+            </div> {% endcomment %}
+            {% comment %} <div class="row">
+                <div class="col">
+                    <div class="row" style="padding-bottom: 15px;">
+                        <div class="col">
+                            <div class="card" style="background: rgb(251,253,255);">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p style="font-size: 20px;"><strong><span style="background-color: rgb(251, 253, 255);">Pita Frekuensi Radio 700b Mhz</span></strong><br></p>
+                                            <p style="font-size: 14px;"><span style="background-color: rgb(251, 253, 255);color:#6C748E;">Penyelengaran Jaringan Seluler</span><br></p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p style="text-align: right;font-size:14px;"><strong><span style="background-color: rgb(251, 253, 255);">1/SP/5/2023</span></strong><br></p>
+                                            <p style="text-align: right;font-size:14px;"><span style="background-color: rgb(251, 253, 255);color:#6C748E;">5 Januari 2023 10:00</span><br></p>
+                                        </div>
+                                    </div>
+                                    <hr style="margin-top: 0px;margin-bottom: 9px;">
+                                    <p class="card-text" style="font-size: 14px;">Seleksi Pita Frekuensi Radio 700 Mhz secara Resmi dibuka <br>pada tanggal 5 Januari 2022<br></p>
+                                    <div class="row">
+                                        <div class="col" style="text-align: center;"><button class="btn btn-primary" type="button" style="color: var(--bs-btn-bg);background: #fbfdff;padding-right: 60px;padding-left: 60px;">Lihat Detail<br></button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom: 15px;">
+                        <div class="col">
+                            <div class="card" style="background: rgb(251,253,255);">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p style="font-size: 20px;font-weight: bold;">Pita Frekuensi Radio 60 Mhz<br></p>
+                                            <p style="font-size: 14px;"><span style="background-color: rgb(251, 253, 255);color:#6C748E;">Penyelengaran Jaringan Seluler</span><br></p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p style="text-align: right; font-size:14px;font-weight: bold;">1/VZ/5/2023<br></p>
+                                            <p style="text-align: right;font-size:14px; color:#6C748E;">1 Maret 2023 10:00<br></p>
+                                        </div>
+                                    </div>
+                                    <hr style="margin-top: 0px;margin-bottom: 9px;">
+                                    <p class="card-text" style="font-size: 14px;">Seleksi Pita Frekuensi Radio 700 Mhz secara Resmi dibuka <br>pada tanggal 5 Januari 2022<br></p>
+                                    <div class="row">
+                                        <div class="col" style="text-align: center;"><button class="btn btn-primary" type="button" style="color: var(--bs-btn-bg);background: #fbfdff;padding-right: 60px;padding-left: 60px;">Lihat Detail<br></button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+        </div>
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 h-100 w-100">
+            <div class="row">
+                <div class="col">
+                    <h1 style="font-size: 24px;font-weight: bold;">Dasar Hukum<br></h1>
+                    <p style="color:#6C748E;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+                </div>
+                <div class="col">
+                    <p style="color: var(--bs-blue);text-align: right;"><a href="/dasar_hukum/"><a href="/dasar_hukum/" style="text-decoration:none;">Lihat Semua</a><br></p>
+                    <div style="display:flex;justify-content: flex-end;flex-direction: row;flex-wrap: wrap;align-content: space-between;align-items: stretch; position: relative; top: -13px;">
+
+                        <button id="btnaturanBack" onclick="aturanBack()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-left"></i></button>
+                        <button id="btnaturanNext" onclick="aturanNext()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div id="aturan"></div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 h-100 w-100">
+            <div class="row">
+                <div class="col">
+                    <h1 style="font-size: 24px;font-weight: bold;">Istilah<br></h1>
+                    <p style="color:#6C748E;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+                </div>
+                <div class="col">
+                    <p style="text-align: right;"><span style="color: rgb(13, 110, 253);"><a href="/istilah_lelang/" style="text-decoration:none;">Lihat Semua</a></span><br></p>
+                    <div style="display:flex;justify-content: flex-end;flex-direction: row;flex-wrap: wrap;align-content: space-between;align-items: stretch; position: relative; top: -13px;">
+                        <button id="btnistilahBack" onclick="istilahBack()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-left"></i></button>
+                        <button id="btnistilahNext" onclick="istilahNext()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-right"></i></button>
+                        </div>
+                </div>
+            </div>
+            {% comment %} <div style="display:flex;justify-content: flex-end;flex-direction: row;flex-wrap: wrap;align-content: space-between;align-items: stretch;position: relative;top: -80px;right: 12px;">
+                <button id="btnistilahBack" onclick="istilahBack()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-left"></i></button>
+                <button id="btnistilahNext" onclick="istilahNext()" class="btn btn-primary btn-sm" style="margin: 5px;"><i class="fa-solid fa-angle-right"></i></button>
+                </div> {% endcomment %}
+            {% comment %} <div hx-get="/portal/get_istilah_lelang" hx-trigger="load"></div> {% endcomment %}
+            <div id="istilah"></div>
+           
+        </div>
+    </div>
+    <div class="row" style="padding: 15px 0px;padding-top: 30px;">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h1 style="font-size: 24px;font-weight: bold;">Histori Lelang<br></h1>
+                    <p style="color:#6C748E;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+                </div>
+                <div class="col">
+                    <p style="text-align: right;"><span style="color: rgb(13, 110, 253);"><a href="/history_lelang/" style="text-decoration:none;">Lihat Semua</a></span><br></p>
+                </div>
+            </div>
+           {% comment %} <div class="row" style="overflow: auto;"> {% endcomment %}
+            <div class="row" style="
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: stretch;
+            justify-content: space-evenly;
+            align-items: center;
+            overflow: hidden;
+        ">
+                {% comment %} <div class="col d-flex flex-row flex-nowrap overflow-auto" style="padding-bottom: 20px; padding-top: 20px;">
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <h1 style="padding-top: 47px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <div hx-get="/portal/get_history_lelang" hx-trigger="load" style="
+                min-width: 100%;
+            "></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding: 15px 0px;padding-top: 30px;">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h1 style="font-size: 24px;font-weight: bold;">Informasi Lelang Mancanegara<br></h1>
+                    <p style="color:#6C748E;">Seleksi Pengguna Izin Pita Frekuensi Radio<br></p>
+                </div>
+                <div class="col">
+                    <p style="text-align: right;"><span style="color: rgb(13, 110, 253);"><a href="/benchmark/" style="text-decoration:none;">Lihat Semua</a></span><br></p>
+                </div>
+            </div>
+            {% comment %} <div class="row" style="overflow: auto;"> {% endcomment %}
+            <div class="row" style="
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: stretch;
+            justify-content: space-evenly;
+            align-items: center;
+            overflow: hidden;
+        ">
+                {% comment %} <div class="col d-flex flex-row flex-nowrap overflow-auto" style="padding-bottom: 20px; padding-top: 20px;">
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">China</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image-2.png' %}" width="52" height="34" style="border-radius: 5px;"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">Amerika</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image-3.png' %}" width="65" height="43" style="width: 52px;height: 34px;border-radius: 5px;"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">India</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">China</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">China</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">China</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-block mx-2" style="min-width: 250px;box-shadow: 0px 6px 5px 2px rgb(222,222,222);">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="text-align: left;"><img src="{% static 'img/portal/clipboard-image.png' %}" style="border-radius: 5px;" width="52" height="33"></div>
+                                        <div class="col">
+                                            <p style="font-size: 24px;text-align: left;">China</p>
+                                        </div>
+                                    </div>
+                                    <h1 style="padding-top: 13px;">2.1 GHz</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p>Untuk pengguna jaringan bergerak seluler</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;">
+                                    <p style="color: rgb(137,148,160);">Tahun 2022</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center;"><button class="btn btn-primary w-100 btn-lg" type="button" style="font-size: 16px;">Lihat Detail</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <div hx-get="/portal/lelang_mancanegara" hx-trigger="load" style="
+                min-width: 100%;
+            "></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding: 15px 0px;">
+        <div class="col"></div>
+    </div>
+</div>
+{% include 'new_index/parts/footer_index.html' %}   
+{% endblock %}
+{% block script %}
+<script>
+    var currentPage = 1;
+    var istilahPage = 1;
+    var aturanPage = 1;
+    window.addEventListener('DOMContentLoaded', function() {
+      fetchData();
+      fetchData2();
+      fetchData3();
+    });
+
+  
+    function showNext() {
+      currentPage++;
+      fetchData();
+    }
+  
+    function showBack() {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchData();
+      }
+    }
+ 
+    function istilahNext() {
+        istilahPage++;
+        fetchData2();
+    }
+  
+    function istilahBack() {
+      if (istilahPage > 1) {
+        istilahPage--;
+        fetchData2();
+      }
+    } 
+    function aturanNext() {
+        aturanPage++;
+        fetchData3();
+    }
+  
+    function aturanBack() {
+      if (aturanPage > 1) {
+        aturanPage--;
+        fetchData3();
+      }
+    } 
+  
+    function fetchData() {
+      var url = '/portal/get_pengumuman3/?page=' + currentPage;
+  
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          var divElement = document.getElementById('pengumuman');
+          divElement.innerHTML = data;
+        })
+        .catch(error => console.log(error));
+    } 
+    function fetchData2() {
+      var url = '/portal/get_istilah_lelang/?page=' + istilahPage;
+  
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          var divElement = document.getElementById('istilah');
+          divElement.innerHTML = data;
+        })
+        .catch(error => console.log(error));
+    }
+    function fetchData3() {
+        var url = '/portal/get_aturan_lelang/?page=' + aturanPage;
+    
+        fetch(url)
+          .then(response => response.text())
+          .then(data => {
+            var divElement = document.getElementById('aturan');
+            divElement.innerHTML = data;
+          })
+          .catch(error => console.log(error));
+      }
+  </script>
+{% endblock %}

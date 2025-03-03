@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="m-2"><h4>userman</h4></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'userman_dokumen_perusahaan_list' %}">dokumen_perusahaan Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'userman_Users_list' %}">Users Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'userman_tim_lelang_list' %}">tim_lelang Listing</a></div>
+<div class="m-2"><a class="btn btn-light" href="{% url 'userman_bidder_list' %}">bidder Listing</a></div>
+<div class='container'>
+<div class='card'>
+<div class='card-body'>
+<div><a href="{% url 'htmx' %}">HTMX UI</a></div>
+</div>
+</div>
+</div>
+{% endblock %}

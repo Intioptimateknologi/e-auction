@@ -1,0 +1,87 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+{% block extrahead %}
+<style>
+
+</style>
+{% endblock %} 
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    
+    <div class="row jdl_atas_background">
+        <div class="col-md-12"> 
+            <span class="jdl_atas">Negosiasi &gt; Evaluasi Revisi Penawaran</span>
+        </div>
+    
+        <br><br>
+
+        {% add_judul_bidder user.id item_lelang.id "/negosiasi/evaluasi_revisi_penawaran/" %}
+          
+    </div>
+     <br>
+    <div class="col tabs_bc">       
+        {% include "tabs_all.html" %}
+    </div>
+    <p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+    <p style="display: none;" id="tricky_user_bidder_id"></p>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+
+<script>
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+    {% comment %} Tambahan di bidder {% endcomment %}
+    function loadData_hasil_evaluasi(id) {
+        $.ajax({
+            url: '/negosiasi/nego/hasil_evaluasi_revisi_penawaran/'+id + '/',
+            method: "GET",
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                var table = $("#hasil_evaluasi_nego");
+                table.empty();
+                table.append(data);
+            }
+        });
+    }
+    function loadData_hasil_nego(id) {
+        $.ajax({
+            url: '/negosiasi/nego/hasil_negosiasi/'+id + '/',
+            method: "GET",
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                var table = $("#hasil_nego");
+                table.empty();
+                table.append(data);
+            }
+        });
+    }
+
+    var id = $("#nmlelang").val();
+    loadData_hasil_evaluasi(id);
+    loadData_hasil_nego(id);
+    
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+<ul class="navbar-nav mx-auto btn">
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+      <i class="far fa-bell text-white"></i>
+      <span class="badge badge-warning navbar-badge">{{ count }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+      <span class="dropdown-item dropdown-header">{{ count_undangan }} Undangan</span>
+      <div class="dropdown-divider"></div>
+      {% for n in notif_undangan %}
+      <a href="#" class="dropdown-item" data-toggle="tooltip" title="{{ n.subyek }}">
+        <i class="fas fa-envelope mr-2"></i>{{ n.subyek|truncatewords:3  }}
+      </a>
+      {% endfor %}
+      <div class="dropdown-divider"></div>
+      <span class="dropdown-item dropdown-header">{{ count_ba }} Berita Acara</span>
+      <div class="dropdown-divider"></div>
+      {% for n in notif_ba %}
+      <a href="#" class="dropdown-item" data-toggle="tooltip" title="{{ n.subyek }}">
+        <i class="fas fa-envelope mr-2"></i>{{ n.subyek|truncatewords:3  }}
+      </a>
+      {% endfor %}
+    </div>
+  </li>
+<ul>

@@ -1,0 +1,32 @@
+{% load django_tables2 %}
+{% load i18n %}
+{% block table-wrapper %}
+    {% block table %}
+    <div class="col-md-12"  style="padding:10px;"><div class="row">
+    {% for row in table.paginated_rows %}
+    <div class="col-md-6">
+        <div class="card" style="background:whitesmoke; border-radius:10px; padding:30px;border:1px solid #142b72;">
+            
+        {% for column, cell in row.items %}
+            <div class="row" style="height:40px;">
+            {% if column.localize == None %}
+               
+                    <div class="col-md-5 text-bold" style="color:#142b72;font-weight:700;font-size:12px;">{{column.header}}</div>
+                    <div class="col-md-7 text-dark" style="margin-bottom:10px;font-size:12px;">{{ cell|linebreaks }}</div>
+               
+            {% else %}
+                {% if column.localize %}
+                <div class="col-md-2">{{column.header}}</div><div class="col-md-10">{{ cell|localize }}</div>
+                {% else %}
+                <div class="col-md-2">{{column.header}}</div><div class="col-md-10">{{ cell|unlocalize }}</div>
+                {% endif %}
+            {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div></div>
+    {% endblock table %}
+
+{% endblock table-wrapper %}

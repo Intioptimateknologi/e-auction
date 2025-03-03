@@ -1,0 +1,68 @@
+{% load widget_tweaks %}
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kirim Undangan Pemilihan Block</h5>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form name="item_lelang" id="item_lelang" method="POST" >
+                            {% csrf_token %}
+                            <div style="display: none;">
+                                {% render_field form.item_lelang %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Nomor</label>
+                                {% render_field form.nomor|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Judul</label>
+                                {% render_field form.judul|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Tanggal</label>
+                                <input type="date" name="tanggal" class="form-control" required="" id="id_tanggal">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Tempat</label>
+                                {% render_field form.tempat|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Agenda</label>
+                                {% render_field form.agenda|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Waktu</label>
+                                <input type="datetime-local" name="waktu" class="form-control" required="" id="id_waktu">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Link Meet</label>
+                                {% render_field form.link_teleconference|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">Keterangan</label>
+                                {% render_field form.keterangan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor">File</label>
+                                {% render_field form.link_file|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="id_nomor">Owner</label>
+                                <select name="owner" class="form-control" id="id_owner">
+                                    <option value="CCA" selected>CCA</option>
+                                </select>
+                            </div>
+                            <div class="">
+                                <input type="submit" class="btn btn-primary" value="Simpan" align="right">
+                            </div>
+                        </form>
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>

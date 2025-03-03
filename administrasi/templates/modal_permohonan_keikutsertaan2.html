@@ -1,0 +1,121 @@
+{% load widget_tweaks %}
+{% load l10n %}
+
+<div id="modal" class="modal fade show" style="display:block;" role="dialog">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="
+        border-radius: 20px;
+    ">
+            <div class="modal-header">
+                <h3 class="modal-title"  style="color: #007bff;">Ubah Permohonan Keikutsertaan Seleksi</h5>
+                <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                <p id="data_modal" style="display: none;">pernyataan</p>
+                    <div class="card-body">
+                        <form name="item_lelang" id="item_lelang" method="POST" >
+                            {% csrf_token %}
+                            {% render_field form.item_lelang %}
+                            <div class="form-group">
+                                <label for="id_nomor" >Nama Perwakilan</label>
+                                {% render_field form.bidder|add_class:"form-custom" %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nomor" >Pernyataan Keikutsertaan</label>
+                                {% render_field form.pernyataan|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="id_nomor"  class="nama_label">Status</label>
+                                {% render_field form.status|add_class:"form-control" %}
+                            </div>
+                            <div class="form-group" id="file">
+                                <label for="id_nomor"  class="nama_label">Unggah File Formulir Permohonan Pdf</label>
+                                {% render_field form.file|add_class:"form-control"|attr:"accept=.pdf " %}
+                            </div>
+                            <div class="form-group" id="file2">
+                                <label for="id_nomor"  class="nama_label">Unggah File Formulir Jaminan Permohonan Keikutsertaan</label>
+                                {% render_field form.file2|add_class:"form-control"|attr:"accept=.pdf " %}
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group" style="display: flex;">
+                                        <div style="margin-left: 3px;">Waktu :&nbsp;</div>
+                                        {% localize on %}
+                                        {% comment %} {% now "l, j F Y H:i" %} {% endcomment %}
+                                        {% now "l, j F Y," %}
+                                        {% endlocalize %} <div id="jam2" style="margin-left: 3px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Dengan ini saya menyetujui tanda terima diatas</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="" style="text-align: right;">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                <input type="submit" class="btn btn-primary" id="submitButton" value="Simpan">
+                            </div>
+                        </form>
+                    </div>  
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( document ).ready(function() {
+        $('#modal').on('shown.bs.modal', function() {
+            var paragraphText = $('#data_modal').text();
+            if (paragraphText == "pernyataan") {
+                $('#submitButton').prop('disabled', true);
+                $("#id_pernyataan option[value='']").remove();
+                $("#id_pernyataan option[value='UNKNOWN']").remove();
+                $("#id_pernyataan option:eq(1)").prop("selected", true);
+                $("#file").hide();
+                $("#file2").hide();
+
+                var paragraphText = $('#id_pernyataan').text();
+                var paragraphText2 = $('#data_modal').text();
+
+                if (paragraphText2 == "pernyataan") {
+                    function myClocka() {         
+                        setTimeout(function() {   
+                        const d = new Date();
+                        const n = d.toLocaleTimeString();
+                        document.getElementById("jam2").innerHTML = n; 
+                        myClocka();             
+                        }, 1000)
+                    }
+                    myClocka(); 
+
+                    $("#id_pernyataan").change(function() {
+                        var selectedValue = $(this).val();
+
+                        if (selectedValue === "MENGIKUTI") {
+                        $("#file").show();
+                        $("#file2").show();
+                        } else {
+                        $("#file").hide();
+                        $("#file2").hide();
+                        }
+                    });
+                    
+                }
+
+                $('#exampleCheck1').change(function() {
+                    if ($(this).prop('checked')) {
+                        $('#submitButton').prop('disabled', false);
+                    } else {
+                        $('#submitButton').prop('disabled', true);
+                    }
+                });
+            }            
+        });
+    });
+</script>

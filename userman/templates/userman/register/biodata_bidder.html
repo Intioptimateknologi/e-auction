@@ -1,0 +1,183 @@
+
+
+{% block extrahead %}
+<!-- jika anda mau ngasih tambahan header disni khusus di page ini aja contoh header cdn-->
+<head>
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
+
+    <script src="https://adminlte.io/themes/v3/plugins/moment/moment.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+</head>
+{% endblock %}
+
+{% block tambah_css %}
+<!-- jika anda mau ngasih css disni khusus di page ini aja-->
+<style>
+    a{
+        color: #7984A7;
+    }
+
+    a:hover {
+        color: #007bff; /* Replace with the desired color code */
+    }
+
+    .text_putih{
+        color: white;
+    }
+
+
+    .custom-icon {
+      width: 24px;
+      height: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 20H21' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16.5 3.50023C16.8978 3.1024 17.4374 2.87891 18 2.87891C18.2786 2.87891 18.5544 2.93378 18.8118 3.04038C19.0692 3.14699 19.303 3.30324 19.5 3.50023C19.697 3.69721 19.8532 3.93106 19.9598 4.18843C20.0665 4.4458 20.1213 4.72165 20.1213 5.00023C20.1213 5.2788 20.0665 5.55465 19.9598 5.81202C19.8532 6.06939 19.697 6.30324 19.5 6.50023L7 19.0002L3 20.0002L4 16.0002L16.5 3.50023Z' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      margin-rigth: 50px;
+    }
+    .custom-icon2 {
+        width: 24px;
+        height: 24px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M3 6H21' stroke='%23D11F40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6' stroke='%23D11F40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6' stroke='%23D11F40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 11V17' stroke='%23D11F40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14 11V17' stroke='%23D11F40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+    }   
+</style>
+{% endblock  %}
+
+{% block content %}
+<!-- tempat ganti isi konten  -->
+
+<form id="myForm">
+    <div class="row">
+        <div class="col" style="padding: 16px;">
+            <div class="card">
+                <div class="card-body" style="display: flex; align-items: center;justify-content: space-between; padding-top: 10px; padding-bottom: 10px;">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                        
+                    <div style="display: flex; align-items: center;justify-content: center;">
+                        <span class="badge badge-primary rounded-circle" style="margin-right: 5px;">1</span><div style="color: #007bff;">Akun Perusahaan</div>
+                        <p style="margin-bottom: 0px; margin-left: 10px; margin-right: 10px; color: #007bff;">----------</p>
+                        <span class="badge badge-primary rounded-circle" style="margin-right: 5px;">2</span><div  style="color: #007bff;">Biodata User</div>
+                    </div>
+                    
+                    <p style="visibility: hidden;">a</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="padding: 16px;">
+            <div class="card" style="">
+                <div class="card-header" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;flex-wrap: nowrap; background-color: white;">
+                        <p style="margin: 0px; font-weight: bold;">List Perwakilan Perusahaan</p>
+                        <button type="button" class="btn btn-outline-primary rounded" style="margin-right: 10px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Perwakilan</button>
+                </div>
+    <div class="row">
+        <div class="col" style="padding: 16px;">
+            <div class="card" style="">
+                <div class="card-body">
+
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col-12">
+                            <table id="example" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Username</th>
+                                        <th>Nama Pengguna</th>
+                                        <th>Name Perusahaan</th>
+                                        <th>Jenis Penyelenggara</th>
+                                        <th>File Link</th>
+                                        <th>Status</th>
+                                        <th width="60px">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Anton12</td>
+                                        <td>Anton Supriyadi</td>
+                                        <td>PT Telkom Indonesia</td>
+                                        <td>Jenis Penyelenggara</td>
+                                        <td style="color: #007bff;"><button class="btn btn-primary" type="button" style="border-radius: 31px;height: 29px;padding-top: 1px;background: #e0eefc;color: var(--blue);border-color: #e0eefc;"><i class="far fa-eye"></i>&nbsp;Lihat</button></td>
+                                        <td style="color: green; font-weight :bold";>Aktif</td>
+                                        <td >
+                                            <i class="custom-icon" ></i>
+                                            <i class="custom-icon2" ></i>
+                                           
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Anton12</td>
+                                        <td>Anton Supriyadi</td>
+                                        <td>PT Telkom Indonesia</td>
+                                        <td>Jenis Penyelenggara</td>
+                                        <td style="color: #007bff;"><button class="btn btn-primary" type="button" style="border-radius: 31px;height: 29px;padding-top: 1px;background: #e0eefc;color: var(--blue);border-color: #e0eefc;"><i class="far fa-eye"></i>&nbsp;Lihat</button></td>
+                                        <td style="color: green; font-weight :bold";>Aktif</td>
+                                        <td >
+                                            <i class="custom-icon" ></i>
+                                            <i class="custom-icon2" ></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Anton12</td>
+                                        <td>Anton Supriyadi</td>
+                                        <td>PT Telkom Indonesia</td>
+                                        <td>Jenis Penyelenggara</td>
+                                        <td style="color: #007bff;"><button class="btn btn-primary" type="button" style="border-radius: 31px;height: 29px;padding-top: 1px;background: #e0eefc;color: var(--blue);border-color: #e0eefc;"><i class="far fa-eye"></i>&nbsp;Lihat</button></td>
+                                        <td style="color: green; font-weight :bold";>Aktif</td>
+                                        <td >
+                                            <i class="custom-icon" ></i>
+                                            <i class="custom-icon2" ></i>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col" style="display: flex; margin-top: 4rem; margin-bottom: 2rem; justify-content: space-between;
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        align-items: center;">
+                            <div style="color: red;">
+                                *Maksimal Perwakilan 3 Orang
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- jika anda mau ngasih js disni khusus di page ini aja-->
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            paging: false,
+            ordering: false,
+            info: false,
+            searching: false,
+            'columnDefs': [
+                {
+                    "className": "text-center",
+                },
+            ]
+        });
+    });
+</script>
+{% endblock  %}

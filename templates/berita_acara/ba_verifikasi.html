@@ -1,0 +1,123 @@
+{% load l10n %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+   
+</head>
+<body class="A4" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
+<section class="sheet padding-10mm">
+{% localize on %}
+<p style="text-align:center; font-size:16px;">BERITA ACARA <br> HASIL VERIFIKASI DOKUMEN PERMOHONAN KEIKUTSERTAAN {{ seleksi|upper }}</p>
+<p style="text-align:center">Tanggal {{ tanggal|date:'d F Y'}}</p>
+<p style="text-align:center">Nomor {{ nomor }}</p>
+{% endlocalize %}
+
+<ol>
+	<li style="text-align: justify;">Pada hari ini, {{ jadwal.tanggal_awal|date:'l' }} tanggal {{ jadwal.tanggal_awal|date:'d F Y'}} sampai dengan  selesai  telah dilaksanakan Tahapan Verifikasi Dokumen Permohonan Keikutsertaan {{seleksi}} bertempat di ......... {{ tempat_undangan }} dengan data dukung sebagaimana terlampir dalam Lampiran Berita Acara ini.</li>
+  <li style="text-align: justify;">Hasil Verifikasi Dokumen Permohonan Keikutsertaan {{seleksi}} sebagaimana dimaksud pada angka 1 sebagai berikut :</li> 
+  
+  <br>
+  a. Hasil Verifikasi Formulir Permohonan Keikutsertaan Seleksi
+  <table width="100%">
+        <tr>
+          <th>No</th><th>Peserta Seleksi</th><th>Hasil Verifikasi</th><th>Keterangan (Jika Ada)</th>
+        </tr>
+        {% for t in table %}
+          <tr>
+            <td width="10%">
+            {{ forloop.counter }}</td>
+            <td width="20%">{{t.bidder.bidder.nama_perusahaan}}</td>
+            <td width="20%">{% if t.bidbond == 'Ada'  %}
+                    Sesuai
+                {% else %}
+                    Tidak Sesuai
+                {% endif %}</td>
+            <td>{{t.keterangan}}</td>
+            <!-- <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:m:s'}} WIB</td> -->
+        </tr>
+          {% endfor %}
+      </table>   
+      <br>
+      b. Hasil Verifikasi Jaminan Keikutsertaan Seleksi (Bid Bond)
+      <table width="100%">
+            <tr>
+              <th>No</th><th>Peserta Seleksi</th><th>Hasil Verifikasi</th><th>Keterangan (Jika Ada)</th>
+            </tr>
+            {% for t in table %}
+              <tr>
+                <td width="10%">
+                {{ forloop.counter }}</td>
+                <td width="20%">{{t.bidder.bidder.nama_perusahaan}}</td>
+                <td width="20%">{% if t.bidbond == 'Ada' %}
+                  Sesuai
+                  {% else %}
+                      Tidak Sesuai
+                  {% endif %}</td>
+                <td>{{t.keterangan}}</td>
+                <!-- <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:m:s'}} WIB</td> -->
+            </tr>
+              {% endfor %}
+          </table> 
+    <li style="text-align: justify;">Berdasarkan hasil sebagaimana dimaksud pada angka 2 maka Peserta Seleksi yang dinyatakan lulus Verifikasi Dokumen Permohonan Keikutsertaan sebagai berikut:</li>
+    <table width="100%">
+        <tr>
+          <th>No</th><th>Peserta Seleksi</th><th>Hasil Verifikasi</th><th>Keterangan (Jika Ada)</th>
+        </tr>
+        {% for t in table %}
+            {% if t.bidbond == 'Ada' and t.sampul1 == 'Ada' %}
+          <tr>
+            <td width="10%">
+            {{ forloop.counter }}</td>
+            <td width="20%">{{t.bidder.bidder.nama_perusahaan}}</td>
+            <td width="20%">{% if t.bidbond == 'Ada' and t.sampul1 == 'Ada' %}
+                    Sesuai
+                {% else %}
+                    Tidak Sesuai
+                {% endif %}</td>
+            <td>{{t.keterangan}}</td>
+            <!-- <td>{{t.created|date:'d F Y'}} pukul {{t.created|date:'H:m:s'}} WIB</td> -->
+        </tr>
+            {% endif %}
+          {% endfor %}
+      </table>   
+    <li style="text-align: justify;">Demikian Berita Acara ini dibuat dan ditandatangani pada kegiatan Verifikasi Dokumen Permohonan Keikutsertaan {{seleksi}}. Apabila di kemudian hari ditemukenali adanya kekeliruan akan dilakukan perbaikan sebagaimana mestinya.</li>
+</ol>
+
+<div>
+  <table width="100%" border="0" style="border: 0px white solid">
+    <tbody>
+      <tr>
+        <td>&nbsp;</td><td>Jakarta, {% now "d F Y"%}</td>
+      </tr>
+      <tr>
+        <td style="border: 0px white solid">
+          
+          <p style="text-align:center">Mengetahui</p>
+          <p style="text-align:center">Ketua Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{ketua_pansel}}</p>
+         
+        </td>
+        <td>
+         
+          <p style="text-align:center"></p>
+          <p style="text-align:center">Sekretaris Tim {{ seleksi }}</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+          <p style="text-align:center">{{sekretaris_pansel}}</p>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+</body>
+</html>

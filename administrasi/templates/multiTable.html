@@ -1,0 +1,6 @@
+{% load django_tables2 %}
+<div class="row">
+    {% for table in tables %}
+        <div class="col-lg-12">{% render_table table %}</div>
+    {% endfor %}
+</div>

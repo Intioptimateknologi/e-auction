@@ -1,0 +1,99 @@
+{% extends 'new_index/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load judul_tags %}
+
+    {% block navbar %}
+    {% include 'new_index/parts/navbar_kosong.html' %}
+    {% endblock %}
+    {% block konten_isi %}
+    
+        {% add_judul_bidder user.id item_lelang.id "/pasca_seleksi/pemilihan_blok/" "Paska Seleksi > Pemilihan Blok" %}
+    {% include "tabs_all.html" %}
+ 
+    <p style="display: none;" text="{{user.id}}" id="tricky_user_id"></p>
+    <p style="display: none;" id="tricky_user_bidder_id"></p>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+{% endblock %}
+
+
+
+{% block footer %}
+{% include 'new_index/parts/footer_dashboard.html' %}
+{% endblock %}
+
+{% block script %}
+{% include 'js_tambahan/js_tambahan.html' %}
+
+<script>
+var item_lelang;
+$(document).ready(function() {
+    {% include "js/js_temp_all.html" %}
+    var uri = '/events/bidder/';
+    var es = new ReconnectingEventSource(uri);
+
+    function loadBlok(id) {
+      $.ajax({
+          url: '/pasca_seleksi/pasca_seleksi/pemilihan_blok3/'+id + '/',
+          method: "GET",
+          xhrFields: {
+              withCredentials: true
+          },
+          success: function (data) {
+              var table = $("#objek_pemilihanblok_dummy");
+              table.empty();
+              table.append(data);
+          }
+      });
+  }
+
+  var id = $("#nmlelang").val();
+  loadBlok(id);
+  $("#objek_pemilihanblok_dummy").on("click",".buka_pilihan", function() {
+    id2 = this.id;
+    showModal2({
+          csrf: '{{csrf_token}}',
+          formURL: "/pasca_seleksi/pasca_seleksi/modal_bidder_pemilihan_blok/"+id2+"/",
+          drfURL: "/pasca_seleksi/api/v1/pemilihan_blok/"+id2+"/",
+          method: "PATCH",
+          onSuccess: function(response) {
+              $("#modal").modal('hide');
+              loadBlok($("#nmlelang").val());
+          }
+      })
+  })    
+
+  es.onopen = function () {
+    console.log("ESS connected");
+  };
+
+  es.onerror = function () {
+    console.log('*** connection lost, reconnecting...');
+  };
+
+  es.addEventListener('stream-reset', function () {
+    appendLog('*** client too far behind, please refresh');
+  }, false);
+
+  es.addEventListener('stream-error', function (e) {
+    // hard stop
+    es.close();
+    e = JSON.parse(e.data);
+    console.log('*** stream error: ' + e.condition + ': ' + e.text);
+  }, false);
+
+  es.addEventListener('message', function (e) {
+    console.log('event: ' + e.data);
+    msg = JSON.parse(e.data);
+    loadBlok(id);
+    loadData({URL: '/pasca_seleksi/pasca_seleksi/pemilihan_blok2/'+$('#nmlelang').val()+'/', element_id: $("#hasil_pilih_blok")})
+  }, false);      
+
+});
+
+</script>
+{% endblock %}
