@@ -70,7 +70,6 @@ PyPDF2==3.0.1
 pyrsistent==0.18.1
 python-dotenv==0.19.2
 pytz==2023.3
-PyYAML==5.4.1
 redis==4.5.5
 requests==2.31.0
 requests-toolbelt==0.9.1
