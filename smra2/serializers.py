@@ -102,7 +102,8 @@ class round_smraSerializer(serializers.ModelSerializer):
             "penawaran",
             "khusus",
             "ext_data",
-            "sisa"
+            "sisa",
+            "otp"
         ]
     def get_sisa(self, obj):
         return 0

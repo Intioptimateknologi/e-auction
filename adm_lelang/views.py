@@ -436,6 +436,7 @@ class pengumuman_lelang2ListView(SingleTableMixin, generic.ListView):
         itm_lelang = self.kwargs['item_lelang']
         tahapan = self.kwargs['current_step']
         dt = timezone.localtime()
+        print("DEBUG tahapan", tahapan)
         return models.pengumuman.objects.all().filter(item_lelang=itm_lelang, tahapan=tahapan, tgl_release__lt=dt).order_by('-last_updated')
     
 class pengumuman_lelang3ListView(SingleTableMixin, generic.ListView):
@@ -1138,7 +1139,7 @@ def docxview(request, pk):
             queryset = pascaseleksimodels.pemilihan_blok_pasca_seleksi.objects.raw(query)
 
             context['table'] = ps_pb
-            context['table2'] = pascaseleksimodels.pemilihan_blok_pasca_seleksi.objects.filter(persetujuan=True)
+            context['table2'] = pascaseleksimodels.pemilihan_blok_pasca_seleksi.objects.filter(persetujuan=True, item__item_lelang__id=itm_lelang.id)
             template_name = 'berita_acara/ba_pemilihan_blok.html'
 
         elif tahapan.id == 145:
@@ -1198,7 +1199,13 @@ def docxview(request, pk):
                 "join userman_bidder as c on c.id = a.bidder_id "
                 "where hasil_pemeriksaan = 't' and item_lelang_id = " + str(itm_lelang.id)
             )
-            queryset_hasil_evaluasi = hasil_kesimpulan.objects.raw(query_ps_hasil_evaluasi)
+            #queryset_hasil_evaluasi = hasil_kesimpulan.objects.raw(query_ps_hasil_evaluasi)
+            queryset_hasil_evaluasi = (
+                hasil_kesimpulan.objects
+                .select_related('bidder')  # Join ke tabel userman_bidder
+                .filter(hasil_pemeriksaan='t', item_lelang=itm_lelang)
+            )
+
             ps_ba_hasil_evaluasi = adm_lelangmodels.berita_acara.objects.filter(item_lelang=dokumen.item_lelang.id, tahapan = "62").order_by('-id')
             ps_pengumuman_hasil_evaluasi = adm_lelangmodels.pengumuman.objects.filter(item_lelang=dokumen.item_lelang.id, tahapan = "64").order_by('-id')
             
@@ -1305,9 +1312,9 @@ def docxview(request, pk):
             context['ps_sanggahan_sanggahan_tidak'] = ps_sanggahan_sanggahan_tidak
             # smra
             #context['ps_undangan_smra'] = ps_undangan_smra[0]
-            #context['ps_ba_smra'] = ps_ba_smra
+            context['ps_ba_smra'] = ps_ba_smra
             #context['ps_putaran_smra'] = ps_putaran_smra[0]
-            #context['queryset_ps_hasil_smra'] = queryset_ps_hasil_smra
+            context['queryset_ps_hasil_smra'] = queryset_ps_hasil_smra
 
             # pemilihan blok hasil
             context['ps_undangan_pemilihan_blok'] = ps_undangan_pemilihan_blok

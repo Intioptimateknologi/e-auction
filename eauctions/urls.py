@@ -70,7 +70,7 @@ urlpatterns = [
     path('invalid-credentials/', views.invalid_credentials, name='invalid_credentials'),
     path('masa-berlaku/', views.masa_berlaku, name='masa_berlaku'),
 
-    path('secure_media/<path:file_path>', views.protected_media, name='media_protected'),
+    path('media/<path:file_path>', views.protected_media, name='media_protected'),
 
     #page accounts
     path('userman/', include('userman.urls')),
@@ -94,6 +94,6 @@ urlpatterns = [
     
 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) +
 

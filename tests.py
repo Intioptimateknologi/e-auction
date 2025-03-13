@@ -64,18 +64,19 @@ def test_besar1():
         {'price':3004000000, 'block':0},
     ]
     i = 0
+    time_submision = timezone.localtime()
     for o in obsel:
         d = data[i]
         if d['block']!=0:
             print(d['price'])
             vbidder_perwakilan = bidder_perwakilan.objects.filter(bidder = o.bidder_user).first()
-            updated_values = {'price':d['price'],'block':d['block'],'valid':True, 'berlaku': True, 'perwakilan': vbidder_perwakilan}
+            updated_values = {'price':d['price'],'block':d['block'],'valid':False, 'berlaku': True, 'perwakilan': vbidder_perwakilan, 'submit':time_submision}
             putaran = 1
             i = i + 1
             print(o.bidder_user)
             hasil, created = models.hasil_smra2.objects.update_or_create(round=putaran,  bidder=o.bidder_user, item=itm, item_lelang = 100,defaults=updated_values)
             print(hasil, created)
-            updated_values = {'price':d['price'],'valid':True, 'berlaku': True, 'perwakilan': vbidder_perwakilan}
+            updated_values = {'price':d['price'],'valid':False, 'berlaku': True, 'perwakilan': vbidder_perwakilan, 'submit':time_submision}
             hasil = models.hasil2_smra.objects.update_or_create(item=itm, bidder=o.bidder_user, round = putaran, defaults=updated_values)
             obj = models.round_smra2.objects.get(item=itm, bidder = o.bidder_user)
             obj.penawaran = d['price']

@@ -115,7 +115,7 @@
                 <td width="10%">
                 {{ forloop.counter }}
                 </td>
-                <td width="">{{t.perwakilan.bidder}}</td>
+                <td width="">{{t.bidder.bidder.nama_perusahaan}}</td>
                 <td>
                   {% if t.bidbond == "Ada" and t.sampul1 == "Ada" and t.sampul2 == "Ada" %}
                     Lengkap
@@ -139,7 +139,7 @@
             </li>
             <li>Hasil verifikasi Dokumen Administrasi {{ seleksi }} adalah sebagai berikut:
               <br>
-              Verifikasi Jaminan Permogonan Keikutsertaan {{ seleksi }}
+              Verifikasi Jaminan Permohonan Keikutsertaan {{ seleksi }}
               <br>
               <table width="100%">
                 <thead>
@@ -211,7 +211,7 @@
                   <td width="10%">
                     {{ forloop.counter }}
                   </td>
-                  <td>{{ t.nama_perusahaan }}</td>
+                  <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
                   <td>{{ t.keterangan }}</td>
                 </tr>
               {% endif %}
@@ -237,7 +237,7 @@
                   <td width="10%">
                     {{ forloop.counter }}
                   </td>
-                  <td>{{ t.nama_perusahaan }}</td>
+                  <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
                   <td>{{ t.keterangan }}</td>
                 </tr>
               {% endif %}
@@ -256,11 +256,11 @@
 
       <li>Tim Seleksi melaksanakan tahapan lelang harga pada  hari {{ps_undangan_smra.tanggal|date:'d F Y'}} secara daring Lelang Harga hari ke-{{ ps_ba_smra|length }} pada {{ seleksi|upper }} dilaksanakan hingga {{ps_putaran_smra.round}} putaran hari ke-{{ ps_ba_smra|length }},. Hasil Tahapan lelang hari kesatu telah didokumentasikan melalui Berita Acara Hasil Lelang Harga Hari Kesatu pada {{ seleksi|upper }} (Berita Acara Nomor [{{ps_ba_smra.0.nomor}} lelang hari ke-{{ ps_ba_smra|length }}] Tanggal [{{ps_ba_smra.0.tanggal|date:'d F Y'}} BA lelang hari ke-{{ ps_ba_smra|length }}]).</li>
       
-      <li>Adapun	Daftar Peringkat Hasil Lelang Harga Pada {{ seleksi }}adalah:
+      <li>Adapun Daftar Peringkat Hasil Lelang Harga Pada {{ seleksi }} adalah:
         <table width="100%">
           <thead>
             <tr>
-              <th>Putaran Lelang(Round)</th>
+              <th>Putaran Lelang<br>(Round)</th>
               <th>Peserta Seleksi</th>
               <th>Harga Penawaran</th>
               <th>Urutan Peringkat Hasil Lelang Harga</th>
@@ -271,7 +271,7 @@
                 <tr>
                   <td>{{ t.round }}</td>
                   <td>{{ t.nama_perusahaan }}</td>
-                  <td>{{ t.price }}</td>
+                  <td>Rp{{ t.price|floatformat:'2g' }}</td>
                   <td>{{ t.ranking }}</td>
                 </tr>
             {% endfor %}
@@ -301,7 +301,7 @@
             <tr>
               <td>{{ t.ranking }}</td>
               <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
-              <td>{{ t.penawaran }}</td>
+              <td>Rp{{ t.penawaran|floatformat:'2g' }}</td>
               <td>{{ t.item }}</td>
             </tr>
             {% endfor %}

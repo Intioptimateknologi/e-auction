@@ -74,7 +74,7 @@ class round_smraViewSet(viewsets.ModelViewSet):
             updated_values = {'status_round':'INI','round':1, 'price':0, 'block':b.blok_awal, 
                 'prev_block':b.blok_awal, 
                 'prev_price':item.harga_minimal, 'min_price':item.harga_minimal,
-                'price':0,'penawaran':0,
+                'price':0,'penawaran':0,'otp':False,
                 'mulai': timezone.now(), 'selesai':timezone.now(),
                 'item_lelang':pk, 'lock':False, 'lock':False, 'khusus':False,'ext_data':{'min_price':str(item.harga_minimal)} 
                 }
@@ -96,7 +96,7 @@ class round_smraViewSet(viewsets.ModelViewSet):
             updated_values = {'status_round':'INI','round':1, 'price':0, 'block':0, 
                 'prev_block':b.blok_awal, 
                 'prev_price':itm.harga_minimal, 'min_price':itm.harga_minimal,
-                'price': 0,'penawaran':0,
+                'price': 0,'penawaran':0,'otp':False,
                 'mulai': timezone.now(), 'selesai':timezone.now(),
                 'item_lelang':itm.item_lelang.id, 'lock':False, 'khusus':False,'ext_data':{'min_price':str(itm.harga_minimal)} 
                 }
@@ -105,7 +105,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
         hasil.delete()
         hasil2 = models.hasil2_smra.objects.all().filter(item=itm)
         hasil2.delete()
-        utils.ws_publish({"sender":"auctioneer","message":"status_changed: init"})
+        utils.ws_publish_auctioneer( {"sender":"auctioneer","message":"status_changed: init","detail_itemlelang": pk})
+        utils.ws_publish_bidder(itm.item_lelang.id, {"sender":"auctioneer","message":"status_changed: init","detail_itemlelang": pk})
         td = datetime.now()
         dt = td + timedelta(seconds = 2)
 #        tasks.round2x_cek(pk,schedule=dt)
@@ -188,7 +189,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
                     models.round_smra2.objects.update_or_create(bidder=bdr.bidder_user, item=itm, defaults=updated_values)
                 #selesai = round.selesai.isoformat()
                 print("start lelang untuk ",pk," mulai ",mulai," selesai",selesai)
-                utils.ws_publish({"sender":"auctioneer","message":"status_changed: start"})
+                utils.ws_publish_auctioneer( {"sender":"auctioneer","message":"status_changed: start","detail_itemlelang": pk})
+                utils.ws_publish_bidder(itm.item_lelang.id, {"sender":"auctioneer","message":"status_changed: start","detail_itemlelang": pk})
                 return Response({"status":"OK"})
             else:
                 return Response({"status":"Hari ini tidak ada jadwal"})
@@ -218,7 +220,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
                 for bdr in bidder:
                     updated_values = {'status_round':'WAI', 'round':ronde-1,'lock': False, 'mulai': mulai, 'selesai':selesai}
                     models.round_smra2.objects.update_or_create(bidder=bdr.bidder_user, item=itm, defaults=updated_values)
-                utils.ws_publish({"sender":"auctioneer","message":"status_changed: resume"})
+                utils.ws_publish_auctioneer( {"sender":"auctioneer","message":"status_changed: resume","detail_itemlelang": pk})
+                utils.ws_publish_bidder(itm.item_lelang.id, {"sender":"auctioneer","message":"status_changed: resume","detail_itemlelang": pk})
                 return Response({"status":"OK"})
             else:
                 return Response({"status":"Hari ini tidak ada jadwal"})
@@ -290,7 +293,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
                     hasil.delete()
                     hasil = models.hasil2_smra.objects.all().filter(bidder=bdr.bidder_user).filter(item=item_llg).filter(round=obj.round)
                     hasil.delete()
-                utils.ws_publish({"sender":"auctioneer","message":"status_changed: reset"})
+                utils.ws_publish_auctioneer( {"sender":"auctioneer","message":"status_changed: reset","detail_itemlelang": pk})
+                utils.ws_publish_bidder(itm.item_lelang.id, {"sender":"auctioneer","message":"status_changed: reset","detail_itemlelang": pk})
 
                 return Response({"status":"OK"})
             else:
@@ -306,7 +310,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
         for bdr in bidder:
             updated_values = {'status_round':'STO'}
             models.round_smra2.objects.update_or_create(bidder=bdr.bidder_user, item=item_llg, defaults=updated_values)
-        utils.ws_publish({"sender":"auctioneer","message":"status_changed: stop"})
+        utils.ws_publish_auctioneer( {"sender":"auctioneer","message":"status_changed: stop","detail_itemlelang": pk})
+        utils.ws_publish_bidder(item_llg.item_lelang.id, {"sender":"auctioneer","message":"status_changed: stop","detail_itemlelang": pk})
         return Response({"status":"OK"})
     
     @action(detail=True, methods=['get'])
@@ -316,7 +321,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
         for bdr in bidder:
             updated_values = {'status_round':'SUS'}
             models.round_smra2.objects.update_or_create(bidder=bdr.bidder_user, item=item_llg, defaults=updated_values)
-        utils.ws_publish({"sender":"auctioneer","message":"status_changed: pause"})
+        utils.ws_publish_auctioneer({"sender":"auctioneer","message":"status_changed: paused","detail_itemlelang": pk})
+        utils.ws_publish_bidder(item_llg.item_lelang.id, {"sender":"auctioneer","message":"status_changed: paused","detail_itemlelang": pk})
         return Response({"status":"OK"})
 
     @action(detail=True, methods=['get'])
@@ -326,7 +332,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
         for bdr in bidder:
             updated_values = {'status_round':'CLO'}
             models.round_smra2.objects.update_or_create(bidder=bdr.bidder_user, item=item_llg, defaults=updated_values)
-        utils.ws_publish({"sender":"auctioneer","message":"status_changed: close"})
+        utils.ws_publish_auctioneer({"sender":"auctioneer","message":"status_changed: close","detail_itemlelang": pk})
+        utils.ws_publish_bidder(item_llg.item_lelang.id, {"sender":"auctioneer","message":"status_changed: close","detail_itemlelang": pk})
         return Response({"status":"OK"})
 
     @action(detail=True, methods=['post'])
@@ -541,6 +548,10 @@ class round_smraViewSet(viewsets.ModelViewSet):
     def sign(self, request, pk=None):
         # first: get jwt
         user = request.user
+        obj = models.round_smra2.objects.get(pk=pk)
+        lt = timezone.localtime()
+        if obj.selesai < lt:
+            return Response({"step":"document", "status":"Waktu Habis"})
 
         jwt = request.GET.get('jwt')
         fileid = request.GET.get('fileid')
@@ -606,6 +617,8 @@ class round_smraViewSet(viewsets.ModelViewSet):
         if retval['errorCode']!='0':
             return Response(retval) 
 
+        time_submision = timezone.localtime()
+
         file = os.path.splitext(fileid)[0]
         url3 = "http://"+settings.PERURI_DOCKER+"/v1/doc/download?idFile="+file
 
@@ -642,22 +655,25 @@ class round_smraViewSet(viewsets.ModelViewSet):
             num_blok = hasil[0].block
             for i in range(0,num_blok):
                 hasil2 = models.hasil2_smra(price = hasil[0].price, item = hasil[0].item, item_lelang = hasil[0].item_lelang,
-                    submit = hasil[0].submit, valid = hasil[0].valid, bidder = hasil[0].bidder, perwakilan = hasil[0].perwakilan,
+                    valid = hasil[0].valid, bidder = hasil[0].bidder, perwakilan = hasil[0].perwakilan, submit = time_submision,
                     round = hasil[0].round, jenis = hasil[0].jenis, berlaku=True)
                 hasil2.save()
 
         hasil = models.hasil_smra2.objects.all().filter(round=putaran).filter(bidder__id=bidder_id).filter(item=item_llg)
-        hasil.update(valid = True, berlaku = True)
+        hasil.update(valid = True, berlaku = True, submit=time_submision)
         resp.encoding = 'utf-8'
         hasil[0].berita_acara.save(fileid, ContentFile( resp.content   ))
         hasil[0].save()
 
-        hasil2 = models.hasil2_smra.objects.all().filter(round=putaran).filter(bidder_id=bidder_id).filter(item=item_llg).update(valid=True, berlaku=True)
+        hasil2 = models.hasil2_smra.objects.all().filter(round=putaran).filter(bidder_id=bidder_id).filter(item=item_llg).update(valid=True, berlaku=True, submit=time_submision)
 
         #---------- lock kalau sudah berhasil di sign
         obj = models.round_smra2.objects.all().get(bidder = bdr, item=hasil[0].item)
         obj.lock = True
+        obj.otp = True
         obj.save()
+        utils.ws_publish_auctioneer({"sender":"auctioneer","message":"bid submited","detail_itemlelang": pk})
+        #utils.ws_publish_bidder(item_llg.item_lelang.id, {"sender":"auctioneer","message":"bid submited","detail_itemlelang": pk})
 
         return Response({"status":response, "retval": retval, "session": session})
 

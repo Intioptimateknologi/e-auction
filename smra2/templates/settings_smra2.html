@@ -164,7 +164,11 @@
                             withCredentials: true
                         },
                         success: function (data) {
-                            swal.fire("Pembersihan Selesai")
+                            swal.fire({
+                                title: "Pembersihan Selesai",
+                                text: "Jadwal putaran SMRA berhasil dibersihkan.",
+                                icon: "success",
+                            })
                             loadData({URL: '/smra2/jadwal_putaran/'+$('#nmlelang').val()+'/', element_id: $("#t_putaran")}
                         )}
                     });
@@ -187,7 +191,11 @@
                             withCredentials: true
                         },
                         success: function (data) {
-                            swal.fire("Inisialisasi Selesai")
+                            swal.fire({
+                                title: "Inisialisasi Selesai",
+                                text: "Seleksi Lelang SMRA berhasil diinisialisasi.",
+                                icon: "success",
+                            })
                         }
                     });
                 }

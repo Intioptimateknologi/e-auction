@@ -167,29 +167,37 @@
                   </div>
                   <div class="card-footer">
                     <!-- ko if: penawaran() > 0 --> 
+                    <!-- ko if: otp() > 0 --> 
                     <div class="col-12 ">
                       <div class="">
                         <div class=" text-center h3">
                           <div class="callout callout-danger">Penawaran Obyek Seleksi untuk Pita <span  data-bind='text: band() '></span> telah dilakukan dengan jumlah blok sebanyak <span  data-bind='text: block()'></span> 
-                          blok dengan Harga Penawaran per Blok sebesar Rp <span  data-bind="text: penawaran(), inputmask: { value: penawaran(), alias: 'currency' }"></span>
+                          blok dengan Harga Penawaran per Blok sebesar <span data-bind="text: $root.formatHarga(penawaran())"></span>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <!--  <button class="btn btn-warning btn-block" data-bind="click: $parent.bid"  style="border-radius:20px; " >
+                      <div id="submit_btn_wait" data-bind="visible: $parent.menunggu"  role="status">
+                        <span class="sr-only">Tunggu...</span>
+                      </div>                
+                      Sampaikan Jumlah Blok dan Harga Penawaran untuk Pita <span  data-bind='text: band() '></span> Ini
+                    </button>  -->
+                  <!-- /ko-->
                     <!-- /ko-->
                     <!-- ko if: status_round() !== "FINAL"  -->
                     <!-- ko if: status_round() !== "INIT" -->
                     <!-- ko if: status_round() !== "CLOSED" -->
                     <!-- ko if: penawaran() !== '' --> 
                     <!-- ko ifnot: lock() --> 
-                    <div class="row">
+                     <div class="row">
                       <button class="btn btn-warning btn-block" data-bind="click: $parent.bid"  style="border-radius:20px; " >
                         <div id="submit_btn_wait" data-bind="visible: $parent.menunggu"  role="status">
                           <span class="sr-only">Tunggu...</span>
                         </div>                
                         Sampaikan Jumlah Blok dan Harga Penawaran untuk Pita <span  data-bind='text: band() '></span> Ini
                       </button>
-                    </div>
+                    </div> 
                     <!-- /ko-->
                     <!-- /ko-->
                     <!-- /ko-->
@@ -314,7 +322,7 @@
       <div class="modal-content">
         <div class="modal-header bg-primary">
           <h4>Formulir Penawaran Harga</h4>
-          <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark fa-lg text-secondary"></i></button>
+          <button type="button" class="btn"  data-dismiss="modal"><i class="fa fa-xmark text-lg text-white"></i></button>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -331,7 +339,7 @@
                 <div class="card-header bg-dark text-center">
                   <i class="fa fa-square"></i>&nbsp;&nbsp;<b>Maks Blok</b>
                 </div>
-                <div class="card-body text-center"  style="height:200px">
+                <div class="card-body text-center d-flex align-items-center justify-content-center"  style="height:200px">
                   
                   <span class="text-bold h3 text-blue" style="font-size:4rem;text-align:center;font-weight:800;" data-bind='text: prev_block'></span>
                 </div>
@@ -344,7 +352,12 @@
                 </div>
                 <div class="card-body text-center"  style="height:200px">
                   <span class="text-blue h6">Minimum</span><br>
-                  <span  class="text-bold h3 text-blue currency" style="font-size:4rem;text-align:center;font-weight:800;" data-bind="text: data.prev_price_rp"></span>
+                  <span id="minimum_price_text"  class="text-bold h3 text-blue currency" style="font-size:4vw;text-align:center;font-weight:800;" data-bind="text: data.prev_price_rp"></span>
+                  <br>
+                  <!-- ko if: data.khusus() == true  -->
+                  <span class="text-blue h6 pt-2">Maximum</span><br>
+                  <span id="minimum_price_text"  class="text-bold h3 text-blue currency" style="font-size:4vw;text-align:center;font-weight:800;" data-bind="text: data.max_price_rp"></span>
+                  <!-- /ko-->
                 </div>
               </div>
             </div>
@@ -367,7 +380,16 @@
                   <i class="fa fa-money-bill-wave"></i>&nbsp;&nbsp;<b>Harga Penawaran Per Blok</b>
                 </div>
                 <div class="card-body text-center"  style="height:200px">
-                  <input class='form-control required' style="border:1px solid #6c757d;text-align:center; height: calc(7.25rem + 2px);font-size:4rem;font-weight:800;" data-bind="value: price, disable: lock, inputmask: { value: price, alias:'currency'}" />
+                  <input id="price_input" class="form-control required" style="border:1px solid #6c757d;text-align:center; height: calc(7.25rem + 2px);font-size:4vw;font-weight:800;" data-bind="value: price, disable: lock, 
+                  event: { input: (data, event) => $root.adjustFontSize(data, event) }, inputmask: { value: price, alias: 'numeric',
+                groupSeparator: '.',
+                radixPoint: ',',
+                autoGroup: true,
+                digits: 2,
+                digitsOptional: false,
+                rightAlign: true,
+                allowMinus: false,
+                removeMaskOnSubmit: true, max: 99999999999999}" />
                 </div>
               </div>
             </div>
@@ -490,8 +512,24 @@
   <script>
   
   $(document).ready(function () {    
-    var uri = '/events/bidder/';
+    var uri = '/events/bidder_{{item_lelang.id}}/';
     var es = new ReconnectingEventSource(uri);
+
+    /*
+     * Responsive Harga Saat Buka Modal Bid
+     */
+    $('#modal_bid').on('show.bs.modal', function (event) {
+      const input_minimum_price = $('#modal_bid #minimum_price_text')
+      const length = (input_minimum_price.text() + "").length;
+      const baseFontSize = 3;
+      let newFontSize = baseFontSize;
+      
+      if (length > 18) {
+        newFontSize = baseFontSize - (length - 18) * 0.2;
+        newFontSize = Math.max(newFontSize, 2.6);
+      }
+      input_minimum_price.css('font-size', newFontSize + 'vw');
+    })
 
     ko.bindingHandlers.inputmask =
     {
@@ -561,6 +599,24 @@
       mulai_putaran: ko.observable(),
       penawaran: ko.observableArray([]),
       locked: ko.observable(false),
+      formatHarga: function(price) {
+        return currency(price, { symbol: "Rp", separator: ".", decimal: "," }).format();
+      },
+      adjustFontSize: function(data, event) {
+        const inputValue = event.target.value.trim();
+        const length = inputValue.length;
+    
+        // Skala pengurangan lebih smooth dengan formula berbasis logaritma
+        const baseSize = 4.7; // Default size (4rem)
+        const minSize = 1.5; // Minimal readable size (1.5rem)
+    
+        // Formula pengurangan yang lebih halus, berbasis log untuk menghindari perubahan mendadak
+        const scaleFactor = 0.3; // Faktor pengurangan
+        const newSize = baseSize - Math.log2(length + 1) * scaleFactor; 
+    
+        // Terapkan ukuran font baru dengan batasan minimal
+        event.target.style.fontSize = Math.max(minSize, newSize).toFixed(2) + 'rem';
+      },
       
 
       kirim_bid: function(data) {       
@@ -573,24 +629,23 @@
         for (i=0;i<data.length;i++) {
           
           if (isNaN(data[i].price)) {
-            v = data[i].price.replaceAll(",","");
+            v = data[i].price.replaceAll(".","");
             data[i].price = parseFloat(v);
           }
 
           if (isNaN(data[i].data.ext_data.min_price)) {
             v = data[i].data.ext_data.min_price;
             console.log(v);
-            v = v.replaceAll(",","");
+            v = v.replaceAll(".","");
             v = v.replaceAll("Rp","");
             data[i].data.ext_data.min_price = currency(parseFloat(v));
           }
 
           if ((data[i].data.ext_data.max_price) & (isNaN(data[i].data.ext_data.max_price))) {
-            v = data[i].data.ext_data.max_price.replaceAll(",","");
+            v = data[i].data.ext_data.max_price.replaceAll(".","");
             v = v.replaceAll("Rp","");
             data[i].data.ext_data.max_price = currency(parseFloat(v));
           }
-
           
           if (data[i].spectrum_cap<parseInt(data[i].block)) 
           {
@@ -598,22 +653,75 @@
             error_message = "Blok melebihi spectrum cap.";
           }
           if (data[i].data.round==1) {
+            console.log("bebas", valid);
             if (parseInt(data[i].block)!=parseInt(data[i].prev_block)) {
               valid = false;
+              console.log("blok 1-1", parseInt(data[i].block), parseInt(data[i].prev_block), valid);
               error_message = "Blok harus sama di putaran pertama";
-            } else
-            valid = true;
+            }
           }
-          
+
+          // if (parseInt(data[i].block)>parseInt(data[i].prev_block)) {
+          //     console.log("blok 1", parseInt(data[i].block), parseInt(data[i].prev_block));
+          //     valid = false
+          //     error_message = "Blok lebih besar dari blok sebelumnya";  
+          // } else {
+          //   valid = true;
+          // }
+          // if (parseInt(data[i].block) == 0)
+          // {
+          //   valid = false;
+          //   error_message = "Blok tidak boleh 0 (nol)";
+          // } else {
+          //   valid = true;
+          // }
+
+          // VALIDASI BID KETIKA KHUSUS
           if (data[i].data.khusus == true) {
+            const harga = parseFloat(data[i].price)
+            const hargaMin = parseFloat(data[i].prev_price)
+            let hargaMax = data[i].data.ext_data?.max_price;
+            hargaMax = hargaMax.replaceAll(".","");
+            hargaMax = hargaMax.replaceAll("Rp","");
+            hargaMax = parseFloat(hargaMax)
             
-            if (parseInt(data[i].block)!=parseInt(data[i].prev_block)) {
+            //block
+            if (parseInt(data[i].block) == 0)
+            {
+              console.log("test blok 0", parseInt(data[i].block))
               valid = false;
-              error_message = "Blok harus sama di putaran sebelumnya";
-            } else
-            valid = true;
-          }
-          else {
+              error_message = "Blok tidak boleh 0 (nol)";
+            } else {
+              if (parseInt(data[i].block)!=parseInt(data[i].prev_block)) {
+                console.log("test blok tidak sama dengan prev", parseInt(data[i].block))
+                valid = false;
+                error_message = "Blok harus sama di putaran sebelumnya";
+              } else {
+                valid = true;
+              }
+            }
+            
+            // ini cek harga max
+            if (hargaMax == null) {
+              valid = true;
+            } else {
+              if(harga >= hargaMax){
+                console.log('penawaran lebih besar dari penawaran maksimal');
+                valid = false;
+                error_message = "Penawaran lebih besar dari penawaran maksimal";  
+              }else{
+                if (parseInt(data[i].block)!=parseInt(data[i].prev_block)) {
+                  console.log("test blok tidak sama dengan prev", parseInt(data[i].block))
+                  valid = false;
+                  error_message = "Blok harus sama di putaran sebelumnya";
+                } else {
+                  valid = true;
+                }
+              }
+            }
+
+            console.log('valid', valid);
+          } else {
             if (parseInt(data[i].block)>parseInt(data[i].prev_block)) {
               valid = false
               error_message = "Blok lebih besar dari blok sebelumnya";  
@@ -629,10 +737,30 @@
             valid = false;
             error_message = "Harga harus kelipatan 1.000.000,00";
           }
-          if ((parseFloat(data[i].price)<parseFloat(data[i].prev_price)) && (data[i].prev_price>0)) {
-            valid = false;
-            error_message = "Penawaran lebih kecil dari penawaran minimal";  
-            }
+          if (parseFloat(data[i].price) < parseFloat(data[i].prev_price) && data[i].prev_price > 0) {
+              const hargaSaatIni = parseFloat(data[i].price)
+              const hargaSebelumnya = parseFloat(data[i].prev_price)
+              const hargaMinimal = hargaSebelumnya - 1000000
+              
+              if (hargaSaatIni === hargaMinimal && data[i].data.round > 1) {
+                if (parseInt(data[i].block) == 0)
+                {
+                  valid = false;
+                  error_message = "Blok tidak boleh 0 (nol)";
+                } else {
+                  if (parseInt(data[i].block)>parseInt(data[i].prev_block)) {
+                    console.log("blog", parseInt(data[i].block), parseInt(data[i].prev_block));
+                    valid = false
+                    error_message = "Blok lebih besar dari blok sebelumnya";  
+                  } else {
+                    valid = true;
+                  }
+                }
+              } else {
+                  valid = false;
+                  error_message = "Penawaran lebih kecil dari penawaran minimal";  
+              }
+          }
           if (data[i].data.ext_data)
           {
             if ((parseFloat(data[i].price) > data[i].data.ext_data.max_price) && (data[i].data.ext_data.max_price>0) ) {
@@ -643,7 +771,13 @@
           }
         }
         if (!valid) {
-            Swal.fire("Penawaran ada yang salah. " + error_message)
+            Swal.fire({
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                icon: 'error',
+                title: 'Penawaran ada yang salah.',
+                html: `<b>${error_message}</b>`
+            })
             valid = false;
         }
         else {
@@ -662,6 +796,7 @@
           }).then((result) => {
             if (result.isConfirmed) {
               waitingPopup = Swal.fire({
+                icon: 'info',
                 title: "Menunggu pengiriman penawaran selesai",
                 html: "Silakan tunggu!<br>",
                 allowOutsideClick: false,
@@ -670,7 +805,6 @@
                     Swal.showLoading();
                     },
                 });
-                console.log('informasi');
               $("#modal_bid").modal('toggle');
               //id = data[0].data.id;
               item_llg = data[0].data.item_lelang;
@@ -694,6 +828,8 @@
                 //      if (response.session=="0") {
                       //Swal.fire(response.session.data.tokenSession);
                       Swal.fire({
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
                         title: 'Masukkan Kode Verifikasi PERURI',
                  //       html: `<input type="hidden" id="putaran" class="swal2-input" value="`+response.putaran+`"><input type="hidden" id="bdr" class="swal2-input" value="`+ response.bidder +`"><input type="hidden" id="wakil" class="swal2-input" value="`+ parseInt(response.wakil) +`"><input type="hidden" id="bbox" class="swal2-input" value="`+ response.bbox +`"><input type="hidden" id="item_lelang" class="swal2-input" value="`+response.item_lelang+`"><input type="hidden" id="jwt" class="swal2-input" value="`+response.jwt+`"><input type="hidden" id="fileid" class="swal2-input" value="`+response.fileid+`"><input type="text" disabled id="token" class="swal2-input" value="`+response.session.data.tokenSession+`"><input type="text" id="otp" class="swal2-input" placeholder="OTP">`,
                         html: `
@@ -709,7 +845,7 @@
                         <br><br>
                         <b>Kode Verifikasi</b>
                         <br><br>
-                        <input type="text" id="otp" class="swal2-input" placeholder="OTP">`,
+                        <input type="text" id="otp" class="swal2-input" placeholder="OTP" maxlength="6" oninput="this.value = this.value.slice(0, 6)">`,
                    
                         confirmButtonText: 'Verifkasi Kode OTP',
                         confirmButtonColor: '#28a745',
@@ -752,14 +888,24 @@
                               loadData_hasil(item_llg);
                               load_table(item_llg);
                               loadData_hasil2(item_llg);
-                              Swal.fire("Harga terkirim")
+                              Swal.fire({
+                                title: "Harga terkirim",
+                                html: `Harga penawaran anda telah <b>berhasil</b> terkirim dan <b>terverifikasi</b>`,
+                                icon: "success",
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                              })
   
                             }
                           }
                         })
                         
                         waitingPopup.close();
-                        Swal.fire("Formulir Penawaran Harga Telah Terkirim. Gunakan menu Penawaran Sah untuk melihat kembali Penawaran Saudara")
+                        Swal.fire({
+                          title: "Formulir Penawaran Harga Telah Terkirim",
+                          text: "Gunakan menu Penawaran Sah untuk melihat kembali Penawaran Saudara",
+                          icon: "info"
+                        })
                       });
                     //                      loadData_hasil(id);
                     }
@@ -783,10 +929,29 @@
         if (data.status_round()!="START") {
           Swal.fire("Waktu Penyampaian Penawaran Belum Dimulai")
         } else {
+
           if (data.penawaran()) {
+            setup_data = {"data": data, "lock": data.lock(), "prev_block":data.prev_block(), "block":data.block(), "prev_price":data.prev_price(), "price":0};
+            /*koData = komapperToKO(setup_data);
+            koData.fontSize = ko.computed(function() {
+              var value = koData.price();
+              // Convert the value to a string and get its length
+              var length = (value + "").length;
+              var baseFontSize = 60; // Default font size in px
+              var newFontSize = baseFontSize;
+              
+              // If input length exceeds 5 characters, decrease font size by 2px per extra character
+              if (length > 5) {
+                newFontSize = baseFontSize - (length - 5) * 2;
+                // Ensure the font size doesn't fall below a minimum value (e.g., 10px)
+                newFontSize = Math.max(newFontSize, 10);
+              }
+              return newFontSize + "px";
+            });
+            console.log(koData);*/
             viewModel.penawaran([]);
             viewModel.locked(data.lock());
-            viewModel.penawaran.push({"data": data, "lock": data.lock(), "prev_block":data.prev_block(), "block":data.block(), "prev_price":data.prev_price(), "price":0});
+            viewModel.penawaran(setup_data);
           } else {
             viewModel.penawaran([]);
             viewModel.locked(false);
@@ -838,6 +1003,15 @@
               }
               if (item.status_round=="FINAL")
               {
+                Swal.fire({
+                  title: "Peringatan !",
+                  text: "Lelang "+item.band+" telah selesai",
+                  icon: "warning",
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                });
+
+                console.log(item);
               }
               item.mulai_text = ko.computed(function() {
                 if (["START", "WAIT"].includes(item.status_round)) {
@@ -851,6 +1025,10 @@
               }, this);
               item.min_price_rp = currency(item.min_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
               item.prev_price_rp = currency(item.prev_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
+              item.max_price_rp = (!item.ext_data?.max_price)  
+              ? "-"  
+              : currency(item.ext_data?.max_price, { symbol: "Rp", separator: ".", decimal: "," }).format();
+              //item.max_price_rp = currency(item.ext_data?.max_price,{ symbol:"Rp",separator: ".", decimal: ","}).format();
               // item.ext_data.min_price = currency(item.ext_data.min_price,{ symbol:"Rp",separator: ".", decimal: ",", precision: 0 }).format();
               item.ext_data.min_price = currency(Number(item.ext_data.min_price), { 
                   symbol: "Rp", 
@@ -907,7 +1085,6 @@
           }
       });
     }    
-
     load_table(id);
     loadData_hasil(id);
     loadData_hasil2(id);
@@ -957,8 +1134,9 @@
     es.addEventListener('message', function (e) {
       console.log('event: ' + e.data);
       msg = JSON.parse(e.data);
+      $("#modal_bid").modal('hide');   
+      Swal.close();     
       load_table(id);
-      $("#modal_bid").modal('hide');      
     }, false);      
   });
 </script>

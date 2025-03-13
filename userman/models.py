@@ -298,5 +298,6 @@ class Notifikasi(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     read = models.BooleanField(default=False)
     email_status = models.CharField(max_length=30, verbose_name='Status Email')
+    url = models.CharField(max_length=255, verbose_name='URL', default="", null=True)  
     expire_date = models.DateTimeField(null=True)
     notification_type = models.CharField(choices=NotificationType, null=True, max_length=1, default='U')

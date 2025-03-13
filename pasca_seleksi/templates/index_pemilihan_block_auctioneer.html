@@ -115,6 +115,87 @@ $(document).ready(function() {
         }
     });  
   }); 
+  $("#objek_pemilihanblok_dummy").on("click",".penolakan", function() {
+    id2 = this.id;
+    swal.fire({
+        title: "Status Penolakan Blok Yang Dipilih Oleh Peserta",
+        text: "Apakah anda yakin menolak blok yang dipilih peserta ?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+      //console.log(result);
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/pasca_seleksi/api/v1/pemilihan_blok/'+id2+'/reset/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    var id = $("#nmlelang").val();
+                    swal.fire("Penolakan berhasil");
+                    loadPemenang(id);
+                }
+            });
+        }
+    });
+  });  
+  $("#objek_pemilihanblok_dummy").on("click", ".edit_keterangan", function() {
+    id2 = this.id;
+    swal.fire({
+      title: 'Masukkan Keterangan',
+      input: 'text',
+      icon: 'info',
+      inputPlaceholder: 'Masukkan keterangan...',
+      showCancelButton: true,
+      confirmButtonText: 'Simpan',
+      cancelButtonText: 'Batal',
+      inputAttributes: { autocapitalize: 'off' },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+              url: '/pasca_seleksi/api/v1/pemilihan_blok/'+id2+'/edit_keterangan/',
+              method: "PATCH",
+              headers: { "X-CSRFToken": '{{csrf_token}}' },
+              data: {"keterangan": result.value},
+              xhrFields: {
+                  withCredentials: true
+              },
+              success: function (data) {
+                  var id = $("#nmlelang").val();
+                  swal.fire("Perubahan data berhasil")
+                  loadPemenang(id);
+              }
+          });
+        }
+    });
+  });  
+
+  $("#objek_pemilihanblok_dummy").on("click",".penolakan", function() {
+    id2 = this.id;
+    swal.fire({
+        title: "Status Penolakan Blok Yang Dipilih Oleh Peserta",
+        text: "Apakah anda yakin menolak blok yang dipilih peserta ?",
+        icon: "success",
+        showCancelButton: true,
+    }).then((result)=> {
+      //console.log(result);
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/pasca_seleksi/api/v1/pemilihan_blok/'+id2+'/reset/',
+                method: "GET",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    var id = $("#nmlelang").val();
+                    swal.fire("Penolakan berhasil");
+                    loadPemenang(id);
+                }
+            });
+        }
+    });
+  });  
   es.onopen = function () {
     console.log("ESS connected");
   };

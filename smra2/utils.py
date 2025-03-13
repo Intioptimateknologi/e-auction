@@ -23,10 +23,14 @@ def ws_publish(data):
     send_event("bidder", "message", data)
     send_event("auctioneer", "message", data)
 
-def ws_publish_bidder(data):
-    send_event("bidder", "message", data)
+def ws_publish_bidder(item, data):
+    
+    send_event("bidder_" + str(item), "message", data)
 
 def ws_publish_auctioneer(data):
+# def ws_publish_auctioneer(item, data):
+    # send_event("auctioneer_" + str(item), "message", data)
+    
     send_event("auctioneer", "message", data)
 
 def rebuild_hasil(item, round, mulai_selesai):

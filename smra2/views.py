@@ -727,13 +727,14 @@ class hasil2_smra2ListView(MultiTableMixin, TemplateView):
     model = models.hasil2_smra
     table_class = tables.hasil2_smra2Table
     template_name = 'table_hasil_valid.html'
+    table_pagination = False
+    # per_page = None
     def get_tables(self):
-        item_llg = detail_itemlelang.objects.all().filter(item_lelang__id=self.kwargs['pk'], disabled=False).order_by('id')
         
+        item_llg = detail_itemlelang.objects.all().filter(item_lelang__id=self.kwargs['pk'], disabled=False).order_by('id')
         
         #item_llg = models.hasil2_smra.objects.all().filter(item_lelang=self.kwargs['pk'])
         tbls = []
-        
         
         for i in item_llg:
             if self.request.user.user_type=="B":
@@ -768,23 +769,28 @@ class hasil2_smra2ListView(MultiTableMixin, TemplateView):
 class hasil3_smra2ListView(MultiTableMixin, TemplateView):
     model = models.hasil2_smra
     table_class = tables.hasil2_smra2Table
-    template_name = 'price_increase2_table.html'
+    template_name = 'table_hasil_invalid.html'
     def get_tables(self):
         item_llg = detail_itemlelang.objects.all().filter(item_lelang__id=self.kwargs['pk'], disabled=False).order_by('id')
         tbls = []
         for i in item_llg:
             if self.request.user.user_type=="B":
                 bdr = bidder_user.objects.all().filter(users__id = self.request.user.id)[0]
-                permintaan = models.hasil_smra2.objects.all().filter(item=i, bidder=bdr, valid=False).order_by("-round").first()
-                if permintaan:
-                    batas = permintaan.block
-                else:
-                    batas = 1
-                tbls.append(tables.hasil2_smra2Table(models.hasil2_smra.objects.all().filter(item=i,bidder=bdr, valid=False).order_by('ranking')[:batas]))
+                filtered_data = models.hasil_smra2.objects.filter(item=i, bidder=bdr, valid=False).order_by('round')
+                cek_data = []
+                for d in filtered_data:
+                    cek_data.append({
+                        'round': d.round,
+                        'price': d.price,
+                        'block': d.block,
+                        'submit': d.submit
+                    })
+                tbls.append(tables.hasil_tidak_sah_smra2_auctioneerTable2(filtered_data))
+                #print(tbls)
             else:
                 sum_penawaran = models.detail_itemlelang.objects.all().get(id=i.id)
                 max_block = sum_penawaran.max_block
-                tbls.append(tables.hasil2_smra2Table2(models.hasil2_smra.objects.all().filter(item=i,valid=False).order_by('ranking')[:max_block]))
+                tbls.append(tables.hasil2_smra2Table2(models.hasil2_smra.objects.all().filter(item=i).exclude(valid=True).order_by('ranking')[:max_block]))
         return tbls
 
     def get_context_data(self, **kwargs):
@@ -1147,7 +1153,7 @@ class round_scheduleListView(SingleTableMixin, generic.ListView):
 #        dt = timezone.now()
         dt = timezone.localtime()
         hari = str(timezone.localtime().today().isoweekday())
-        return models.round_schedule_smra2.objects.all().filter(item=self.kwargs['pk']).order_by('hari')
+        return models.round_schedule_smra2.objects.all().filter(item=self.kwargs['pk']).order_by('hari','mulai')
         #.filter(mulai__gte=dt).order_by('mulai')
 
 class round_schedule2ListView(SingleTableMixin, generic.ListView):
@@ -1159,7 +1165,7 @@ class round_schedule2ListView(SingleTableMixin, generic.ListView):
         qs = super().get_queryset(**kwargs)
         dt = timezone.localtime()
         hari = str(timezone.localtime().today().isoweekday())
-        return models.round_schedule_smra2.objects.all().filter(item=self.kwargs['pk']).order_by('hari')
+        return models.round_schedule_smra2.objects.all().filter(item=self.kwargs['pk']).order_by('hari','mulai')
 #        dt = timezone.now()
 #        return models.round_schedule_smra2.objects.all().filter(item=self.kwargs['pk'], hari=hari, mulai__gte = datetime.strptime(dt.strftime("%H:%M"),"%H:%M")).order_by('hari')
 

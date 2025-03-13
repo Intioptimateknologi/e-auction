@@ -307,7 +307,8 @@ class jawab_sanggahan_psForm(BSModalModelForm):
             id = []
             for b in bdr_llg:
                 id.append(b.bidder.bidder.id)
-            bdr = bidder.objects.all().filter(id__in = id)
+            #bdr = bidder.objects.all().filter(id__in = id)
+            bdr = bidder_user.objects.all().filter(id=data.bidder.id)
             self.fields['bidder'] = forms.ModelChoiceField(
                 queryset= bdr, 
                 required=False, 

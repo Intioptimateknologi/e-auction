@@ -254,11 +254,10 @@ class ps_pemilihan_blok3ListView(SingleTableMixin, generic.ListView):
         qs = super().get_queryset(**kwargs)
         if self.request.user.user_type=="B":
             b = bidder_user.objects.get(users__id = self.request.user.id)    
-            hasil =  models.pemilihan_blok_pasca_seleksi.objects.all().filter(item__item_lelang__id=self.kwargs['pk'], bidder=b, pilih_blok=True).order_by('ranking')
-            print(hasil)
+            hasil =  models.pemilihan_blok_pasca_seleksi.objects.all().filter(item__item_lelang__id=self.kwargs['pk'], bidder=b, pilih_blok=True).order_by('item','ranking')
             return hasil
         else:
-            return models.pemilihan_blok_pasca_seleksi.objects.all().filter(item__item_lelang__id=self.kwargs['pk']).order_by('ranking')
+            return models.pemilihan_blok_pasca_seleksi.objects.all().filter(item__item_lelang__id=self.kwargs['pk']).order_by('item','ranking')
 
 #seleksi    
 class ps_seleksiListView(SingleTableMixin, generic.ListView):
@@ -500,11 +499,12 @@ class ps_jawaban_sanggahannew2ListView(SingleTableMixin, generic.ListView):
         # qs = super().get_queryset(**kwargs)
         itm_lelang = item_lelang.objects.get(pk = self.kwargs['pk'])
         if self.request.user.user_type =='B':
+            print("DEBUG users", self.request.user.id)
             bdr_user = bidder_user.objects.get(users = self.request.user)
             #print(itm_lelang.id)
             #print(bdr_user.bidder.id)
             # bdr_wakil = bidder_perwakilan.objects.all().filter(bidder  = bdr_user)
-            return models.jawaban_ps_sanggahan.objects.all().filter(item_lelang=itm_lelang, bidder = bdr_user.bidder.id).order_by('-id')
+            return models.jawaban_ps_sanggahan.objects.all().filter(item_lelang=itm_lelang, bidder = bdr_user).order_by('-id')
         else:
             return models.jawaban_ps_sanggahan.objects.all().filter(item_lelang=itm_lelang).order_by('-id')
     
@@ -649,7 +649,7 @@ class form_ps_sanggahanCreateView(BSModalCreateView):
     success_message = 'Success: Data was created.'
     success_url = reverse_lazy('index')
     def get_initial(self):
-        return {"item_lelang": self.kwargs["pk"],'bidder': self.request.user.id,}
+        return {"item_lelang": self.kwargs["pk"],'bidder': self.request.user.bidder_user.id,}
     
 class kirim_undg_sanggahanCreateView(BSModalCreateView):
 

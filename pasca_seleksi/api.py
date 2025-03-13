@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 #from cca.models import hasil2_detail_cca
 from rest_framework.response import Response
 import django_filters
+from rest_framework.exceptions import ValidationError
 
 from . import serializers
 from . import models
@@ -57,7 +58,7 @@ class pemilihan_blok_pasca_seleksiViewSet(viewsets.ModelViewSet):
             for i in id:
                 sum_penawaran = detail_itemlelang.objects.all().get(pk=i.id)
                 max_block = sum_penawaran.max_block
-                dt = hasil2_smra.objects.all().filter(item = i).order_by('-price')[:max_block]
+                dt = hasil2_smra.objects.all().filter(item = i).order_by('-price', 'submit')[:max_block]
                 rank = 1
                 for j in dt:
                     a = models.pemilihan_blok_pasca_seleksi(bidder = j.bidder, item = j.item, ranking = rank, penawaran = j.price)
@@ -111,6 +112,16 @@ class pemilihan_blok_pasca_seleksiViewSet(viewsets.ModelViewSet):
         utils.ws_publish_bidder({"sender":"paska_seleksi_pilih_blok", "message": data.pilih_blok})
         data.save()
         return Response({"status":"Ok"})
+
+    @action(detail=True, methods=['get'])
+    def reset(self, request, pk=None):
+        data = models.pemilihan_blok_pasca_seleksi.objects.get(pk=pk)
+        data.pilih_blok = False
+        data.persetujuan = False
+        data.blok = None
+        utils.ws_publish_bidder({"sender":"paska_seleksi_pilih_blok", "message": data.pilih_blok})
+        data.save()
+        return Response({"status":"Ok"})
         
     @action(detail=True, methods=['get'])
     def toggle2(self, request, pk=None):
@@ -120,6 +131,12 @@ class pemilihan_blok_pasca_seleksiViewSet(viewsets.ModelViewSet):
         data.save()
         return Response({"status":"Ok"})
 
+    @action(detail=True, methods=['patch'])
+    def edit_keterangan(self, request, pk=None):
+        data = models.pemilihan_blok_pasca_seleksi.objects.get(pk=pk)
+        data.keterangan = request.data['keterangan']
+        data.save()
+        return Response({"status":"Ok"})
 
 
 class seleksiViewSet(viewsets.ModelViewSet):
@@ -227,6 +244,14 @@ class blok_paska_seleksiViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('item',)
+
+    def perform_create(self, serializer):
+        item = serializer.validated_data.get('item')
+        itm_lelang = detail_itemlelang.objects.get(id=item.id if hasattr(item, 'id') else item)
+        current_count = models.blok_pasca_seleksi.objects.filter(item=item).count()
+        if current_count >= itm_lelang.max_block:
+            raise ValidationError("Blok telah mencapai limit untuk Obyek Seleksi "+itm_lelang.band +"/"+itm_lelang.cakupan+".")
+        serializer.save()
 
     @action(detail=True, methods=['get'])
     def toggle1(self, request, pk=None):

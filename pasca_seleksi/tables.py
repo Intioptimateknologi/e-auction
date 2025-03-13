@@ -60,10 +60,12 @@ class pemilihan_bloknya2Table(tables.Table):
 class pemilihan_bloknya3Table(tables.Table):
     buka_pilihan = TemplateColumn(verbose_name="Aksi Buka Pilihan",attrs={"td": {"align": "center"}},template_code='{% if record.pilih_blok == False %}<button  id="{{ record.id }}" class="buka_pilihan btn btn-success btn-sm b mr-1"><i class="fa fa-lock-open"></i>&nbsp;&nbsp;Buka Kembali Pilihan</button>{% else %}<button  id="{{ record.id }}" class="buka_pilihan btn btn-danger btn-sm b mr-1"><i class="fa fa-lock"></i>&nbsp;&nbsp;Tutup Pilihan</button>{% endif %}')
     beri_persetujuan = TemplateColumn(verbose_name="Aksi Beri Persetujuan",attrs={"td": {"align": "center"}},template_code='{% if record.persetujuan == False %}<button  id="{{ record.id }}" class="persetujuan btn btn-success btn-sm b mr-1"><i class="fa fa-circle-check"></i>&nbsp;&nbsp;Buat Persetujuan</button>{% else %}<button  id="{{ record.id }}" class="persetujuan btn btn-warning btn-sm b mr-1"><i class="fa fa-circle-xmark"></i>&nbsp;&nbsp;Ubah Persetujuan</button>{% endif %}')
+    tolak_button = TemplateColumn(verbose_name="Aksi Penolakan",attrs={"td": {"align": "center"}},template_code='<button  id="{{ record.id }}" class="penolakan btn btn-danger btn-sm b mr-1"><i class="fa fa-xmark"></i>&nbsp;&nbsp;Buat Penolakan</button>')
     item = tables.Column(verbose_name="Obyek Seleksi")
     pilih_blok = TemplateColumn(verbose_name="Buka / Tutup", attrs={"td": {"align": "center"}},template_code='{% if record.pilih_blok == False %}<i class="fa fa-lock fa-lg text-danger"></i>{% else %}<i class="fa fa-lock-open fa-lg text-green"></i>{% endif %}')
     persetujuan = TemplateColumn(attrs={"td": {"align": "center"}},template_code='{% if record.persetujuan == False %}<i class="fa fa-circle-xmark fa-lg text-danger"></i>{% else %}<i class="fa fa-circle-check text-green fa-lg"></i>{% endif %}')
     penawaran = TemplateColumn(attrs={"td": {"align": "right"}}, template_code='{{record.penawaran|floatformat:"2g"}}',verbose_name='Harga Penawaran')
+    button_keterangan = TemplateColumn(template_code='''<button type="button" id="{{ record.id }}" class="btn btn-primary btn-sm edit_keterangan">Isi Keterangan</button>''',attrs={"td":{"align":"right"}},verbose_name="Keterangan")
     class Meta:
         model = models.pemilihan_blok_pasca_seleksi
         attrs = {"class": "table table-sm table-striped"}
@@ -77,7 +79,7 @@ class pemilihan_bloknya3Table(tables.Table):
             
             "buka_pilihan",
             "beri_persetujuan",
-            
+            "button_keterangan"
             )
 
 class pemilihan_bloknya4Table(tables.Table):
@@ -261,7 +263,7 @@ class pasca_jawaban_sanggahannyaTable(tables.Table):
     Aksi = TemplateColumn(template_code='<div class="" style="display: flex; "><button id="{{ record.id }}" class="update btn btn-warning btn-sm"><i class="fa fa-edit "></i>&nbsp;&nbsp;Ubah</button>&nbsp;&nbsp;<button id="{{ record.id }}" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;&nbsp;Hapus</button></div>')
     last_updated = tables.DateTimeColumn(format ='d F Y H:i:s', verbose_name="Tanggal diubah")
     created = tables.DateTimeColumn(format ='d F Y H:i:s',  verbose_name="Tanggal dibuat")
-    jawaban_sanggah = TemplateColumn(template_code='{% if record.jawaban_sanggah == "Ada"  %}<span class="rounded-pill btn-success" style="padding:5px;"><i class="fa fa-check-circle"></i>&nbsp;Diterima</span>{%else%}<span class="rounded-pill btn-danger" style="padding:5px;"><i class="fa fa-check-xmark"></i>&nbsp;Ditolak</span>{%endif%}')
+    jawaban_sanggah = TemplateColumn(template_code='{% if record.jawaban_sanggah == "Diterima"  %}<span class="rounded-pill btn-success" style="padding:5px;"><i class="fa fa-check-circle"></i>&nbsp;Diterima</span>{%else%}<span class="rounded-pill btn-danger" style="padding:5px;"><i class="fa fa-check-xmark"></i>&nbsp;Ditolak</span>{%endif%}')
     tindak_lanjut_seleksi = TemplateColumn(template_code='{% if record.tindak_lanjut_seleksi == "Lanjut"  %}<span class="rounded-pill btn-success" style="padding:5px;"><i class="fa fa-check-circle"></i>&nbsp;Lanjut</span>{% elif record.tindak_lanjut_seleksi == "Berhenti Sementara" %}<span class="rounded-pill btn-danger" style="padding:5px;"><i class="fa fa-check-xmark"></i>&nbsp;Berhenti Sementara</span>{%else%}<span class="rounded-pill btn-danger">Berhenti</span>{%endif%}')
     # actions = TemplateColumn(template_code='<div class="" style="display: flex; "><button id="{{ record.id }}" class="jawaban_sanggah_update btn btn-sm btn-warning"><i class="fa fa-edit "></i></button>&nbsp;&nbsp;<button id="{{ record.id }}" class="jawaban_sanggah_delete btn btn-sm btn-danger"><i class="icon"><img class="delete_icon" style="height:18px;" src="/static/img/trash-2.svg"></i></button></div>')
     class Meta:
@@ -296,7 +298,7 @@ class undg_ps_sanggahannyaTable2(tables.Table):
 ##Jawaban sanggahan pasca seleksi
 class pasca_jawaban_sanggahannyaTable2(tables.Table):
     file = TemplateColumn(template_code='{% if record.file %}<a class="btn btn-sm btn-info" target="_blank" href="{{record.file.url}}" ><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Unduh Justifikasi Jawaban</a>{% else %}<p>-</p>{% endif %}', verbose_name="Justifikasi Jawaban Sanggahan")
-    jawaban_sanggah = TemplateColumn(template_code='{% if record.jawaban_sanggah == "Ada"  %}<span class="rounded-pill btn-success" style="padding:5px;"><i class="fa fa-check-circle"></i>&nbsp;Diterima</span>{%else%}<span class="rounded-pill bg-danger" style="padding:5px;"><i class="fa fa-check-xmark"></i>&nbsp;Ditolak</span>{%endif%}')
+    jawaban_sanggah = TemplateColumn(template_code='{% if record.jawaban_sanggah == "Diterima"  %}<span class="rounded-pill btn-success" style="padding:5px;"><i class="fa fa-check-circle"></i>&nbsp;Diterima</span>{%else%}<span class="rounded-pill bg-danger" style="padding:5px;"><i class="fa fa-check-xmark"></i>&nbsp;Ditolak</span>{%endif%}')
     tindak_lanjut_seleksi = TemplateColumn(template_code='{% if record.tindak_lanjut_seleksi == "Lanjut"  %}<span class="rounded-pill btn-success" style="padding:5px;"><i class="fa fa-check-circle"></i>&nbsp;Lanjut</span>{% elif record.tindak_lanjut_seleksi == "Berhenti Sementara" %}<span class="rounded-pill btn-danger" style="padding:5px;"><i class="fa fa-check-xmark"></i>&nbsp;Berhenti Sementara</span>{%else%}<span class="rounded-pill btn-danger">Berhenti</span>{%endif%}')
     #Aksi = TemplateColumn(template_code='<div class="" style="display: flex; "><button id="{{ record.id }}" class="update btn btn-warning btn-sm"><i class="fa fa-edit "></i>&nbsp;&nbsp;Ubah</button>&nbsp;&nbsp;<button id="{{ record.id }}" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;&nbsp;Hapus</button></div>')
     

@@ -22,13 +22,15 @@ import time
 logger = getLogger(__name__)
 
 def print_auctioneer(mes):
+# def print_auctioneer(item, mes):
     print(mes)
     utils.ws_publish_auctioneer(mes)
+    # utils.ws_publish_auctioneer(item, mes)
     logger.info(json.dumps(mes))
 
-def print_bidder(mes):
+def print_bidder(item, mes):
     #print(mes)
-    utils.ws_publish_bidder(mes)
+    utils.ws_publish_bidder(item, mes)
     #logger.info(json.dumps(mes))
 
 
@@ -54,9 +56,10 @@ def check_permintaan(o):
     lanjutkan = True
     total_blok = 0
     for obj in objs:
-        r = models.round_smra2.objects.all().get(bidder=obj.bidder_user, item__id=o.item.id)
-        if (r.block > 0 and r.status_round == 'STO') :
-            total_blok = total_blok + r.prev_block
+        r1 = models.round_smra2.objects.all().get(bidder=obj.bidder_user, item__id=o.item.id)
+        r2 = models.hasil_smra2.objects.all().filter(bidder=obj.bidder_user, item__id=o.item.id, round = r1.round, valid=True).first()
+        if (r2 and r1.status_round == 'STO') :
+            total_blok = total_blok + r2.block
 
 #    sum_permintaan = models.round_smra2.objects.all().filter(item=o.item, status_round='STO', penawaran__gt=0).aggregate(Sum('prev_block'))
 #    print(sum_permintaan)
@@ -94,10 +97,12 @@ def next_round(o):
             lama = sls[1]['extra_param']['lama']
             selesai =  mulai + timedelta(minutes=int(lama))
             #notifikasi set jadwal baru untuk yg egible masuk
+            print("set jadwal baru untuk yg egible masuk")
             models.round_smra2.objects.all().filter(item__id=o.item.id, status_round="STO").update(status_round='WAI',mulai = mulai,selesai = selesai)
+            # models.sum_round_smra2.objects.all().filter(item_lelang__id=o.item.id, status_round="STO").update(status_round='WAI',mulai1 = mulai,selesai1 = selesai)
             #notifikasi jadwal round berikutnya
             time.sleep(2)
-            mesg = {"sender":"background","message":"<br>+  Set  Jadwal Putaran Berikut nya untuk untuk round "+ str(o.round + 1) + " mulai : " + str(mulai) + " berakhir :" + str(selesai), "detail_item_lelang":str(o.item.id)}
+            mesg = {"sender":"background","message":"<br>+  Set Jadwal Putaran Berikut nya untuk untuk round "+ str(o.round + 1) + " mulai : " + str(mulai) + " berakhir :" + str(selesai), "detail_item_lelang":str(o.item.id)}
             print_auctioneer(mesg)  
     else:
         models.round_smra2.objects.all().filter(item__id=o.item.id, status_round='STO').update(status_round='NSC')
@@ -189,7 +194,7 @@ def penawaran_kurang_dari_permintaan(o, penawaran, permintaan):
     time.sleep(2)
     mesg = {"sender":"background","message":"Validasi selesai", "detail_item_lelang":str(o.item.id)}
     print_auctioneer(mesg)
-    print_bidder(mesg)
+    print_bidder(o.item.item_lelang.id,mesg)
 
 def process_lelang_khusus(o, penawaran, values, bidder_group):
     #masuk ke lelang khusus
@@ -217,7 +222,7 @@ def process_lelang_khusus(o, penawaran, values, bidder_group):
                 for b in bidders:
                     #update di db round_smra2
                     rowa = models.round_smra2.objects.get(bidder__id=b, item__id=o.item.id)
-                    rowb = models.hasil_smra2.objects.get(bidder__id=b, item__id=o.item.id, berlaku=True, valid=True)
+                    rowb = models.hasil_smra2.objects.filter(bidder__id=b, item__id=o.item.id, berlaku=True, valid=True).order_by('-round').first()
                     rowa.khusus = True # status khusus menjadi true
                     #rowa.round = rowa.round + 1 # tambah putaran
                     block_r = rowb.block
@@ -250,7 +255,7 @@ def process_lelang_khusus(o, penawaran, values, bidder_group):
             #jika di group bidding, hanya ada 1 bidder, tak masuk round khusus
             else :
                 b=bidder_group[i][0]
-                rowb = models.hasil_smra2.objects.get(bidder__id=b, item__id=o.item.id, berlaku=True, valid=True)
+                rowb = models.hasil_smra2.objects.filter(bidder__id=b, item__id=o.item.id, berlaku=True, valid=True).order_by('-round').first()
                 rowa = models.round_smra2.objects.get(bidder__id=b, item__id=o.item.id) 
                 rowa.status_round='CLO'
                 rowa.lock = True
@@ -271,11 +276,15 @@ def process_lelang_khusus(o, penawaran, values, bidder_group):
     # berhentikan sisa yang tidak ikut lelang khusus
     ## populate yang tidak ikut lelang khusus
     models.round_smra2.objects.filter(item__id=o.item.id).exclude(khusus =True).update(status_round='FIN')
+    # models.round_smra2.objects.filter(item__id=o.item.id).include(khusus =True).update(status_round='STOP')
+    # coba cobi
+    # models.round_smra2.objects.filter(item__id=o.item.id).exclude(khusus =True).update(status_round='STO')
+    # models.sum_round_smra2.objects.filter(item_lelang__id=o.item.id).update(status_round='STO')
     #cek jadwal round berikutnya
     next_round(o)
     mesg = {"sender":"background","message":"Proses Validasi Seleksi", "detail_item_lelang":str(o.item.id)}
     print_auctioneer(mesg)
-    print_bidder(mesg)
+    print_bidder(o.item.item_lelang.id,mesg)
 
 def tidak_lelang_khusus(o):
     time.sleep(2)
@@ -302,7 +311,7 @@ def tidak_lelang_khusus(o):
     time.sleep(2)
     mesg = {"sender":"background","message":"Proses Validasi Selesai, Obyek Seleksi: " + o.item.band + "-" + o.item.cakupan + "</b>", "detail_item_lelang":str(o.item.id)}
     print_auctioneer(mesg)
-    print_bidder(mesg)
+    print_bidder(o.item.item_lelang.id,mesg)
 
 def permintaan_kurang_dari_penawaran(o, penawaran, permintaan):
     time.sleep(2)
@@ -393,7 +402,7 @@ def permintaan_kurang_dari_penawaran(o, penawaran, permintaan):
 def proses_permintaan_ronde1(o):
     mesg = {"sender":"background","message":"2. lelang Obyek Seleksi: " + o.item.band + "-" + o.item.cakupan + " selesai karena tidak ada penawaran di round 1", "detail_item_lelang":str(o.item.id)}
     print_auctioneer(mesg)
-    print_bidder(mesg)
+    print_bidder(o.item.item_lelang.id,mesg)
     models.round_smra2.objects.filter(status_round="STO", item = o.item).update(status_round='FIN')
 
 def selesai_lelang_khusus(o):
@@ -410,7 +419,21 @@ def selesai_lelang_khusus(o):
     i = 1
     for a in hasil2:
         a.ranking_putaran = i
-        a.jenis = "KHUSUS"
+        
+        # check ronde khusus
+        check_rounde = models.round_smra2.objects.filter(
+            item__id=a.item.id,
+            round=a.round,
+            item_lelang=a.item_lelang,
+            penawaran=a.price,
+            bidder__id=a.bidder.id
+        )
+
+        if check_rounde.exists() and check_rounde.first().khusus:
+            a.jenis = "KHUSUS"
+        else:
+            a.jenis = "NORMAL"
+        # a.jenis = "KHUSUS"
         a.save()
         i = i + 1
     
@@ -449,13 +472,13 @@ def selesai_lelang_khusus(o):
     time.sleep(2)
     mesg = {"sender":"background","message":"4.  Proses Validasi Seleksi, Obyek Seleksi: " + o.item.band + "-" + o.item.cakupan, "detail_item_lelang":str(o.item.id)}
     print_auctioneer(mesg)
-    print_bidder(mesg)
+    print_bidder(o.item.item_lelang.id,mesg)
 
 #@background(remove_existing_tasks=True)
 def process_selesai(o):
     mesg = {"sender":"background","message": "Menyelesaikan putaran, obyek Seleksi: " + o.item.band + "-" + o.item.cakupan, "detail_item_lelang":str(o.item.id)}
     print_auctioneer(mesg)
-    print_bidder(mesg)
+    print_bidder(o.item.item_lelang.id,mesg)
     change_start_to_stop(o)
     permintaan_penawaran = check_permintaan(o)
     permintaan = permintaan_penawaran['permintaan']
@@ -481,7 +504,7 @@ def process_selesai(o):
 @background(remove_existing_tasks=True)
 def mulai(item_lelang, **kwargs):
     print_auctioneer({"sender":"background","message":"Mulai......","detail_item_lelang": item_lelang})
-    print_bidder({"sender":"background","message":"Mulai......","detail_item_lelang": item_lelang})
+    print_bidder(item_lelang, {"sender":"background","message":"Mulai......","detail_item_lelang": item_lelang})
     objs = models.obyek_seleksi_smra.objects.all().filter(item__item_lelang__id = item_lelang, item__disabled=False).values("item").distinct()
     obyek_seleksi = []
     for o in objs:
@@ -499,6 +522,7 @@ def selesai(item_lelang, **kwargs):
         if o.status_round == "STA":
             process_selesai(o)
             print_auctioneer({"sender":"background","message":"status_time_end","detail_item_lelang":o.item.id})
+            print_bidder(item_lelang, {"sender":"background","message":"status_time_end","detail_item_lelang":o.item.id})
 
 def roundx_stop(pk, schedule):
     obj = detail_itemlelang.objects.get(pk=pk)

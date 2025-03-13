@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse, Http404
+from django.http import HttpResponse, JsonResponse, FileResponse, HttpResponseNotFound
 from userman import models 
 from pprint import pprint
 from portal import templates
@@ -161,21 +161,29 @@ def invalid_credentials(request):
 def masa_berlaku(request):
         return render(request, 'masa_berlaku.html')
 
-@login_required  # Requires authentication to access media files
 def protected_media(request, file_path):
     """Serve media files securely, only for authenticated users."""
-    media_file_path = os.path.join(settings.MEDIA_ROOT, file_path)
-
-    if not os.path.exists(media_file_path):
-        raise Http404("File not found.")
-
-    content_type, encoding = mimetypes.guess_type(media_file_path)
-    content_type = content_type or "application/octet-stream"
-
-    with open(media_file_path, "rb") as f:
-        response = HttpResponse(f.read(), content_type=content_type)
-        response["Content-Disposition"] = f'inline; filename="{os.path.basename(media_file_path)}"'
-        return response
+    protected_folder = ['upload/files', 'upload/bidder', 'uploads']
+    
+    # Get the absolute file path
+    absolute_path = os.path.join(settings.MEDIA_ROOT, file_path)
+    
+    # Check that the file is within one of the allowed folders
+    if any(os.path.abspath(absolute_path).startswith(os.path.abspath(os.path.join(settings.MEDIA_ROOT, folder)))
+               for folder in protected_folder):
+        # check for login
+        if not request.user.is_authenticated:
+            return redirect(settings.LOGIN_URL)
+        else:
+                if os.path.exists(absolute_path):
+                    return FileResponse(open(absolute_path, 'rb'))
+                else:
+                    return HttpResponseNotFound("File not found.")
+    else:
+        if os.path.exists(absolute_path):
+            return FileResponse(open(absolute_path, 'rb'))
+        else:
+            return HttpResponseNotFound("File not found.")
 
 
 def extract_id_and_type(text):

@@ -67,8 +67,8 @@
         es.addEventListener('message', function (e) {
           console.log('event: ' + e.data);
           msg = JSON.parse(e.data);
-          load_table(id);
           loadData({URL: '/smra2/hasil2_smra2/'+$('#nmlelang').val()+'/', element_id: $("#highest_smra2")})
+          loadData({URL: '/smra2/hasil4_smra2/'+$('#nmlelang').val()+'/', element_id: $("#jadwal_putaran")})
         }, false);      
   
   });

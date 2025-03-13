@@ -36,18 +36,24 @@
           <th>Harga Penawaran per MHz (Rp)</th>
           <th>Blok Objek Seleksi yang dipilih</th>
           <th>Rentang Pita Frekuensi Radio</th>
-          <th>Total Harga Penawaran Objek Seleksi (Rp)</th>
+          <th style="width: 30px">Keterangan</th>
         </tr>
-    {% for t in table2 %}
-      <tr>
-        <td>{{ t.item }}</td>
-        <td>{{ t.ranking }}</td>
-        <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
-        <td width="30%">{{ t.penawaran }}</td>
-        <td>{{ t.blok }}</td>
-        <td></td>
-        <td width="30%"></td>
-    </tr>
+        {% for t in table2 %}
+          <tr>
+            <td>{{ t.item }}</td>
+            <td>{{ t.ranking }}</td>
+            <td>{{ t.bidder.bidder.nama_perusahaan }}</td>
+            <td width="30%">Rp{{ t.penawaran|floatformat:'2g' }}</td>
+            <td>{{ t.blok }}</td>
+            <td></td>
+            <td style="width: 30px">
+              {% if t.keterangan %}
+                {{ t.keterangan }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+        </tr>
       {% endfor %}
     </table>
 

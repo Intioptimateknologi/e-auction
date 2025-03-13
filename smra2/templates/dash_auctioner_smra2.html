@@ -100,8 +100,8 @@
                     </div>
                     <div class="card-body text-center"  style="height:100px">
                       <!-- ko if: status_round() !== "FINAL" -->
-                      <span scope="row" class="text-bold text-black" style="font-size: 2vw;" data-bind='attr: {id: "min_price_" + $index()}, text: prev_price'></span>
                       <!-- /ko -->
+                      <span scope="row" class="text-bold text-black" style="font-size: 2vw;" data-bind='attr: {id: "min_price_" + $index()}, text: prev_price'></span>
                     </div>
                   </div>
                 </div>
@@ -132,12 +132,13 @@
                     </div>
                     <div class="card-body text-center"  style="height:100px">
                       <!-- ko if: status_round() !== "FINAL" -->
+                      <!-- /ko -->
+
                       <!-- ko if: status_round() == 'WAIT' -->   
                       <span scope="row" class="text-bold h1 text-green" data-bind='html: sisa'></span>
                       <!-- /ko -->
                       <!-- ko if: status_round() == 'START' -->
                       <span scope="row" class="text-bold h1 text-red" data-bind='html: sisa'></span>
-                      <!-- /ko -->
                       <!-- /ko -->
                     </div>
                   </div>

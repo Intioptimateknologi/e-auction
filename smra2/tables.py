@@ -144,7 +144,7 @@ class hasil_smra2Table(tables.Table):
         )
 
 class hasilvalid_smra2Table(tables.Table):
-    last_updated = tables.DateTimeColumn(verbose_name="Waktu Penawaran", format ='M d Y, h:i:s.u A')
+    submit = tables.DateTimeColumn(verbose_name="Waktu Penawaran", format ='M d Y, h:i:s.u A')
     price = TemplateColumn(verbose_name="Harga Penawaran Per Blok", attrs={"td": {"align": "right"}},template_code='{{ record.price|floatformat:"2g" }}')
     berita_acara = TemplateColumn(verbose_name="Formulir Penawaran Harga",template_code='<a class="btn btn-info" target="_blank" href="{% if record.berita_acara %}{{ record.berita_acara.url }}{% endif %}"><i class="fa fa-download"></i> Unduh</a>')
     item = tables.Column(verbose_name="Obyek Seleksi")
@@ -161,7 +161,7 @@ class hasilvalid_smra2Table(tables.Table):
             "item",
             "block",
             "price",
-            "last_updated",
+            "submit",
             "berita_acara"
         )
 
@@ -254,6 +254,24 @@ class hasil2_smra2_auctioneerTable2(tables.Table):
             "ranking_putaran",
         )
 
+class hasil_tidak_sah_smra2_auctioneerTable2(tables.Table):
+    submit = tables.DateTimeColumn(verbose_name="Waktu Penawaran", format ='M d Y, h:i:s.u A')
+    price = TemplateColumn(verbose_name="Harga Penawaran", attrs={"td": {"align": "right"}},template_code='<b>{% if record.ranking_putaran %}{{ record.price|floatformat:"2g" }}{% endif %}</b>')
+    item = tables.Column(verbose_name="Obyek Seleksi")
+    round = TemplateColumn(verbose_name="Putaran", template_code='{%if record.jenis == "KHUSUS" %} <span class="btn bg-primary text-bold">{{ record.round }} [Khusus]</span> {% else %} <span class="btn bg-primary text-bold">{{ record.round }}</span> {% endif %}')
+    class Meta:
+        model = models.hasil2_smra
+        empty_text = "Tidak ada data"
+        orderable = False
+        template_name = "django_tables2/custom_bootstrap_tengah.html"
+#        attrs = {"class": "table table-striped"}
+        fields = (
+            "round",
+            "item",
+            "price",
+            "block",
+            "submit",
+        )
 class hasil_smra2_auctionerTable(tables.Table):
     submit = tables.DateTimeColumn(verbose_name="Waktu Penawaran", format ='M d Y, h:i:s.u A')
     price = TemplateColumn(verbose_name="Harga Penawaran", attrs={"td": {"align": "right"}},template_code='{{ record.price|floatformat:"2g" }}')

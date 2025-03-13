@@ -188,7 +188,7 @@ class pemenang(models.Model):
     judul = models.CharField(max_length=100, blank=True, null=True)
     tanggal = models.DateField(blank=True, null=True, verbose_name="Tanggal Penetapan")
     keterangan = models.TextField()
-    file_link = models.FileField(upload_to="upload/files/pasca_seleksi/pemenang/")
+    file_link = models.FileField(upload_to="upload/files/pasca_seleksi/pemenang/", max_length=255)
 
     # default
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -330,7 +330,7 @@ class jawaban_ps_sanggahan(models.Model):
     jawaban_sanggah = models.CharField(max_length=10,null=True, blank=True, choices=HASIL_PEMERIKSAAN_CHOICES, default='na')
     keterangan = models.TextField(blank=True, null=True)
     tindak_lanjut_seleksi = models.CharField(max_length=20,null=True, blank=True, choices=TINDAK_LANJUT_CHOICES, default='Lanjut')
-    file = models.FileField(upload_to="upload/files/")
+    file = models.FileField(upload_to="upload/files/", max_length=255)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     dibuat_oleh = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True, related_name="dibuat_oleh_jawaban_ps_sanggahan")

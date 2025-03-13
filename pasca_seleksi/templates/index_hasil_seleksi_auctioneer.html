@@ -15,13 +15,13 @@
     {% block konten_isi %}
             
         {% if user_type == "C" %}
-        {% add_judul_auctioner user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Penetapan Pemenang" %}
+        {% add_judul_auctioner user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Hasil Seleksi Tahap Lelang" %}
         {% elif user_type == "V" %}
-        {% add_judul_viewer user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Penetapan Pemenang" %}
+        {% add_judul_viewer user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Hasil Seleksi Tahap Lelang" %}
         {% elif user_type == "A" %}
-        {% add_judul_admin user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Penetapan Pemenang" %}
+        {% add_judul_admin user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Hasil Seleksi Tahap Lelang" %}
         {% elif user_type == "B" %}
-        {% add_judul_bidder user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Penetapan Pemenang" %}
+        {% add_judul_bidder user.id item_lelang.id "/pasca_seleksi/hasil_seleksi/" "Paska Seleksi > Hasil Seleksi Tahap Lelang" %}
         {% endif %}
                     
         {% include "tabs_all.html" %}
